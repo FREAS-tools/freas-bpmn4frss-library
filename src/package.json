@@ -1,0 +1,37 @@
+{
+  "name": "freas-bpmn4frss-library",
+  "version": "0.0.1",
+  "description": "BPMN4FRSS Web editor library (based on bpmn-js library)",
+  "scripts": {
+    "build": "tsc --project ./tsconfig.json",
+    "test": "jest -i",
+    "watch": "tsc --project ./tsconfig.json --watch"
+  },
+  "keywords": [
+    "bpmn4frss",
+    "bpmn",
+    "bpmn-js",
+    "bpmnjs",
+    "forensic",
+    "readiness",
+    "forensic readiness"
+  ],
+  "contributors": [
+    {
+      "name": "Tomáš Sedláček",
+      "email": "dev.sedlacektom@gmail.com",
+      "url": "https://github.com/devsedlacektom"
+    }
+  ],
+  "license": "ISC",
+  "dependencies": {
+    "bpmn-js": "^9.3.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.21.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "jest": "^28.1.3",
+    "typescript": "^4.7.4"
+  }
+}

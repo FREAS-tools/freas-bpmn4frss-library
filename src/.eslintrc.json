@@ -1,0 +1,24 @@
+/* this file extends the ESLint settings of airbnb (some of the best JavaScript code guidelines)
+   so we're using it to lint our JS code.
+*/
+{
+  "extends": [
+    "airbnb-base"
+  ],
+  "rules": {
+    // Disabling no-console rule to be able to debug the work
+    "no-console": "off",
+    // Not using semicolons results in an error
+    "semi": "error",
+    // Exceeding 80 characters per line results in an error
+    "max-len": [
+      "error",
+      {
+        "code": 80
+      }
+    ]
+  },
+  "env": {
+    "browser": true
+  }
+}
