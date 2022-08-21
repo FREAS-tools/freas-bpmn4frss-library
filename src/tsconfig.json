@@ -10,7 +10,7 @@
     // only emit declarations
     "emitDeclarationOnly": true,
     // where the declarations will live
-    "outDir": "types",
+    "outDir": "../types",
     // allows for jumping straight to the JS files instead of the declarations in IDEs
     "declarationMap": true,
     "sourceMap": true,
