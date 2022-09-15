@@ -5,7 +5,8 @@
  * import nameOfTheElement from './NameOfTheElement/definition';
  */
 
-import potentialEvidenceSource from './PotentialEvidenceSource/definition';
+import { bpmn4frss } from '../common';
+import PotentialEvidenceSource from '../elements/PotentialEvidenceSource';
 
 /**
  * This file contains moddle definitions for the BPMN4FRSS extension.
@@ -23,12 +24,12 @@ import potentialEvidenceSource from './PotentialEvidenceSource/definition';
  * to handle the construct serialization and deserialization
  * into the underlying XML file (.bpmn).
  */
-const bpmn4frssModdleExtension = {
+const FrssDefinitions = {
   // name of the extension
   name: 'BPMN for Forensic-Ready Software Systems',
 
   // prefix of the extension
-  prefix: 'bpmn4frss',
+  prefix: bpmn4frss,
 
   // uri for the schema (currently incorrect address)
   uri: 'http://fi.muni.cz/schema/bpmn/bpmn4frss',
@@ -40,7 +41,7 @@ const bpmn4frssModdleExtension = {
 
   // The definitions for language constructs belong here
   types: [
-    potentialEvidenceSource,
+    PotentialEvidenceSource.definition,
   ],
 
   // these values are reserved for future use by the bpmn-js library
@@ -48,4 +49,4 @@ const bpmn4frssModdleExtension = {
   enumerations: [],
 };
 
-export default bpmn4frssModdleExtension;
+export default FrssDefinitions;

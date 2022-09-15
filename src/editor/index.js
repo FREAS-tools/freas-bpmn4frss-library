@@ -3,40 +3,37 @@
 
 // imports
 import Modeler from 'bpmn-js';
-import errorMessages from '../errors/messages';
+import errorMessages from '../errors';
 
 // import the bpmn4frss moddle language extension
-import { bpmn4frssModdle } from '../elements';
+import frssExtension from '../frss-extension';
 
 /**
  * A class which encapsulates the interaction
  * between React components and BPMN4FRSS library
  */
-class Bpmn4FrssEditor {
+export default class Bpmn4FrssWebEditor {
   /**
-   * Initializes a new BPMN4FRSS editor
+   * Initialize a new BPMN4FRSS editor
+   * @param containerId ID of the element (must be unique), just the characters,
+   *                    the "#" is added inside the constructor
    * @constructor
-   * @param {string} id the unique id of the element,
-   *                    provided to us by the React (or any other frontend
-   *                    library / framework) wrapper component
-   * @throws when id is not provided
    */
-  constructor(id) {
-    // The id has not been provided
-    if (!id) {
-      throw new Error(errorMessages.Bpmn4FrssEditorErrors.noIdProvided);
-    }
-
+  constructor(containerId) {
     // initialize the Bpmn4frss modeler
     this.modeler = new Modeler({
-      // modeler is placed in the container - can be dynamically attached
-      // we'll figure this out -> which strategy is better
-      // for the React components
-      container: `#${id}`,
-      // extending the syntax of the language - able to read / write bpmn models
+      container: `#${containerId}`,
+      // extending the syntax of the language - able to serialize / deserialize
+      // bpmn models from / to .bpmn files
       moddleExtensions: {
-        bpmn4frss: bpmn4frssModdle,
+        frss: frssExtension.FrssDefinitions,
       },
+
+      // here are all additional modeler extensions
+      additionalModules: [
+        // extending the rendering abilities of the modeler:
+        frssExtension,
+      ],
     });
   }
 
@@ -44,20 +41,20 @@ class Bpmn4FrssEditor {
    * Load diagram into the modeler
    * @param {string} content content of the diagram file (XML)
    * @throws when importing the XML diagram fails
+   * @returns {boolean} true on success
    */
   async loadDiagram(content) {
     if (!content) {
-      throw new Error(errorMessages.Bpmn4FrssEditorErrors.noFileProvided);
+      throw new Error(errorMessages.noFileProvided);
     }
 
     // try to import the file's content into the modeler,
     // throw an error if the content cannot be loaded
     try {
       await this.modeler.importXML(content);
+      return true;
     } catch (_) {
-      throw new Error(errorMessages.Bpmn4FrssEditorErrors.fileLoadFailed);
+      throw new Error(errorMessages.fileLoadFailed);
     }
   }
 }
-
-export default Bpmn4FrssEditor;

@@ -2,10 +2,14 @@
  * Library entry-point
  * Allows importing the whole library as "Bpmn4Frss" module
  */
-import * as Editor from './editor';
-import * as Elements from './elements';
-import * as Overlays from './overlays';
+import * as FrssEditor from './editor';
+import * as FrssExtension from './frss-extension';
+import * as FrssOverlays from './overlays';
 
-const Bpmn4Frss = { Editor, Elements, Overlays };
+// const Bpmn4Frss = { Editor, FrssExtension, Overlays };
 
-export default Bpmn4Frss;
+// export default Bpmn4Frss;
+
+export { FrssEditor, FrssOverlays };
+
+export default FrssExtension;

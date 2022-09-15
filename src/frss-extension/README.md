@@ -13,6 +13,7 @@ Elements module is the de-facto BPMN language extension for Forensic-Ready syste
 ```txt
 # various folders where the language elements (/constructs) live
 
+common.js                   # common constants present in multiple files
 createBehaviors.js          # how elements are created
 definitions.js              # moddle portion - how elements are stored in BPMN compliant way
 elementBehaviors.js         # custom rules which define the modelling feel of the extension
