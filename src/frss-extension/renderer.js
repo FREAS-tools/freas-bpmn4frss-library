@@ -5,17 +5,10 @@ import BaseRenderer from 'diagram-js/lib/draw/BaseRenderer';
 // type checking
 import { is, isAny } from 'bpmn-js/lib/util/ModelUtil';
 
-import { FRSS_PRIORITY } from '../common';
+import { FRSS_PRIORITY } from './common';
 
-// Custom elements
-import PotentialEvidenceSource from '../elements/PotentialEvidenceSource';
-
-// Custom element modules
-// Whenever you need to add a new element to the extension, just add its module
-// to this list
-const customElements = [
-  PotentialEvidenceSource,
-];
+// Custom elements - every custom element is placed in this list
+import customElements from './customElements';
 
 // extract identifiers of custom elements
 const identifiers = customElements.map(
@@ -65,6 +58,7 @@ export default class FrssRenderer extends BaseRenderer {
    */
   drawShape(parentNode, element) {
     // check if the element is a custom element
+    // only retains the one custom element it matches
     const elementIsCustom = customElements.filter(
       // compare element with its identifier
       (customElement) => is(element, customElement.identifier),
@@ -78,6 +72,8 @@ export default class FrssRenderer extends BaseRenderer {
       return render(parentNode, element);
     }
 
+    // the element was not custom, therefore return null and pass this to the
+    // default renderer
     return null;
   }
 }

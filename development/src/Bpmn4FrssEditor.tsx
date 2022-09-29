@@ -50,7 +50,6 @@ const Bpmn4FrssEditor = ({ cssClassNames }: Bpmn4FrssEditorProps) => {
 
   const onLoad = async () => {
     library?.loadDiagram(bpmn);
-    library?.handleLoad();
   };
 
   return (

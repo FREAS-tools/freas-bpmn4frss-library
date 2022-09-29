@@ -26,7 +26,7 @@ export default class Bpmn4FrssWebEditor {
       // extending the syntax of the language - able to serialize / deserialize
       // bpmn models from / to .bpmn files
       moddleExtensions: {
-        frss: frssExtension.FrssDefinitions,
+        frss: frssExtension.frssDefinitions,
       },
 
       // here are all additional modeler extensions

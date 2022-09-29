@@ -14,53 +14,77 @@ export const bpmn4frssPrefix = `${bpmn4frss}:`;
  */
 export const FRSS_PRIORITY = 1400;
 
-// /**
-//  * Meta function for creating element functions for the palette
-//  *
-//  * @param {*} event received from the event bus
-//  * @param {Object} createShapeArgument the argument for the `createShape`
-//  *                                     function
-//  * @param {Function} create function that creates the element
-//  * @param {*} elementFactory creates the shape
-//  */
-// export const createElementForPalette = (
-//   event,
-//   createShapeArgument,
-//   create,
-//   elementFactory,
-// ) => {
-//   const shape = elementFactory.createShape(createShapeArgument);
-//   create.start(event, shape);
-// };
+/**
+ * Function which is called by the palette to create a new diagram element
+ *
+ * @param {*} bpmnFactory factory that can create bpmn objects
+ *                        (according to the custom moddle definition)
+ * @param {Function} create function that can create the element in the diagram
+ * @param {*} elementFactory function that can create (custom) elements
+ *                           in the diagram
+ * @param {string} type what kind of object is needed
+ * @param {number} width height of the object
+ * @param {number} height height of the object
+ *
+ * @returns create function for the new Element
+ */
+export const createNewElementFunction = (
+  bpmnFactory,
+  create,
+  elementFactory,
+  type,
+  width,
+  height,
+) => {
+  // the function is then called whenever the element is created
+  const createFunction = (event) => {
+    // create a business object (according to the custom moddle definition)
+    const businessObject = bpmnFactory.create(type);
+    const shape = elementFactory.createShape({
+      type,
+      width,
+      height,
+      businessObject,
+    });
 
-// /**
-//  * Meta function for creating the palette entries
-//  *
-//  * @param {string} entry name of the entry for the event bus
-//  * @param {string} group where on the palette to group this element
-//  * @param {string} css name of the class for the element (useful when we want
-//  *                     to style the element in a certain manner)
-//  * @param {string} title what is displayed when the mouse hovers
-//  *                       over the palette
-//  * @param {Function} translate function for translation
-//  * @param {Function} action what action is triggered (create function)
-//  * @returns palette entry object
-//  */
-// export const createPaletteEntry = (
-//   entry,
-//   group,
-//   css,
-//   title,
-//   translate,
-//   action,
-// ) => ({
-//   [entry]: {
-//     group,
-//     className: css,
-//     title: translate(title),
-//     action: {
-//       dragstart: action,
-//       click: action,
-//     },
-//   },
-// });
+    // create the event with that created shape
+    create.start(event, shape);
+  };
+
+  return createFunction;
+};
+
+/**
+ * Function to create a new palette entry
+ *
+ * @param {string} name name of the entry
+ * @param {string} group where is the entry grouped at
+ * @param {*} imageUrl the image which is displayed
+ * @param {string} title title which is shown on hover
+ * @param {Function} translate translate function which takes the title and translates is
+ * @param {Function} action what is supposed to happen after the entry is pressed
+ *
+ * @returns palette entry
+ */
+export const createNewPaletteEntry = (
+  name,
+  group,
+  imageUrl,
+  title,
+  translate,
+  action,
+  className,
+) => (
+  {
+    [`create.${name}`]: {
+      group,
+      imageUrl,
+      className,
+      title: translate(title),
+      action: {
+        dragstart: action,
+        click: action,
+      },
+    },
+  }
+);

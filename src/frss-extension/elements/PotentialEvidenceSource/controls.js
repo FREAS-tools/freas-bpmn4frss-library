@@ -1,46 +1,48 @@
-// // icon for potential evidence sources
-// import PotentialEvidenceSourceIcon
-//   from './assets/potential-evidence-source.png';
+import potentialEvidenceSourceIcon
+  from './assets/potential-evidence-source.png';
+import { createNewElementFunction, createNewPaletteEntry } from '../../common';
+import { potentialEvidenceSourceIdentifier } from './rendererEntry';
 
-// // Identifier of the potential evidence source element
-// import { potentialEvidenceSourceIdentifier } from './rendererEntry';
+// Create a palette element inside the editor (modeler)
+const createElementFunction = (
+  bpmnFactory,
+  create,
+  elementFactory,
+) => (
+  createNewElementFunction(
+    bpmnFactory,
+    create,
+    elementFactory,
+    potentialEvidenceSourceIdentifier,
+    28,
+    28,
+  )
+);
 
-// // meta-functions for creating elements and palette entries
-// import { createElementForPalette, createPaletteEntry } from '../../common';
+/**
+ * Create a potential evidence source palette entry
+ *
+ * @param {Function} translate function which can translate text
+ * @param {Function} action action which happens after pressing
+ *                          / dragging the element from the palette
+ * @returns potential evidence source palette entry
+ */
+const createPaletteEntry = (translate, action) => (
+  createNewPaletteEntry(
+    'potential-evidence-source',
+    'activity',
+    potentialEvidenceSourceIcon,
+    'Create a Potential Evidence Source',
+    translate,
+    action,
+    'potential-evidence-source',
+  )
+);
 
-// // function which is able to create the element, triggered after
-// // some action
-// export const createElement = (
-//   create,
-//   elementFactory,
-// ) => ((event) => {
-//   createElementForPalette(
-//     event,
-//     {
-//       type: potentialEvidenceSourceIdentifier,
-//       width: 28,
-//       height: 28,
-//       businessObject: PotentialEvidenceSourceIcon,
-//     },
-//     create,
-//     elementFactory,
-//   );
-// });
+// Controls grouped together and exported
+const PotentialEvidenceSourceControls = {
+  createElementFunction,
+  createPaletteEntry,
+};
 
-// export const paletteEntry = (action, translate) => (
-//   createPaletteEntry(
-//     'create.potential-evidence-source',
-//     'activity',
-//     'frss-potential-evidence-source',
-//     'Create Potential Evidence Source',
-//     translate,
-//     action,
-//   )
-// );
-
-// const PotentialEvidenceSourceControls = {
-//   create: createElement,
-//   palette: paletteEntry,
-// };
-
-// export default PotentialEvidenceSourceControls;
+export default PotentialEvidenceSourceControls;

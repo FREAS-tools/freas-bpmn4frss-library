@@ -1,5 +1,5 @@
-import FrssDefinitions from './definitions/definitions';
-import FrssRenderer from './renderer/renderer';
+import FrssDefinitions from './definitions';
+import FrssRenderer from './renderer';
 import FrssPalette from './controls/palette';
 
 /**
@@ -11,7 +11,7 @@ import FrssPalette from './controls/palette';
 export default {
   __init__: [
     'frssRenderer',
-    // 'frssPalette',
+    'frssPalette',
   ],
 
   frssRenderer: ['type', FrssRenderer],
@@ -20,7 +20,7 @@ export default {
   // Moddle definitions should be imported with the library itself,
   // but they should not be initialized by the dependency injector.
   // (dependency injector for additional modules cannot handle this module)
-  FrssDefinitions,
+  frssDefinitions: FrssDefinitions,
 };
 
 /**

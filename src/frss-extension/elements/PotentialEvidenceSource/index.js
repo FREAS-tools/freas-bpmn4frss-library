@@ -3,7 +3,9 @@ import {
   potentialEvidenceSourceIdentifier,
   potentialEvidenceSourceRender,
 } from './rendererEntry';
-// import PotentialEvidenceSourceControls from './controls';
+import potentialEvidenceSourceIcon
+  from './assets/potential-evidence-source.png';
+import potentialEvidenceSourceControls from './controls';
 
 /**
  * The default export exports all properties of a custom element.
@@ -11,6 +13,7 @@ import {
 export default {
   definition: potentialEvidenceSource,
   identifier: potentialEvidenceSourceIdentifier,
+  icon: potentialEvidenceSourceIcon,
   render: potentialEvidenceSourceRender,
-  // controls: PotentialEvidenceSourceControls,
+  controls: potentialEvidenceSourceControls,
 };
