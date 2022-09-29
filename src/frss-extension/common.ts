@@ -29,15 +29,15 @@ export const FRSS_PRIORITY = 1400;
  * @returns create function for the new Element
  */
 export const createNewElementFunction = (
-  bpmnFactory,
-  create,
-  elementFactory,
-  type,
-  width,
-  height,
-) => {
+  bpmnFactory: any,
+  create: any,
+  elementFactory: any,
+  type: string,
+  width: number,
+  height: number,
+): (event: any) => void => {
   // the function is then called whenever the element is created
-  const createFunction = (event) => {
+  const createFunction = (event: any) => {
     // create a business object (according to the custom moddle definition)
     const businessObject = bpmnFactory.create(type);
     const shape = elementFactory.createShape({
@@ -54,6 +54,19 @@ export const createNewElementFunction = (
   return createFunction;
 };
 
+export interface PaletteEntry {
+  [x: string]: {
+    group: string;
+    imageUrl: URL;
+    className: string;
+    title: any;
+    action: {
+        dragstart: Function;
+        click: Function;
+    };
+  }
+}
+
 /**
  * Function to create a new palette entry
  *
@@ -67,14 +80,14 @@ export const createNewElementFunction = (
  * @returns palette entry
  */
 export const createNewPaletteEntry = (
-  name,
-  group,
-  imageUrl,
-  title,
-  translate,
-  action,
-  className,
-) => (
+  name: string,
+  group: string,
+  imageUrl: URL,
+  title: string,
+  translate: Function,
+  action: Function,
+  className: string,
+): PaletteEntry => (
   {
     [`create.${name}`]: {
       group,

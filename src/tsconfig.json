@@ -1,21 +1,22 @@
 {
   "include": ["**/*"],
+  "exclude": ["node_modules"],
   // this option creates declaration files for our TS-based frontend web application
   // so we can use this vanilla JS library while also using TypeScript in the Web App
   "compilerOptions": {
     "module": "ES2015",
+    "target": "ESNext",
     "noImplicitAny": true,
-    // generate declarations
-    "declaration": true,
-    // only emit declarations
-    "emitDeclarationOnly": true,
-    // where the declarations will live
-    "outDir": "types",
+    "strict": false,
+    "esModuleInterop": true,
+    // skip checking bpmn-js internals
+    "skipLibCheck": true,
     // allows for jumping straight to the JS files instead of the declarations in IDEs
-    "declarationMap": true,
     "sourceMap": true,
     // allow JS files
     "allowJs": true,
-    "moduleResolution": "node"
+    "checkJs": false,
+    "rootDir": ".",
+    "moduleResolution": "node",
   }
 }

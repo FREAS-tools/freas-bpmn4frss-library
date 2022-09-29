@@ -1,8 +1,10 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable import/no-extraneous-dependencies */
+// @ts-ignore
 import BaseRenderer from 'diagram-js/lib/draw/BaseRenderer';
 
-// type checking
+// type checking inside bpmn-js
+// @ts-ignore
 import { is, isAny } from 'bpmn-js/lib/util/ModelUtil';
 
 import { FRSS_PRIORITY } from './common';
@@ -11,11 +13,14 @@ import { FRSS_PRIORITY } from './common';
 import customElements from './customElements';
 
 // extract identifiers of custom elements
-const identifiers = customElements.map(
+const identifiers: string[] = customElements.map(
   (customElement) => customElement.identifier,
 );
 
 export default class FrssRenderer extends BaseRenderer {
+  bpmnRenderer: any;
+  static $inject: string[];
+
   /**
    * Instantiate the custom BPMN4FRSS renderer
    * @param {EventBus} eventBus for subscribing to the event bus
@@ -24,7 +29,7 @@ export default class FrssRenderer extends BaseRenderer {
    *                         to the original renderer
    * (@link https://github.com/bpmn-io/bpmn-js-example-custom-rendering/blob/master/app/custom/CustomRenderer.js )
    */
-  constructor(eventBus, bpmnRenderer) {
+  constructor(eventBus: any, bpmnRenderer: any) {
     super(eventBus, FRSS_PRIORITY);
 
     this.bpmnRenderer = bpmnRenderer;
@@ -36,7 +41,7 @@ export default class FrssRenderer extends BaseRenderer {
    *
    * @returns true if the element is custom, false otherwise
    */
-  canRender(element) {
+  canRender(element: any) {
     // if you wish to add a new element to the renderer,
     // this list is the place to put the identifiers in
     return isAny(element, identifiers);
@@ -56,7 +61,7 @@ export default class FrssRenderer extends BaseRenderer {
    * @returns - rendered element if the element is custom
    *          - null otherwise
    */
-  drawShape(parentNode, element) {
+  drawShape(parentNode: any, element: any): Element | null {
     // check if the element is a custom element
     // only retains the one custom element it matches
     const elementIsCustom = customElements.filter(
