@@ -1,39 +1,67 @@
 import React, { useEffect, useRef, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 import Bpmn4FrssWebEditor from "../../src/editor";
-import bpmn from "../../misc/diagram4.bpmn?raw";
+import bpmn from "../../misc/diagram2.bpmn?raw";
+
+// import all necessary css
+import "bpmn-js/dist/assets/bpmn-js.css";
+import "bpmn-js/dist/assets/diagram-js.css";
+import "bpmn-js/dist/assets/bpmn-font/css/bpmn-codes.css";
+import "bpmn-js/dist/assets/bpmn-font/css/bpmn.css";
+import "bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css";
+
+export interface Bpmn4FrssEditorProps {
+  cssClassNames: {
+    containerCssClass: string;
+    libraryCssClass: string;
+    controls: {
+      loadButtonCssClass: string;
+    };
+  };
+}
 
 /**
  * Component encapsulating the bpmn4frss js library
  *
- * @param props - properties used by the
+ * @param {Bpmn4FrssEditorProps} props - props for the
  * @returns JSX element
  */
-const Bpmn4FrssEditor = () => {
-  // create a unique identifier to mount the library to
-  const id = `bpmn4frss-${uuidv4()}`;
-
-  // setting a reference so mounting and unmounting happens only once
+const Bpmn4FrssEditor = ({ cssClassNames }: Bpmn4FrssEditorProps) => {
+  // create a reference to mount the library to the rendered element
+  const container = useRef();
+  // create a reference so mounting and unmounting happens only once
   const initializeLibrary = useRef(true);
-  // setting a reference to use the BPMN4FRSS editor
+  // create a state for the Bpmn4FrssWebEditor
   const [library, setLibrary] = useState<Bpmn4FrssWebEditor>();
 
   // mounting the library only once
   useEffect(() => {
     if (initializeLibrary.current) {
-      setLibrary(new Bpmn4FrssWebEditor(id));
+      setLibrary(new Bpmn4FrssWebEditor(container.current));
       initializeLibrary.current = false;
     }
+
+    // clean up function (destructor)
+    return () => {
+      if (!initializeLibrary.current) {
+        library?.modeler.destroy();
+      }
+    };
   }, []);
 
   const onLoad = async () => {
     library?.loadDiagram(bpmn);
-  }
+    library?.handleLoad();
+  };
 
   return (
-    <div className="bpmn4frss">
-      <div id={id} className="bpmn4frss__editor editor"></div>
-      <div className="editor__load-diagram" onClick={onLoad}>Load diagram</div>
+    <div className={cssClassNames.containerCssClass}>
+      <div ref={container} className={cssClassNames.libraryCssClass}></div>
+      <div
+        className={cssClassNames.controls.loadButtonCssClass}
+        onClick={onLoad}
+      >
+        Load diagram
+      </div>
     </div>
   );
 };
