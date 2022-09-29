@@ -2,7 +2,7 @@
 // that encapsulate the library
 
 // imports
-import Modeler from 'bpmn-js';
+import Modeler from 'bpmn-js/lib/Modeler';
 import errorMessages from '../errors';
 
 // import the bpmn4frss moddle language extension
@@ -15,14 +15,14 @@ import frssExtension from '../frss-extension';
 export default class Bpmn4FrssWebEditor {
   /**
    * Initialize a new BPMN4FRSS editor
-   * @param containerId ID of the element (must be unique), just the characters,
-   *                    the "#" is added inside the constructor
+   * @param {*} container - reference to the container for
+   *                        `bpmn-js` to boostrap into
    * @constructor
    */
-  constructor(containerId) {
+  constructor(container) {
     // initialize the Bpmn4frss modeler
     this.modeler = new Modeler({
-      container: `#${containerId}`,
+      container,
       // extending the syntax of the language - able to serialize / deserialize
       // bpmn models from / to .bpmn files
       moddleExtensions: {

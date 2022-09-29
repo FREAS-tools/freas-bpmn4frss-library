@@ -3,13 +3,24 @@
 import BaseRenderer from 'diagram-js/lib/draw/BaseRenderer';
 
 // type checking
-import { is } from 'bpmn-js/lib/util/ModelUtil';
-import { isAny } from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
+import { is, isAny } from 'bpmn-js/lib/util/ModelUtil';
 
 import { FRSS_PRIORITY } from '../common';
 
 // Custom elements
 import PotentialEvidenceSource from '../elements/PotentialEvidenceSource';
+
+// Custom element modules
+// Whenever you need to add a new element to the extension, just add its module
+// to this list
+const customElements = [
+  PotentialEvidenceSource,
+];
+
+// extract identifiers of custom elements
+const identifiers = customElements.map(
+  (customElement) => customElement.identifier,
+);
 
 export default class FrssRenderer extends BaseRenderer {
   /**
@@ -35,7 +46,7 @@ export default class FrssRenderer extends BaseRenderer {
   canRender(element) {
     // if you wish to add a new element to the renderer,
     // this list is the place to put the identifiers in
-    return isAny(element, [PotentialEvidenceSource.identifier]);
+    return isAny(element, identifiers);
   }
 
   /**
@@ -52,11 +63,19 @@ export default class FrssRenderer extends BaseRenderer {
    * @returns - rendered element if the element is custom
    *          - null otherwise
    */
-  // eslint-disable-next-line consistent-return
   drawShape(parentNode, element) {
-    // PotentialEvidenceSource
-    if (is(element, PotentialEvidenceSource.identifier)) {
-      return PotentialEvidenceSource.render(parentNode, element);
+    // check if the element is a custom element
+    const elementIsCustom = customElements.filter(
+      // compare element with its identifier
+      (customElement) => is(element, customElement.identifier),
+    );
+
+    if (elementIsCustom) {
+      // obtain the renderer from the custom element module
+      // there will always be just one module with the same identifier
+      const { render } = elementIsCustom[0];
+
+      return render(parentNode, element);
     }
 
     return null;
