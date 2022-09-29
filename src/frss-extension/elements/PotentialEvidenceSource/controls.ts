@@ -2,12 +2,13 @@ import potentialEvidenceSourceIcon
   from './assets/potential-evidence-source.png';
 import { createNewElementFunction, createNewPaletteEntry } from '../../common';
 import { potentialEvidenceSourceIdentifier } from './rendererEntry';
+import { PaletteEntry } from '../../common';
 
 // Create a palette element inside the editor (modeler)
 const createElementFunction = (
-  bpmnFactory,
-  create,
-  elementFactory,
+  bpmnFactory: any,
+  create: any,
+  elementFactory: any,
 ) => (
   createNewElementFunction(
     bpmnFactory,
@@ -27,7 +28,10 @@ const createElementFunction = (
  *                          / dragging the element from the palette
  * @returns potential evidence source palette entry
  */
-const createPaletteEntry = (translate, action) => (
+const createPaletteEntry = (
+  translate: Function,
+  action: Function
+): PaletteEntry => (
   createNewPaletteEntry(
     'potential-evidence-source',
     'activity',

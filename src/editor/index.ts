@@ -2,8 +2,9 @@
 // that encapsulate the library
 
 // imports
+// @ts-ignore
 import Modeler from 'bpmn-js/lib/Modeler';
-import errorMessages from '../errors';
+import errorMessages from './errors';
 
 // import the bpmn4frss moddle language extension
 import frssExtension from '../frss-extension';
@@ -13,13 +14,15 @@ import frssExtension from '../frss-extension';
  * between React components and BPMN4FRSS library
  */
 export default class Bpmn4FrssWebEditor {
+  modeler: any;
+
   /**
    * Initialize a new BPMN4FRSS editor
    * @param {*} container - reference to the container for
    *                        `bpmn-js` to boostrap into
    * @constructor
    */
-  constructor(container) {
+  constructor(container: any) {
     // initialize the Bpmn4frss modeler
     this.modeler = new Modeler({
       container,
@@ -41,9 +44,9 @@ export default class Bpmn4FrssWebEditor {
    * Load diagram into the modeler
    * @param {string} content content of the diagram file (XML)
    * @throws when importing the XML diagram fails
-   * @returns {boolean} true on success
+   * @returns {Promise<boolean>} promised true on success
    */
-  async loadDiagram(content) {
+  async loadDiagram(content: string): Promise<boolean> {
     if (!content) {
       throw new Error(errorMessages.noFileProvided);
     }

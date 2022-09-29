@@ -1,13 +1,16 @@
 // Custom elements - every custom element is placed in this list
 import customElements from '../customElements';
 
+import { PaletteEntry } from '../common';
+import { CustomElementControls } from '../elements/Types/elementTypes';
+
 /**
  * Create the palette entry object from a list of entries
  *
- * @param {*} paletteEntries entries for the palette
+ * @param {PaletteEntry[]} paletteEntries entries for the palette
  * @returns single palette entry object
  */
-const createEntryObject = (paletteEntries) => {
+const createEntryObject = (paletteEntries: PaletteEntry[]): PaletteEntry => {
   // empty object
   let result = {};
 
@@ -27,13 +30,25 @@ const createEntryObject = (paletteEntries) => {
  * FRSS extension of the `bpmn-js` palette
  */
 export default class FrssPalette {
+  bpmnFactory: any;
+  create: any;
+  elementFactory: any;
+  translate: Function;
+  static $inject: string[];
+
   /**
    * This class is used by the `bpmn-js` internals,
    * extending the abilities of the original palette.
    * All of the parameters are specified by the `bpmn-js`
    * and allow us to hook into the default palette.
    */
-  constructor(bpmnFactory, create, elementFactory, palette, translate) {
+  constructor(
+    bpmnFactory: any,
+    create: any,
+    elementFactory: any,
+    palette: any,
+    translate: Function
+  ) {
     // save the parameters into the object
     this.bpmnFactory = bpmnFactory;
     this.create = create;
@@ -45,8 +60,7 @@ export default class FrssPalette {
     palette.registerProvider(this);
   }
 
-  // eslint-disable-next-line no-unused-vars
-  getPaletteEntries(element) {
+  getPaletteEntries(_: any) {
     const {
       bpmnFactory,
       create,
@@ -55,7 +69,7 @@ export default class FrssPalette {
     } = this;
 
     // obtain only element controls submodule
-    const controls = customElements.map(
+    const controls: CustomElementControls[] = customElements.map(
       (customElement) => customElement.controls,
     );
 
@@ -73,7 +87,15 @@ export default class FrssPalette {
     });
 
     // return an object full of palette entries
-    // (spreading "hacked" for the library to get what it expects)
+    // (spreading 'hacked' for the library to get what it expects)
     return createEntryObject(paletteEntries);
   }
 }
+
+FrssPalette.$inject = [
+  'bpmnFactory',
+  'create',
+  'elementFactory',
+  'palette',
+  'translate',
+]

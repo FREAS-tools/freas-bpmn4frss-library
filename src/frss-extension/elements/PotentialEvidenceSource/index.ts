@@ -6,14 +6,17 @@ import {
 import potentialEvidenceSourceIcon
   from './assets/potential-evidence-source.png';
 import potentialEvidenceSourceControls from './controls';
+import { CustomElement } from '../Types/elementTypes';
 
-/**
- * The default export exports all properties of a custom element.
- */
-export default {
+const element: CustomElement = {
   definition: potentialEvidenceSource,
   identifier: potentialEvidenceSourceIdentifier,
   icon: potentialEvidenceSourceIcon,
   render: potentialEvidenceSourceRender,
   controls: potentialEvidenceSourceControls,
 };
+
+/**
+ * The default export exports all properties of a custom element.
+ */
+export default element;

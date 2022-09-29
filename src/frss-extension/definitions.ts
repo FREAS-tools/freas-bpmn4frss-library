@@ -45,8 +45,8 @@ const FrssDefinitions = {
   types: customElements.map((customElement) => customElement.definition),
 
   // these values are reserved for future use by the bpmn-js library
-  associations: [],
-  enumerations: [],
+  associations: [] as string[],
+  enumerations: [] as string[],
 };
 
 export default FrssDefinitions;

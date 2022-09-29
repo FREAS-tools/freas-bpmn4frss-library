@@ -4,12 +4,7 @@
  */
 import * as FrssEditor from './editor';
 import * as FrssExtension from './frss-extension';
-import * as FrssOverlays from './overlays';
 
-// const Bpmn4Frss = { Editor, FrssExtension, Overlays };
-
-// export default Bpmn4Frss;
-
-export { FrssEditor, FrssOverlays };
+export { FrssEditor };
 
 export default FrssExtension;
