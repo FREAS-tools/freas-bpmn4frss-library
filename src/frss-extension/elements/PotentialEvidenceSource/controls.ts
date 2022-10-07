@@ -1,8 +1,11 @@
+import {
+  createNewElementFunction,
+  createNewPaletteEntry,
+  PaletteEntry,
+} from '../../common';
 import potentialEvidenceSourceIcon
   from './assets/potential-evidence-source.png';
-import { createNewElementFunction, createNewPaletteEntry } from '../../common';
 import { potentialEvidenceSourceIdentifier } from './rendererEntry';
-import { PaletteEntry } from '../../common';
 
 // Create a palette element inside the editor (modeler)
 const createElementFunction = (
@@ -29,17 +32,17 @@ const createElementFunction = (
  * @returns potential evidence source palette entry
  */
 const createPaletteEntry = (
+  action: Function,
   translate: Function,
-  action: Function
 ): PaletteEntry => (
   createNewPaletteEntry(
+    action,
     'potential-evidence-source',
     'activity',
     potentialEvidenceSourceIcon,
+    'potential-evidence-source',
     'Create a Potential Evidence Source',
     translate,
-    action,
-    'potential-evidence-source',
   )
 );
 

@@ -1,39 +1,21 @@
+import { createEntryObject } from '../common';
+
 // Custom elements - every custom element is placed in this list
 import customElements from '../customElements';
-
-import { PaletteEntry } from '../common';
 import { CustomElementControls } from '../elements/Types/elementTypes';
-
-/**
- * Create the palette entry object from a list of entries
- *
- * @param {PaletteEntry[]} paletteEntries entries for the palette
- * @returns single palette entry object
- */
-const createEntryObject = (paletteEntries: PaletteEntry[]): PaletteEntry => {
-  // empty object
-  let result = {};
-
-  // copy the key-value pairs into the object
-  paletteEntries.forEach((entry) => {
-    result = {
-      ...result,
-      ...entry,
-    };
-  });
-
-  // return finished object
-  return result;
-};
 
 /**
  * FRSS extension of the `bpmn-js` palette
  */
 export default class FrssPalette {
   bpmnFactory: any;
+
   create: any;
+
   elementFactory: any;
+
   translate: Function;
+
   static $inject: string[];
 
   /**
@@ -47,7 +29,7 @@ export default class FrssPalette {
     create: any,
     elementFactory: any,
     palette: any,
-    translate: Function
+    translate: Function,
   ) {
     // save the parameters into the object
     this.bpmnFactory = bpmnFactory;
@@ -60,7 +42,8 @@ export default class FrssPalette {
     palette.registerProvider(this);
   }
 
-  getPaletteEntries(_: any) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  getPaletteEntries(element: any) {
     const {
       bpmnFactory,
       create,
@@ -83,7 +66,7 @@ export default class FrssPalette {
       );
 
       // create the palette entry
-      return control.createPaletteEntry(translate, createElementFunction);
+      return control.createPaletteEntry(createElementFunction, translate);
     });
 
     // return an object full of palette entries
@@ -98,4 +81,4 @@ FrssPalette.$inject = [
   'elementFactory',
   'palette',
   'translate',
-]
+];

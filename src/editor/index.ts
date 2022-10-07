@@ -4,10 +4,10 @@
 // imports
 // @ts-ignore
 import Modeler from 'bpmn-js/lib/Modeler';
-import errorMessages from './errors';
 
 // import the bpmn4frss moddle language extension
 import frssExtension from '../frss-extension';
+import errorMessages from './errors';
 
 /**
  * A class which encapsulates the interaction

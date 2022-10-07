@@ -1,11 +1,11 @@
-import { PaletteEntry } from "../../common";
+import { PaletteEntry } from '../../common';
 
 export interface CustomElement {
-  definition: any,
-  identifier: string,
-  icon?: any,
-  render: (parentNode: any, element: any) => Element,
   controls: CustomElementControls
+  definition: any,
+  icon?: any,
+  identifier: string,
+  render: (parentNode: any, element: any) => Element,
 }
 
 export interface CustomElementControls {
@@ -15,8 +15,7 @@ export interface CustomElementControls {
     elementFactory: any
   ) => (event: any) => void,
   createPaletteEntry: (
+    action: Function,
     translate: Function,
-    action: Function
   ) => PaletteEntry,
 }
-

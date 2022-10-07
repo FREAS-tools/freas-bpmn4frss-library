@@ -13,12 +13,12 @@ import customElements from './customElements';
 /**
  * This file contains moddle definitions for the BPMN4FRSS extension.
  * Unlike in the extension tutorial for bpmn-js library,
- * we chose to use the JS objects directly, which allows us to write
+ * we chose to use the TS objects directly, which allows us to write
  * the definitions in a modular way.
  *
  * To add a new language construct (/element) into the moddle definition:
  *
- * - create a definition.js file inside the construct's folder
+ * - create a definition.ts file inside the construct's folder
  * - write the moddle definition there
  * - import it into the bpmn4frssModdle object in this file
  *

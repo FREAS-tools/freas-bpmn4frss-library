@@ -1,11 +1,11 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable import/no-extraneous-dependencies */
-// @ts-ignore
-import BaseRenderer from 'diagram-js/lib/draw/BaseRenderer';
-
 // type checking inside bpmn-js
 // @ts-ignore
 import { is, isAny } from 'bpmn-js/lib/util/ModelUtil';
+
+// @ts-ignore
+import BaseRenderer from 'diagram-js/lib/draw/BaseRenderer';
 
 import { FRSS_PRIORITY } from './common';
 
@@ -18,7 +18,8 @@ const identifiers: string[] = customElements.map(
 );
 
 export default class FrssRenderer extends BaseRenderer {
-  bpmnRenderer: any;
+  bpmnRenderer: unknown;
+
   static $inject: string[];
 
   /**

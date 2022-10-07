@@ -1,6 +1,6 @@
+import FrssPalette from './controls/palette';
 import FrssDefinitions from './definitions';
 import FrssRenderer from './renderer';
-import FrssPalette from './controls/palette';
 
 /**
  * FRSS extension for `bpmn-js`

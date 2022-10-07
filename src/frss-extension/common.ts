@@ -56,37 +56,38 @@ export const createNewElementFunction = (
 
 export interface PaletteEntry {
   [x: string]: {
+    action: {
+      click: Function;
+      dragstart: Function;
+    };
+    className: string;
     group: string;
     imageUrl: URL;
-    className: string;
     title: any;
-    action: {
-        dragstart: Function;
-        click: Function;
-    };
   }
 }
 
 /**
  * Function to create a new palette entry
  *
- * @param {string} name name of the entry
+ * @param {Function} action what is supposed to happen after the entry is pressed
+ * @param {string} className name of the css class to assign to
  * @param {string} group where is the entry grouped at
  * @param {*} imageUrl the image which is displayed
+ * @param {string} name name of the entry
  * @param {string} title title which is shown on hover
  * @param {Function} translate translate function which takes the title and translates is
- * @param {Function} action what is supposed to happen after the entry is pressed
  *
  * @returns palette entry
  */
 export const createNewPaletteEntry = (
-  name: string,
-  group: string,
-  imageUrl: URL,
-  title: string,
-  translate: Function,
   action: Function,
   className: string,
+  group: string,
+  imageUrl: URL,
+  name: string,
+  title: string,
+  translate: Function,
 ): PaletteEntry => (
   {
     [`create.${name}`]: {
@@ -101,3 +102,27 @@ export const createNewPaletteEntry = (
     },
   }
 );
+
+/**
+ * Create the palette entry object from a list of entries
+ *
+ * @param {PaletteEntry[]} paletteEntries entries for the palette
+ * @returns single palette entry object
+ */
+export const createEntryObject = (
+  paletteEntries: PaletteEntry[],
+): PaletteEntry => {
+  // empty object
+  let result = {};
+
+  // copy the key-value pairs into the object
+  paletteEntries.forEach((entry) => {
+    result = {
+      ...result,
+      ...entry,
+    };
+  });
+
+  // return finished object
+  return result;
+};
