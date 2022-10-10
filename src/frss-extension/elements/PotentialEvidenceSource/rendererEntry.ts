@@ -55,7 +55,10 @@ export const potentialEvidenceSourceIdentifier = (
  *
  * @returns rendered element
  */
-export const potentialEvidenceSourceRender = (parentNode: any, element: any) => {
+export const potentialEvidenceSourceRender = (
+  parentNode: any,
+  element: any,
+) => {
   // render the image into the modeler
   const potentialEvidenceSource = createSvg('image', {
     // position
