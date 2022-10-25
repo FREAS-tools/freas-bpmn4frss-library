@@ -7,6 +7,11 @@ import potentialEvidenceSourceIcon
   from './assets/potential-evidence-source.png';
 import { potentialEvidenceSourceIdentifier } from './rendererEntry';
 
+const ELEMENT_SIZE = {
+  x: 28,
+  y: 28,
+};
+
 // Create a palette element inside the editor (modeler)
 const createElementFunction = (
   bpmnFactory: any,
@@ -18,8 +23,8 @@ const createElementFunction = (
     create,
     elementFactory,
     potentialEvidenceSourceIdentifier,
-    28,
-    28,
+    ELEMENT_SIZE.x,
+    ELEMENT_SIZE.y,
   )
 );
 

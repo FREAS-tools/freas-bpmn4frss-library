@@ -2,7 +2,7 @@ import { createEntryObject } from '../common';
 
 // Custom elements - every custom element is placed in this list
 import customElements from '../customElements';
-import { CustomElementControls } from '../elements/Types/elementTypes';
+import { CustomElementControls } from '../elements/types';
 
 /**
  * FRSS extension of the `bpmn-js` palette
@@ -42,6 +42,12 @@ export default class FrssPalette {
     palette.registerProvider(this);
   }
 
+  /**
+   * Retrieve the custom palette entries for newly added objects
+   *
+   * @param element unused, but specified by the library
+   * @returns way to create an element from the palette
+   */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   getPaletteEntries(element: any) {
     const {
@@ -51,21 +57,26 @@ export default class FrssPalette {
       translate,
     } = this;
 
-    // obtain only element controls submodule
-    const controls: CustomElementControls[] = customElements.map(
-      (customElement) => customElement.controls,
-    );
+    // obtain only element controls submodule, filter out elements that
+    // are not used for the palette
+    const controls: CustomElementControls[] = customElements
+      .map(
+        (customElement) => customElement.controls,
+      )
+      .filter((control) => control.createElementFunction
+        && control.createPaletteEntry);
 
     // for each element create its palette entry
     const paletteEntries = controls.map((control) => {
-      // create a function that creates an element
+      // save a function that creates an element
       const createElementFunction = control.createElementFunction(
         bpmnFactory,
         create,
         elementFactory,
       );
 
-      // create the palette entry
+      // create the palette entry, the palette uses the `createElementFunction`
+      // and calls it when we create an element with it
       return control.createPaletteEntry(createElementFunction, translate);
     });
 
@@ -75,6 +86,8 @@ export default class FrssPalette {
   }
 }
 
+// we need to tell the dependency injector what dependencies we plan to
+// use within our custom module
 FrssPalette.$inject = [
   'bpmnFactory',
   'create',

@@ -63,28 +63,31 @@ export default class FrssRenderer extends BaseRenderer {
    *          - null otherwise
    */
   drawShape(parentNode: any, element: any): Element | null {
-    // check if the element is a custom element
+    // check if the element is a custom frss renderable element
     // only retains the one custom element it matches
-    const elementIsCustom = customElements.filter(
-      // compare element with its identifier
-      (customElement) => is(element, customElement.identifier),
+    const elementIsFrssRenderable = customElements.filter(
+      // compare element with its identifier and check if the render
+      // function exists
+      (customElement) => is(element, customElement.identifier)
+        && customElement.render,
     );
 
-    if (elementIsCustom) {
+    if (elementIsFrssRenderable) {
       // obtain the renderer from the custom element module
       // there will always be just one module with the same identifier
-      const { render } = elementIsCustom[0];
+      const { render } = elementIsFrssRenderable[0];
 
-      return render(parentNode, element);
+      if (render) return render(parentNode, element);
     }
 
-    // the element was not custom, therefore return null and pass this to the
-    // default renderer
+    // the element was not custom or not renderable,
+    // therefore return null and pass this to the default renderer
     return null;
   }
 }
 
-// @TODO: write why this is here
+// we need to tell the dependency injector what dependencies we plan to
+// use within our custom module
 FrssRenderer.$inject = [
   'eventBus',
   'bpmnRenderer',

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 export default class FrssContextPad {
   autoPlace: any;
 
@@ -14,6 +15,8 @@ export default class FrssContextPad {
   injector: any;
 
   translate: any;
+
+  static $inject: string[];
 
   constructor(
     bpmnFactory: any,
@@ -38,4 +41,31 @@ export default class FrssContextPad {
 
     contextPad.registerProvider(this);
   }
+
+  /**
+   * Get all entries for the context pad
+   * @param event occurring event
+   * @param element element that is associated with the context pad
+   */
+  getContextPadEntries(event: any, element: any) {
+    const {
+      bpmnFactory,
+      create,
+      contextPad,
+      translate,
+      elementFactory,
+    } = this;
+  }
 }
+
+// we need to tell the dependency injector what dependencies we plan to
+// use within our custom module
+FrssContextPad.$inject = [
+  'bpmnFactory',
+  'config',
+  'contextPad',
+  'create',
+  'elementFactory',
+  'injector',
+  'translate',
+];

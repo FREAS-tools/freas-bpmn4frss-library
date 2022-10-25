@@ -1,4 +1,4 @@
-import { CustomElement } from '../Types/elementTypes';
+import { CustomElement } from '../types';
 import potentialEvidenceSourceIcon
   from './assets/potential-evidence-source.png';
 import potentialEvidenceSourceControls from './controls';
