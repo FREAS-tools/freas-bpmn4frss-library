@@ -4,7 +4,7 @@ import icon
 import controls from './controls';
 import definition,
 { potentialEvidenceSourceIdentifier as identifier } from './definition';
-import name from './properties';
+import properties from './properties';
 import render from './rendererEntry';
 
 const potentialEvidenceSource: CustomElement = {
@@ -12,11 +12,9 @@ const potentialEvidenceSource: CustomElement = {
   definition,
   icon,
   identifier,
-  name,
+  properties,
   render,
 };
-
-export { name };
 
 /**
  * The default export exports all properties of a custom element.

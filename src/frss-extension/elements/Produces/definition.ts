@@ -1,7 +1,12 @@
 // import the prefix
 import { bpmn4frssPrefix } from '../../common';
+
+// potential evidence source is a "dependency" of this element,
+// as we need to know its identifier to be able to identify
+// it as a reference type here
 import potentialEvidenceSourceProperties
   from '../PotentialEvidenceSource/properties';
+
 import { CustomElementDefinition } from '../types';
 import properties from './properties';
 
