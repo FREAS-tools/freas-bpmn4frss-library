@@ -10,7 +10,6 @@ const element: CustomElement = {
   definition: x,
   identifier: xIdentifier,
   render: xRender,
-  a: '',
   controls: xControls,
 };
 

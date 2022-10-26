@@ -37,4 +37,4 @@ export const xIdentifier = (
 export const xRender = (
   parentNode: any,
   element: any,
-): null => null;
+): Element => new Element();

@@ -3,7 +3,7 @@
  * properties, which indicates how the object is stored / loaded from files.
  * Also provides a first step of defining relations between language constructs.
  */
-const xSource = {
+const x = {
   name: 'x',
   // choose one or the other, or none of these
   superClass: [''],
@@ -14,4 +14,4 @@ const xSource = {
   ],
 };
 
-export default xSource;
+export default x;

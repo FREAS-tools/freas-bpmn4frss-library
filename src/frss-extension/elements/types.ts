@@ -1,11 +1,18 @@
 import { PaletteEntry } from '../common';
 
+export interface DefinitionType {
+  name: string,
+  properties: any[],
+  superClass: string[],
+}
+
 export interface CustomElement {
   controls?: CustomElementControls
-  definition: any,
+  definition: DefinitionType,
   icon?: any,
   identifier: string,
   render?: (parentNode: any, element: any) => Element,
+  // renderCondition?: Function,
 }
 
 export interface CustomElementControls {
