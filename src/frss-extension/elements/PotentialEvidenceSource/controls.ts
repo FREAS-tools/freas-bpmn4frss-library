@@ -1,51 +1,60 @@
 import {
-  createNewElementFunction,
-  createNewPaletteEntry,
-  PaletteEntry,
+  constructElementCreateFunction,
+  constructPaletteEntry,
+  CustomPaletteEntry,
+  ELEMENT_FALLBACK_SIZE,
 } from '../../common';
 import potentialEvidenceSourceIcon
   from './assets/potential-evidence-source.png';
-import { potentialEvidenceSourceIdentifier } from './rendererEntry';
+import { potentialEvidenceSourceIdentifier } from './definition';
+import properties from './properties';
 
-const ELEMENT_SIZE = {
-  x: 28,
-  y: 28,
-};
+const { elementSize, nameLowercase } = properties;
 
-// Create a palette element inside the editor (modeler)
-const createElementFunction = (
+/**
+ * Construct a palette element inside the editor (modeler)
+ *
+ * @param {*} bpmnFactory factory that can create bpmn objects
+ *                        (according to the custom moddle definition)
+ * @param {*} create create function which is called when the element is
+ *                   being created from the palette
+ * @param {*} elementFactory function that can create (custom) elements
+ *                           in the diagram
+ * @returns a custom function which is able to create a new element
+ */
+const constructPotentialEvidenceSourceCreateFunction = (
   bpmnFactory: any,
   create: any,
   elementFactory: any,
 ) => (
-  createNewElementFunction(
+  constructElementCreateFunction(
     bpmnFactory,
     create,
     elementFactory,
     potentialEvidenceSourceIdentifier,
-    ELEMENT_SIZE.x,
-    ELEMENT_SIZE.y,
+    elementSize?.x ?? ELEMENT_FALLBACK_SIZE,
+    elementSize?.y ?? ELEMENT_FALLBACK_SIZE,
   )
 );
 
 /**
- * Create a potential evidence source palette entry
+ * Construct a potential evidence source palette entry
  *
  * @param {Function} translate function which can translate text
  * @param {Function} action action which happens after pressing
  *                          / dragging the element from the palette
  * @returns potential evidence source palette entry
  */
-const createPaletteEntry = (
+const constructPotentialEvidenceSourcePaletteEntry = (
   action: Function,
   translate: Function,
-): PaletteEntry => (
-  createNewPaletteEntry(
+): CustomPaletteEntry => (
+  constructPaletteEntry(
     action,
-    'potential-evidence-source',
+    nameLowercase,
     'activity',
     potentialEvidenceSourceIcon,
-    'potential-evidence-source',
+    nameLowercase,
     'Create a Potential Evidence Source',
     translate,
   )
@@ -53,8 +62,8 @@ const createPaletteEntry = (
 
 // Controls grouped together and exported
 const PotentialEvidenceSourceControls = {
-  createElementFunction,
-  createPaletteEntry,
+  createElementFunction: constructPotentialEvidenceSourceCreateFunction,
+  createPaletteEntry: constructPotentialEvidenceSourcePaletteEntry,
 };
 
 export default PotentialEvidenceSourceControls;

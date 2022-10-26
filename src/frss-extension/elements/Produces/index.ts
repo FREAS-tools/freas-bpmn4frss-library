@@ -1,15 +1,15 @@
 import { CustomElement } from '../types';
 // import controls from './controls';
-import definition, { xIdentifier } from './definition';
-// import icon from './assets/x.png';
+import definition, { producesIdentifier } from './definition';
 import properties from './properties';
+// import icon from './assets/x.png';
 // import render from './rendererEntry';
 
-const element: CustomElement = {
+const produces: CustomElement = {
   // controls,
   definition,
   // icon,
-  identifier: xIdentifier,
+  identifier: producesIdentifier,
   properties,
   // render,
 };
@@ -17,4 +17,4 @@ const element: CustomElement = {
 /**
  * The default export exports all properties of a custom element.
  */
-export default element;
+export default produces;

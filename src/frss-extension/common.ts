@@ -15,6 +15,18 @@ export const bpmn4frssPrefix = `${bpmn4frss}:`;
 export const FRSS_PRIORITY = 1400;
 
 /**
+ * The fallback size for an element is 32px x 32px if the element does not have
+ * a size defined in its `properties` module
+ */
+export const ELEMENT_FALLBACK_SIZE = 32;
+
+/**
+ * The fallback offset for an element is 0 if the element does not have
+ * an offset defined in its `properties` module
+ */
+export const ELEMENT_FALLBACK_OFFSET = 0;
+
+/**
  * Function which is called by the palette to create a new diagram element
  *
  * @param {*} bpmnFactory factory that can create bpmn objects
@@ -28,7 +40,7 @@ export const FRSS_PRIORITY = 1400;
  *
  * @returns create function for the new Element
  */
-export const createNewElementFunction = (
+export const constructElementCreateFunction = (
   bpmnFactory: any,
   create: any,
   elementFactory: any,
@@ -54,7 +66,7 @@ export const createNewElementFunction = (
   return createFunction;
 };
 
-export interface PaletteEntry {
+export interface CustomPaletteEntry {
   [x: string]: {
     action: {
       click: Function;
@@ -80,7 +92,7 @@ export interface PaletteEntry {
  *
  * @returns palette entry
  */
-export const createNewPaletteEntry = (
+export const constructPaletteEntry = (
   action: Function,
   className: string,
   group: string,
@@ -88,7 +100,7 @@ export const createNewPaletteEntry = (
   name: string,
   title: string,
   translate: Function,
-): PaletteEntry => (
+): CustomPaletteEntry => (
   {
     [`create.${name}`]: {
       group,
@@ -106,12 +118,12 @@ export const createNewPaletteEntry = (
 /**
  * Create the palette entry object from a list of entries
  *
- * @param {PaletteEntry[]} paletteEntries entries for the palette
+ * @param {CustomPaletteEntry[]} paletteEntries entries for the palette
  * @returns single palette entry object
  */
 export const createEntryObject = (
-  paletteEntries: PaletteEntry[],
-): PaletteEntry => {
+  paletteEntries: CustomPaletteEntry[],
+): CustomPaletteEntry => {
   // empty object
   let result = {};
 

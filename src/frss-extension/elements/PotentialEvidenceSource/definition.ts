@@ -1,15 +1,25 @@
+// import the prefix
+import { bpmn4frssPrefix } from '../../common';
+
+// import the properties of another custom element, will use namely its name;
+import producesProperties from '../Produces/properties';
+// import own property, namely our name
+import properties from './properties';
+
+const { name } = properties;
+
 /**
- * Every element has a moddle definition. It is a definition of data object
- * properties, which indicates how the object is stored / loaded from files.
- * Also provides a first step of defining relations between language constructs.
- *
- *
+ * This is the string identifier for the PotentialEvidenceSource element.
+ */
+export const potentialEvidenceSourceIdentifier = `${bpmn4frssPrefix}${name}`;
+
+/**
  * The "looking glass" icon, indicates that a resource can be a potential
  * source of evidence. Can be connected to either a task, event or a data store
  * (which can recursively generate more and more evidence types)
  */
-const potentialEvidenceSource = {
-  name: 'PotentialEvidenceSource',
+const potentialEvidenceSourceDefinition = {
+  name,
   superClass: ['bpmn:BaseElement', 'bpmn:FlowNode'],
   properties: [
     // is attached to another flow element,
@@ -19,20 +29,20 @@ const potentialEvidenceSource = {
     // one potential evidence source can be attached only to one flow element.
     {
       name: 'attachedToRef',
-      // @TODO: ask if this is desired functionality in the moddle
+      // the concrete elements are: `Task`, `Event`, and `DataStore`
       type: 'bpmn:FlowElement',
       isAttr: true,
       isReference: true,
     },
-    // can produce many associations - this is a meta object (think of it
-    // as a join table) for connecting multiple objects. We only
+    // can produce many evidence types - this is a meta object (think of it
+    // as a join table) for connecting multiple evidence objects. We only
     // need to specify it, so the moddle knows there is an association.
     {
-      name: 'producesAssociations',
-      type: 'ProducesAssosciation',
+      name: 'producesEvidence',
+      type: producesProperties.name,
       isMany: true,
     },
   ],
 };
 
-export default potentialEvidenceSource;
+export default potentialEvidenceSourceDefinition;

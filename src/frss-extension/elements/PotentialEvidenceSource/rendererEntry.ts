@@ -11,39 +11,15 @@ import {
   create as createSvg,
   append as appendSvg,
 } from 'tiny-svg';
-
-// import the prefix
-import { bpmn4frssPrefix } from '../../common';
+import { ELEMENT_FALLBACK_OFFSET } from '../../common';
 
 // icon for potential evidence sources
 import PotentialEvidenceSourceIcon
   from './assets/potential-evidence-source.png';
 
-// offset of the element
-const ELEMENT_OFFSET = {
-  x: 0,
-  y: 0,
-};
+import properties from './properties';
 
-/**
- * This is the string identifier for the PotentialEvidenceSource element.
- * Each custom renderable construct has its own identifier, which is used
- * to distinguish the element from the default elements
- *
- * Pattern:
- *
- * variable name -> CustomElementName+Identifier
- *
- * content -> prefix:CustomElementName
- *
- * Example:
- *
- * ```javascript
- * export const PotentialEvidenceSourceElement = `${bpmn4frssPrefix}PotentialEvidenceSource`;
- * ```
- */
-export const potentialEvidenceSourceIdentifier = (
-  `${bpmn4frssPrefix}PotentialEvidenceSource`);
+const { elementOffset } = properties;
 
 /**
  * Every custom element that is visible has to have a way to render itself,
@@ -55,15 +31,15 @@ export const potentialEvidenceSourceIdentifier = (
  *
  * @returns rendered element
  */
-export const potentialEvidenceSourceRender = (
+const potentialEvidenceSourceRender = (
   parentNode: any,
   element: any,
 ) => {
   // render the image into the modeler
   const potentialEvidenceSource = createSvg('image', {
     // position
-    x: ELEMENT_OFFSET.x,
-    y: ELEMENT_OFFSET.y,
+    x: elementOffset?.x ?? ELEMENT_FALLBACK_OFFSET,
+    y: elementOffset?.y ?? ELEMENT_FALLBACK_OFFSET,
 
     // size
     width: element.width,
@@ -79,3 +55,5 @@ export const potentialEvidenceSourceRender = (
   // return the element
   return potentialEvidenceSource;
 };
+
+export default potentialEvidenceSourceRender;
