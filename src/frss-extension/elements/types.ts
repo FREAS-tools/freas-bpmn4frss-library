@@ -1,9 +1,10 @@
 import { PaletteEntry } from '../common';
 
 export interface DefinitionType {
+  extends?: string[],
   name: string,
   properties: any[],
-  superClass: string[],
+  superClass?: string[],
 }
 
 export interface CustomElement {
