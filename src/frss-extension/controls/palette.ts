@@ -63,8 +63,11 @@ export default class FrssPalette {
       .map(
         (customElement) => customElement.controls,
       )
-      .filter((control) => control.createElementFunction
-        && control.createPaletteEntry);
+      // add the type assertion that if we ran this filter, the
+      // controls is definitely defined
+      .filter(
+        ((ctrls): ctrls is CustomElementControls => !!ctrls),
+      );
 
     // for each element create its palette entry
     const paletteEntries = controls.map((control) => {
