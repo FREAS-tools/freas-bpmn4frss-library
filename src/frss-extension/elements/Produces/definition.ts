@@ -7,6 +7,12 @@ import { bpmn4frssPrefix } from '../../common';
 import potentialEvidenceSourceProperties
   from '../PotentialEvidenceSource/properties';
 
+// potential evidence type is a "dependency" as well and if the
+// name of the element changes for whatever reason, the moddle definition
+// will stay intact
+import potentialEvidenceTypeProperties
+  from '../PotentialEvidenceType/properties';
+
 import { CustomElementDefinition } from '../types';
 import properties from './properties';
 
@@ -32,6 +38,18 @@ const producesDefinition: CustomElementDefinition = {
       // encapsulate it
       isReference: true,
       // this property is an attribute of the `Produces` node
+      isAttr: true,
+    },
+    {
+      // we wish to end the `Produces` arrow in the potential evidence type
+      // i.e. - file, email, business document and so on.
+      name: 'targetRef',
+      type: potentialEvidenceTypeProperties.name,
+
+      // again, we only want a reference, as the evidence type is stored
+      // in the extended `bpmn:DataObject` - `bpmn4frss:EvidenceDataObject`
+      isReference: true,
+      // save this as an attribute of the `Produces` XML node
       isAttr: true,
     },
   ],

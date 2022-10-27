@@ -38,7 +38,7 @@ const potentialEvidenceSourceDefinition = {
     // as a join table) for connecting multiple evidence objects. We only
     // need to specify it, so the moddle knows there is an association.
     {
-      name: 'producesEvidence',
+      name: 'producesEvidences',
       type: producesProperties.name,
       isMany: true,
     },
