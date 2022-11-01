@@ -1,5 +1,5 @@
 import { CustomElement } from '../types';
-import definition, { evidenceDataObjectIdentifier } from './definition';
+import definition from './definition';
 import properties from './properties';
 
 // @TODO: decide whether to render the data objects differently
@@ -11,7 +11,6 @@ import properties from './properties';
 
 const evidenceDataObject: CustomElement = {
   definition,
-  identifier: evidenceDataObjectIdentifier,
   properties,
   // render,
 };

@@ -6,7 +6,6 @@ import {
 } from '../../common';
 import potentialEvidenceSourceIcon
   from './assets/potential-evidence-source.png';
-import { potentialEvidenceSourceIdentifier } from './definition';
 import properties from './properties';
 
 const { elementSize, nameLowercase } = properties;
@@ -31,7 +30,7 @@ const constructPotentialEvidenceSourceCreateFunction = (
     bpmnFactory,
     create,
     elementFactory,
-    potentialEvidenceSourceIdentifier,
+    properties.identifier,
     elementSize?.x ?? ELEMENT_FALLBACK_SIZE,
     elementSize?.y ?? ELEMENT_FALLBACK_SIZE,
   )

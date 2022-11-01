@@ -12,6 +12,7 @@ export interface CustomElementProperties {
     x: number,
     y: number,
   },
+  identifier: string,
   name: string,
   nameLowercase: string,
 }
@@ -48,7 +49,6 @@ export interface CustomElement {
   controls?: CustomElementControls
   definition: CustomElementDefinition,
   icon?: any,
-  identifier: string,
   properties: CustomElementProperties,
-  render?: (parentNode: any, element: any) => Element,
+  render?: (parentNode: any, element: any) => Element | null,
 }

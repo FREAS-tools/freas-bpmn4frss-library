@@ -12,11 +12,6 @@ import { FRSS_PRIORITY } from './common';
 // Custom elements - every custom element is placed in this list
 import customElements from './customElements';
 
-// extract identifiers of custom elements
-const identifiers: string[] = customElements.map(
-  (customElement) => customElement.identifier,
-);
-
 export default class FrssRenderer extends BaseRenderer {
   bpmnRenderer: unknown;
 
@@ -45,7 +40,12 @@ export default class FrssRenderer extends BaseRenderer {
   canRender(element: any) {
     // if you wish to add a new element to the renderer,
     // this list is the place to put the identifiers in
-    return isAny(element, identifiers);
+    return isAny(
+      element,
+      customElements.map(
+        (customElement) => customElement.properties.identifier,
+      ),
+    );
   }
 
   /**
@@ -68,7 +68,7 @@ export default class FrssRenderer extends BaseRenderer {
     const elementIsFrssRenderable = customElements.filter(
       // compare element with its identifier and check if the render
       // function exists
-      (customElement) => is(element, customElement.identifier)
+      (customElement) => is(element, customElement.properties.identifier)
         && customElement.render,
     );
 

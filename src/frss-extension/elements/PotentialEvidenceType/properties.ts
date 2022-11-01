@@ -1,7 +1,12 @@
+// import the prefix
+import { bpmn4frssPrefix } from '../../common';
 import { CustomElementProperties } from '../types';
 
+const name = 'PotentialEvidenceType';
+
 const properties: CustomElementProperties = {
-  name: 'PotentialEvidenceType',
+  identifier: `${bpmn4frssPrefix}${name}`,
+  name,
   nameLowercase: 'potential-evidence-type',
   // elementSize: {
   //   x: 0,

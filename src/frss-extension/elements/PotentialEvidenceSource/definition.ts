@@ -1,17 +1,9 @@
-// import the prefix
-import { bpmn4frssPrefix } from '../../common';
-
 // import the properties of another custom element, will use namely its name;
 import producesProperties from '../Produces/properties';
 // import own property, namely our name
 import properties from './properties';
 
 const { name } = properties;
-
-/**
- * This is the string identifier for the PotentialEvidenceSource element.
- */
-export const potentialEvidenceSourceIdentifier = `${bpmn4frssPrefix}${name}`;
 
 /**
  * The "looking glass" icon, indicates that a resource can be a potential

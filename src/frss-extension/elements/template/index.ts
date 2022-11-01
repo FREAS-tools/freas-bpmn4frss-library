@@ -1,6 +1,6 @@
 import { CustomElement } from '../types';
 // import controls from './controls';
-import definition, { xIdentifier } from './definition';
+import definition from './definition';
 // import icon from './assets/x.png';
 import properties from './properties';
 // import render from './rendererEntry';
@@ -9,7 +9,6 @@ const element: CustomElement = {
   // controls,
   definition,
   // icon,
-  identifier: xIdentifier,
   properties,
   // render,
 };

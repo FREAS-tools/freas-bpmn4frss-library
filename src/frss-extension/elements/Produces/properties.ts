@@ -1,7 +1,12 @@
+// import the prefix
+import { bpmn4frssPrefix } from '../../common';
 import { CustomElementProperties } from '../types';
 
+const name = 'Produces';
+
 const properties: CustomElementProperties = {
-  name: 'Produces',
+  identifier: `${bpmn4frssPrefix}${name}`,
+  name,
   nameLowercase: 'produces',
   // elementSize: {
   //   x: 0,
