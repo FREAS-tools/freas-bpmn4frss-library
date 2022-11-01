@@ -13,12 +13,12 @@
  * ```
  */
 
-import { CustomElementDefinition } from '../types';
+import { FrssElementDefinition } from '../../types';
 import properties from './properties';
 
 const { name } = properties;
 
-const xDefinition: CustomElementDefinition = {
+const xDefinition: FrssElementDefinition = {
   name,
   // pick either `superClass` or `extends` - depending on your application
   superClass: [],

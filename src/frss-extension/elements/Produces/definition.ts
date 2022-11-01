@@ -10,12 +10,12 @@ import potentialEvidenceSourceProperties
 import potentialEvidenceTypeProperties
   from '../PotentialEvidenceType/properties';
 
-import { CustomElementDefinition } from '../types';
+import { FrssElementDefinition } from '../../types';
 import properties from './properties';
 
 const { name } = properties;
 
-const producesDefinition: CustomElementDefinition = {
+const producesDefinition: FrssElementDefinition = {
   name,
   // pick either `superClass` or `extends` - depending on your application
   superClass: ['bpmn:BaseElement'],

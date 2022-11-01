@@ -1,4 +1,4 @@
-import { CustomElement } from '../types';
+import { FrssElement } from '../../types';
 import definition from './definition';
 import properties from './properties';
 
@@ -9,7 +9,7 @@ import properties from './properties';
 
 // import render from './rendererEntry';
 
-const evidenceDataObject: CustomElement = {
+const evidenceDataObject: FrssElement = {
   definition,
   properties,
   // render,

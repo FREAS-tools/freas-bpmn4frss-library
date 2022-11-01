@@ -1,4 +1,4 @@
-import { CustomElement } from '../types';
+import { FrssElement } from '../../types';
 import icon
   from './assets/potential-evidence-source.png';
 import controls from './controls';
@@ -6,7 +6,7 @@ import definition from './definition';
 import properties from './properties';
 import render from './rendererEntry';
 
-const potentialEvidenceSource: CustomElement = {
+const potentialEvidenceSource: FrssElement = {
   controls,
   definition,
   icon,

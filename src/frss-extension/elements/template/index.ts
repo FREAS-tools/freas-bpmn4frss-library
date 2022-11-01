@@ -1,11 +1,11 @@
-import { CustomElement } from '../types';
+import { FrssElement } from '../../types';
 // import controls from './controls';
 import definition from './definition';
 // import icon from './assets/x.png';
 import properties from './properties';
 // import render from './rendererEntry';
 
-const element: CustomElement = {
+const element: FrssElement = {
   // controls,
   definition,
   // icon,

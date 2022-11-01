@@ -1,8 +1,8 @@
-import { createEntryObject } from '../common';
-
 // Custom elements - every custom element is placed in this list
 import customElements from '../customElements';
-import { CustomElementControls } from '../elements/types';
+
+/** @TODO MOVE the types one level above */
+import { joinAllControlsEntries, FrssElementControls } from '../types';
 
 /**
  * FRSS extension of the `bpmn-js` palette
@@ -59,33 +59,29 @@ export default class FrssPalette {
 
     // obtain only element controls submodule, filter out elements that
     // are not used for the palette
-    const controls: CustomElementControls[] = customElements
+    const controls: FrssElementControls[] = customElements
       .map(
         (customElement) => customElement.controls,
       )
       // add the type assertion that if we ran this filter, the
       // controls is definitely defined
       .filter(
-        ((ctrls): ctrls is CustomElementControls => !!ctrls),
+        ((ctrls): ctrls is FrssElementControls => !!ctrls),
       );
 
     // for each element create its palette entry
-    const paletteEntries = controls.map((control) => {
-      // save a function that creates an element
-      const createElementFunction = control.createElementFunction(
+    const paletteEntries = controls.map((control) => (
+      control.createPaletteEntry(
         bpmnFactory,
         create,
         elementFactory,
-      );
-
-      // create the palette entry, the palette uses the `createElementFunction`
-      // and calls it when we create an element with it
-      return control.createPaletteEntry(createElementFunction, translate);
-    });
+        translate,
+      )
+    ));
 
     // return an object full of palette entries
     // (spreading 'hacked' for the library to get what it expects)
-    return createEntryObject(paletteEntries);
+    return joinAllControlsEntries(paletteEntries);
   }
 }
 

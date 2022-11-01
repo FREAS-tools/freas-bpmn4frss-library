@@ -34,8 +34,8 @@ export default class FrssContextPad {
     this.elementFactory = elementFactory;
 
     // getting the auto place position,
-    // we need to check for the false explicitly
-    if (config.autoPlace !== false) {
+    // we need to check for the true value explicitly
+    if (config.autoPlace !== true) {
       this.autoPlace = injector.get('autoPlace', false);
     }
 

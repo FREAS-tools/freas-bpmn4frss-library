@@ -1,11 +1,11 @@
 import potentialEvidenceTypeProperties
   from '../PotentialEvidenceType/properties';
 
-import { CustomElementDefinition } from '../types';
+import { FrssElementDefinition } from '../../types';
 import properties from './properties';
 
 const { name } = properties;
-const evidenceDataObjectDefinition: CustomElementDefinition = {
+const evidenceDataObjectDefinition: FrssElementDefinition = {
   name,
   // the evidence data object extends the regular data object
   // this allows us to add information -> whether the regular dataObject
