@@ -1,22 +1,13 @@
 import {
-  ELEMENT_FALLBACK_SIZE,
-} from '../../common';
-
-import {
-  constructFrssElementControlEntry,
+  createFrssElementControlEntry,
   FrssElementControls,
-  FrssElementControlsEntry,
-  constructElementConstructor,
+  FrssElementControlEntry,
+  createElementConstructor,
+  CreateFrssElementControlEntry,
 } from '../../types';
-import potentialEvidenceSourceIcon
-  from './assets/potential-evidence-source.png';
+import evidenceSourceIcon
+  from './assets/evidence-source.png';
 import properties from './properties';
-
-const {
-  elementSize,
-  identifier,
-  nameLowercase,
-} = properties;
 
 /**
  * Construct a potential evidence source entry
@@ -27,42 +18,46 @@ const {
  * @param {Function} translate function which can translate text
  * @returns potential evidence source palette entry
  */
-const createPotentialEvidenceSource = (
+const createEvidenceSource: CreateFrssElementControlEntry = (
   bpmnFactory: any,
   create: any,
   elementFactory: any,
   translate: Function,
-): FrssElementControlsEntry => constructFrssElementControlEntry(
-  constructElementConstructor,
+  optionalArgs: {
+    modeling: any
+  },
+): FrssElementControlEntry => createFrssElementControlEntry(
+  createElementConstructor,
   // the factory that creates moddle objects (bpmn)
   bpmnFactory,
   // classname is the name lowercase
-  nameLowercase,
+  properties.nameLowercase,
   // create function (creates the diagram element)
   create,
   // the factory that creates diagram elements
   elementFactory,
   // the title that is displayed on hover above
-  'Add Potential Evidence Source',
+  'Add Evidence Source',
   // entry title - key for the pad/palette provider object
-  `create-${nameLowercase}`,
+  `create-${properties.nameLowercase}`,
   // group the element belongs in
   'activity',
-  // element height
-  elementSize?.y ?? ELEMENT_FALLBACK_SIZE,
-  potentialEvidenceSourceIcon,
   // element identifier
-  identifier,
+  properties.identifier,
   // translate fn
   translate,
-  // width
-  elementSize?.x ?? ELEMENT_FALLBACK_SIZE,
+  {
+    ...optionalArgs,
+    height: properties.elementSize?.y,
+    imageUrl: evidenceSourceIcon,
+    width: properties.elementSize?.x,
+  },
 );
 
 // Controls grouped together and exported
-const PotentialEvidenceSourceControls: FrssElementControls = {
+const EvidenceSourceControls: FrssElementControls = {
   padEntries: [],
-  createPaletteEntry: createPotentialEvidenceSource,
+  createPaletteEntry: createEvidenceSource,
 };
 
-export default PotentialEvidenceSourceControls;
+export default EvidenceSourceControls;

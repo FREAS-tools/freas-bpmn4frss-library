@@ -14,12 +14,12 @@ import {
 import { ELEMENT_FALLBACK_OFFSET } from '../../common';
 
 // icon for potential evidence sources
-import PotentialEvidenceSourceIcon
-  from './assets/potential-evidence-source.png';
+import EvidenceSourceIcon
+  from './assets/evidence-source.png';
 
 import properties from './properties';
 
-const { elementOffset } = properties;
+const offset = properties.elementOffset ?? ELEMENT_FALLBACK_OFFSET;
 
 /**
  * Every custom element that is visible has to have a way to render itself,
@@ -31,29 +31,28 @@ const { elementOffset } = properties;
  *
  * @returns rendered element
  */
-const potentialEvidenceSourceRender = (
+const evidenceSourceRender = (
   parentNode: any,
   element: any,
 ) => {
   // render the image into the modeler
-  const potentialEvidenceSource = createSvg('image', {
-    // position
-    x: elementOffset?.x ?? ELEMENT_FALLBACK_OFFSET,
-    y: elementOffset?.y ?? ELEMENT_FALLBACK_OFFSET,
+  const evidenceSource = createSvg('image', {
+    // position - defined by the offset
+    ...offset,
 
     // size
     width: element.width,
     height: element.height,
 
     // content
-    href: PotentialEvidenceSourceIcon,
+    href: EvidenceSourceIcon,
   });
 
   // append the image to the SVG
-  appendSvg(parentNode, potentialEvidenceSource as SVGElement);
+  appendSvg(parentNode, evidenceSource as SVGElement);
 
   // return the element
-  return potentialEvidenceSource;
+  return evidenceSource;
 };
 
-export default potentialEvidenceSourceRender;
+export default evidenceSourceRender;

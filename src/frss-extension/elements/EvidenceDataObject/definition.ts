@@ -1,7 +1,7 @@
-import potentialEvidenceTypeProperties
-  from '../PotentialEvidenceType/properties';
-
 import { FrssElementDefinition } from '../../types';
+import potentialEvidenceTypeProperties
+  from '../PotentialEvidence/properties';
+
 import properties from './properties';
 
 const { name } = properties;

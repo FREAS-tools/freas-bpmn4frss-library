@@ -18,7 +18,7 @@ import properties from './properties';
 
 const { name } = properties;
 
-const potentialEvidenceTypeDefinition: FrssElementDefinition = {
+const potentialEvidenceDefinition: FrssElementDefinition = {
   name,
   // the potential evidence type is a data object
   superClass: ['bpmn:DataObject'],
@@ -34,4 +34,4 @@ const potentialEvidenceTypeDefinition: FrssElementDefinition = {
   ],
 };
 
-export default potentialEvidenceTypeDefinition;
+export default potentialEvidenceDefinition;

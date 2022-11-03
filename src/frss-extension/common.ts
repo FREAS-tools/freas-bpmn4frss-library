@@ -24,4 +24,7 @@ export const ELEMENT_FALLBACK_SIZE = 32;
  * The fallback offset for an element is 0 if the element does not have
  * an offset defined in its `properties` module
  */
-export const ELEMENT_FALLBACK_OFFSET = 0;
+export const ELEMENT_FALLBACK_OFFSET = {
+  x: 0,
+  y: 0,
+};

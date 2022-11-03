@@ -28,31 +28,40 @@ export interface FrssElementDefinition {
 /**
  * Controls entry of the FRSS Element, used by the pad and/or the palette
  */
-export interface FrssElementControlsEntry {
-  [x: string]: {
+export interface FrssElementControlEntry {
+  [x: string]: Partial<{
     action: {
       click: Function;
       dragstart: Function;
     };
     className: string;
     group: string;
-    imageUrl?: any;
+    imageUrl: any;
     title: any;
-  }
+  }>
 }
+
+export type ActionFunction = (
+  (element: any, event?: any, autoActivate?: any) => void
+);
+
+export type CreateActionFunctionOptionalArguments = Partial<{
+  height: number,
+  modeling: any,
+  width: number,
+}>;
 
 /**
  * The function signature for "action function" which is
  * invoked whenever user clicks / drags the controls entry.
  */
-export type ActionFunction = (
+export type CreateActionFunction = (
   bpmnFactory: any,
   create: any,
   elementFactory: any,
-  height: number,
   type: string,
-  width: number,
-) => ((...any: any[]) => void);
+  optionalArgs: CreateActionFunctionOptionalArguments
+) => ActionFunction;
 
 /**
  * Function which can be called by the `constructFrssElementControlEntry`
@@ -69,16 +78,15 @@ export type ActionFunction = (
  *
  * @returns create function for the new Element
  */
-export const constructElementConstructor: ActionFunction = (
-  bpmnFactory,
-  create,
-  elementFactory,
-  height,
-  type,
-  width,
+export const createElementConstructor: CreateActionFunction = (
+  bpmnFactory: any,
+  create: any,
+  elementFactory: any,
+  type: string,
+  { height, width }: CreateActionFunctionOptionalArguments,
 ) => {
   // the function is then called whenever the element is created
-  const createFunction = (event: any) => {
+  const createFunction = (element: any) => {
     // create a business object (according to the custom moddle definition)
     const businessObject = bpmnFactory.create(type);
     const shape = elementFactory.createShape({
@@ -88,38 +96,40 @@ export const constructElementConstructor: ActionFunction = (
       width,
     });
 
-    // create the event with that created shape
-    create.start(event, shape);
+    // create the element with that created shape
+    create.start(element, shape);
   };
 
   return createFunction;
 };
 
 /**
- * Function to create a new controls entry, the element then invokes
- * the `actionFunction`
+ * Function to create a new controls entry, the `actionFunction` is called when
+ * the element is clicked od dragged
  *
- * @param {ActionFunction} actionFunction function that is executed when
- *                                        the element is clicked or dragged.
+ * @param {CreateActionFunction} actionFunction function that is executed when
+ *                                              the element is clicked
+ *                                              or dragged.
  * @param {any} bpmnFactory factory that can create bpmn objects
- *                        (according to the custom moddle definition)
+ *                          (according to the custom moddle definition)
  * @param {string} className name of the css class to assign to
  * @param {Function} create function that can create the element in the diagram
  * @param {any} elementFactory function that can create (custom) elements
- *                           in the diagram
+ *                             in the diagram
  * @param {string} elementTitle title which is shown on hover
  * @param {string} entryTitle title of the action for the pad/palette provider
  * @param {string} group where is the entry grouped at
  * @param {number} height height of the object
  * @param {any} imageUrl the image which is displayed
  * @param {string} type object identifier
- * @param {Function} translate translate function which takes the title and translates is
+ * @param {Function} translate translate function
+ *                             which takes the title and translates is
  * @param {number} width height of the object
  *
  * @returns palette entry
  */
-export const constructFrssElementControlEntry = (
-  actionFunction: ActionFunction,
+export const createFrssElementControlEntry = (
+  actionFunction: CreateActionFunction,
   bpmnFactory: any,
   className: string,
   create: any,
@@ -127,27 +137,26 @@ export const constructFrssElementControlEntry = (
   elementTitle: string,
   entryTitle: string,
   group: string,
-  height: number,
-  imageUrl: any | undefined,
   type: string,
   translate: Function,
-  width: number,
-): FrssElementControlsEntry => {
+  optionalArgs: CreateActionFunctionOptionalArguments & {
+    imageUrl: any,
+  },
+): FrssElementControlEntry => {
   // an element constructor function, called
   // each time the element should be created in the Modeler
   const createElement = actionFunction(
     bpmnFactory,
     create,
     elementFactory,
-    height,
     type,
-    width,
+    optionalArgs,
   );
 
   return {
     [entryTitle]: {
       group,
-      imageUrl,
+      imageUrl: optionalArgs.imageUrl,
       className,
       title: translate(elementTitle),
       action: {
@@ -161,12 +170,12 @@ export const constructFrssElementControlEntry = (
 /**
  * Create the palette entry object from a list of entries
  *
- * @param {FrssElementControlsEntry[]} controlEntries entries for the palette
+ * @param {FrssElementControlEntry[]} controlEntries entries for the palette
  * @returns single palette entry object
  */
-export const joinAllControlsEntries = (
-  controlEntries: FrssElementControlsEntry[],
-): FrssElementControlsEntry => {
+export const joinControlEntries = (
+  controlEntries: FrssElementControlEntry[],
+): FrssElementControlEntry => {
   // empty object
   let result = {};
 
@@ -182,12 +191,15 @@ export const joinAllControlsEntries = (
   return result;
 };
 
-export type ConstructFrssElementControlsEntry = (
+export type CreateFrssElementControlEntry = (
   bpmnFactory: any,
   create: any,
   elementFactory: any,
   translate: Function,
-) => FrssElementControlsEntry;
+  optionalArgs: {
+    modeling: any,
+  }
+) => FrssElementControlEntry;
 
 /**
  * Pad Entry is an object that has the array of element identifiers,
@@ -195,7 +207,7 @@ export type ConstructFrssElementControlsEntry = (
  */
 export interface PadEntry {
   /** Pad entry constructor */
-  constructPadEntry: ConstructFrssElementControlsEntry,
+  constructPadEntry: CreateFrssElementControlEntry,
   elementIdentifiers: string[]
 }
 
@@ -203,17 +215,27 @@ export interface PadEntry {
  * The controls attributes of a custom elements
  */
 export interface FrssElementControls {
-  createPaletteEntry: ConstructFrssElementControlsEntry,
+  createPaletteEntry?: CreateFrssElementControlEntry,
   padEntries: PadEntry[],
 }
+
+export type FrssRendererEntry = (
+  parentNode: any,
+  element: any,
+  bpmnFactory?: any
+) => Element | null;
 
 /**
  * The structure of a custom element
  */
-export interface FrssElement {
-  controls?: FrssElementControls
+export interface FrssElementSubmodules {
+  controls: FrssElementControls
   definition: FrssElementDefinition,
-  icon?: any,
-  properties: FrssElementProperties,
-  render?: (parentNode: any, element: any) => Element | null,
+  icon: any,
+  render: FrssRendererEntry,
 }
+
+// Frss Element is comprised of optional elements
+// and a required `properties` key
+export type FrssElement = Partial<FrssElementSubmodules>
+& { properties: FrssElementProperties };

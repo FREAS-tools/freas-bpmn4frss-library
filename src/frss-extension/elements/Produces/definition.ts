@@ -2,13 +2,13 @@
 // as we need to know its identifier to be able to identify
 // it as a reference type here
 import potentialEvidenceSourceProperties
-  from '../PotentialEvidenceSource/properties';
+  from '../EvidenceSource/properties';
 
 // potential evidence type is a "dependency" as well and if the
 // name of the element changes for whatever reason, the moddle definition
 // will stay intact
 import potentialEvidenceTypeProperties
-  from '../PotentialEvidenceType/properties';
+  from '../PotentialEvidence/properties';
 
 import { FrssElementDefinition } from '../../types';
 import properties from './properties';

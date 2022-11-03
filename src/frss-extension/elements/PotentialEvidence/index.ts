@@ -1,15 +1,14 @@
 import { FrssElement } from '../../types';
-import icon
-  from './assets/potential-evidence-source.png';
-import controls from './controls';
+// import controls from './controls';
 import definition from './definition';
+// import icon from './assets/x.png';
 import properties from './properties';
 import render from './rendererEntry';
 
-const potentialEvidenceSource: FrssElement = {
-  controls,
+const potentialEvidence: FrssElement = {
+  // controls,
   definition,
-  icon,
+  // icon,
   properties,
   render,
 };
@@ -17,4 +16,4 @@ const potentialEvidenceSource: FrssElement = {
 /**
  * The default export exports all properties of a custom element.
  */
-export default potentialEvidenceSource;
+export default potentialEvidence;

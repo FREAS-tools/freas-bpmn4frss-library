@@ -1,8 +1,8 @@
-# `PotentialEvidenceType`
+# `PotentialEvidence`
 
-Potential evidence type is a construct which allows to mark the `bpmn:DataObject` type as an evidence object. The existence of `PotentialEvidenceType` "transforms" the `DataObject` that it's attached to into a `EvidenceDataObject`. This transformation extends the information we can attach to the `DataObject` with properties contained within `PotentialEvidenceType`.
+Potential Evidence is a construct which allows the user to mark the `bpmn:DataObject` type as an evidence object. The existence of `PotentialEvidence` "transforms" the `DataObject` that it's attached to into a `EvidenceDataObject`. This transformation extends the information we can attach to the `DataObject` with properties contained within `PotentialEvidence`.
 
-Properties of the `PotentialEvidenceType`:
+Properties of the `PotentialEvidence`:
 
 - [x] `dataFields`
   

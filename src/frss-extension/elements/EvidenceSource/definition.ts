@@ -10,7 +10,7 @@ const { name } = properties;
  * source of evidence. Can be connected to either a task, event or a data store
  * (which can recursively generate more and more evidence types)
  */
-const potentialEvidenceSourceDefinition = {
+const evidenceSourceDefinition = {
   name,
   superClass: ['bpmn:BaseElement', 'bpmn:FlowNode'],
   properties: [
@@ -37,4 +37,4 @@ const potentialEvidenceSourceDefinition = {
   ],
 };
 
-export default potentialEvidenceSourceDefinition;
+export default evidenceSourceDefinition;

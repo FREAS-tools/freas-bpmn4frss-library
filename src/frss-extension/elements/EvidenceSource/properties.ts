@@ -2,12 +2,12 @@
 import { bpmn4frssPrefix } from '../../common';
 import { FrssElementProperties } from '../../types';
 
-const name = 'PotentialEvidenceSource';
+const name = 'EvidenceSource';
 
 const properties: FrssElementProperties = {
   identifier: `${bpmn4frssPrefix}${name}`,
   name,
-  nameLowercase: 'potential-evidence-source',
+  nameLowercase: 'evidence-source',
   elementSize: {
     x: 28,
     y: 28,
