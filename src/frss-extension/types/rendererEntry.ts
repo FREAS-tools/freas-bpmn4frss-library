@@ -1,5 +1,5 @@
 export interface RendererContext {
-  bpmnFactory: any,
+  // bpmnFactory: any,
   element: any,
   parentNode: any,
 }

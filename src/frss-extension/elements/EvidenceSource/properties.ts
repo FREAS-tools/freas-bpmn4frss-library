@@ -1,20 +1,23 @@
 // import the prefix
 import { bpmn4frssPrefix } from '../../common';
-import { FrssElementProperties } from '../../typesOld';
+import { RenderableElementWithIconProps } from '../../types/props';
+import icon
+  from './assets/evidence-source.png';
 
 const name = 'EvidenceSource';
 
-const properties: FrssElementProperties = {
+const properties: RenderableElementWithIconProps = {
+  icon,
   identifier: `${bpmn4frssPrefix}${name}`,
   name,
   nameLowercase: 'evidence-source',
-  elementSize: {
-    x: 28,
-    y: 28,
-  },
-  elementOffset: {
+  offset: {
     x: 0,
     y: 0,
+  },
+  size: {
+    height: 28,
+    width: 28,
   },
 };
 

@@ -1,7 +1,12 @@
 // Custom elements - every custom element is placed in this list
 import customElements from '../customElements';
+import { FrssElementInPalette, elementIsInPalette } from '../types';
+import { collectControlEntries } from '../types/controls/entry';
 
-import { joinControlEntries, CreateFrssElementControlEntry } from '../typesOld';
+// import { Controls, EntryData, isInPalette } from '../types/controls/controls';
+// import { collectControlEntries } from '../types/controls/entry';
+import newElementEntry from '../types/controls/implementation';
+import { RenderableElementProps } from '../types/props';
 
 /**
  * FRSS extension of the `bpmn-js` palette
@@ -15,7 +20,7 @@ export default class FrssPalette {
 
   modeling: any;
 
-  translate: Function;
+  translate: (title: string) => string;
 
   static $inject: string[];
 
@@ -31,7 +36,7 @@ export default class FrssPalette {
     elementFactory: any,
     modeling: any,
     palette: any,
-    translate: Function,
+    translate: (title: string) => string,
   ) {
     // save the parameters into the object
     this.bpmnFactory = bpmnFactory;
@@ -53,40 +58,36 @@ export default class FrssPalette {
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   getPaletteEntries(element: any) {
-    const {
-      bpmnFactory,
-      create,
-      elementFactory,
-      modeling,
-      translate,
-    } = this;
+    // const {
+    //   bpmnFactory,
+    //   create,
+    //   elementFactory,
+    //   modeling,
+    //   translate,
+    // } = this;
 
     // obtain only element controls submodule, filter out elements that
     // are not used for the palette
-    const controls: CreateFrssElementControlEntry[] = customElements
-      .map(
-        (customElement) => customElement?.controls?.createPaletteEntry,
-      )
+    const controls: FrssElementInPalette[] = customElements
       // add the type assertion that if we ran this filter, the
       // controls is definitely defined
       .filter(
-        ((entry): entry is CreateFrssElementControlEntry => !!entry),
+        (elem): elem is FrssElementInPalette => elementIsInPalette(elem),
       );
 
     // for each element create its palette entry
-    const paletteEntries = controls.map((control) => (
-      control(
-        bpmnFactory,
-        create,
-        elementFactory,
-        translate,
-        { modeling },
+    const paletteEntries = controls.map((elem) => (
+      newElementEntry(
+        elem.controls.createEntry.action,
+        this,
+        elem.properties as RenderableElementProps,
+        elem.controls.createEntry.entryProps,
       )
     ));
 
     // return an object full of palette entries
     // (spreading 'hacked' for the library to get what it expects)
-    return joinControlEntries(paletteEntries);
+    return collectControlEntries(paletteEntries);
   }
 }
 

@@ -1,6 +1,4 @@
-import { FrssElement } from '../../typesOld';
-import icon
-  from './assets/evidence-source.png';
+import FrssElement from '../../types';
 import controls from './controls';
 import definition from './definition';
 import properties from './properties';
@@ -9,7 +7,6 @@ import render from './rendererEntry';
 const evidenceSource: FrssElement = {
   controls,
   definition,
-  icon,
   properties,
   render,
 };

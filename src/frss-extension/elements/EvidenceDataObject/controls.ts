@@ -1,20 +1,12 @@
-import {
-  createFrssElementControlEntry,
-  FrssElementControls,
-  FrssElementControlEntry,
-  CreateActionFunction,
-  CreateActionFunctionOptionalArguments,
-  CreateFrssElementControlEntry,
-} from '../../typesOld';
+import { NewActionFunction } from '../../types/controls/actionFunction';
+import { Controls } from '../../types/controls/controls';
 
-import properties from './properties';
-
-const createMarkDataObjectAsEvidenceAction: CreateActionFunction = (
-  bpmnFactory: any,
-  _create: any,
-  _elementFactory: any,
-  _type: string,
-  { modeling }: CreateActionFunctionOptionalArguments,
+const markDataObjectAsEvidence: NewActionFunction = (
+  {
+    bpmnFactory,
+    modeling,
+  },
+  elementProperties,
 ) => {
   const action = (element: any) => {
     const dataObject = element.businessObject.dataObjectRef;
@@ -22,7 +14,7 @@ const createMarkDataObjectAsEvidenceAction: CreateActionFunction = (
     // if the object has been marked as an evidence type already
     if (dataObject.isPotentialEvidence) return;
 
-    const potentialEvidence = bpmnFactory.create(properties.identifier);
+    const potentialEvidence = bpmnFactory.create(elementProperties.identifier);
     const updateDataObject = {
       ...dataObject,
       isPotentialEvidence: potentialEvidence,
@@ -36,31 +28,16 @@ const createMarkDataObjectAsEvidenceAction: CreateActionFunction = (
   return action;
 };
 
-export const markDataObjectAsEvidence: CreateFrssElementControlEntry = (
-  bpmnFactory: any,
-  create: any,
-  elementFactory: any,
-  translate: Function,
-  _optionalArgs,
-): FrssElementControlEntry => createFrssElementControlEntry(
-  createMarkDataObjectAsEvidenceAction,
-  bpmnFactory,
-  properties.nameLowercase,
-  create,
-  elementFactory,
-  'Mark DataObjectRef as Potential Evidence',
-  'mark-data-object-ref-as-evidence',
-  'edit',
-  properties.identifier,
-  translate,
-  { ..._optionalArgs, imageUrl: undefined },
-);
-
-const controls: FrssElementControls = {
+const controls: Controls = {
   padEntries: [
     {
-      constructPadEntry: markDataObjectAsEvidence,
-      elementIdentifiers: ['bpmn:DataObjectRef'],
+      action: markDataObjectAsEvidence,
+      entryProps: {
+        entryGroup: 'edit',
+        key: 'mark-as-potential-evidence',
+        title: 'Mark DataObjectRef as Potential Evidence',
+      },
+      showOnElements: ['bpmn:DataObjectRef'],
     },
   ],
 };

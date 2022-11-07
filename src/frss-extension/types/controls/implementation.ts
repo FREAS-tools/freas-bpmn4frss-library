@@ -1,9 +1,6 @@
-import {
-  hasIcon, RenderableElementProps, RenderableElementWithIconProps,
-} from '../props';
+import { hasIcon } from '../props';
 import { ActionFunction, NewActionFunction } from './actionFunction';
-import ControlsContext from './context';
-import { ControlEntry, EntryProps, NewControlEntry } from './entry';
+import { ControlEntry, NewControlEntry } from './entry';
 
 /**
  * Default function for creating the FRSS element
@@ -11,7 +8,7 @@ import { ControlEntry, EntryProps, NewControlEntry } from './entry';
  * @param properties renderable element properties
  * @returns the function that can create an element
  */
-const createElement: NewActionFunction = (
+export const createElement: NewActionFunction = (
   { bpmnFactory, create, elementFactory },
   properties,
 ) => {
@@ -51,7 +48,7 @@ const newElementEntry: NewControlEntry = (
   const performAction = action(context, elementProps);
 
   let entry: ControlEntry = {
-    [entryProps.title]: {
+    [entryProps.key]: {
       group: entryProps.entryGroup,
       className: elementProps.nameLowercase,
       title: context.translate(entryProps.title),
@@ -64,27 +61,14 @@ const newElementEntry: NewControlEntry = (
 
   if (hasIcon(elementProps)) {
     entry = {
-      ...entry,
-      imageUrl: elementProps.icon,
+      [entryProps.key]: {
+        ...entry[entryProps.key],
+        imageUrl: elementProps.icon,
+      },
     };
   }
 
   return entry;
 };
-
-/**
- * Pad entry -> creates the FRSS element
- *
- * @param action the action that should be performed on click and on drag
- * @param context context from the pad/palette provider
- * @param elementProps props of the element
- * @param entryProps additional entry props
- * @returns control entry of specified element
- */
-export const padEntry = (
-  context: ControlsContext,
-  elementProps: RenderableElementProps | RenderableElementWithIconProps,
-  entryProps: EntryProps,
-) => newElementEntry(createElement, context, elementProps, entryProps);
 
 export default newElementEntry;

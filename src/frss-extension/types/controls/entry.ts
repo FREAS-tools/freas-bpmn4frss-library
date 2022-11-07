@@ -10,7 +10,8 @@ interface Actions {
 
 export interface EntryProps {
   entryGroup: string,
-  imageUrl: any,
+  imageUrl?: any,
+  key: string,
   title: string,
 }
 

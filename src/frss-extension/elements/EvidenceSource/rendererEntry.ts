@@ -12,6 +12,7 @@ import {
   append as appendSvg,
 } from 'tiny-svg';
 import { ELEMENT_FALLBACK_OFFSET } from '../../common';
+import RendererEntry from '../../types/rendererEntry';
 
 // icon for potential evidence sources
 import EvidenceSourceIcon
@@ -19,21 +20,10 @@ import EvidenceSourceIcon
 
 import properties from './properties';
 
-const offset = properties.elementOffset ?? ELEMENT_FALLBACK_OFFSET;
+const offset = properties.offset ?? ELEMENT_FALLBACK_OFFSET;
 
-/**
- * Every custom element that is visible has to have a way to render itself,
- * so in every `rendererEntry.ts` file is a function that does just that -
- * provides a way to render the element.
- *
- * @param {*} parentNode parent node of the element that needs to be rendered
- * @param {*} element element that is getting rendered
- *
- * @returns rendered element
- */
-const evidenceSourceRender = (
-  parentNode: any,
-  element: any,
+const evidenceSourceRender: RendererEntry = (
+  { parentNode, element },
 ) => {
   // render the image into the modeler
   const evidenceSource = createSvg('image', {
