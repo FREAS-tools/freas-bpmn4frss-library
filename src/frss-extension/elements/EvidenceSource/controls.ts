@@ -4,7 +4,7 @@ import {
   FrssElementControlEntry,
   createElementConstructor,
   CreateFrssElementControlEntry,
-} from '../../types';
+} from '../../typesOld';
 import evidenceSourceIcon
   from './assets/evidence-source.png';
 import properties from './properties';

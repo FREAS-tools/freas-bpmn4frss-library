@@ -1,11 +1,11 @@
-import { FrssElementDefinition } from '../../types';
+import Definition from '../../types/definition';
 import potentialEvidenceTypeProperties
   from '../PotentialEvidence/properties';
 
 import properties from './properties';
 
 const { name } = properties;
-const evidenceDataObjectDefinition: FrssElementDefinition = {
+const evidenceDataObjectDefinition: Definition = {
   name,
   // the evidence data object extends the regular data object
   // this allows us to add information -> whether the regular dataObject

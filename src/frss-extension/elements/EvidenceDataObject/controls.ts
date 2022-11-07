@@ -5,7 +5,7 @@ import {
   CreateActionFunction,
   CreateActionFunctionOptionalArguments,
   CreateFrssElementControlEntry,
-} from '../../types';
+} from '../../typesOld';
 
 import properties from './properties';
 

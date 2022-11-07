@@ -1,4 +1,4 @@
-import { FrssElement } from '../../types';
+import { FrssElement } from '../../typesOld';
 // import controls from './controls';
 import definition from './definition';
 // import icon from './assets/x.png';

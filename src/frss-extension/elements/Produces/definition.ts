@@ -1,3 +1,5 @@
+import Definition from '../../types/definition';
+
 // potential evidence source is a "dependency" of this element,
 // as we need to know its identifier to be able to identify
 // it as a reference type here
@@ -10,12 +12,11 @@ import potentialEvidenceSourceProperties
 import potentialEvidenceTypeProperties
   from '../PotentialEvidence/properties';
 
-import { FrssElementDefinition } from '../../types';
 import properties from './properties';
 
 const { name } = properties;
 
-const producesDefinition: FrssElementDefinition = {
+const producesDefinition: Definition = {
   name,
   // pick either `superClass` or `extends` - depending on your application
   superClass: ['bpmn:BaseElement'],

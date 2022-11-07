@@ -34,4 +34,5 @@ export default {
 export {
   FrssDefinitions as Bpmn4FrssDefinitions,
   FrssRenderer as Bpmn4FrssRenderer,
+  FrssPalette as Bpmn4FrssPalette,
 };

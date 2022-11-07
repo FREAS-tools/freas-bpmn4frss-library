@@ -1,6 +1,6 @@
 // import the prefix
 import { bpmn4frssPrefix } from '../../common';
-import { FrssElementProperties } from '../../types';
+import { FrssElementProperties } from '../../typesOld';
 
 const name = 'Produces';
 

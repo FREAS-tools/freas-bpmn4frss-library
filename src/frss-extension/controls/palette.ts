@@ -1,7 +1,7 @@
 // Custom elements - every custom element is placed in this list
 import customElements from '../customElements';
 
-import { joinControlEntries, CreateFrssElementControlEntry } from '../types';
+import { joinControlEntries, CreateFrssElementControlEntry } from '../typesOld';
 
 /**
  * FRSS extension of the `bpmn-js` palette

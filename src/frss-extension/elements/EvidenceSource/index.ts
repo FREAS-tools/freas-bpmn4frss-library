@@ -1,4 +1,4 @@
-import { FrssElement } from '../../types';
+import { FrssElement } from '../../typesOld';
 import icon
   from './assets/evidence-source.png';
 import controls from './controls';
