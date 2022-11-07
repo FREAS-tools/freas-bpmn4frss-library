@@ -1,5 +1,4 @@
-import
-{ RenderableElementProps, RenderableElementWithIconProps } from '../props';
+import Properties from '../props';
 import { ActionFunction, NewActionFunction } from './actionFunction';
 import ControlsContext from './context';
 
@@ -30,6 +29,7 @@ export interface ControlEntry {
   }>
 }
 
+// @TODO REWORK AS `Map`
 export const collectControlEntries = (
   entries: ControlEntry[],
 ): ControlEntry => {
@@ -51,6 +51,6 @@ export const collectControlEntries = (
 export type NewControlEntry = (
   action: NewActionFunction,
   context: ControlsContext,
-  elementProps: RenderableElementProps | RenderableElementWithIconProps,
+  elementProps: Properties,
   entryProps: EntryProps,
 ) => ControlEntry;

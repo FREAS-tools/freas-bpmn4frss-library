@@ -28,15 +28,35 @@ export type FrssElementInPalette = {
   rendererEntry: RendererEntry,
 }>;
 
+export type FrssElementInPad = {
+  controls: {
+    padEntries: PadEntryData[],
+  },
+  properties: Properties,
+} & Partial<{
+  definition: Definition,
+  rendererEntry: RendererEntry,
+}>;
+
 export const elementIsInPalette = (
   element: FrssElement,
 ): element is FrssElementInPalette => {
-  const isInPaletteElement = element as FrssElementInPalette;
+  const isInPalette = element as FrssElementInPalette;
 
-  return isInPaletteElement.controls !== undefined
-    && isInPaletteElement.controls.createEntry !== undefined
-    && isInPaletteElement.controls.createEntry.action !== undefined
-    && isInPaletteElement.controls.createEntry.entryProps !== undefined;
+  return isInPalette.controls !== undefined
+    && isInPalette.controls.createEntry !== undefined
+    && isInPalette.controls.createEntry.action !== undefined
+    && isInPalette.controls.createEntry.entryProps !== undefined;
+};
+
+export const elementIsInPad = (
+  element: FrssElement,
+): element is FrssElementInPad => {
+  const isInPad = element as FrssElementInPad;
+
+  return isInPad.controls !== undefined
+    && isInPad.controls.padEntries !== undefined
+    && isInPad.controls.padEntries.length > 0;
 };
 
 export default FrssElement;

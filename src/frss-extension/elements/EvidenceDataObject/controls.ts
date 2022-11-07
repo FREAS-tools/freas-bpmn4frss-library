@@ -37,7 +37,7 @@ const controls: Controls = {
         key: 'mark-as-potential-evidence',
         title: 'Mark DataObjectRef as Potential Evidence',
       },
-      showOnElements: ['bpmn:DataObjectRef'],
+      showOnElements: ['bpmn:DataObjectReference'],
     },
   ],
 };

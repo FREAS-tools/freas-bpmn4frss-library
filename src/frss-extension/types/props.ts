@@ -27,18 +27,21 @@ export interface RenderableElementWithIconProps extends RenderableElementProps {
 type Properties = Required<Props>
 | Required<RenderableElementProps> | Required<RenderableElementWithIconProps>;
 
-export const isRenderable = (
-  element: Properties,
-): element is RenderableElementProps => {
-  const renderable = element as RenderableElementProps;
-  return renderable.offset !== undefined && renderable.size !== undefined;
+export const hasSizeAndOffset = (
+  props: Properties,
+): props is RenderableElementProps => {
+  const convertedProps = props as RenderableElementProps;
+
+  return convertedProps.offset !== undefined
+    && convertedProps.size !== undefined;
 };
 
 export const hasIcon = (
-  element: Properties,
-): element is RenderableElementWithIconProps => {
-  const icon = element as RenderableElementWithIconProps;
-  return icon.icon !== undefined;
+  props: Properties,
+): props is RenderableElementWithIconProps => {
+  const convertedProps = props as RenderableElementWithIconProps;
+  return hasSizeAndOffset(convertedProps)
+    && convertedProps.icon !== undefined;
 };
 
 export default Properties;

@@ -1,5 +1,4 @@
-import
-{ RenderableElementProps, RenderableElementWithIconProps } from '../props';
+import Properties from '../props';
 import ControlsContext from './context';
 
 export type ActionFunction = (
@@ -8,7 +7,14 @@ export type ActionFunction = (
   autoActivate?: any,
 ) => void;
 
+export interface CreateShape {
+  businessObject: any,
+  height?: number,
+  type: string,
+  weight?: number,
+}
+
 export type NewActionFunction = (
   context: ControlsContext,
-  elementProperties: RenderableElementProps | RenderableElementWithIconProps,
+  elementProperties: Properties,
 ) => ActionFunction;

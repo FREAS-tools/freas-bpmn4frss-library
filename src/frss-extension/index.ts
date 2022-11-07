@@ -1,3 +1,4 @@
+import FrssContextPad from './controls/pad';
 import FrssPalette from './controls/palette';
 import FrssDefinitions from './definitions';
 import FrssRenderer from './renderer';
@@ -12,10 +13,12 @@ export default {
   __init__: [
     'frssRenderer',
     'frssPalette',
+    'frssPad',
   ],
 
   frssRenderer: ['type', FrssRenderer],
   frssPalette: ['type', FrssPalette],
+  frssPad: ['type', FrssContextPad],
 
   // Moddle definitions should be imported with the library itself,
   // but they should not be initialized by the dependency injector.

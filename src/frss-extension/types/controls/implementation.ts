@@ -1,5 +1,9 @@
-import { hasIcon } from '../props';
-import { ActionFunction, NewActionFunction } from './actionFunction';
+import { hasIcon, hasSizeAndOffset } from '../props';
+import {
+  ActionFunction,
+  CreateShape,
+  NewActionFunction,
+} from './actionFunction';
 import { ControlEntry, NewControlEntry } from './entry';
 
 /**
@@ -16,12 +20,23 @@ export const createElement: NewActionFunction = (
   const createFunction: ActionFunction = (element: any) => {
     // create a business object (according to the custom moddle definition)
     const businessObject = bpmnFactory.create(properties.identifier);
-    const shape = elementFactory.createShape({
+    // diagram-js object data
+    let createObject: CreateShape = {
       businessObject,
-      height: properties.size.height,
       type: properties.identifier,
-      width: properties.size.width,
-    });
+    };
+
+    // if the element has size and offset, add it to the shape
+    if (hasSizeAndOffset(properties)) {
+      createObject = {
+        ...createObject,
+        height: properties.size.height,
+        weight: properties.size.width,
+      };
+    }
+
+    // create the shape
+    const shape = elementFactory.createShape(createObject);
 
     // create the element with that created shape
     create.start(element, shape);
