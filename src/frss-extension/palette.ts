@@ -1,12 +1,12 @@
 // Custom elements - every custom element is placed in this list
-import customElements from '../customElements';
-import { FrssElementInPalette, elementIsInPalette } from '../types';
-import { collectControlEntries } from '../types/controls/entry';
+import customElements from './customElements';
+import { FrssElementInPalette, elementIsInPalette } from './types';
+import { collectControlEntries } from './types/controls/entry';
 
 // import { Controls, EntryData, isInPalette } from '../types/controls/controls';
 // import { collectControlEntries } from '../types/controls/entry';
-import newElementEntry from '../types/controls/implementation';
-import { RenderableElementProps } from '../types/props';
+import newElementEntry from './types/controls/implementation';
+import { RenderableElementProps } from './types/props';
 
 /**
  * FRSS extension of the `bpmn-js` palette

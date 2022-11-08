@@ -1,6 +1,6 @@
-import FrssContextPad from './controls/pad';
-import FrssPalette from './controls/palette';
 import FrssDefinitions from './definitions';
+import FrssContextPad from './pad';
+import FrssPalette from './palette';
 import FrssRenderer from './renderer';
 
 /**

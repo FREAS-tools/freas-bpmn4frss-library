@@ -1,10 +1,10 @@
 // import the prefix
 import { bpmn4frssPrefix } from '../../common';
-import { FrssElementProperties } from '../../typesOld';
+import Properties from '../../types/props';
 
 const name = 'PotentialEvidence';
 
-const properties: FrssElementProperties = {
+const properties: Properties = {
   identifier: `${bpmn4frssPrefix}${name}`,
   name,
   nameLowercase: 'potential-evidence',

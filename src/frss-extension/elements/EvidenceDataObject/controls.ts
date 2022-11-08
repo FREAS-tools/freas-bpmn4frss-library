@@ -8,11 +8,12 @@ const markDataObjectAsEvidence: NewActionFunction = (
   },
   elementProperties,
 ) => {
-  const action = (element: any) => {
-    const dataObject = element.businessObject.dataObjectRef;
+  const action = (event: any, element: any) => {
+    console.log(element);
+    const dataObject = element?.businessObject?.dataObjectRef;
 
     // if the object has been marked as an evidence type already
-    if (dataObject.isPotentialEvidence) return;
+    if (dataObject?.isPotentialEvidence !== undefined) return;
 
     const potentialEvidence = bpmnFactory.create(elementProperties.identifier);
     const updateDataObject = {

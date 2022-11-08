@@ -1,6 +1,6 @@
 import EvidenceDataObject from './elements/EvidenceDataObject';
 import EvidenceSource from './elements/EvidenceSource';
-// import PotentialEvidence from './elements/PotentialEvidence';
+import PotentialEvidence from './elements/PotentialEvidence';
 // import Produces from './elements/Produces';
 import FrssElement from './types';
 
@@ -8,7 +8,7 @@ import FrssElement from './types';
 const customElements: FrssElement[] = [
   EvidenceDataObject,
   EvidenceSource,
-  // PotentialEvidence,
+  PotentialEvidence,
   // Produces,
 ];
 

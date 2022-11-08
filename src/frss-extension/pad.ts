@@ -2,13 +2,13 @@
 import { isAny } from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
 
 // all custom elements
-import customElements from '../customElements';
+import customElements from './customElements';
 
 // types
-import { elementIsInPad, FrssElementInPad } from '../types';
-import { PadEntryData } from '../types/controls/controls';
-import { collectControlEntries, ControlEntry } from '../types/controls/entry';
-import newElementEntry from '../types/controls/implementation';
+import { elementIsInPad, FrssElementInPad } from './types';
+import { PadEntryData } from './types/controls/controls';
+import { collectControlEntries, ControlEntry } from './types/controls/entry';
+import newElementEntry from './types/controls/implementation';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 export default class FrssContextPad {
@@ -73,10 +73,7 @@ export default class FrssContextPad {
       .flatMap((elem: FrssElementInPad) => elem.controls.padEntries
         .filter(
           // check if the pad entry should be shown on the current element
-          (padEntry) => {
-            console.log(element);
-            return isAny(element, padEntry.showOnElements);
-          },
+          (padEntry) => isAny(element, padEntry.showOnElements),
         )
         .map(
           // create a new pad entry
