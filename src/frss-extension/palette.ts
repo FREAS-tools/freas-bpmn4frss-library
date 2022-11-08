@@ -5,7 +5,7 @@ import { collectControlEntries } from './types/controls/entry';
 
 // import { Controls, EntryData, isInPalette } from '../types/controls/controls';
 // import { collectControlEntries } from '../types/controls/entry';
-import newElementEntry from './types/controls/implementation';
+import newControlEntry from './types/controls/implementation';
 import { RenderableElementProps } from './types/props';
 
 /**
@@ -77,7 +77,7 @@ export default class FrssPalette {
 
     // for each element create its palette entry
     const paletteEntries = controls.map((elem) => (
-      newElementEntry(
+      newControlEntry(
         elem.controls.createEntry.action,
         this,
         elem.properties as RenderableElementProps,

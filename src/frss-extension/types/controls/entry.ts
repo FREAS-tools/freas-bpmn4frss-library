@@ -8,6 +8,7 @@ interface Actions {
 }
 
 export interface EntryProps {
+  className?: string,
   entryGroup: string,
   imageUrl?: any,
   key: string,

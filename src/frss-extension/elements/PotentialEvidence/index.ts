@@ -1,12 +1,12 @@
-import { FrssElement } from '../../typesOld';
-// import controls from './controls';
+import Element from '../../types';
+import controls from './controls';
 import definition from './definition';
 // import icon from './assets/x.png';
 import properties from './properties';
 import render from './rendererEntry';
 
-const potentialEvidence: FrssElement = {
-  // controls,
+const potentialEvidence: Element = {
+  controls,
   definition,
   // icon,
   properties,

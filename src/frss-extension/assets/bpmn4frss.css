@@ -1,3 +1,9 @@
+/*
+ *      GLOBAL css for frss
+ *      @TODO: add ability to write splittable css files
+ */
+
+
 .evidence-data-object::before {
     display: inline-block;
     content: '';

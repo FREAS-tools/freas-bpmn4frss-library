@@ -15,14 +15,17 @@ import {
   append as appendSvg,
   attr as attributesSvg,
 } from 'tiny-svg';
+import RendererEntry from '../../types/rendererEntry';
 
 // element properties
 import properties from './properties';
 
-const potentialEvidenceRender = (
-  parentNode: any,
-  element: any,
-  bpmnRenderer: any,
+const potentialEvidenceRender: RendererEntry = (
+  {
+    parentNode,
+    element,
+    bpmnRenderer,
+  },
 ) => {
   const isPotentialEvidence = element
     .businessObject?.dataObjectRef?.potentialEvidenceType;

@@ -1,5 +1,4 @@
 import FrssElement from '../../types';
-import controls from './controls';
 import definition from './definition';
 import properties from './properties';
 
@@ -11,7 +10,6 @@ import properties from './properties';
 // import render from './rendererEntry';
 
 const evidenceDataObject: FrssElement = {
-  controls,
   definition,
   properties,
   // render,

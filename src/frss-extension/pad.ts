@@ -8,7 +8,7 @@ import customElements from './customElements';
 import { elementIsInPad, FrssElementInPad } from './types';
 import { PadEntryData } from './types/controls/controls';
 import { collectControlEntries, ControlEntry } from './types/controls/entry';
-import newElementEntry from './types/controls/implementation';
+import newControlEntry from './types/controls/implementation';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 export default class FrssContextPad {
@@ -77,13 +77,14 @@ export default class FrssContextPad {
         )
         .map(
           // create a new pad entry
-          (padEntry: PadEntryData) => newElementEntry(
+          (padEntry: PadEntryData) => newControlEntry(
             padEntry.action,
             this,
             elem.properties,
             padEntry.entryProps,
           ),
         ));
+    console.log(entries);
 
     // spread the pad entry
     return collectControlEntries(entries);

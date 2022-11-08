@@ -9,7 +9,7 @@ const markDataObjectAsEvidence: NewActionFunction = (
   elementProperties,
 ) => {
   const action = (event: any, element: any) => {
-    console.log(element);
+    // console.log(element);
     const dataObject = element?.businessObject?.dataObjectRef;
 
     // if the object has been marked as an evidence type already
@@ -29,13 +29,16 @@ const markDataObjectAsEvidence: NewActionFunction = (
   return action;
 };
 
+const markDataObjectAsEvidenceIdentifier = 'mark-as-potential-evidence';
+
 const controls: Controls = {
   padEntries: [
     {
       action: markDataObjectAsEvidence,
       entryProps: {
+        className: markDataObjectAsEvidenceIdentifier,
         entryGroup: 'edit',
-        key: 'mark-as-potential-evidence',
+        key: markDataObjectAsEvidenceIdentifier,
         title: 'Mark DataObjectRef as Potential Evidence',
       },
       showOnElements: ['bpmn:DataObjectReference'],

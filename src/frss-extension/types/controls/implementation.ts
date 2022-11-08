@@ -54,7 +54,7 @@ export const createElement: NewActionFunction = (
  * @param entryProps additional entry props
  * @returns control entry of specified element
  */
-const newElementEntry: NewControlEntry = (
+const newControlEntry: NewControlEntry = (
   action,
   context,
   elementProps,
@@ -65,7 +65,7 @@ const newElementEntry: NewControlEntry = (
   let entry: ControlEntry = {
     [entryProps.key]: {
       group: entryProps.entryGroup,
-      className: elementProps.nameLowercase,
+      className: entryProps.className,
       title: context.translate(entryProps.title),
       action: {
         click: performAction,
@@ -86,4 +86,4 @@ const newElementEntry: NewControlEntry = (
   return entry;
 };
 
-export default newElementEntry;
+export default newControlEntry;
