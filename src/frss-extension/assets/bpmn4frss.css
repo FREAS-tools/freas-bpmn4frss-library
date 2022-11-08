@@ -4,7 +4,7 @@
  */
 
 
-.evidence-data-object::before {
+.mark-as-potential-evidence::before {
     display: inline-block;
     content: '';
     width: 0.5em;

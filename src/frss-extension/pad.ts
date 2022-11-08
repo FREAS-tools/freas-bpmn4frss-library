@@ -84,7 +84,6 @@ export default class FrssContextPad {
             padEntry.entryProps,
           ),
         ));
-    console.log(entries);
 
     // spread the pad entry
     return collectControlEntries(entries);

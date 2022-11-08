@@ -77,7 +77,7 @@ export default class FrssRenderer extends BaseRenderer {
       // there will always be just one module with the same identifier
       const { render } = elementIsFrssRenderable[0];
 
-      if (render) return render({ parentNode, element });
+      if (render) return render({ parentNode, element, bpmnRenderer: null });
     }
 
     // the element was not custom or not renderable,

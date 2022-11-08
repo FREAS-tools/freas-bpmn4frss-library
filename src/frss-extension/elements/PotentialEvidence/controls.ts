@@ -24,6 +24,7 @@ const markDataObjectAsEvidence: NewActionFunction = (
     modeling.updateProperties(element, {
       dataObjectRef: updateDataObject,
     });
+    console.log(element);
   };
 
   return action;
