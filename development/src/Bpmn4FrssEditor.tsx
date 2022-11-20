@@ -55,6 +55,7 @@ const Bpmn4FrssEditor = ({ cssClassNames }: Bpmn4FrssEditorProps) => {
 
   return (
     <div className={cssClassNames.containerCssClass}>
+      {/* Bpmn4Frss typescript library */}
       <div ref={container} className={cssClassNames.libraryCssClass}></div>
       <div
         className={cssClassNames.controls.loadButtonCssClass}

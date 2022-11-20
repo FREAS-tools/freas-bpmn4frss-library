@@ -1,4 +1,4 @@
-import FrssDefinitions from './definitions';
+import FrssDefinitions from './moddle';
 import FrssContextPad from './pad';
 import FrssPalette from './palette';
 import FrssRenderer from './renderer';

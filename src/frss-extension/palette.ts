@@ -58,14 +58,6 @@ export default class FrssPalette {
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   getPaletteEntries(element: any) {
-    // const {
-    //   bpmnFactory,
-    //   create,
-    //   elementFactory,
-    //   modeling,
-    //   translate,
-    // } = this;
-
     // obtain only element controls submodule, filter out elements that
     // are not used for the palette
     const controls: FrssElementInPalette[] = customElements
