@@ -1,12 +1,12 @@
 import { Controls, EntryData, PadEntryData } from './controls/controls';
 import Definition from './definition';
 import Properties from './props';
-import RendererEntry from './rendererEntry';
+import ElementRender from './rendererEntry';
 
 interface Submodules {
   controls: Controls,
   definition: Definition,
-  render: RendererEntry,
+  rendererEntry: ElementRender,
 }
 
 /**
@@ -25,7 +25,7 @@ export type FrssElementInPalette = {
   properties: Properties,
 } & Partial<{
   definition: Definition,
-  rendererEntry: RendererEntry,
+  rendererEntry: ElementRender,
 }>;
 
 export type FrssElementInPad = {
@@ -35,7 +35,15 @@ export type FrssElementInPad = {
   properties: Properties,
 } & Partial<{
   definition: Definition,
-  rendererEntry: RendererEntry,
+  rendererEntry: ElementRender,
+}>;
+
+export type FrssElementRenderable = {
+  properties: Properties,
+  rendererEntry: ElementRender,
+} & Partial<{
+  controls: Controls,
+  definition: Definition,
 }>;
 
 export const elementIsInPalette = (
@@ -57,6 +65,16 @@ export const elementIsInPad = (
   return isInPad.controls !== undefined
     && isInPad.controls.padEntries !== undefined
     && isInPad.controls.padEntries.length > 0;
+};
+
+export const elementIsRenderable = (
+  element: FrssElement,
+): element is FrssElementRenderable => {
+  const isRenderable = element as FrssElementRenderable;
+
+  return isRenderable.rendererEntry !== undefined
+    && isRenderable.rendererEntry.renderFunction !== undefined
+    && isRenderable.rendererEntry.renderOnElements !== undefined;
 };
 
 export default FrssElement;

@@ -5,12 +5,20 @@ export interface RendererContext {
   parentNode: any,
 }
 
+export type ShouldRender = (element: any) => boolean;
+
+interface ElementRender {
+  renderFunction: RenderFunction,
+  renderOnElements: string[],
+  shouldRender: ShouldRender,
+}
+
 /**
  * Renderer entry has its context that it needs to
  * properly render the element
  */
-type RendererEntry = (
+export type RenderFunction = (
   context: RendererContext
-) => Element | null;
+) => Element | null | void;
 
-export default RendererEntry;
+export default ElementRender;

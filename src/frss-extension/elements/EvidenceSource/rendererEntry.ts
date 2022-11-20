@@ -6,13 +6,17 @@
  * for displaying the element on the canvas.
  */
 
+// utility functions for determining the element type
+// @ts-ignore
+import { is } from 'bpmn-js/lib/util/ModelUtil';
+
 // rendering tools from tiny-svg
 import {
   create as createSvg,
   append as appendSvg,
 } from 'tiny-svg';
 import { ELEMENT_FALLBACK_OFFSET } from '../../common';
-import RendererEntry from '../../types/rendererEntry';
+import ElementRender, { RenderFunction } from '../../types/rendererEntry';
 
 // icon for potential evidence sources
 import EvidenceSourceIcon
@@ -22,7 +26,7 @@ import properties from './properties';
 
 const offset = properties.offset ?? ELEMENT_FALLBACK_OFFSET;
 
-const evidenceSourceRender: RendererEntry = (
+const renderFunction: RenderFunction = (
   { parentNode, element },
 ) => {
   // render the image into the modeler
@@ -45,4 +49,10 @@ const evidenceSourceRender: RendererEntry = (
   return evidenceSource;
 };
 
-export default evidenceSourceRender;
+const rendererEntry: ElementRender = {
+  renderOnElements: [],
+  renderFunction,
+  shouldRender: (element) => is(element, properties.identifier),
+};
+
+export default rendererEntry;

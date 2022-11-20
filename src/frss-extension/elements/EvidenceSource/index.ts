@@ -2,13 +2,13 @@ import FrssElement from '../../types';
 import controls from './controls';
 import definition from './definition';
 import properties from './properties';
-import render from './rendererEntry';
+import rendererEntry from './rendererEntry';
 
 const evidenceSource: FrssElement = {
   controls,
   definition,
   properties,
-  render,
+  rendererEntry,
 };
 
 /**

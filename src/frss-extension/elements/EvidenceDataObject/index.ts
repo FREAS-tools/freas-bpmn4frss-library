@@ -1,6 +1,7 @@
 import FrssElement from '../../types';
 import definition from './definition';
 import properties from './properties';
+import rendererEntry from './rendererEntry';
 
 // @TODO: decide whether to render the data objects differently
 // we could inject the rendering and render the objects that
@@ -12,7 +13,7 @@ import properties from './properties';
 const evidenceDataObject: FrssElement = {
   definition,
   properties,
-  // render,
+  rendererEntry,
 };
 
 /**

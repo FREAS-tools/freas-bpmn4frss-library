@@ -15,30 +15,38 @@ import {
   append as appendSvg,
   attr as attributesSvg,
 } from 'tiny-svg';
-import RendererEntry from '../../types/rendererEntry';
+
+import ElementRender, {
+  RenderFunction,
+  ShouldRender,
+} from '../../types/rendererEntry';
 
 // properties from the PotentialEvidence
 import potentialEvidenceProperties from '../PotentialEvidence/properties';
 
-const evidenceDataObjectRender: RendererEntry = (
+const elementIdentifier = 'bpmn:DataObjectReference';
+
+const shouldRender: ShouldRender = (element) => {
+  const isEvidenceDataObject = element
+    .businessObject?.dataObjectRef?.isPotentialEvidence;
+
+  // we want to change only those `DataObjectReference`s that are
+  // our desired type (are potentialEvidence)
+  return (
+    is(element, elementIdentifier)
+    && element.type !== 'label'
+    && isEvidenceDataObject
+    && is(isEvidenceDataObject, potentialEvidenceProperties.identifier)
+  );
+};
+
+export const renderFunction: RenderFunction = (
   {
     parentNode,
     element,
     bpmnRenderer,
   },
 ) => {
-  const isEvidenceDataObject = element
-    .businessObject?.dataObjectRef?.potentialEvidenceType;
-  console.log(isEvidenceDataObject);
-
-  // we don't want to change the colour of label or the element
-  // which is not marked as the potential evidence
-  if (element.type === 'label'
-      || !isEvidenceDataObject
-      || !is(isEvidenceDataObject, potentialEvidenceProperties.identifier)) {
-    return null;
-  }
-
   // get the default handler for `DataObjectReference`. We want to change
   // the attributes of the SVG
   const potentialEvidence = bpmnRenderer
@@ -59,4 +67,10 @@ const evidenceDataObjectRender: RendererEntry = (
   return potentialEvidence;
 };
 
-export default evidenceDataObjectRender;
+const rendererEntry: ElementRender = {
+  renderOnElements: [elementIdentifier],
+  renderFunction,
+  shouldRender,
+};
+
+export default rendererEntry;

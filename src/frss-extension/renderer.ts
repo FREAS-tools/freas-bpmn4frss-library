@@ -2,7 +2,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 // type checking inside bpmn-js
 // @ts-ignore
-import { is, isAny } from 'bpmn-js/lib/util/ModelUtil';
+import { isAny } from 'bpmn-js/lib/util/ModelUtil';
 
 // @ts-ignore
 import BaseRenderer from 'diagram-js/lib/draw/BaseRenderer';
@@ -11,6 +11,8 @@ import { FRSS_PRIORITY } from './common';
 
 // Custom elements - every custom element is placed in this list
 import customElements from './customElements';
+
+import { elementIsRenderable, FrssElementRenderable } from './types';
 
 export default class FrssRenderer extends BaseRenderer {
   bpmnRenderer: unknown;
@@ -38,13 +40,26 @@ export default class FrssRenderer extends BaseRenderer {
    * @returns true if the element is custom, false otherwise
    */
   canRender(element: any) {
-    // if you wish to add a new element to the renderer,
-    // this list is the place to put the identifiers in
+    // the frss elements that are renderable
+    const frssElements: string[] = customElements
+      .map(
+        (customElement) => customElement.properties.identifier,
+      );
+
+    // modified bpmn elements that should be rendered differently
+    const modifiedBpmnElements: string[] = customElements
+      .filter(
+        (customElement): customElement is FrssElementRenderable => (
+          elementIsRenderable(customElement)
+        ),
+      ).flatMap(
+        (customElement) => customElement.rendererEntry.renderOnElements,
+      );
+
+    // both lists have elements that should be processed by the FRSS renderer
     return isAny(
       element,
-      customElements.map(
-        (customElement) => customElement.properties.identifier,
-      ),
+      [...modifiedBpmnElements, ...frssElements],
     );
   }
 
@@ -62,27 +77,31 @@ export default class FrssRenderer extends BaseRenderer {
    * @returns - rendered element if the element is custom
    *          - null otherwise
    */
-  drawShape(parentNode: any, element: any): Element | null {
+  drawShape(parentNode: any, element: any): Element | null | void {
     // check if the element is a custom frss renderable element
     // only retains the one custom element it matches
-    const elementIsFrssRenderable = customElements.filter(
-      // compare element with its identifier and check if the render
-      // function exists
-      (customElement) => is(element, customElement.properties.identifier)
-        && customElement.render,
-    );
+    const elementIsFrssRenderable: (FrssElementRenderable
+    | undefined) = customElements
+      .filter(
+        // check if the element is renderable
+        (customElement): customElement is FrssElementRenderable => (
+          elementIsRenderable(customElement)
+        ),
+      ).find((renderableElement) => (
+        renderableElement.rendererEntry.shouldRender(element)));
 
-    if (elementIsFrssRenderable) {
-      // obtain the renderer from the custom element module
-      // there will always be just one module with the same identifier
-      const { render } = elementIsFrssRenderable[0];
+    // the element is not renderable
+    if (!elementIsFrssRenderable) return;
 
-      if (render) return render({ parentNode, element, bpmnRenderer: null });
-    }
+    // obtain the renderer from the custom element module
+    // there will always be just one module with the same identifier
+    const { rendererEntry } = elementIsFrssRenderable;
 
-    // the element was not custom or not renderable,
-    // therefore return null and pass this to the default renderer
-    return null;
+    return rendererEntry.renderFunction({
+      bpmnRenderer: this.bpmnRenderer,
+      element,
+      parentNode,
+    });
   }
 }
 

@@ -9,7 +9,6 @@ import properties from './properties';
 const potentialEvidence: Element = {
   controls,
   definition,
-  // icon,
   properties,
 };
 

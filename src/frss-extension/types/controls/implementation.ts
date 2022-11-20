@@ -8,7 +8,7 @@ import { ControlEntry, NewControlEntry } from './entry';
 
 /**
  * Default function for creating the FRSS element
- * @param param0 the context from the pad/palette provider
+ * @param context the context from the pad/palette provider
  * @param properties renderable element properties
  * @returns the function that can create an element
  */
