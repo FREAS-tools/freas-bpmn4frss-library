@@ -1,4 +1,5 @@
 import { Controls, EntryData, PadEntryData } from './controls/controls';
+import PreCreateElementRule from './creation';
 import Definition from './definition';
 import Properties from './props';
 import ElementRender from './rendererEntry';
@@ -6,6 +7,7 @@ import ElementRender from './rendererEntry';
 interface Submodules {
   controls: Controls,
   definition: Definition,
+  preCreateRule: PreCreateElementRule,
   rendererEntry: ElementRender,
 }
 
@@ -17,39 +19,31 @@ type FrssElement = {
   properties: Properties,
 } & Partial<Submodules>;
 
-export type FrssElementInPalette = {
+export type PaletteFrssElement = {
   controls: {
     createEntry: EntryData,
     padEntries: PadEntryData[],
   },
-  properties: Properties,
-} & Partial<{
-  definition: Definition,
-  rendererEntry: ElementRender,
-}>;
+} & FrssElement;
 
-export type FrssElementInPad = {
+export type PadFrssElement = {
   controls: {
     padEntries: PadEntryData[],
   },
-  properties: Properties,
-} & Partial<{
-  definition: Definition,
-  rendererEntry: ElementRender,
-}>;
+} & FrssElement;
 
-export type FrssElementRenderable = {
-  properties: Properties,
+export type RenderableFrssElement = {
   rendererEntry: ElementRender,
-} & Partial<{
-  controls: Controls,
-  definition: Definition,
-}>;
+} & FrssElement;
 
-export const elementIsInPalette = (
+export type PreCreateFrssElement = {
+  preCreateRule: PreCreateElementRule
+} & FrssElement;
+
+export const inPalette = (
   element: FrssElement,
-): element is FrssElementInPalette => {
-  const isInPalette = element as FrssElementInPalette;
+): element is PaletteFrssElement => {
+  const isInPalette = element as PaletteFrssElement;
 
   return isInPalette.controls !== undefined
     && isInPalette.controls.createEntry !== undefined
@@ -57,24 +51,36 @@ export const elementIsInPalette = (
     && isInPalette.controls.createEntry.entryProps !== undefined;
 };
 
-export const elementIsInPad = (
+export const inPad = (
   element: FrssElement,
-): element is FrssElementInPad => {
-  const isInPad = element as FrssElementInPad;
+): element is PadFrssElement => {
+  const isInPad = element as PadFrssElement;
 
   return isInPad.controls !== undefined
     && isInPad.controls.padEntries !== undefined
     && isInPad.controls.padEntries.length > 0;
 };
 
-export const elementIsRenderable = (
+export const isRenderable = (
   element: FrssElement,
-): element is FrssElementRenderable => {
-  const isRenderable = element as FrssElementRenderable;
+): element is RenderableFrssElement => {
+  const elementIsRenderable = element as RenderableFrssElement;
 
-  return isRenderable.rendererEntry !== undefined
-    && isRenderable.rendererEntry.renderFunction !== undefined
-    && isRenderable.rendererEntry.renderOnElements !== undefined;
+  return elementIsRenderable.rendererEntry !== undefined
+    && elementIsRenderable.rendererEntry.renderFunction !== undefined
+    && elementIsRenderable.rendererEntry.renderOnElements !== undefined
+    && elementIsRenderable.rendererEntry.renderOnElements.length > 0
+    && elementIsRenderable.rendererEntry.shouldRender !== undefined;
+};
+
+export const hasPreCreateRule = (
+  element: FrssElement,
+): element is PreCreateFrssElement => {
+  const elementHasPreCreateRule = element as PreCreateFrssElement;
+
+  return elementHasPreCreateRule.preCreateRule !== undefined
+    && elementHasPreCreateRule.preCreateRule.shouldTrigger !== undefined
+    && elementHasPreCreateRule.preCreateRule.trigger !== undefined;
 };
 
 export default FrssElement;

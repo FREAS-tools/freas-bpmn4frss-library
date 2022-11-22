@@ -12,7 +12,7 @@ import { FRSS_PRIORITY } from './common';
 // Custom elements - every custom element is placed in this list
 import customElements from './customElements';
 
-import { elementIsRenderable, FrssElementRenderable } from './types';
+import { isRenderable, RenderableFrssElement } from './types';
 
 export default class FrssRenderer extends BaseRenderer {
   bpmnRenderer: unknown;
@@ -40,17 +40,11 @@ export default class FrssRenderer extends BaseRenderer {
    * @returns true if the element is custom, false otherwise
    */
   canRender(element: any) {
-    // the frss elements that are renderable
-    const frssElements: string[] = customElements
-      .map(
-        (customElement) => customElement.properties.identifier,
-      );
-
     // modified bpmn elements that should be rendered differently
-    const modifiedBpmnElements: string[] = customElements
+    const renderableFrssElements: string[] = customElements
       .filter(
-        (customElement): customElement is FrssElementRenderable => (
-          elementIsRenderable(customElement)
+        (customElement): customElement is RenderableFrssElement => (
+          isRenderable(customElement)
         ),
       ).flatMap(
         (customElement) => customElement.rendererEntry.renderOnElements,
@@ -59,7 +53,7 @@ export default class FrssRenderer extends BaseRenderer {
     // both lists have elements that should be processed by the FRSS renderer
     return isAny(
       element,
-      [...modifiedBpmnElements, ...frssElements],
+      renderableFrssElements,
     );
   }
 
@@ -80,12 +74,12 @@ export default class FrssRenderer extends BaseRenderer {
   drawShape(parentNode: any, element: any): Element | null | void {
     // check if the element is a custom frss renderable element
     // only retains the one custom element it matches
-    const elementIsFrssRenderable: (FrssElementRenderable
+    const elementIsFrssRenderable: (RenderableFrssElement
     | undefined) = customElements
       .filter(
         // check if the element is renderable
-        (customElement): customElement is FrssElementRenderable => (
-          elementIsRenderable(customElement)
+        (customElement): customElement is RenderableFrssElement => (
+          isRenderable(customElement)
         ),
       ).find((renderableElement) => (
         renderableElement.rendererEntry.shouldRender(element)));

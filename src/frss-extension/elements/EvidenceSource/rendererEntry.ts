@@ -50,7 +50,7 @@ const renderFunction: RenderFunction = (
 };
 
 const rendererEntry: ElementRender = {
-  renderOnElements: [],
+  renderOnElements: [properties.identifier],
   renderFunction,
   shouldRender: (element) => is(element, properties.identifier),
 };

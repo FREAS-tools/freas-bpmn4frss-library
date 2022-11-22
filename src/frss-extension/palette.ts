@@ -1,6 +1,6 @@
 // Custom elements - every custom element is placed in this list
 import customElements from './customElements';
-import { FrssElementInPalette, elementIsInPalette } from './types';
+import { PaletteFrssElement, inPalette } from './types';
 import { collectControlEntries } from './types/controls/entry';
 
 // import { Controls, EntryData, isInPalette } from '../types/controls/controls';
@@ -60,11 +60,11 @@ export default class FrssPalette {
   getPaletteEntries(element: any) {
     // obtain only element controls submodule, filter out elements that
     // are not used for the palette
-    const controls: FrssElementInPalette[] = customElements
+    const controls: PaletteFrssElement[] = customElements
       // add the type assertion that if we ran this filter, the
       // controls is definitely defined
       .filter(
-        (elem): elem is FrssElementInPalette => elementIsInPalette(elem),
+        (elem): elem is PaletteFrssElement => inPalette(elem),
       );
 
     // for each element create its palette entry

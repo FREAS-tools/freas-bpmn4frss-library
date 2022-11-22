@@ -1,3 +1,4 @@
+import FrssCreationRuleProvider from './creation';
 import FrssDefinitions from './moddle';
 import FrssContextPad from './pad';
 import FrssPalette from './palette';
@@ -11,11 +12,13 @@ import FrssRenderer from './renderer';
  */
 export default {
   __init__: [
+    'frssCreationRuleProvider',
     'frssRenderer',
     'frssPalette',
     'frssPad',
   ],
 
+  frssCreationRuleProvider: ['type', FrssCreationRuleProvider],
   frssRenderer: ['type', FrssRenderer],
   frssPalette: ['type', FrssPalette],
   frssPad: ['type', FrssContextPad],
@@ -35,6 +38,7 @@ export default {
  * `bpmn-js` library, which these named exports allow.
  */
 export {
+  FrssCreationRuleProvider as Bpmn4FrssCreationRuleProvider,
   FrssDefinitions as Bpmn4FrssDefinitions,
   FrssRenderer as Bpmn4FrssRenderer,
   FrssPalette as Bpmn4FrssPalette,
