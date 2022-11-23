@@ -1,14 +1,14 @@
 import { Controls, EntryData, PadEntryData } from './controls/controls';
-import PreCreateElementRule from './creation';
 import Definition from './definition';
 import Properties from './props';
 import ElementRender from './rendererEntry';
+import { ElementRules } from './rules';
 
 interface Submodules {
   controls: Controls,
   definition: Definition,
-  preCreateRule: PreCreateElementRule,
   rendererEntry: ElementRender,
+  rules: ElementRules,
 }
 
 /**
@@ -36,51 +36,49 @@ export type RenderableFrssElement = {
   rendererEntry: ElementRender,
 } & FrssElement;
 
-export type PreCreateFrssElement = {
-  preCreateRule: PreCreateElementRule
+export type HasRulesFrssElement = {
+  rules: ElementRules,
 } & FrssElement;
 
 export const inPalette = (
   element: FrssElement,
 ): element is PaletteFrssElement => {
-  const isInPalette = element as PaletteFrssElement;
+  const checkElement = element as PaletteFrssElement;
 
-  return isInPalette.controls !== undefined
-    && isInPalette.controls.createEntry !== undefined
-    && isInPalette.controls.createEntry.action !== undefined
-    && isInPalette.controls.createEntry.entryProps !== undefined;
+  return checkElement.controls !== undefined
+    && checkElement.controls.createEntry !== undefined
+    && checkElement.controls.createEntry.action !== undefined
+    && checkElement.controls.createEntry.entryProps !== undefined;
 };
 
 export const inPad = (
   element: FrssElement,
 ): element is PadFrssElement => {
-  const isInPad = element as PadFrssElement;
+  const checkElement = element as PadFrssElement;
 
-  return isInPad.controls !== undefined
-    && isInPad.controls.padEntries !== undefined
-    && isInPad.controls.padEntries.length > 0;
+  return checkElement.controls !== undefined
+    && checkElement.controls.padEntries !== undefined
+    && checkElement.controls.padEntries.length > 0;
 };
 
 export const isRenderable = (
   element: FrssElement,
 ): element is RenderableFrssElement => {
-  const elementIsRenderable = element as RenderableFrssElement;
+  const checkElement = element as RenderableFrssElement;
 
-  return elementIsRenderable.rendererEntry !== undefined
-    && elementIsRenderable.rendererEntry.renderFunction !== undefined
-    && elementIsRenderable.rendererEntry.renderOnElements !== undefined
-    && elementIsRenderable.rendererEntry.renderOnElements.length > 0
-    && elementIsRenderable.rendererEntry.shouldRender !== undefined;
+  return checkElement.rendererEntry !== undefined
+    && checkElement.rendererEntry.renderFunction !== undefined
+    && checkElement.rendererEntry.renderOnElements !== undefined
+    && checkElement.rendererEntry.renderOnElements.length > 0
+    && checkElement.rendererEntry.shouldRender !== undefined;
 };
 
-export const hasPreCreateRule = (
+export const hasRules = (
   element: FrssElement,
-): element is PreCreateFrssElement => {
-  const elementHasPreCreateRule = element as PreCreateFrssElement;
+): element is HasRulesFrssElement => {
+  const checkElement = element as HasRulesFrssElement;
 
-  return elementHasPreCreateRule.preCreateRule !== undefined
-    && elementHasPreCreateRule.preCreateRule.shouldTrigger !== undefined
-    && elementHasPreCreateRule.preCreateRule.trigger !== undefined;
+  return checkElement.rules !== undefined;
 };
 
 export default FrssElement;

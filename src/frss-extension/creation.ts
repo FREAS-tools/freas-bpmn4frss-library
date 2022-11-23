@@ -24,16 +24,17 @@ export default class FrssCreateBehavior extends CommandInterceptor {
      */
     // @ts-ignore
     this.preExecute('connection.create', FRSS_PRIORITY, (element: any) => {
-      const elementPreCreate: PreCreateFrssElement | undefined = customElements
+      const hasRule: PreCreateFrssElement | undefined = customElements
         .filter((customElement): customElement is PreCreateFrssElement => (
           hasPreCreateRule(customElement)
         )).find((customElement) => (
           customElement.preCreateRule.shouldTrigger(element)
         ));
 
-      if (!elementPreCreate) return;
+      if (!hasRule) return;
 
-      elementPreCreate.preCreateRule.trigger(element);
+      // trigger the rule the element has one
+      hasRule.preCreateRule.trigger(element);
     });
   }
 }
