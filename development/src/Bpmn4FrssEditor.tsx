@@ -15,6 +15,7 @@ export interface Bpmn4FrssEditorProps {
     containerCssClass: string;
     libraryCssClass: string;
     controls: {
+      container: string,
       loadButtonCssClass: string;
     };
   };
@@ -61,17 +62,19 @@ const Bpmn4FrssEditor = ({ cssClassNames }: Bpmn4FrssEditorProps) => {
     <div className={cssClassNames.containerCssClass}>
       {/* Bpmn4Frss typescript library */}
       <div ref={container} className={cssClassNames.libraryCssClass}></div>
-      <div
-        className={cssClassNames.controls.loadButtonCssClass}
-        onClick={loadCustomDiagram}
-      >
-        Load custom diagram
-      </div>
-      <div
-        className={cssClassNames.controls.loadButtonCssClass}
-        onClick={loadDefaultDiagram}
-      >
-        Load default diagram
+      <div className={cssClassNames.controls.container}>
+        <div
+          className={cssClassNames.controls.loadButtonCssClass}
+          onClick={loadCustomDiagram}
+        >
+          Load custom diagram
+        </div>
+        <div
+          className={cssClassNames.controls.loadButtonCssClass}
+          onClick={loadDefaultDiagram}
+        >
+          Load default diagram
+        </div>
       </div>
     </div>
   );

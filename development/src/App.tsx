@@ -7,7 +7,8 @@ const classes: Bpmn4FrssEditorProps = {
     containerCssClass: "bpmn4frss",
     libraryCssClass: "editor",
     controls: {
-      loadButtonCssClass: "editor__load-diagram"
+      container: 'button-container',
+      loadButtonCssClass: "button"
     }
   }
 };
