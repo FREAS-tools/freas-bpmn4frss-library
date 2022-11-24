@@ -6,7 +6,6 @@ import { ElementRules } from './rules';
 
 interface Submodules {
   controls: Controls,
-  definition: Definition,
   rendererEntry: ElementRender,
   rules: ElementRules,
 }
@@ -16,6 +15,7 @@ interface Submodules {
  * Only required module is the element properties
  */
 type FrssElement = {
+  definition: Definition,
   properties: Properties,
 } & Partial<Submodules>;
 
@@ -36,7 +36,7 @@ export type RenderableFrssElement = {
   rendererEntry: ElementRender,
 } & FrssElement;
 
-export type HasRulesFrssElement = {
+export type FrssElementWithRules = {
   rules: ElementRules,
 } & FrssElement;
 
@@ -75,8 +75,8 @@ export const isRenderable = (
 
 export const hasRules = (
   element: FrssElement,
-): element is HasRulesFrssElement => {
-  const checkElement = element as HasRulesFrssElement;
+): element is FrssElementWithRules => {
+  const checkElement = element as FrssElementWithRules;
 
   return checkElement.rules !== undefined;
 };

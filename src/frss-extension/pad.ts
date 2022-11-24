@@ -2,10 +2,10 @@
 import { isAny } from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
 
 // all custom elements
-import customElements from './customElements';
+import { customElementsInPad } from './customElements';
 
 // types
-import { inPad, PadFrssElement } from './types';
+import { PadFrssElement } from './types';
 import { PadEntryData } from './types/controls/controls';
 import { collectControlEntries, ControlEntry } from './types/controls/entry';
 import newControlEntry from './types/controls/implementation';
@@ -63,11 +63,7 @@ export default class FrssContextPad {
    * @param element element that is associated with the context pad
    */
   getContextPadEntries(element: any) {
-    const entries: ControlEntry[] = customElements
-      // filter out elements that belong to the pad
-      .filter(
-        (elem): elem is PadFrssElement => inPad(elem),
-      )
+    const entries: ControlEntry[] = customElementsInPad
       // create a list of ControlEntry objects
       // (that will need to be "collected" as a single object)
       .flatMap((elem: PadFrssElement) => elem.controls.padEntries

@@ -2,8 +2,8 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import CommandInterceptor from 'diagram-js/lib/command/CommandInterceptor';
 import { FRSS_PRIORITY } from './common';
-import customElements from './customElements';
-import { hasPreCreateRule, PreCreateFrssElement } from './types';
+import { preCreateRules } from './customElements';
+import { HasPreCreateRule } from './types/rules';
 
 /**
 * This adds further processing logic when a custom connection is created.
@@ -16,25 +16,27 @@ export default class FrssCreateBehavior extends CommandInterceptor {
     super(eventBus);
     injector.invoke(CommandInterceptor, this);
 
-    /* The TS ignore is needed for the hydeous way they wrote this
-     * part of diagram-js. Whenever I tried to induce TypeScript
+    /* The TS ignore is needed to compensate for the way
+     * the camunda team wrote this part of diagram-js.
+     * Whenever I tried to induce TypeScript
      * into the question, the whole lib just fell apart. Therefore,
      * this injection of the preExecute hook is unchecked and I doubt
      * I will find a way to make this work in TypeScript
      */
     // @ts-ignore
-    this.preExecute('connection.create', FRSS_PRIORITY, (element: any) => {
-      const hasRule: PreCreateFrssElement | undefined = customElements
-        .filter((customElement): customElement is PreCreateFrssElement => (
-          hasPreCreateRule(customElement)
-        )).find((customElement) => (
-          customElement.preCreateRule.shouldTrigger(element)
-        ));
+    this.preExecute('connection.create', FRSS_PRIORITY, (event: any) => {
+      // check if this element has a suitable pre-create rule
+      const ruleForElementExists
+      : HasPreCreateRule | undefined = preCreateRules
+        .find(
+          (rule) => rule.shouldTriggerPreCreate(event),
+        );
 
-      if (!hasRule) return;
+      // element has no rule
+      if (!ruleForElementExists) return;
 
-      // trigger the rule the element has one
-      hasRule.preCreateRule.trigger(element);
+      // trigger the rule if the element has one
+      ruleForElementExists.preCreateRule(event);
     });
   }
 }

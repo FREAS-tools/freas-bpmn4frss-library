@@ -1,6 +1,5 @@
 // Custom elements - every custom element is placed in this list
-import customElements from './customElements';
-import { PaletteFrssElement, inPalette } from './types';
+import { customElementsInPalette } from './customElements';
 import { collectControlEntries } from './types/controls/entry';
 
 // import { Controls, EntryData, isInPalette } from '../types/controls/controls';
@@ -53,22 +52,12 @@ export default class FrssPalette {
   /**
    * Retrieve the custom palette entries for newly added objects
    *
-   * @param element unused, but specified by the library
+   * @param _element unused, but specified by the library
    * @returns way to create an element from the palette
    */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  getPaletteEntries(element: any) {
-    // obtain only element controls submodule, filter out elements that
-    // are not used for the palette
-    const controls: PaletteFrssElement[] = customElements
-      // add the type assertion that if we ran this filter, the
-      // controls is definitely defined
-      .filter(
-        (elem): elem is PaletteFrssElement => inPalette(elem),
-      );
-
+  getPaletteEntries(_element: any) {
     // for each element create its palette entry
-    const paletteEntries = controls.map((elem) => (
+    const paletteEntries = customElementsInPalette.map((elem) => (
       newControlEntry(
         elem.controls.createEntry.action,
         this,

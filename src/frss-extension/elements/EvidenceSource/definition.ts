@@ -5,6 +5,7 @@ import producesProperties from '../Produces/properties';
 import properties from './properties';
 
 const { name } = properties;
+export const connectionCollectionName = 'producesEvidences';
 
 /**
  * The "looking glass" icon, indicates that a resource can be a potential
@@ -31,7 +32,7 @@ const evidenceSourceDefinition: Definition = {
     // as a join table) for connecting multiple evidence objects. We only
     // need to specify it, so the moddle knows there is an association.
     {
-      name: 'producesEvidences',
+      name: connectionCollectionName,
       type: producesProperties.name,
       isMany: true,
     },

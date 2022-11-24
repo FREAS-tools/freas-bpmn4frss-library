@@ -6,12 +6,6 @@ import Definition from '../../types/definition';
 import potentialEvidenceSourceProperties
   from '../EvidenceSource/properties';
 
-// potential evidence type is a "dependency" as well and if the
-// name of the element changes for whatever reason, the moddle definition
-// will stay intact
-import potentialEvidenceTypeProperties
-  from '../PotentialEvidence/properties';
-
 import properties from './properties';
 
 const { name } = properties;
@@ -33,13 +27,12 @@ const producesDefinition: Definition = {
       isAttr: true,
     },
     {
-      // we wish to end the `Produces` arrow in the potential evidence type
+      // we wish to end the `Produces` arrow in the DataObjectReference
       // i.e. - file, email, business document and so on.
+      // which can hold the `Potential Evidence`
       name: 'targetRef',
-      type: potentialEvidenceTypeProperties.name,
+      type: 'bpmn:DataObjectReference',
 
-      // again, we only want a reference, as the evidence type is stored
-      // in the extended `bpmn:DataObject` - `bpmn4frss:EvidenceDataObject`
       isReference: true,
       // save this as an attribute of the `Produces` XML node
       isAttr: true,

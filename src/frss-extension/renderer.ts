@@ -10,9 +10,8 @@ import BaseRenderer from 'diagram-js/lib/draw/BaseRenderer';
 import { FRSS_PRIORITY } from './common';
 
 // Custom elements - every custom element is placed in this list
-import customElements from './customElements';
-
-import { isRenderable, RenderableFrssElement } from './types';
+import { renderableCustomElements } from './customElements';
+import { RenderableFrssElement } from './types';
 
 export default class FrssRenderer extends BaseRenderer {
   bpmnRenderer: unknown;
@@ -41,14 +40,9 @@ export default class FrssRenderer extends BaseRenderer {
    */
   canRender(element: any) {
     // modified bpmn elements that should be rendered differently
-    const renderableFrssElements: string[] = customElements
-      .filter(
-        (customElement): customElement is RenderableFrssElement => (
-          isRenderable(customElement)
-        ),
-      ).flatMap(
-        (customElement) => customElement.rendererEntry.renderOnElements,
-      );
+    const renderableFrssElements: string[] = renderableCustomElements.flatMap(
+      (customElement) => customElement.rendererEntry.renderOnElements,
+    );
 
     // both lists have elements that should be processed by the FRSS renderer
     return isAny(
@@ -74,15 +68,11 @@ export default class FrssRenderer extends BaseRenderer {
   drawShape(parentNode: any, element: any): Element | null | void {
     // check if the element is a custom frss renderable element
     // only retains the one custom element it matches
-    const elementIsFrssRenderable: (RenderableFrssElement
-    | undefined) = customElements
-      .filter(
-        // check if the element is renderable
-        (customElement): customElement is RenderableFrssElement => (
-          isRenderable(customElement)
-        ),
-      ).find((renderableElement) => (
-        renderableElement.rendererEntry.shouldRender(element)));
+    const elementIsFrssRenderable:
+    (RenderableFrssElement | undefined) = renderableCustomElements.find(
+      (renderableElement) => (
+        renderableElement.rendererEntry.shouldRender(element)),
+    );
 
     // the element is not renderable
     if (!elementIsFrssRenderable) return;

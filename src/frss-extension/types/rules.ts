@@ -15,13 +15,13 @@ export interface CreationRule {
 }
 
 export interface PreCreateRule {
-  preCreateTrigger: (element: any) => void,
-  shouldTriggerPreCreate: (element: any) => boolean,
+  preCreateRule: (event: any) => void,
+  shouldTriggerPreCreate: (event: any) => boolean,
 }
 
 export interface PreDeleteRule {
-  preDeleteTrigger: (element: any) => void,
-  shouldTriggerPreDelete: (element: any) => boolean,
+  preDeleteRule: (event: any) => void,
+  shouldTriggerPreDelete: (event: any) => boolean,
 }
 
 export type ElementAllRules = (
@@ -34,52 +34,52 @@ export type ElementAllRules = (
 
 export type ElementRules = Partial<ElementAllRules>;
 
-export type ElementWithAttachmentRule = ElementRules & AttachmentRule;
+export type HasAttachmentRule = ElementRules & AttachmentRule;
 
-export type ElementWithConnectionRule = ElementRules & ConnectionRule;
+export type HasConnectionRule = ElementRules & ConnectionRule;
 
-export type ElementWithCreationRule = ElementRules & CreationRule;
+export type HasCreationRule = ElementRules & CreationRule;
 
-export type ElementWithPreCreateRule = ElementRules & PreCreateRule;
+export type HasPreCreateRule = ElementRules & PreCreateRule;
 
-export type ElementWithPreDeleteRule = ElementRules & PreDeleteRule;
+export type HasPreDeleteRule = ElementRules & PreDeleteRule;
 
 export const hasAttachmentRule = (rules: ElementRules):
-rules is ElementWithAttachmentRule => {
-  const checkRule = rules as ElementWithAttachmentRule;
+rules is HasAttachmentRule => {
+  const checkRule = rules as HasAttachmentRule;
 
   return checkRule.attachmentRule !== undefined
     && checkRule.shouldCheckAttachment !== undefined;
 };
 
 export const hasConnectionRule = (rules: ElementRules):
-rules is ElementWithConnectionRule => {
-  const checkRule = rules as ElementWithConnectionRule;
+rules is HasConnectionRule => {
+  const checkRule = rules as HasConnectionRule;
 
   return checkRule.connectionRule !== undefined
     && checkRule.shouldCheckConnection !== undefined;
 };
 
 export const hasCreationRule = (rules: ElementRules):
-rules is ElementWithCreationRule => {
-  const checkRule = rules as ElementWithCreationRule;
+rules is HasCreationRule => {
+  const checkRule = rules as HasCreationRule;
 
   return checkRule.creationRule !== undefined
     && checkRule.shouldCheckCreation !== undefined;
 };
 
 export const hasPreCreateRule = (rules: ElementRules):
-rules is ElementWithPreCreateRule => {
-  const checkRule = rules as ElementWithPreCreateRule;
+rules is HasPreCreateRule => {
+  const checkRule = rules as HasPreCreateRule;
 
-  return checkRule.preCreateTrigger !== undefined
+  return checkRule.preCreateRule !== undefined
     && checkRule.shouldTriggerPreCreate !== undefined;
 };
 
 export const hasPreDeleteRule = (rules: ElementRules):
-rules is ElementWithPreDeleteRule => {
-  const checkRule = rules as ElementWithPreDeleteRule;
+rules is HasPreDeleteRule => {
+  const checkRule = rules as HasPreDeleteRule;
 
-  return checkRule.preDeleteTrigger !== undefined
+  return checkRule.preDeleteRule !== undefined
     && checkRule.shouldTriggerPreDelete !== undefined;
 };

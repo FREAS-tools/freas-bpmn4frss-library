@@ -1,9 +1,7 @@
-import { FrssElement } from '../../typesOld';
-// import controls from './controls';
+import FrssElement from '../../types';
 import definition from './definition';
 import properties from './properties';
-// import icon from './assets/x.png';
-// import render from './rendererEntry';
+import rules from './rules';
 
 const produces: FrssElement = {
   // controls,
@@ -11,6 +9,7 @@ const produces: FrssElement = {
   // icon,
   properties,
   // render,
+  rules,
 };
 
 /**

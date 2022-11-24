@@ -9,7 +9,12 @@ interface Definition {
    */
   name: string,
   /** Properties of the element (@todo get the actual type here) */
-  properties: any[],
+  properties: {
+    // Don't care what other metadata the property has
+    [x: string | number | symbol]: unknown,
+    // every property has a number
+    name: string,
+  }[],
   /**
    * This element takes the implementation of an already existing
    * element and adds something to it.
