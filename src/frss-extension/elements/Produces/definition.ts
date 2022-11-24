@@ -3,7 +3,7 @@ import Definition from '../../types/definition';
 // potential evidence source is a "dependency" of this element,
 // as we need to know its identifier to be able to identify
 // it as a reference type here
-import potentialEvidenceSourceProperties
+import evidenceSourceProperties
   from '../EvidenceSource/properties';
 
 import properties from './properties';
@@ -18,7 +18,7 @@ const producesDefinition: Definition = {
     {
       // we wish to start the `Produces` arrow in the potential evidence source
       name: 'sourceRef',
-      type: potentialEvidenceSourceProperties.name,
+      type: evidenceSourceProperties.name,
 
       // we only want to refer to the XML node in this property, not
       // encapsulate it

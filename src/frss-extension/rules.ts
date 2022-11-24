@@ -20,43 +20,43 @@ import { AttachmentRule, ConnectionRule, CreationRule } from './types/rules';
 /**
  * Check if element is an element that has rules
  *
- * @param element element to be checked
+ * @param shape element to be checked
  * @returns true if the element has some rules
  *          false otherwise
  */
-const isFrssElementWithRules = (element: any): boolean => isAny(
-  element,
-  elementsWithRules.map((customElement) => customElement.properties.identifier),
+const isFrssElementWithRules = (shape: any): boolean => (
+  shape && elementsWithRules.find(
+    (element) => element.properties.identifier === shape.type
+  )
 );
+// /**
+//  * Check if element can be attached to another element
+//  * @param source source element
+//  * @param target target element
+//  * @returns "attach" if the element should be attached
+//  */
+// const checkAttachment = (source: any, target: any): boolean | string | void => {
+//   if (!isFrssElementWithRules(source)) return;
 
-/**
- * Check if element can be attached to another element
- * @param source source element
- * @param target target element
- * @returns "attach" if the element should be attached
- */
-const checkAttachment = (source: any, target: any): boolean | string | void => {
-  if (!isFrssElementWithRules(source)) return;
+//   const rule: AttachmentRule | undefined = attachmentRules
+//     .find((ruleEntry) => ruleEntry.shouldCheckAttachment(source, target));
 
-  const rule: AttachmentRule | undefined = attachmentRules
-    .find((ruleEntry) => ruleEntry.shouldCheckAttachment(source, target));
+//   if (!rule) return;
 
-  if (!rule) return;
+//   return rule.attachmentRule(source, target);
+// };
 
-  return rule.attachmentRule(source, target);
-};
+// const checkConnection = (source: any, target: any): (boolean
+// | { type: string } | void) => {
+//   if (!isFrssElementWithRules(source)) return;
 
-const checkConnection = (source: any, target: any): (boolean
-| { type: string } | void) => {
-  if (!isFrssElementWithRules(source)) return;
+//   const rule: ConnectionRule | undefined = connectionRules
+//     .find((ruleEntry) => ruleEntry.shouldCheckConnection(source, target));
 
-  const rule: ConnectionRule | undefined = connectionRules
-    .find((ruleEntry) => ruleEntry.shouldCheckConnection(source, target));
+//   if (!rule) return;
 
-  if (!rule) return;
-
-  return rule.connectionRule(source, target);
-};
+//   return rule.connectionRule(source, target);
+// };
 
 // /**
 //  * Check if the source can create a target
@@ -64,12 +64,10 @@ const checkConnection = (source: any, target: any): (boolean
 //  * @param target
 //  */
 const checkCreation = (source: any, target: any): boolean | void => {
-  // the custom rules only check if the source is the frss element.
-  if (!isFrssElementWithRules(source)) return;
-
   // try to find a suitable rule
   const rule: CreationRule | undefined = creationRules
     .find((ruleEntry) => ruleEntry.shouldCheckCreation(source, target));
+  // console.log(rule);
 
   // no rule was found (unlikely, but still we need the type safety)
   if (!rule) return;
@@ -94,11 +92,15 @@ export default class FrssRuleProvider extends RuleProvider {
     this.addRule('shape.attach', FRSS_PRIORITY, (context: any) => {
       const { target, shape } = context;
 
-      if (!Array.isArray(shape) || shape.length !== 1) {
+      // the custom rules only check if the source is the frss element.
+      if (!isFrssElementWithRules(shape)) return;
+
+      // we can only place one element at a time
+      if (Array.isArray(shape) && shape.length !== 1) {
         return false;
       }
 
-      return checkCreation(shape[0], target);
+      return checkCreation(shape, target);
     });
 
     // // @ts-ignore
@@ -123,37 +125,38 @@ export default class FrssRuleProvider extends RuleProvider {
     //   return returnValue;
     // });
 
-    // @ts-ignore
-    this.addRule('shape.create', FRSS_PRIORITY, (context: any) => {
-      const { target, shape } = context;
-      return checkCreation(shape, target);
-    });
+    // // @ts-ignore
+    // this.addRule('shape.create', FRSS_PRIORITY, (_context: any) => {
+    //   console.log('Shape create has been fired');
+    //   // const { target, shape } = context;
+    //   // return checkCreation(shape, target);
+    // });
 
-    // @ts-ignore
-    this.addRule('connection.create', FRSS_PRIORITY, (context: any) => {
-      const { source, target } = context;
+    // // @ts-ignore
+    // this.addRule('connection.create', FRSS_PRIORITY, (context: any) => {
+    //   const { source, target } = context;
 
-      // only check frss elements when creating connection
-      if (!isFrssElementWithRules(source)
-        && !isFrssElementWithRules(target)) return;
+    //   // only check frss elements when creating connection
+    //   if (!isFrssElementWithRules(source)
+    //     && !isFrssElementWithRules(target)) return;
 
-      const hints = context.hints ?? {};
-      const { targetParent, targetAttach } = hints;
+    //   const hints = context.hints ?? {};
+    //   const { targetParent, targetAttach } = hints;
 
-      // if the target has already been set
-      if (targetAttach) return false;
+    //   // if the target has already been set
+    //   if (targetAttach) return false;
 
-      // set the parent temporarily
-      if (targetParent) target.parent = targetParent;
+    //   // set the parent temporarily
+    //   if (targetParent) target.parent = targetParent;
 
-      try {
-        // try to connect
-        return checkConnection(source, target);
-      } finally {
-        // unset the temporary parent every time
-        target.parent = null;
-      }
-    });
+    //   try {
+    //     // try to connect
+    //     return checkConnection(source, target);
+    //   } finally {
+    //     // unset the temporary parent every time
+    //     target.parent = null;
+    //   }
+    // });
   }
 }
 

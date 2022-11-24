@@ -31,6 +31,10 @@ const potentialEvidenceDefinition: Definition = {
       // there can be many data fields
       isMany: true,
     },
+    {
+      name: 'lifecycleProcess',
+      type: 'string',
+    },
   ],
 };
 

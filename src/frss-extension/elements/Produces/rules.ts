@@ -9,12 +9,15 @@ import properties from './properties';
 const rules: ElementRules = {
   shouldTriggerPreCreate: (event: any) => {
     const { connection } = event.context;
+    console.log('checking pre-trigger rule');
 
     return is(connection, properties.identifier);
   },
   preCreateRule: (event) => {
     const { context } = event;
     const { connection } = context;
+
+    console.log('pre-trigger rule!');
 
     // set the target and the source in moddle
     connection.businessObject.set('sourceRef', context.source.businessObject);

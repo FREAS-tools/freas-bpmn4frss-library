@@ -27,10 +27,12 @@ const rules: ElementRules = {
 
     return false;
   },
-  creationRule: (source, target) => (
-    is(source, evidenceSourceIdentifier)
-      && isAny(target, attachable)
-  ),
+  creationRule: (source, target) => {
+    console.log('Evidence source creation rule triggered');
+    
+    return is(source, evidenceSourceIdentifier)
+      && isAny(target, attachable);
+  },
   shouldCheckAttachment: checkAttachmentOrCreation,
   shouldCheckCreation: checkAttachmentOrCreation,
 };
