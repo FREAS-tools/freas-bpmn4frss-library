@@ -101,27 +101,27 @@ export default class FrssRuleProvider extends RuleProvider {
       return checkCreation(shape[0], target);
     });
 
-    // @ts-ignore
-    this.addRule('elements.move', FRSS_PRIORITY, (context: any) => {
-      const { shape, target } = context;
+    // // @ts-ignore
+    // this.addRule('elements.move', FRSS_PRIORITY, (context: any) => {
+    //   const { shape, target } = context;
 
-      // if there is only one (or no) element, check the attachment
-      if (!Array.isArray(shape) && shape) return checkAttachment(shape, target);
+    //   // if there is only one (or no) element, check the attachment
+    //   if (!Array.isArray(shape) && shape) return checkAttachment(shape, target);
 
-      // allow movement only if all elements can be moved
-      // (and all elements are FRSS elements)
-      // we can return undefined if it is out of our scope
-      const returnValue = shape
-        .map((shapeElement: any): boolean | void => (
-          checkCreation(shapeElement, target)
-        ))
-        .reduce(
-          (previous: boolean | undefined, next: any) => previous && next,
-          true,
-        );
+    //   // allow movement only if all elements can be moved
+    //   // (and all elements are FRSS elements)
+    //   // we can return undefined if it is out of our scope
+    //   const returnValue = shape
+    //     .map((shapeElement: any): boolean | void => (
+    //       checkCreation(shapeElement, target)
+    //     ))
+    //     .reduce(
+    //       (previous: boolean | undefined, next: any) => previous && next,
+    //       true,
+    //     );
 
-      return returnValue;
-    });
+    //   return returnValue;
+    // });
 
     // @ts-ignore
     this.addRule('shape.create', FRSS_PRIORITY, (context: any) => {
@@ -132,6 +132,11 @@ export default class FrssRuleProvider extends RuleProvider {
     // @ts-ignore
     this.addRule('connection.create', FRSS_PRIORITY, (context: any) => {
       const { source, target } = context;
+
+      // only check frss elements when creating connection
+      if (!isFrssElementWithRules(source)
+        && !isFrssElementWithRules(target)) return;
+
       const hints = context.hints ?? {};
       const { targetParent, targetAttach } = hints;
 

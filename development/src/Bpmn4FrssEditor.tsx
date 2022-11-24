@@ -49,9 +49,13 @@ const Bpmn4FrssEditor = ({ cssClassNames }: Bpmn4FrssEditorProps) => {
     };
   }, []);
 
-  const onLoad = async () => {
+  const loadCustomDiagram = async () => {
     library?.loadDiagram(bpmn);
   };
+
+  const loadDefaultDiagram = async () => {
+    library?.defaultDiagram();
+  }
 
   return (
     <div className={cssClassNames.containerCssClass}>
@@ -59,9 +63,15 @@ const Bpmn4FrssEditor = ({ cssClassNames }: Bpmn4FrssEditorProps) => {
       <div ref={container} className={cssClassNames.libraryCssClass}></div>
       <div
         className={cssClassNames.controls.loadButtonCssClass}
-        onClick={onLoad}
+        onClick={loadCustomDiagram}
       >
-        Load diagram
+        Load custom diagram
+      </div>
+      <div
+        className={cssClassNames.controls.loadButtonCssClass}
+        onClick={loadDefaultDiagram}
+      >
+        Load default diagram
       </div>
     </div>
   );

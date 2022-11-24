@@ -4,7 +4,7 @@ import ControlsContext from './context';
 
 interface Actions {
   click: ActionFunction,
-  dragstart: ActionFunction,
+  dragstart?: ActionFunction,
 }
 
 export interface EntryProps {

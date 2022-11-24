@@ -27,30 +27,11 @@ const rules: ElementRules = {
 
     return false;
   },
-  // connectionRule: (_source, target) => {
-  //   // reverse handle
-  //   if (is(target, evidenceSourceIdentifier)) return false;
-
-  //   // we have the correct situation
-  //   return {
-  //     type: producesIdentifier,
-  //   };
-  // },
   creationRule: (source, target) => (
     is(source, evidenceSourceIdentifier)
       && isAny(target, attachable)
   ),
   shouldCheckAttachment: checkAttachmentOrCreation,
-  // shouldCheckConnection: (source, target) => (
-  //   // either we want the correct situation
-  //   (
-  //     is(source, evidenceSourceIdentifier)
-  //     && is(target, potentialEvidence.properties.identifier)
-  //     && target.businessObject?.dataObjectRef?.potentialEvidence
-  //   )
-  //   // or we want to reverse the handle
-  //   || is(target, evidenceSourceIdentifier)
-  // ),
   shouldCheckCreation: checkAttachmentOrCreation,
 };
 

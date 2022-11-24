@@ -29,7 +29,8 @@ body {
 
 .editor__load-diagram {
     display: flex;
-    background-color: #9d84f2;
+    background-color: #005763;
+    color: white;
     padding: 1rem;
     border-radius: 0.5rem;
     width: max-content;

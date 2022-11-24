@@ -69,7 +69,7 @@ const newControlEntry: NewControlEntry = (
       title: context.translate(entryProps.title),
       action: {
         click: performAction,
-        dragstart: performAction,
+        // dragstart: performAction,
       },
     },
   };

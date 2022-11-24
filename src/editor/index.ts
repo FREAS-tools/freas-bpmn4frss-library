@@ -7,6 +7,7 @@ import Modeler from 'bpmn-js/lib/Modeler';
 
 // import the bpmn4frss moddle language extension
 import frssExtension from '../frss-extension';
+import diagram from './default-diagram';
 import errorMessages from './errors';
 
 /**
@@ -55,6 +56,15 @@ export default class Bpmn4FrssWebEditor {
     // throw an error if the content cannot be loaded
     try {
       await this.modeler.importXML(content);
+      return true;
+    } catch (_) {
+      throw new Error(errorMessages.fileLoadFailed);
+    }
+  }
+
+  async defaultDiagram(): Promise<boolean> {
+    try {
+      await this.modeler.importXML(diagram);
       return true;
     } catch (_) {
       throw new Error(errorMessages.fileLoadFailed);
