@@ -1,5 +1,5 @@
 // Custom elements - every custom element is placed in this list
-import { customElementsInPalette } from '../../customElements';
+import { frssPaletteElements } from '../../frssElements';
 import { collectControlEntries } from '../../types/controls/entry';
 
 // import { Controls, EntryData, isInPalette } from '../types/controls/controls';
@@ -57,7 +57,7 @@ export default class FrssPalette {
    */
   getPaletteEntries(_element: any) {
     // for each element create its palette entry
-    const paletteEntries = customElementsInPalette.map((elem) => (
+    const paletteEntries = frssPaletteElements.map((elem) => (
       newControlEntry(
         elem.controls.createEntry.action,
         this,

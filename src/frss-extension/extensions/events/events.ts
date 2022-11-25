@@ -2,7 +2,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import CommandInterceptor from 'diagram-js/lib/command/CommandInterceptor';
 import { FRSS_PRIORITY } from '../../common';
-import { preCreateEvents } from '../../customElements';
+import { preCreateEvents } from '../../frssElements';
 import { PreCreateEvent } from '../../types/rules';
 
 /**

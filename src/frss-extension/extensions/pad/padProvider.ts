@@ -2,7 +2,7 @@
 import { isAny } from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
 
 // all custom elements
-import { customElementsInPad } from '../../customElements';
+import { frssPadElements } from '../../frssElements';
 
 // types
 import { FrssPadElement } from '../../types';
@@ -66,7 +66,7 @@ export default class FrssPadProvider {
    * @param element element that is associated with the context pad
    */
   getContextPadEntries(element: any) {
-    const entries: ControlEntry[] = customElementsInPad
+    const entries: ControlEntry[] = frssPadElements
       // create a list of ControlEntry objects
       // (that will need to be "collected" as a single object)
       .flatMap((elem: FrssPadElement) => elem.controls.padEntries

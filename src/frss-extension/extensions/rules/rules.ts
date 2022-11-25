@@ -9,8 +9,8 @@ import {
   attachmentRules,
   connectionRules,
   creationRules,
-  elementsWithRules,
-} from '../../customElements';
+  frssElementsWithRules,
+} from '../../frssElements';
 // types
 import {
   AttachmentRule,
@@ -27,7 +27,7 @@ import {
  */
 const isFrssElementWithRules = (shape: any | any[]): boolean => (
   // @TODO: should we check for many elements?
-  shape && elementsWithRules.find(
+  shape && frssElementsWithRules.find(
     (element) => element.properties.identifier === shape.type,
   )
 );

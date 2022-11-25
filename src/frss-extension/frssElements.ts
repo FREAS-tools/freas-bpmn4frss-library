@@ -31,7 +31,7 @@ import {
 } from './types/rules';
 
 // export the list of used custom elements
-const customElements: FrssElement[] = [
+const frssElements: FrssElement[] = [
   EvidenceDataObject,
   EvidenceSource,
   PotentialEvidence,
@@ -44,53 +44,53 @@ const customElements: FrssElement[] = [
 // (without the need to write a lot of bloated code)
 
 /* All elements in the palette */
-export const customElementsInPalette: FrssPaletteElement[] = customElements
+export const frssPaletteElements: FrssPaletteElement[] = frssElements
   .filter((element): element is FrssPaletteElement => inPalette(element));
 
 /* All elements in the context pad */
-export const customElementsInPad: FrssPadElement[] = customElements
+export const frssPadElements: FrssPadElement[] = frssElements
   .filter((element): element is FrssPadElement => inPad(element));
 
 /* All renderable elements */
-export const renderableCustomElements: FrssRenderableElement[] = customElements
+export const frssRenderableElements: FrssRenderableElement[] = frssElements
   .filter((element): element is FrssRenderableElement => isRenderable(element));
 
 /* All elements with rules */
-export const elementsWithRules: FrssElementWithRules[] = customElements
+export const frssElementsWithRules: FrssElementWithRules[] = frssElements
   .filter((element): element is FrssElementWithRules => hasRules(element));
 
 /* List of all element rules */
-export const elementRules: ElementRules[] = elementsWithRules
+export const frssElementRules: ElementRules[] = frssElementsWithRules
   .map((ruleElement) => ruleElement.rules);
 
 /* List of pre-create events */
-export const preCreateEvents = elementRules
+export const preCreateEvents = frssElementRules
   .filter((rule): rule is HasPreCreateEvents => (
     hasPreCreateEvent(rule)
   )).flatMap((event) => event.preCreateEvents);
 
 /* List of pre-delete events */
-export const preDeleteEvents = elementRules
+export const preDeleteEvents = frssElementRules
   .filter((rule): rule is HasPreDeleteEvents => (
     hasPreDeleteEvent(rule)
   )).flatMap((event) => event.preDeleteEvents);
 
 /* List of attachment rules */
-export const attachmentRules = elementRules
+export const attachmentRules = frssElementRules
   .filter((rule): rule is HasAttachmentRule => (
     hasAttachmentRule(rule)
   ));
 
 /* List of connection rules */
-export const connectionRules = elementRules
+export const connectionRules = frssElementRules
   .filter((rule): rule is HasConnectionRule => (
     hasConnectionRule(rule)
   ));
 
 /* List of creation rules */
-export const creationRules = elementRules
+export const creationRules = frssElementRules
   .filter((rule): rule is HasCreationRule => (
     hasCreationRule(rule)
   ));
 
-export default customElements;
+export default frssElements;

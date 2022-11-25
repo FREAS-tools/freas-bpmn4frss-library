@@ -10,7 +10,7 @@ import BaseRenderer from 'diagram-js/lib/draw/BaseRenderer';
 import { FRSS_PRIORITY } from '../../common';
 
 // Custom elements - every custom element is placed in this list
-import { renderableCustomElements } from '../../customElements';
+import { frssRenderableElements } from '../../frssElements';
 import { FrssRenderableElement } from '../../types';
 
 export default class FrssRenderer extends BaseRenderer {
@@ -40,7 +40,7 @@ export default class FrssRenderer extends BaseRenderer {
    */
   canRender(element: any) {
     // modified bpmn elements that should be rendered differently
-    const renderableFrssElements: string[] = renderableCustomElements.flatMap(
+    const renderableFrssElements: string[] = frssRenderableElements.flatMap(
       (customElement) => customElement.rendererEntry.renderOnElements,
     );
 
@@ -69,7 +69,7 @@ export default class FrssRenderer extends BaseRenderer {
     // check if the element is a custom frss renderable element
     // only retains the one custom element it matches
     const elementIsFrssRenderable:
-    (FrssRenderableElement | undefined) = renderableCustomElements.find(
+    (FrssRenderableElement | undefined) = frssRenderableElements.find(
       (renderableElement) => (
         renderableElement.rendererEntry.shouldRender(element)),
     );
