@@ -53,14 +53,13 @@ const checkAttachment = (source: any, target: any): boolean | string | void => {
 
 const checkConnection = (source: any, target: any): (boolean
 | { type: string } | void) => {
-  // if (!isFrssElementWithRules(source)) return;
-
   const rule: ConnectionRule | undefined = connectionRules
     .find((ruleEntry) => ruleEntry.shouldCheckConnection(source, target));
 
   if (!rule) return;
 
-  return rule.connectionRule(source, target);
+  console.log(source, target);
+  // return rule.connectionRule(source, target);
 };
 
 const checkCreation = (source: any, target: any): boolean | void => {
@@ -135,14 +134,6 @@ export default class FrssRuleProvider extends RuleProvider {
     // @ts-ignore
     this.addRule('connection.create', FRSS_PRIORITY, (context: any) => {
       const { source, target } = context;
-
-      // console.log(source, target);
-
-      // // frss element has to be at least on one side,
-      // // target cannot be undefined
-      // if ((!isFrssElementWithRules(source)
-      //   && !isFrssElementWithRules(target))
-      //   || target === undefined) return;
 
       const hints = context.hints ?? {};
       const { targetParent, targetAttach } = hints;

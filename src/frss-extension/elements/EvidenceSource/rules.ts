@@ -39,6 +39,7 @@ const rules: ElementRules = {
       is(target, 'bpmn:DataObjectReference')
       && target.businessObject?.dataObjectRef?.potentialEvidence
     ) {
+      console.log(producesProperties.identifier);
       return {
         type: producesProperties.identifier,
       };
