@@ -1,5 +1,5 @@
 export interface AttachmentRule {
-  attachmentRule: (source: any, target: any) => boolean | string,
+  attachmentRule: (source: any, target: any) => boolean | string | void,
   shouldCheckAttachment: (source: any, target: any) => boolean,
 }
 
@@ -10,7 +10,7 @@ export interface ConnectionRule {
 }
 
 export interface CreationRule {
-  creationRule: (source: any, target: any) => boolean,
+  creationRule: (source: any, target: any) => boolean | void,
   shouldCheckCreation: (source: any, target: any) => boolean,
 }
 

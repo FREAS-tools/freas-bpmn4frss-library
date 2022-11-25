@@ -18,6 +18,7 @@ import FrssElement, {
 } from './types';
 import {
   ElementRules,
+  hasAttachmentRule,
   HasAttachmentRule,
   HasConnectionRule,
   hasConnectionRule,
@@ -76,7 +77,7 @@ export const preDeleteRules = elementRules
 // List of attachment rules
 export const attachmentRules = elementRules
   .filter((rule): rule is HasAttachmentRule => (
-    hasPreCreateRule(rule)
+    hasAttachmentRule(rule)
   ));
 
 export const connectionRules = elementRules

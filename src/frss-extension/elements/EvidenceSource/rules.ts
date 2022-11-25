@@ -9,8 +9,8 @@ import properties from './properties';
 const evidenceSourceIdentifier = properties.identifier;
 // const producesIdentifier = producesProperties.identifier;
 
-const checkAttachmentOrCreation = (source: any, _target: any): boolean => (
-  is(source, evidenceSourceIdentifier)
+const checkAttachmentOrCreation = (shape: any, _target: any): boolean => (
+  is(shape, evidenceSourceIdentifier)
 );
 
 // what elements can we attach the potential evidence source to
@@ -21,18 +21,17 @@ const attachable: string[] = [
 const rules: ElementRules = {
   attachmentRule: (source: any, target: any) => {
     // evidence source can attach to tasks, events, and data store references
-    if (is(source, evidenceSourceIdentifier) && isAny(target, attachable)) {
-      return 'attach';
+    if (is(source, evidenceSourceIdentifier)) {
+      if (isAny(target, attachable)) {
+        return 'attach';
+      }
+      return false;
     }
-
-    return false;
   },
-  creationRule: (source, target) => {
-    console.log('Evidence source creation rule triggered');
-    
-    return is(source, evidenceSourceIdentifier)
-      && isAny(target, attachable);
-  },
+  creationRule: (source, target) => (
+    is(source, evidenceSourceIdentifier)
+      && isAny(target, attachable)
+  ),
   shouldCheckAttachment: checkAttachmentOrCreation,
   shouldCheckCreation: checkAttachmentOrCreation,
 };
