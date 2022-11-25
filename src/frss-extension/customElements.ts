@@ -12,9 +12,9 @@ import FrssElement, {
   inPad,
   inPalette,
   isRenderable,
-  PadFrssElement,
-  PaletteFrssElement,
-  RenderableFrssElement,
+  FrssPadElement,
+  FrssPaletteElement,
+  FrssRenderableElement,
 } from './types';
 import {
   ElementRules,
@@ -24,10 +24,10 @@ import {
   hasConnectionRule,
   HasCreationRule,
   hasCreationRule,
-  HasPreCreateRule,
-  hasPreCreateRule,
-  hasPreDeleteRule,
-  HasPreDeleteRule,
+  HasPreCreateEvent,
+  hasPreCreateEvent,
+  hasPreDeleteEvent,
+  HasPreDeleteEvent,
 } from './types/rules';
 
 // export the list of used custom elements
@@ -40,51 +40,54 @@ const customElements: FrssElement[] = [
 
 // Below are lists of elements, that are used in different contexts.
 // These lists of elements (and rules) are created to allow type safety
-// and ease of implementing the providers
+// and ease of implementing the providers / extensions
 // (without the need to write a lot of bloated code)
 
-// Elements that are in the palette
-export const customElementsInPalette: PaletteFrssElement[] = customElements
-  .filter((element): element is PaletteFrssElement => inPalette(element));
+/* All elements in the palette */
+export const customElementsInPalette: FrssPaletteElement[] = customElements
+  .filter((element): element is FrssPaletteElement => inPalette(element));
 
-// Elements that are in the context pad
-export const customElementsInPad: PadFrssElement[] = customElements
-  .filter((element): element is PadFrssElement => inPad(element));
+/* All elements in the context pad */
+export const customElementsInPad: FrssPadElement[] = customElements
+  .filter((element): element is FrssPadElement => inPad(element));
 
-// Elements that are renderable
-export const renderableCustomElements: RenderableFrssElement[] = customElements
-  .filter((element): element is RenderableFrssElement => isRenderable(element));
+/* All renderable elements */
+export const renderableCustomElements: FrssRenderableElement[] = customElements
+  .filter((element): element is FrssRenderableElement => isRenderable(element));
 
+/* All elements with rules */
 export const elementsWithRules: FrssElementWithRules[] = customElements
   .filter((element): element is FrssElementWithRules => hasRules(element));
 
-// List of element rules
+/* List of all element rules */
 export const elementRules: ElementRules[] = elementsWithRules
-  .map((elementWithRules) => elementWithRules.rules);
+  .map((ruleElement) => ruleElement.rules);
 
-// List of pre-create rules
+/* List of pre-create events */
 export const preCreateRules = elementRules
-  .filter((rule): rule is HasPreCreateRule => (
-    hasPreCreateRule(rule)
+  .filter((rule): rule is HasPreCreateEvent => (
+    hasPreCreateEvent(rule)
   ));
 
-// List of pre-delete rules
-export const preDeleteRules = elementRules
-  .filter((rule): rule is HasPreDeleteRule => (
-    hasPreDeleteRule(rule)
+/* List of pre-delete events */
+export const preDeleteEvents = elementRules
+  .filter((rule): rule is HasPreDeleteEvent => (
+    hasPreDeleteEvent(rule)
   ));
 
-// List of attachment rules
+/* List of attachment rules */
 export const attachmentRules = elementRules
   .filter((rule): rule is HasAttachmentRule => (
     hasAttachmentRule(rule)
   ));
 
+/* List of connection rules */
 export const connectionRules = elementRules
   .filter((rule): rule is HasConnectionRule => (
     hasConnectionRule(rule)
   ));
 
+/* List of creation rules */
 export const creationRules = elementRules
   .filter((rule): rule is HasCreationRule => (
     hasCreationRule(rule)

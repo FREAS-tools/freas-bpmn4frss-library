@@ -1,9 +1,9 @@
 // @ts-ignore
 // eslint-disable-next-line import/no-extraneous-dependencies
 import CommandInterceptor from 'diagram-js/lib/command/CommandInterceptor';
-import { FRSS_PRIORITY } from './common';
-import { preCreateRules } from './customElements';
-import { HasPreCreateRule } from './types/rules';
+import { FRSS_PRIORITY } from '../../common';
+import { preCreateRules } from '../../customElements';
+import { HasPreCreateEvent } from '../../types/rules';
 
 /**
 * This adds further processing logic when a custom connection is created.
@@ -27,7 +27,7 @@ export default class FrssCreateBehavior extends CommandInterceptor {
     this.preExecute('connection.create', FRSS_PRIORITY, (event: any) => {
       // check if this element has a suitable pre-create rule
       const ruleForElementExists
-      : HasPreCreateRule | undefined = preCreateRules
+      : HasPreCreateEvent | undefined = preCreateRules
         .find(
           (rule) => rule.shouldTriggerPreCreate(event),
         );

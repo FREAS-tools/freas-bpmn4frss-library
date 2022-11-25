@@ -19,20 +19,20 @@ type FrssElement = {
   properties: Properties,
 } & Partial<Submodules>;
 
-export type PaletteFrssElement = {
+export type FrssPaletteElement = {
   controls: {
     createEntry: EntryData,
     padEntries: PadEntryData[],
   },
 } & FrssElement;
 
-export type PadFrssElement = {
+export type FrssPadElement = {
   controls: {
     padEntries: PadEntryData[],
   },
 } & FrssElement;
 
-export type RenderableFrssElement = {
+export type FrssRenderableElement = {
   rendererEntry: ElementRender,
 } & FrssElement;
 
@@ -42,8 +42,8 @@ export type FrssElementWithRules = {
 
 export const inPalette = (
   element: FrssElement,
-): element is PaletteFrssElement => {
-  const checkElement = element as PaletteFrssElement;
+): element is FrssPaletteElement => {
+  const checkElement = element as FrssPaletteElement;
 
   return checkElement.controls !== undefined
     && checkElement.controls.createEntry !== undefined
@@ -53,8 +53,8 @@ export const inPalette = (
 
 export const inPad = (
   element: FrssElement,
-): element is PadFrssElement => {
-  const checkElement = element as PadFrssElement;
+): element is FrssPadElement => {
+  const checkElement = element as FrssPadElement;
 
   return checkElement.controls !== undefined
     && checkElement.controls.padEntries !== undefined
@@ -63,8 +63,8 @@ export const inPad = (
 
 export const isRenderable = (
   element: FrssElement,
-): element is RenderableFrssElement => {
-  const checkElement = element as RenderableFrssElement;
+): element is FrssRenderableElement => {
+  const checkElement = element as FrssRenderableElement;
 
   return checkElement.rendererEntry !== undefined
     && checkElement.rendererEntry.renderFunction !== undefined

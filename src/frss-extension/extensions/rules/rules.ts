@@ -2,21 +2,21 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import RuleProvider from 'diagram-js/lib/features/rules/RuleProvider';
 // the FRSS priority for the injector
-import { FRSS_PRIORITY } from './common';
+import { FRSS_PRIORITY } from '../../common';
 
 // lists of elements of interests
 import {
   attachmentRules,
-  // connectionRules,
+  connectionRules,
   creationRules,
   elementsWithRules,
-} from './customElements';
+} from '../../customElements';
 // types
 import {
   AttachmentRule,
-  // ConnectionRule,
+  ConnectionRule,
   CreationRule,
-} from './types/rules';
+} from '../../types/rules';
 
 /**
  * Check if element is an element that has rules
@@ -49,17 +49,19 @@ const checkAttachment = (source: any, target: any): boolean | string | void => {
   return rule.attachmentRule(source, target);
 };
 
-// const checkConnection = (source: any, target: any): (boolean
-// | { type: string } | void) => {
-//   if (!isFrssElementWithRules(source)) return;
+const checkConnection = (source: any, target: any): (boolean
+| { type: string } | void) => {
+  // if (!isFrssElementWithRules(source)) return;
 
-//   const rule: ConnectionRule | undefined = connectionRules
-//     .find((ruleEntry) => ruleEntry.shouldCheckConnection(source, target));
+  const rule: ConnectionRule | undefined = connectionRules
+    .find((ruleEntry) => ruleEntry.shouldCheckConnection(source, target));
 
-//   if (!rule) return;
+  if (!rule) return;
 
-//   return rule.connectionRule(source, target);
-// };
+  console.log('rule found');
+
+  return rule.connectionRule(source, target);
+};
 
 /**
  * Check if the source can create a target
@@ -72,7 +74,7 @@ const checkCreation = (source: any, target: any): boolean | void => {
     .find((ruleEntry) => ruleEntry.shouldCheckCreation(source, target));
   // console.log(rule);
 
-  // no rule was found (unlikely, but still we need the type safety)
+  // no rule was found
   if (!rule) return;
 
   // rule found, execute
@@ -120,7 +122,6 @@ export default class FrssRuleProvider extends RuleProvider {
 
       const shape = shapes[0];
 
-      console.log(shape, target);
       if (!isFrssElementWithRules(shape)) return;
 
       return checkAttachment(shape, target);
@@ -136,31 +137,31 @@ export default class FrssRuleProvider extends RuleProvider {
       return checkCreation(shape, target);
     });
 
-    // // @ts-ignore
-    // this.addRule('connection.create', FRSS_PRIORITY, (context: any) => {
-    //   const { source, target } = context;
+    // @ts-ignore
+    this.addRule('connection.create', FRSS_PRIORITY, (context: any) => {
+      const { source, target } = context;
 
-    //   // only check frss elements when creating connection
-    //   if (!isFrssElementWithRules(source)
-    //     && !isFrssElementWithRules(target)) return;
+      // frss element has to be at least on one side
+      if (!isFrssElementWithRules(source)
+        && !isFrssElementWithRules(target)) return;
 
-    //   const hints = context.hints ?? {};
-    //   const { targetParent, targetAttach } = hints;
+      const hints = context.hints ?? {};
+      const { targetParent, targetAttach } = hints;
 
-    //   // if the target has already been set
-    //   if (targetAttach) return false;
+      // if the target has already been set
+      if (targetAttach) return false;
 
-    //   // set the parent temporarily
-    //   if (targetParent) target.parent = targetParent;
+      // set the parent temporarily
+      if (targetParent) target.parent = targetParent;
 
-    //   try {
-    //     // try to connect
-    //     return checkConnection(source, target);
-    //   } finally {
-    //     // unset the temporary parent every time
-    //     target.parent = null;
-    //   }
-    // });
+      try {
+        // try to connect
+        return checkConnection(source, target);
+      } finally {
+        // unset the temporary parent after the check!
+        target.parent = null;
+      }
+    });
   }
 }
 

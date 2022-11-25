@@ -2,16 +2,19 @@
 import { isAny } from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
 
 // all custom elements
-import { customElementsInPad } from './customElements';
+import { customElementsInPad } from '../../customElements';
 
 // types
-import { PadFrssElement } from './types';
-import { PadEntryData } from './types/controls/controls';
-import { collectControlEntries, ControlEntry } from './types/controls/entry';
-import newControlEntry from './types/controls/implementation';
+import { FrssPadElement } from '../../types';
+import { PadEntryData } from '../../types/controls/controls';
+import {
+  collectControlEntries,
+  ControlEntry,
+} from '../../types/controls/entry';
+import newControlEntry from '../../types/controls/implementation';
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
-export default class FrssContextPad {
+export default class FrssPadProvider {
   autoPlace: any;
 
   bpmnFactory: any;
@@ -66,7 +69,7 @@ export default class FrssContextPad {
     const entries: ControlEntry[] = customElementsInPad
       // create a list of ControlEntry objects
       // (that will need to be "collected" as a single object)
-      .flatMap((elem: PadFrssElement) => elem.controls.padEntries
+      .flatMap((elem: FrssPadElement) => elem.controls.padEntries
         .filter(
           // check if the pad entry should be shown on the current element
           (padEntry) => isAny(element, padEntry.showOnElements),
@@ -88,7 +91,7 @@ export default class FrssContextPad {
 
 // we need to tell the dependency injector what dependencies we plan to
 // use within our custom module
-FrssContextPad.$inject = [
+FrssPadProvider.$inject = [
   'bpmnFactory',
   'config',
   'contextPad',

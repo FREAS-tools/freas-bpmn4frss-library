@@ -7,11 +7,11 @@ import { isAny } from 'bpmn-js/lib/util/ModelUtil';
 // @ts-ignore
 import BaseRenderer from 'diagram-js/lib/draw/BaseRenderer';
 
-import { FRSS_PRIORITY } from './common';
+import { FRSS_PRIORITY } from '../../common';
 
 // Custom elements - every custom element is placed in this list
-import { renderableCustomElements } from './customElements';
-import { RenderableFrssElement } from './types';
+import { renderableCustomElements } from '../../customElements';
+import { FrssRenderableElement } from '../../types';
 
 export default class FrssRenderer extends BaseRenderer {
   bpmnRenderer: unknown;
@@ -69,7 +69,7 @@ export default class FrssRenderer extends BaseRenderer {
     // check if the element is a custom frss renderable element
     // only retains the one custom element it matches
     const elementIsFrssRenderable:
-    (RenderableFrssElement | undefined) = renderableCustomElements.find(
+    (FrssRenderableElement | undefined) = renderableCustomElements.find(
       (renderableElement) => (
         renderableElement.rendererEntry.shouldRender(element)),
     );

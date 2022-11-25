@@ -5,10 +5,10 @@
  * import nameOfTheElement from './NameOfTheElement/definition';
  */
 
-import { bpmn4frss } from './common';
+import { bpmn4frss } from '../../common';
 
 // Custom elements - every custom element is placed in this list
-import customElements from './customElements';
+import customElements from '../../customElements';
 
 /**
  * This file contains moddle definitions for the BPMN4FRSS extension.
