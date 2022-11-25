@@ -2,14 +2,14 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import CommandInterceptor from 'diagram-js/lib/command/CommandInterceptor';
 import { FRSS_PRIORITY } from '../../common';
-import { preCreateRules } from '../../customElements';
-import { HasPreCreateEvent } from '../../types/rules';
+import { preCreateEvents } from '../../customElements';
+import { PreCreateEvent } from '../../types/rules';
 
 /**
 * This adds further processing logic when a custom connection is created.
 * It properly hooks all the properties.
 */
-export default class FrssCreateBehavior extends CommandInterceptor {
+export default class FrssPreCreationEvents extends CommandInterceptor {
   static $inject: string[];
 
   constructor(eventBus: any, injector: any) {
@@ -27,18 +27,18 @@ export default class FrssCreateBehavior extends CommandInterceptor {
     this.preExecute('connection.create', FRSS_PRIORITY, (event: any) => {
       // check if this element has a suitable pre-create rule
       const ruleForElementExists
-      : HasPreCreateEvent | undefined = preCreateRules
+      : PreCreateEvent | undefined = preCreateEvents
         .find(
-          (rule) => rule.shouldTriggerPreCreate(event),
+          (rule) => rule.shouldTriggerPreCreate(event, 'connection.create'),
         );
 
       // element has no rule
       if (!ruleForElementExists) return;
 
       // trigger the rule if the element has one
-      ruleForElementExists.preCreateRule(event);
+      ruleForElementExists.preCreateEvent(event);
     });
   }
 }
 
-FrssCreateBehavior.$inject = ['eventBus', 'injector'];
+FrssPreCreationEvents.$inject = ['eventBus', 'injector'];

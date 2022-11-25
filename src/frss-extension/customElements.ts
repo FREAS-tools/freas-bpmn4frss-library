@@ -24,10 +24,10 @@ import {
   hasConnectionRule,
   HasCreationRule,
   hasCreationRule,
-  HasPreCreateEvent,
+  HasPreCreateEvents,
   hasPreCreateEvent,
   hasPreDeleteEvent,
-  HasPreDeleteEvent,
+  HasPreDeleteEvents,
 } from './types/rules';
 
 // export the list of used custom elements
@@ -64,16 +64,16 @@ export const elementRules: ElementRules[] = elementsWithRules
   .map((ruleElement) => ruleElement.rules);
 
 /* List of pre-create events */
-export const preCreateRules = elementRules
-  .filter((rule): rule is HasPreCreateEvent => (
+export const preCreateEvents = elementRules
+  .filter((rule): rule is HasPreCreateEvents => (
     hasPreCreateEvent(rule)
-  ));
+  )).flatMap((event) => event.preCreateEvents);
 
 /* List of pre-delete events */
 export const preDeleteEvents = elementRules
-  .filter((rule): rule is HasPreDeleteEvent => (
+  .filter((rule): rule is HasPreDeleteEvents => (
     hasPreDeleteEvent(rule)
-  ));
+  )).flatMap((event) => event.preDeleteEvents);
 
 /* List of attachment rules */
 export const attachmentRules = elementRules

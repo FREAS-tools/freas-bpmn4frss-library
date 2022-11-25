@@ -6,14 +6,13 @@ import producesProperties from '../Produces/properties';
 import properties from './properties';
 
 const evidenceSourceIdentifier = properties.identifier;
-// const producesIdentifier = producesProperties.identifier;
 
 const checkAttachmentOrCreation = (shape: any, _target: any): boolean => (
   is(shape, evidenceSourceIdentifier)
 );
 
 // what elements can we attach the potential evidence source to
-const attachable: string[] = [
+const attachableTo: string[] = [
   'bpmn:Task', 'bpmn:Event', 'bpmn:DataStoreReference',
 ];
 
@@ -21,7 +20,7 @@ const rules: ElementRules = {
   attachmentRule: (source, target) => {
     // evidence source can attach to tasks, events, and data store references
     if (is(source, evidenceSourceIdentifier)) {
-      if (isAny(target, attachable)) {
+      if (isAny(target, attachableTo)) {
         return 'attach';
       }
       return false;
@@ -44,12 +43,13 @@ const rules: ElementRules = {
         type: producesProperties.identifier,
       };
     }
+
     // otherwise it should not have occurred
     return false;
   },
   creationRule: (source, target) => (
     is(source, evidenceSourceIdentifier)
-      && isAny(target, attachable)
+      && isAny(target, attachableTo)
   ),
   shouldCheckAttachment: checkAttachmentOrCreation,
   shouldCheckCreation: checkAttachmentOrCreation,

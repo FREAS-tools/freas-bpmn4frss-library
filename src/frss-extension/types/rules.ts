@@ -14,13 +14,21 @@ export interface CreationRule {
   shouldCheckCreation: (source: any, target: any) => boolean,
 }
 
+export type WithPreCreateEvents = {
+  preCreateEvents: PreCreateEvent[],
+};
+
+export type WithPreDeleteEvents = {
+  preDeleteEvents: PreDeleteEvent[],
+};
+
 export interface PreCreateEvent {
-  preCreateRule: (event: any) => void,
-  shouldTriggerPreCreate: (event: any) => boolean,
+  preCreateEvent: (event: any) => void,
+  shouldTriggerPreCreate: (event: any, command: string) => boolean,
 }
 
 export interface PreDeleteEvent {
-  preDeleteRule: (event: any) => void,
+  preDeleteEvent: (event: any) => void,
   shouldTriggerPreDelete: (event: any) => boolean,
 }
 
@@ -28,8 +36,8 @@ export type ElementAllRules = (
   AttachmentRule
   & ConnectionRule
   & CreationRule
-  & PreCreateEvent
-  & PreDeleteEvent
+  & WithPreCreateEvents
+  & WithPreDeleteEvents
 );
 
 export type ElementRules = Partial<ElementAllRules>;
@@ -40,9 +48,9 @@ export type HasConnectionRule = ElementRules & ConnectionRule;
 
 export type HasCreationRule = ElementRules & CreationRule;
 
-export type HasPreCreateEvent = ElementRules & PreCreateEvent;
+export type HasPreCreateEvents = ElementRules & WithPreCreateEvents;
 
-export type HasPreDeleteEvent = ElementRules & PreDeleteEvent;
+export type HasPreDeleteEvents = ElementRules & WithPreDeleteEvents;
 
 export const hasAttachmentRule = (rules: ElementRules):
 rules is HasAttachmentRule => {
@@ -69,17 +77,17 @@ rules is HasCreationRule => {
 };
 
 export const hasPreCreateEvent = (rules: ElementRules):
-rules is HasPreCreateEvent => {
-  const checkRule = rules as HasPreCreateEvent;
+rules is HasPreCreateEvents => {
+  const checkRule = rules as HasPreCreateEvents;
 
-  return checkRule.preCreateRule !== undefined
-    && checkRule.shouldTriggerPreCreate !== undefined;
+  return checkRule.preCreateEvents !== undefined
+    && checkRule.preCreateEvents.length > 0;
 };
 
 export const hasPreDeleteEvent = (rules: ElementRules):
-rules is HasPreDeleteEvent => {
-  const checkRule = rules as HasPreDeleteEvent;
+rules is HasPreDeleteEvents => {
+  const checkRule = rules as HasPreDeleteEvents;
 
-  return checkRule.preDeleteRule !== undefined
-    && checkRule.shouldTriggerPreDelete !== undefined;
+  return checkRule.preCreateEvents !== undefined
+    && checkRule.preDeleteEvents.length > 0;
 };

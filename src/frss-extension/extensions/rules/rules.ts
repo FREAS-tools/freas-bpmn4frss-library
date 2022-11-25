@@ -37,6 +37,8 @@ const isFrssElementWithRules = (shape: any | any[]): boolean => (
  * @param source source element
  * @param target target element
  * @returns "attach" if the element should be attached
+ *          false if the element should not be attached
+ *          void if the element is not of this rule's concern
  */
 const checkAttachment = (source: any, target: any): boolean | string | void => {
   if (!isFrssElementWithRules(source)) return;
@@ -58,16 +60,9 @@ const checkConnection = (source: any, target: any): (boolean
 
   if (!rule) return;
 
-  console.log('rule found');
-
   return rule.connectionRule(source, target);
 };
 
-/**
- * Check if the source can create a target
- * @param source
- * @param target
- */
 const checkCreation = (source: any, target: any): boolean | void => {
   // try to find a suitable rule
   const rule: CreationRule | undefined = creationRules
@@ -141,9 +136,13 @@ export default class FrssRuleProvider extends RuleProvider {
     this.addRule('connection.create', FRSS_PRIORITY, (context: any) => {
       const { source, target } = context;
 
-      // frss element has to be at least on one side
-      if (!isFrssElementWithRules(source)
-        && !isFrssElementWithRules(target)) return;
+      // console.log(source, target);
+
+      // // frss element has to be at least on one side,
+      // // target cannot be undefined
+      // if ((!isFrssElementWithRules(source)
+      //   && !isFrssElementWithRules(target))
+      //   || target === undefined) return;
 
       const hints = context.hints ?? {};
       const { targetParent, targetAttach } = hints;
@@ -152,7 +151,9 @@ export default class FrssRuleProvider extends RuleProvider {
       if (targetAttach) return false;
 
       // set the parent temporarily
-      if (targetParent) target.parent = targetParent;
+      if (targetParent) {
+        target.parent = targetParent;
+      }
 
       try {
         // try to connect
