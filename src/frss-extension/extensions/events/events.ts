@@ -9,7 +9,7 @@ import { PreCreateEvent } from '../../types/rules';
 * This adds further processing logic when a custom connection is created.
 * It properly hooks all the properties.
 */
-export default class FrssPreCreationEvents extends CommandInterceptor {
+export default class FrssCustomEvents extends CommandInterceptor {
   static $inject: string[];
 
   constructor(eventBus: any, injector: any) {
@@ -41,4 +41,4 @@ export default class FrssPreCreationEvents extends CommandInterceptor {
   }
 }
 
-FrssPreCreationEvents.$inject = ['eventBus', 'injector'];
+FrssCustomEvents.$inject = ['eventBus', 'injector'];
