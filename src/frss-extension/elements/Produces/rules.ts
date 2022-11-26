@@ -20,7 +20,7 @@ const rules: ElementRules = {
         const { context } = event;
         const { connection } = context;
 
-        console.log('pre-trigger rule!');
+        console.log('pre-create rule triggered!', connection);
 
         // set the target and the source in moddle
         connection.businessObject.set(

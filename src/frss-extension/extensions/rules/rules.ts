@@ -58,8 +58,8 @@ const checkConnection = (source: any, target: any): (boolean
 
   if (!rule) return;
 
-  console.log(source, target);
-  // return rule.connectionRule(source, target);
+  // console.log(rule);
+  return rule.connectionRule(source, target);
 };
 
 const checkCreation = (source: any, target: any): boolean | void => {
@@ -134,24 +134,23 @@ export default class FrssRuleProvider extends RuleProvider {
     // @ts-ignore
     this.addRule('connection.create', FRSS_PRIORITY, (context: any) => {
       const { source, target } = context;
-
       const hints = context.hints ?? {};
       const { targetParent, targetAttach } = hints;
 
-      // if the target has already been set
       if (targetAttach) return false;
 
-      // set the parent temporarily
+      // temporarily set parent to the hinted parent (snapped)
       if (targetParent) {
         target.parent = targetParent;
       }
 
       try {
-        // try to connect
         return checkConnection(source, target);
       } finally {
-        // unset the temporary parent after the check!
-        target.parent = null;
+        // unset temporary parent
+        if (targetParent) {
+          target.parent = null;
+        }
       }
     });
   }

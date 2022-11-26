@@ -3,7 +3,7 @@
 import EvidenceDataObject from './elements/EvidenceDataObject';
 import EvidenceSource from './elements/EvidenceSource';
 import PotentialEvidence from './elements/PotentialEvidence';
-// import Produces from './elements/Produces';
+import Produces from './elements/Produces';
 
 // import types & rule types
 import FrssElement, {
@@ -35,7 +35,7 @@ const frssElements: FrssElement[] = [
   EvidenceDataObject,
   EvidenceSource,
   PotentialEvidence,
-  // Produces,
+  Produces,
 ];
 
 // Below are lists of elements, that are used in different contexts.

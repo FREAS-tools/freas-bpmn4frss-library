@@ -88,6 +88,6 @@ export const hasPreDeleteEvent = (rules: ElementRules):
 rules is HasPreDeleteEvents => {
   const checkRule = rules as HasPreDeleteEvents;
 
-  return checkRule.preCreateEvents !== undefined
+  return checkRule.preDeleteEvents !== undefined
     && checkRule.preDeleteEvents.length > 0;
 };
