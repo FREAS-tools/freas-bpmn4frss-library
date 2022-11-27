@@ -1,6 +1,10 @@
 // This file provides functions for the React components
 // that encapsulate the library
 
+// color picker
+// @ts-ignore
+import ColorPickerModule from 'bpmn-js-color-picker';
+
 // imports
 // @ts-ignore
 import Modeler from 'bpmn-js/lib/Modeler';
@@ -37,6 +41,7 @@ export default class Bpmn4FrssWebEditor {
       additionalModules: [
         // extending the rendering abilities of the modeler:
         frssExtension,
+        ColorPickerModule,
       ],
     });
   }
