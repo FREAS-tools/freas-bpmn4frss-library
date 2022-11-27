@@ -14,8 +14,9 @@ import FrssElement, {
   isRenderable,
   FrssPadElement,
   FrssPaletteElement,
-  FrssRenderableElement,
+  FrssRenderable,
 } from './types';
+import { ElementRenderType } from './types/rendererEntry';
 import {
   ElementRules,
   hasAttachmentRule,
@@ -52,8 +53,20 @@ export const frssPadElements: FrssPadElement[] = frssElements
   .filter((element): element is FrssPadElement => inPad(element));
 
 /* All renderable elements */
-export const frssRenderableElements: FrssRenderableElement[] = frssElements
-  .filter((element): element is FrssRenderableElement => isRenderable(element));
+export const frssRenderables: FrssRenderable[] = frssElements
+  .filter((element): element is FrssRenderable => isRenderable(element));
+
+export const frssRenderableElements = frssRenderables.filter(
+  (renderableElement) => (
+    renderableElement.rendererEntry.type === ElementRenderType.Element
+  ),
+);
+
+export const frssRenderableConnections = frssRenderables.filter(
+  (renderableElement) => (
+    renderableElement.rendererEntry.type === ElementRenderType.Connection
+  ),
+);
 
 /* All elements with rules */
 export const frssElementsWithRules: FrssElementWithRules[] = frssElements

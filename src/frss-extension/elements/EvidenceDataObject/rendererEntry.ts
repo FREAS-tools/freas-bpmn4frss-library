@@ -17,6 +17,7 @@ import {
 } from 'tiny-svg';
 
 import ElementRender, {
+  ElementRenderType,
   RenderFunction,
   ShouldRender,
 } from '../../types/rendererEntry';
@@ -71,6 +72,7 @@ const rendererEntry: ElementRender = {
   renderOnElements: [elementIdentifier],
   renderFunction,
   shouldRender,
+  type: ElementRenderType.Element,
 };
 
 export default rendererEntry;

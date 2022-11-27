@@ -10,8 +10,12 @@ import BaseRenderer from 'diagram-js/lib/draw/BaseRenderer';
 import { FRSS_PRIORITY } from '../../common';
 
 // Custom elements - every custom element is placed in this list
-import { frssRenderableElements } from '../../frssElements';
-import { FrssRenderableElement } from '../../types';
+import {
+  frssRenderables,
+  frssRenderableElements,
+  frssRenderableConnections,
+} from '../../frssElements';
+import { FrssRenderable } from '../../types';
 
 export default class FrssRenderer extends BaseRenderer {
   bpmnRenderer: unknown;
@@ -40,7 +44,7 @@ export default class FrssRenderer extends BaseRenderer {
    */
   canRender(element: any) {
     // modified bpmn elements that should be rendered differently
-    const renderableFrssElements: string[] = frssRenderableElements.flatMap(
+    const renderableFrssElements: string[] = frssRenderables.flatMap(
       (customElement) => customElement.rendererEntry.renderOnElements,
     );
 
@@ -69,17 +73,37 @@ export default class FrssRenderer extends BaseRenderer {
     // check if the element is a custom frss renderable element
     // only retains the one custom element it matches
     const elementIsFrssRenderable:
-    (FrssRenderableElement | undefined) = frssRenderableElements.find(
+    (FrssRenderable | undefined) = frssRenderableElements.find(
       (renderableElement) => (
         renderableElement.rendererEntry.shouldRender(element)),
     );
 
-    // the element is not renderable
+    // the element is not renderable by the Frss renderer
     if (!elementIsFrssRenderable) return;
 
     // obtain the renderer from the custom element module
     // there will always be just one module with the same identifier
     const { rendererEntry } = elementIsFrssRenderable;
+
+    return rendererEntry.renderFunction({
+      bpmnRenderer: this.bpmnRenderer,
+      element,
+      parentNode,
+    });
+  }
+
+  drawConnection(parentNode: any, element: any): Element | null | void {
+    const elementIsFrssRenderableConnection:
+    (FrssRenderable | undefined) = frssRenderableConnections.find(
+      (renderableConnection) => (
+        renderableConnection.rendererEntry.shouldRender(element)
+      ),
+    );
+
+    // the connection is not renderable by the Frss renderer
+    if (!elementIsFrssRenderableConnection) return;
+
+    const { rendererEntry } = elementIsFrssRenderableConnection;
 
     return rendererEntry.renderFunction({
       bpmnRenderer: this.bpmnRenderer,

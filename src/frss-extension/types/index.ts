@@ -32,7 +32,7 @@ export type FrssPadElement = {
   },
 } & FrssElement;
 
-export type FrssRenderableElement = {
+export type FrssRenderable = {
   rendererEntry: ElementRender,
 } & FrssElement;
 
@@ -63,14 +63,15 @@ export const inPad = (
 
 export const isRenderable = (
   element: FrssElement,
-): element is FrssRenderableElement => {
-  const checkElement = element as FrssRenderableElement;
+): element is FrssRenderable => {
+  const checkElement = element as FrssRenderable;
 
   return checkElement.rendererEntry !== undefined
     && checkElement.rendererEntry.renderFunction !== undefined
     && checkElement.rendererEntry.renderOnElements !== undefined
     && checkElement.rendererEntry.renderOnElements.length > 0
-    && checkElement.rendererEntry.shouldRender !== undefined;
+    && checkElement.rendererEntry.shouldRender !== undefined
+    && checkElement.rendererEntry.type !== undefined;
 };
 
 export const hasRules = (

@@ -15,8 +15,10 @@ import {
   create as createSvg,
   append as appendSvg,
 } from 'tiny-svg';
-import { ELEMENT_FALLBACK_OFFSET } from '../../common';
-import ElementRender, { RenderFunction } from '../../types/rendererEntry';
+import ElementRender, {
+  ElementRenderType,
+  RenderFunction,
+} from '../../types/rendererEntry';
 
 // icon for potential evidence sources
 import EvidenceSourceIcon
@@ -24,7 +26,7 @@ import EvidenceSourceIcon
 
 import properties from './properties';
 
-const offset = properties.offset ?? ELEMENT_FALLBACK_OFFSET;
+const { offset } = properties;
 
 const renderFunction: RenderFunction = (
   { parentNode, element },
@@ -53,6 +55,7 @@ const rendererEntry: ElementRender = {
   renderOnElements: [properties.identifier],
   renderFunction,
   shouldRender: (element) => is(element, properties.identifier),
+  type: ElementRenderType.Element,
 };
 
 export default rendererEntry;

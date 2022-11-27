@@ -1,14 +1,13 @@
 import FrssElement from '../../types';
 import definition from './definition';
 import properties from './properties';
+import rendererEntry from './rendererEntry';
 import rules from './rules';
 
 const produces: FrssElement = {
-  // controls,
   definition,
-  // icon,
   properties,
-  // render,
+  rendererEntry,
   rules,
 };
 
