@@ -13,12 +13,12 @@
  * ```
  */
 
-import { FrssElementDefinition } from '../../types';
+import Definition from '../../types/definitions/definition';
 import properties from './properties';
 
 const { name } = properties;
 
-const potentialEvidenceDefinition: FrssElementDefinition = {
+const potentialEvidenceDefinition: Definition = {
   name,
   // the potential evidence type is a data object
   superClass: ['bpmn:DataObject'],
@@ -30,6 +30,10 @@ const potentialEvidenceDefinition: FrssElementDefinition = {
       type: 'string',
       // there can be many data fields
       isMany: true,
+    },
+    {
+      name: 'lifecycleProcess',
+      type: 'string',
     },
   ],
 };

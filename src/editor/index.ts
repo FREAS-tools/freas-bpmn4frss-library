@@ -1,12 +1,17 @@
 // This file provides functions for the React components
 // that encapsulate the library
 
+// color picker
+// @ts-ignore
+import ColorPickerModule from 'bpmn-js-color-picker';
+
 // imports
 // @ts-ignore
 import Modeler from 'bpmn-js/lib/Modeler';
 
 // import the bpmn4frss moddle language extension
 import frssExtension from '../frss-extension';
+import diagram from './default-diagram';
 import errorMessages from './errors';
 
 /**
@@ -29,13 +34,14 @@ export default class Bpmn4FrssWebEditor {
       // extending the syntax of the language - able to serialize / deserialize
       // bpmn models from / to .bpmn files
       moddleExtensions: {
-        frss: frssExtension.frssDefinitions,
+        bpmn4frss: frssExtension.frssDefinitions,
       },
 
       // here are all additional modeler extensions
       additionalModules: [
         // extending the rendering abilities of the modeler:
         frssExtension,
+        ColorPickerModule,
       ],
     });
   }
@@ -58,6 +64,33 @@ export default class Bpmn4FrssWebEditor {
       return true;
     } catch (_) {
       throw new Error(errorMessages.fileLoadFailed);
+    }
+  }
+
+  async defaultDiagram(): Promise<boolean> {
+    try {
+      await this.modeler.importXML(diagram);
+      return true;
+    } catch (_) {
+      throw new Error(errorMessages.fileLoadFailed);
+    }
+  }
+
+  async saveDiagramAsXML(): Promise<{ xml: string }> {
+    try {
+      return this.modeler.saveXML({
+        format: true,
+      });
+    } catch (_) {
+      throw new Error(errorMessages.fileDownloadFailed);
+    }
+  }
+
+  async saveDiagramSvg(): Promise<{ svg: string }> {
+    try {
+      return this.modeler.saveSVG();
+    } catch (_) {
+      throw new Error(errorMessages.fileDownloadFailed);
     }
   }
 }

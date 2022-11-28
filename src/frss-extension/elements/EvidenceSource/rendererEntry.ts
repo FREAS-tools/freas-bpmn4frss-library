@@ -6,12 +6,19 @@
  * for displaying the element on the canvas.
  */
 
+// utility functions for determining the element type
+// @ts-ignore
+import { is } from 'bpmn-js/lib/util/ModelUtil';
+
 // rendering tools from tiny-svg
 import {
   create as createSvg,
   append as appendSvg,
 } from 'tiny-svg';
-import { ELEMENT_FALLBACK_OFFSET } from '../../common';
+import ElementRender, {
+  ElementRenderType,
+  RenderFunction,
+} from '../../types/renderer/rendererEntry';
 
 // icon for potential evidence sources
 import EvidenceSourceIcon
@@ -19,21 +26,10 @@ import EvidenceSourceIcon
 
 import properties from './properties';
 
-const offset = properties.elementOffset ?? ELEMENT_FALLBACK_OFFSET;
+const { offset } = properties;
 
-/**
- * Every custom element that is visible has to have a way to render itself,
- * so in every `rendererEntry.ts` file is a function that does just that -
- * provides a way to render the element.
- *
- * @param {*} parentNode parent node of the element that needs to be rendered
- * @param {*} element element that is getting rendered
- *
- * @returns rendered element
- */
-const evidenceSourceRender = (
-  parentNode: any,
-  element: any,
+const renderFunction: RenderFunction = (
+  { parentNode, element },
 ) => {
   // render the image into the modeler
   const evidenceSource = createSvg('image', {
@@ -55,4 +51,11 @@ const evidenceSourceRender = (
   return evidenceSource;
 };
 
-export default evidenceSourceRender;
+const rendererEntry: ElementRender = {
+  renderOnElements: [properties.identifier],
+  renderFunction,
+  shouldRender: (element) => is(element, properties.identifier),
+  type: ElementRenderType.Element,
+};
+
+export default rendererEntry;

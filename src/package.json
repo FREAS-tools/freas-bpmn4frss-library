@@ -26,6 +26,7 @@
   "license": "ISC",
   "dependencies": {
     "bpmn-js": "^10.0.0",
+    "bpmn-js-color-picker": "^0.4.0",
     "eslint-config-airbnb-typescript-base": "^4.0.2"
   },
   "devDependencies": {

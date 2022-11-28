@@ -1,16 +1,18 @@
+import Definition from '../../types/definitions/definition';
 // import the properties of another custom element, will use namely its name;
 import producesProperties from '../Produces/properties';
 // import own property, namely our name
 import properties from './properties';
 
 const { name } = properties;
+export const connectionCollectionName = 'producesEvidences';
 
 /**
  * The "looking glass" icon, indicates that a resource can be a potential
  * source of evidence. Can be connected to either a task, event or a data store
  * (which can recursively generate more and more evidence types)
  */
-const evidenceSourceDefinition = {
+const evidenceSourceDefinition: Definition = {
   name,
   superClass: ['bpmn:BaseElement', 'bpmn:FlowNode'],
   properties: [
@@ -30,7 +32,7 @@ const evidenceSourceDefinition = {
     // as a join table) for connecting multiple evidence objects. We only
     // need to specify it, so the moddle knows there is an association.
     {
-      name: 'producesEvidences',
+      name: connectionCollectionName,
       type: producesProperties.name,
       isMany: true,
     },

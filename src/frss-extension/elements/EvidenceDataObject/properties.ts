@@ -1,10 +1,10 @@
 // import the prefix
 import { bpmn4frssPrefix } from '../../common';
-import { FrssElementProperties } from '../../types';
+import { Props } from '../../types/properties/properties';
 
 const name = 'EvidenceDataObject';
 
-const properties: FrssElementProperties = {
+const properties: Props = {
   identifier: `${bpmn4frssPrefix}${name}`,
   name,
   nameLowercase: 'evidence-data-object',

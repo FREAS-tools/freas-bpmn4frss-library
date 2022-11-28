@@ -1,6 +1,9 @@
-import FrssPalette from './controls/palette';
-import FrssDefinitions from './definitions';
-import FrssRenderer from './renderer';
+import FrssCustomEvents from './extensions/events/events';
+import FrssDefinitions from './extensions/moddle/moddle';
+import FrssPadProvider from './extensions/pad/padProvider';
+import FrssPaletteProvider from './extensions/palette/paletteProvider';
+import FrssRenderer from './extensions/renderer/renderer';
+import FrssRuleProvider from './extensions/rules/rules';
 
 /**
  * FRSS extension for `bpmn-js`
@@ -10,12 +13,18 @@ import FrssRenderer from './renderer';
  */
 export default {
   __init__: [
+    'frssEvents',
     'frssRenderer',
-    'frssPalette',
+    'frssPaletteProvider',
+    'frssPadProvider',
+    'frssRuleProvider',
   ],
 
+  frssEvents: ['type', FrssCustomEvents],
   frssRenderer: ['type', FrssRenderer],
-  frssPalette: ['type', FrssPalette],
+  frssPaletteProvider: ['type', FrssPaletteProvider],
+  frssPadProvider: ['type', FrssPadProvider],
+  frssRuleProvider: ['type', FrssRuleProvider],
 
   // Moddle definitions should be imported with the library itself,
   // but they should not be initialized by the dependency injector.
@@ -32,6 +41,9 @@ export default {
  * `bpmn-js` library, which these named exports allow.
  */
 export {
+  FrssCustomEvents as Bpmn4FrssEvents,
   FrssDefinitions as Bpmn4FrssDefinitions,
   FrssRenderer as Bpmn4FrssRenderer,
+  FrssPaletteProvider as Bpmn4FrssPaletteProvider,
+  FrssPadProvider as Bpmn4FrssPadProvider,
 };

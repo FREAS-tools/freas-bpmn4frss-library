@@ -24,7 +24,13 @@ module.exports = {
     '@typescript-eslint/no-unsafe-member-access': 'off',
     '@typescript-eslint/no-unsafe-argument': 'off',
     '@typescript-eslint/ban-types': 'off',
-
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      {
+        argsIgnorePattern: '^_',
+      },
+    ],
+    'consistent-return': 'off',
     // Disabling no-console rule to be able to debug the work
     'no-console': 'warn',
     // Not using semicolons results in an error

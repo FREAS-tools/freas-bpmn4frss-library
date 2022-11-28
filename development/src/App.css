@@ -18,23 +18,40 @@ body {
 }
 
 .bpmn4frss {
+    display: flex;
+    flex-direction: column;
     width: 100%;
     height: 100%;
 }
 
 .editor {
     width: 100%;
-    height: 90%;
+    height: 100%;
 }
 
-.editor__load-diagram {
+.button-container {
     display: flex;
-    background-color: #9d84f2;
+    flex-direction: row;
+    justify-content: center;
+    height: auto;
+    width: 100%;
+    gap: 1rem;
+}
+
+.button {
+    display: flex;
+    gap: 1rem;
+    background-color: #005763;
+    color: white;
     padding: 1rem;
     border-radius: 0.5rem;
     width: max-content;
 }
 
-.editor__load-diagram:hover {
+.input {
+    display: none;
+}
+
+.clickable:hover {
     cursor: pointer;
 }
