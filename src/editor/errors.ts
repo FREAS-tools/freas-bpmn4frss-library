@@ -9,6 +9,8 @@ const errorMessages = {
     'Loading the diagram from the file has failed for an unknown reason',
   fileIsNotValid:
     'The loaded diagram is not a valid BPMN4FRSS diagram.',
+  fileDownloadFailed:
+    'Cannot download the file, please report this error if you see it.',
 };
 
 export default errorMessages;

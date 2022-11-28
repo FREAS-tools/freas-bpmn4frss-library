@@ -34,7 +34,7 @@ export default class Bpmn4FrssWebEditor {
       // extending the syntax of the language - able to serialize / deserialize
       // bpmn models from / to .bpmn files
       moddleExtensions: {
-        frss: frssExtension.frssDefinitions,
+        bpmn4frss: frssExtension.frssDefinitions,
       },
 
       // here are all additional modeler extensions
@@ -73,6 +73,24 @@ export default class Bpmn4FrssWebEditor {
       return true;
     } catch (_) {
       throw new Error(errorMessages.fileLoadFailed);
+    }
+  }
+
+  async saveDiagramAsXML(): Promise<{ xml: string }> {
+    try {
+      return this.modeler.saveXML({
+        format: true,
+      });
+    } catch (_) {
+      throw new Error(errorMessages.fileDownloadFailed);
+    }
+  }
+
+  async saveDiagramSvg(): Promise<{ svg: string }> {
+    try {
+      return this.modeler.saveSVG();
+    } catch (_) {
+      throw new Error(errorMessages.fileDownloadFailed);
     }
   }
 }

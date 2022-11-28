@@ -31,7 +31,7 @@ export const createElement: NewActionFunction = (
       createObject = {
         ...createObject,
         height: properties.size.height,
-        weight: properties.size.width,
+        width: properties.size.width,
       };
     }
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { HtmlHTMLAttributes, MutableRefObject, useEffect, useRef, useState } from "react";
 import Bpmn4FrssWebEditor from "../../src/editor";
 import bpmn from "../../misc/diagram2.bpmn?raw";
 
@@ -35,6 +35,7 @@ const Bpmn4FrssEditor = ({ cssClassNames }: Bpmn4FrssEditorProps) => {
   const initializeLibrary = useRef(true);
   // create a state for the Bpmn4FrssWebEditor
   const [library, setLibrary] = useState<Bpmn4FrssWebEditor>();
+  const downloadFile: MutableRefObject<undefined | string> = useRef();
 
   // mounting the library only once
   useEffect(() => {
@@ -51,12 +52,66 @@ const Bpmn4FrssEditor = ({ cssClassNames }: Bpmn4FrssEditorProps) => {
     };
   }, []);
 
-  const loadCustomDiagram = async () => {
-    library?.loadDiagram(bpmn);
+  const loadDiagramFromFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files[0];
+
+    if (!file) {
+      alert("The file should be specified!");
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.readAsText(file, "utf-8");
+
+    reader.onload = () => {
+      const result = reader.result;
+
+      if (typeof result === 'string') {
+        library?.loadDiagram(result);
+        return;
+      }
+
+      alert('file could not be loaded');
+    };    
   };
 
   const loadDefaultDiagram = async () => {
     library?.defaultDiagram();
+  }
+
+  const downloadTheFile = async (type: string) => {
+    const content = type === "image/svg+xml" 
+      ? await library?.saveDiagramSvg() : await library?.saveDiagramAsXML();
+
+    console.log(content);
+
+    const fileName = `diagram.${type === "image/svg+xml" ? "svg" : "bpmn"}`;
+    
+
+      if (downloadFile.current) {
+        window.URL.revokeObjectURL(downloadFile.current);
+      }
+  
+      const data = new Blob([
+        type === 'image/svg+xml'
+        ? content.svg : content.xml
+      ], {type});
+      downloadFile.current = window.URL.createObjectURL(data);
+      const tempAnchor = document.createElement("a");
+      tempAnchor.href = downloadFile.current;
+      tempAnchor.download = fileName;
+      document.body.appendChild(tempAnchor);
+      tempAnchor.click();
+      tempAnchor.remove();
+  }
+
+  const downloadDiagramAsXML = async () => {
+    await downloadTheFile("text/xml");    
+  }
+
+  const downloadDiagramAsSvg = async () => {
+    await downloadTheFile("image/svg+xml");
   }
 
   return (
@@ -64,17 +119,33 @@ const Bpmn4FrssEditor = ({ cssClassNames }: Bpmn4FrssEditorProps) => {
       {/* Bpmn4Frss typescript library */}
       <div ref={container} className={cssClassNames.libraryCssClass}></div>
       <div className={cssClassNames.controls.container}>
-        <div
-          className={cssClassNames.controls.loadButtonCssClass}
-          onClick={loadCustomDiagram}
-        >
-          Load custom diagram
+        <div className={cssClassNames.controls.loadButtonCssClass}>
+          <label className="clickable" htmlFor="diagram-file-input">Load diagram from file</label>
+          <input
+            className="clickable input"
+            id="diagram-file-input"
+            type="file"
+            onInput={loadDiagramFromFile}
+          />
         </div>
+
         <div
           className={cssClassNames.controls.loadButtonCssClass}
           onClick={loadDefaultDiagram}
         >
           Load default diagram
+        </div>
+        <div
+          className={cssClassNames.controls.loadButtonCssClass}
+          onClick={downloadDiagramAsXML}
+        >
+          Download diagram (.bpmn)
+        </div>
+        <div
+          className={cssClassNames.controls.loadButtonCssClass}
+          onClick={downloadDiagramAsSvg}
+        >
+          Download diagram (.svg)
         </div>
       </div>
     </div>

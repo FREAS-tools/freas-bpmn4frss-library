@@ -40,6 +40,7 @@ body {
 
 .button {
     display: flex;
+    gap: 1rem;
     background-color: #005763;
     color: white;
     padding: 1rem;
@@ -47,6 +48,10 @@ body {
     width: max-content;
 }
 
-.button:hover {
+.input {
+    display: none;
+}
+
+.clickable:hover {
     cursor: pointer;
 }

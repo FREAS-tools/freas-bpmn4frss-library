@@ -11,7 +11,7 @@ export interface CreateShape {
   businessObject: any,
   height?: number,
   type: string,
-  weight?: number,
+  width?: number,
 }
 
 export type NewActionFunction = (

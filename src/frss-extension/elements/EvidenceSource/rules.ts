@@ -39,10 +39,6 @@ const rules: ElementRules = {
       is(target, 'bpmn:DataObjectReference')
       && target.businessObject?.dataObjectRef?.isPotentialEvidence
     ) {
-      console.log(
-        'the connection should be created',
-        producesProperties.identifier,
-      );
       return {
         type: producesProperties.identifier,
       };
