@@ -93,8 +93,10 @@ const Bpmn4FrssEditor = ({ cssClassNames }: Bpmn4FrssEditorProps) => {
         window.URL.revokeObjectURL(downloadFile.current);
       }
   
+      
       const data = new Blob([
         type === 'image/svg+xml'
+        // @ts-ignore
         ? content.svg : content.xml
       ], {type});
       downloadFile.current = window.URL.createObjectURL(data);
