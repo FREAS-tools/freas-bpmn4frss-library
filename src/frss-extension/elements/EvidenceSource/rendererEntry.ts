@@ -18,7 +18,7 @@ import {
 import ElementRender, {
   ElementRenderType,
   RenderFunction,
-} from '../../types/rendererEntry';
+} from '../../types/renderer/rendererEntry';
 
 // icon for potential evidence sources
 import EvidenceSourceIcon

@@ -16,20 +16,35 @@ import FrssElement, {
   FrssPaletteElement,
   FrssRenderable,
 } from './types';
-import { ElementRenderType } from './types/rendererEntry';
+import { ElementRenderType } from './types/renderer/rendererEntry';
 import {
   ElementRules,
+} from './types/rules';
+
+import {
   hasAttachmentRule,
   HasAttachmentRule,
-  HasConnectionRule,
+} from './types/rules/attachment';
+
+import {
   hasConnectionRule,
+  HasConnectionRule,
+} from './types/rules/connection';
+
+import {
   HasCreationRule,
   hasCreationRule,
+} from './types/rules/creation';
+
+import {
   HasPreCreateEvents,
   hasPreCreateEvent,
+} from './types/rules/events/preCreate';
+
+import {
   hasPreDeleteEvent,
   HasPreDeleteEvents,
-} from './types/rules';
+} from './types/rules/events/preDelete';
 
 // export the list of used custom elements
 const frssElements: FrssElement[] = [

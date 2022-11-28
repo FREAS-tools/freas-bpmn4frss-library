@@ -1,4 +1,4 @@
-import Definition from '../../types/definition';
+import Definition from '../../types/definitions/definition';
 
 // potential evidence source is a "dependency" of this element,
 // as we need to know its identifier to be able to identify

@@ -13,7 +13,7 @@
  * ```
  */
 
-import Definition from '../../types/definition';
+import Definition from '../../types/definitions/definition';
 import properties from './properties';
 
 const { name } = properties;

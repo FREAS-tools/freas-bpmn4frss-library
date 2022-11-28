@@ -1,4 +1,4 @@
-import Properties from '../props';
+import Properties from '../properties/properties';
 import ControlsContext from './context';
 
 export type ActionFunction = (

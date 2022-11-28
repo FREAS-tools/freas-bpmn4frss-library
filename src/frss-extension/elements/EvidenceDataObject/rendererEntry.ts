@@ -20,7 +20,7 @@ import ElementRender, {
   ElementRenderType,
   RenderFunction,
   ShouldRender,
-} from '../../types/rendererEntry';
+} from '../../types/renderer/rendererEntry';
 
 // properties from the PotentialEvidence
 import potentialEvidenceProperties from '../PotentialEvidence/properties';

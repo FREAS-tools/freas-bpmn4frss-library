@@ -5,7 +5,7 @@ import { collectControlEntries } from '../../types/controls/entry';
 // import { Controls, EntryData, isInPalette } from '../types/controls/controls';
 // import { collectControlEntries } from '../types/controls/entry';
 import newControlEntry from '../../types/controls/implementation';
-import { RenderableElementProps } from '../../types/props';
+import { RenderableElementProps } from '../../types/properties/properties';
 
 /**
  * FRSS extension of the `bpmn-js` palette

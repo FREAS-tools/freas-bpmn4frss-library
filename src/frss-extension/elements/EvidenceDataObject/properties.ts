@@ -1,6 +1,6 @@
 // import the prefix
 import { bpmn4frssPrefix } from '../../common';
-import { Props } from '../../types/props';
+import { Props } from '../../types/properties/properties';
 
 const name = 'EvidenceDataObject';
 

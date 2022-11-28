@@ -1,4 +1,4 @@
-import Definition from '../../types/definition';
+import Definition from '../../types/definitions/definition';
 // import the properties of another custom element, will use namely its name;
 import producesProperties from '../Produces/properties';
 // import own property, namely our name

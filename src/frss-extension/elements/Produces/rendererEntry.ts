@@ -12,7 +12,7 @@ import {
 import ElementRender, {
   ElementRenderType,
   RenderFunction,
-} from '../../types/rendererEntry';
+} from '../../types/renderer/rendererEntry';
 import properties from './properties';
 
 const { identifier } = properties;

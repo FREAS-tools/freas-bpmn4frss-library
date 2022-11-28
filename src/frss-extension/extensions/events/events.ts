@@ -3,7 +3,7 @@
 import CommandInterceptor from 'diagram-js/lib/command/CommandInterceptor';
 import { FRSS_PRIORITY } from '../../common';
 import { preCreateEvents } from '../../frssElements';
-import { PreCreateEvent } from '../../types/rules';
+import { PreCreateEvent } from '../../types/rules/events/preCreate';
 
 /**
 * This adds further processing logic when a custom connection is created.
@@ -25,7 +25,6 @@ export default class FrssCustomEvents extends CommandInterceptor {
      */
     // @ts-ignore
     this.preExecute('connection.create', FRSS_PRIORITY, (event: any) => {
-      console.log('pre-create interceptor');
       // check if this element has a suitable pre-create rule
       const ruleForElementExists
       : PreCreateEvent | undefined = preCreateEvents
@@ -36,7 +35,6 @@ export default class FrssCustomEvents extends CommandInterceptor {
       // element has no rule
       if (!ruleForElementExists) return;
 
-      console.log('rule found:', ruleForElementExists);
       // trigger the rule if the element has one
       ruleForElementExists.preCreateEvent(event);
     });

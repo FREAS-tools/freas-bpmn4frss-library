@@ -12,11 +12,9 @@ import {
   frssElementsWithRules,
 } from '../../frssElements';
 // types
-import {
-  AttachmentRule,
-  ConnectionRule,
-  CreationRule,
-} from '../../types/rules';
+import { HasAttachmentRule } from '../../types/rules/attachment';
+import { HasConnectionRule } from '../../types/rules/connection';
+import { HasCreationRule } from '../../types/rules/creation';
 
 /**
  * Check if element is an element that has rules
@@ -43,7 +41,7 @@ const isFrssElementWithRules = (shape: any | any[]): boolean => (
 const checkAttachment = (source: any, target: any): boolean | string | void => {
   if (!isFrssElementWithRules(source)) return;
 
-  const rule: AttachmentRule | undefined = attachmentRules
+  const rule: HasAttachmentRule | undefined = attachmentRules
     .find((ruleEntry) => ruleEntry.shouldCheckAttachment(source, target));
 
   if (!rule) return;
@@ -53,18 +51,17 @@ const checkAttachment = (source: any, target: any): boolean | string | void => {
 
 const checkConnection = (source: any, target: any): (boolean
 | { type: string } | void) => {
-  const rule: ConnectionRule | undefined = connectionRules
+  const rule: HasConnectionRule | undefined = connectionRules
     .find((ruleEntry) => ruleEntry.shouldCheckConnection(source, target));
 
   if (!rule) return;
 
-  // console.log(rule);
   return rule.connectionRule(source, target);
 };
 
 const checkCreation = (source: any, target: any): boolean | void => {
   // try to find a suitable rule
-  const rule: CreationRule | undefined = creationRules
+  const rule: HasCreationRule | undefined = creationRules
     .find((ruleEntry) => ruleEntry.shouldCheckCreation(source, target));
   // console.log(rule);
 

@@ -1,7 +1,7 @@
 import { Controls, EntryData, PadEntryData } from './controls/controls';
-import Definition from './definition';
-import Properties from './props';
-import ElementRender from './rendererEntry';
+import Definition from './definitions/definition';
+import Properties from './properties/properties';
+import ElementRender from './renderer/rendererEntry';
 import { ElementRules } from './rules';
 
 interface Submodules {

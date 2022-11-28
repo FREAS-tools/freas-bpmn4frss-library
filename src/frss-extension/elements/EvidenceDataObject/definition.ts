@@ -1,4 +1,4 @@
-import Definition from '../../types/definition';
+import Definition from '../../types/definitions/definition';
 import potentialEvidenceTypeProperties
   from '../PotentialEvidence/properties';
 

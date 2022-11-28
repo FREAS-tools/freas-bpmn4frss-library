@@ -1,4 +1,4 @@
-import Properties from '../props';
+import Properties from '../properties/properties';
 import { ActionFunction, NewActionFunction } from './actionFunction';
 import ControlsContext from './context';
 

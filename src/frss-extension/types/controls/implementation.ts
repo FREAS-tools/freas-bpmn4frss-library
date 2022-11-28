@@ -1,4 +1,4 @@
-import { hasIcon, hasSizeAndOffset } from '../props';
+import { hasIcon, hasSizeAndOffset } from '../properties/properties';
 import {
   ActionFunction,
   CreateShape,
