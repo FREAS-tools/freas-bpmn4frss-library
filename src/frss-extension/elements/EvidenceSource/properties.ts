@@ -1,6 +1,8 @@
 // import the prefix
 import { bpmn4frssPrefix } from '../../common';
-import { RenderableElementWithIconProps } from '../../types/properties/properties';
+import {
+  RenderableElementWithIconProps,
+} from '../../types/properties/properties';
 import icon
   from './assets/evidence-source.png';
 
