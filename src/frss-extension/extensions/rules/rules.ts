@@ -25,9 +25,9 @@ import { HasCreationRule } from '../../types/rules/creation';
  */
 const isFrssElementWithRules = (shape: any | any[]): boolean => (
   // @TODO: should we check for many elements?
-  shape && frssElementsWithRules.find(
+  shape && (frssElementsWithRules.find(
     (element) => element.properties.identifier === shape.type,
-  )
+  ) !== undefined)
 );
 
 /**
