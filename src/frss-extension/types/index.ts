@@ -22,7 +22,6 @@ type FrssElement = {
 export type FrssPaletteElement = {
   controls: {
     createEntry: EntryData,
-    padEntries: PadEntryData[],
   },
 } & FrssElement;
 

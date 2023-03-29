@@ -20,7 +20,7 @@ const { identifier } = properties;
 const renderFunction: RenderFunction = (
   { parentNode, element, bpmnRenderer },
 ) => {
-  const produces = bpmnRenderer.handlers['bpmn:DataInputAssociation'](
+  const produces = bpmnRenderer.handlers['bpmn:DataOutputAssociation'](
     parentNode,
     element,
   );

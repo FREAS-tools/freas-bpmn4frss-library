@@ -1,0 +1,23 @@
+.mark-as-potential-evidence::before {
+    display: inline-block;
+    content: '';
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 0.25rem;
+    border-style: solid;
+    border-width: 0.125rem;
+    background-color: lightgreen;
+    border-color: green;
+  }
+
+.unmark-as-potential-evidence::before {
+    display: inline-block;
+    content: '';
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 0.25rem;
+    border-style: solid;
+    border-width: 0.125rem;
+    background-color: lightcoral;
+    border-color: red;
+  }

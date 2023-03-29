@@ -1,3 +1,6 @@
+/* @ts-ignore */
+import { isAny } from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
+
 import { NewActionFunction } from '../../types/controls/actionFunction';
 import { Controls } from '../../types/controls/controls';
 
@@ -9,28 +12,48 @@ const markDataObjectAsEvidence: NewActionFunction = (
   elementProperties,
 ) => {
   const action = (event: any, element: any) => {
-    // console.log(element);
     const dataObject = element?.businessObject?.dataObjectRef;
-
-    // if the object has been marked as an evidence type already
-    if (dataObject?.isPotentialEvidence !== undefined) return;
+    if (dataObject.isPotentialEvidence) return;
 
     const potentialEvidence = bpmnFactory.create(elementProperties.identifier);
-    const updateDataObject = {
-      ...dataObject,
-      isPotentialEvidence: potentialEvidence,
-    };
 
+    dataObject.isPotentialEvidence = potentialEvidence;
     modeling.updateProperties(element, {
-      dataObjectRef: updateDataObject,
+      dataObjectRef: dataObject,
     });
-    console.log(element);
+  };
+
+  return action;
+};
+
+const unmarkDataObjectAsEvidence: NewActionFunction = (
+  {
+    modeling,
+  },
+  _elementProperties,
+) => {
+  const action = (event: any, element: any) => {
+    const dataObject = element?.businessObject?.dataObjectRef;
+    if (!dataObject.isPotentialEvidence) return;
+
+    modeling.removeElements([dataObject.isPotentialEvidence]);
+    delete dataObject.isPotentialEvidence;
+    modeling.updateProperties(element, {
+      dataObjectRef: dataObject,
+    });
   };
 
   return action;
 };
 
 const markDataObjectAsEvidenceIdentifier = 'mark-as-potential-evidence';
+const unmarkDataObjectAsEvidenceIdentifier = (
+  `un${markDataObjectAsEvidenceIdentifier}`
+);
+
+const isMarked = (element: any): boolean => (
+  element?.businessObject?.dataObjectRef?.isPotentialEvidence !== undefined
+);
 
 const controls: Controls = {
   padEntries: [
@@ -42,7 +65,19 @@ const controls: Controls = {
         key: markDataObjectAsEvidenceIdentifier,
         title: 'Mark DataObjectRef as Potential Evidence',
       },
-      showOnElements: ['bpmn:DataObjectReference'],
+      show: (element) => (isAny(element, ['bpmn:DataObjectReference'])
+        && !isMarked(element)),
+    },
+    {
+      action: unmarkDataObjectAsEvidence,
+      entryProps: {
+        className: unmarkDataObjectAsEvidenceIdentifier,
+        entryGroup: 'edit',
+        key: unmarkDataObjectAsEvidenceIdentifier,
+        title: 'Unmark DataObjectRef as Potential Evidence',
+      },
+      show: (element) => (isAny(element, ['bpmn:DataObjectReference'])
+        && isMarked(element)),
     },
   ],
 };

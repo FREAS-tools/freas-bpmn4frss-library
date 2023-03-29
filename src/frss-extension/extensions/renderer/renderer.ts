@@ -14,7 +14,7 @@ import {
   frssRenderables,
   frssRenderableElements,
   frssRenderableConnections,
-} from '../../frssElements';
+} from '../../elements';
 import { FrssRenderable } from '../../types';
 
 export default class FrssRenderer extends BaseRenderer {

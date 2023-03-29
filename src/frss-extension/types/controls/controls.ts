@@ -10,7 +10,7 @@ export interface EntryData {
 
 export interface PadEntryData extends EntryData {
   /** Element identifiers on which the pad entry should be shown */
-  showOnElements: string[],
+  show: (element: any) => boolean,
 }
 
 export interface Controls {

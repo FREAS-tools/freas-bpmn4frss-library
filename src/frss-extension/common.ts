@@ -13,18 +13,3 @@ export const bpmn4frssPrefix = `${bpmn4frss}:`;
  * set your PRIORITY value to a different value.
  */
 export const FRSS_PRIORITY = 1400;
-
-/**
- * The fallback size for an element is 32px x 32px if the element does not have
- * a size defined in its `properties` module
- */
-export const ELEMENT_FALLBACK_SIZE = 32;
-
-/**
- * The fallback offset for an element is 0 if the element does not have
- * an offset defined in its `properties` module
- */
-export const ELEMENT_FALLBACK_OFFSET = {
-  x: 0,
-  y: 0,
-};

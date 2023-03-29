@@ -1,9 +1,5 @@
 // import custom element modules
 // - each module is a custom FRSS construct
-import EvidenceDataObject from './elements/EvidenceDataObject';
-import EvidenceSource from './elements/EvidenceSource';
-import PotentialEvidence from './elements/PotentialEvidence';
-import Produces from './elements/Produces';
 
 // import types & rule types
 import FrssElement, {
@@ -15,36 +11,40 @@ import FrssElement, {
   FrssPadElement,
   FrssPaletteElement,
   FrssRenderable,
-} from './types';
-import { ElementRenderType } from './types/renderer/rendererEntry';
+} from '../types';
+import { ElementRenderType } from '../types/renderer/rendererEntry';
 import {
   ElementRules,
-} from './types/rules';
+} from '../types/rules';
 
 import {
   hasAttachmentRule,
   HasAttachmentRule,
-} from './types/rules/attachment';
+} from '../types/rules/attachment';
 
 import {
   hasConnectionRule,
   HasConnectionRule,
-} from './types/rules/connection';
+} from '../types/rules/connection';
 
 import {
   HasCreationRule,
   hasCreationRule,
-} from './types/rules/creation';
+} from '../types/rules/creation';
 
 import {
   HasPreCreateEvents,
   hasPreCreateEvent,
-} from './types/rules/events/preCreate';
+} from '../types/rules/events/preCreate';
 
 import {
   hasPreDeleteEvent,
   HasPreDeleteEvents,
-} from './types/rules/events/preDelete';
+} from '../types/rules/events/preDelete';
+import EvidenceDataObject from './EvidenceDataObject';
+import EvidenceSource from './EvidenceSource';
+import PotentialEvidence from './PotentialEvidence';
+import Produces from './Produces';
 
 // export the list of used custom elements
 const frssElements: FrssElement[] = [

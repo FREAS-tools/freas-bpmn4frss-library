@@ -8,8 +8,8 @@ export interface RendererContext {
 export type ShouldRender = (element: any) => boolean;
 
 export enum ElementRenderType {
-  Element,
-  Connection,
+  Connection = 'connection',
+  Element = 'element',
 }
 
 interface ElementRender {

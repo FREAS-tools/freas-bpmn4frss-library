@@ -1,8 +1,5 @@
-// @ts-ignore
-import { isAny } from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
-
 // all custom elements
-import { frssPadElements } from '../../frssElements';
+import { frssPadElements } from '../../elements';
 
 // types
 import { FrssPadElement } from '../../types';
@@ -66,13 +63,13 @@ export default class FrssPadProvider {
    * @param element element that is associated with the context pad
    */
   getContextPadEntries(element: any) {
-    const entries: ControlEntry[] = frssPadElements
+    const customEntries: ControlEntry[] = frssPadElements
       // create a list of ControlEntry objects
       // (that will need to be "collected" as a single object)
       .flatMap((elem: FrssPadElement) => elem.controls.padEntries
         .filter(
           // check if the pad entry should be shown on the current element
-          (padEntry) => isAny(element, padEntry.showOnElements),
+          (padEntry) => padEntry.show(element),
         )
         .map(
           // create a new pad entry
@@ -85,7 +82,9 @@ export default class FrssPadProvider {
         ));
 
     // spread the pad entry
-    return collectControlEntries(entries);
+    const collectedEntries = collectControlEntries(customEntries);
+
+    return collectedEntries;
   }
 }
 

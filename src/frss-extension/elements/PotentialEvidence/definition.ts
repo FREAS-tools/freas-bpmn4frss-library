@@ -20,13 +20,13 @@ const { name } = properties;
 
 const potentialEvidenceDefinition: Definition = {
   name,
-  // the potential evidence type is a data object
-  superClass: ['bpmn:DataObject'],
+  // the potential evidence is a base BPMN element
+  superClass: ['bpmn:BaseElement'],
   properties: [
     {
       // the evidence type has certain data fields -> strings,
       // describe it
-      name: 'dataFields',
+      name: 'dataField',
       type: 'string',
       // there can be many data fields
       isMany: true,

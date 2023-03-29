@@ -1,5 +1,5 @@
 // Custom elements - every custom element is placed in this list
-import { frssPaletteElements } from '../../frssElements';
+import { frssPaletteElements } from '../../elements';
 import { collectControlEntries } from '../../types/controls/entry';
 
 // import { Controls, EntryData, isInPalette } from '../types/controls/controls';

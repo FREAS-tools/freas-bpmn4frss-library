@@ -8,7 +8,7 @@
 import { bpmn4frss } from '../../common';
 
 // Custom elements - every custom element is placed in this list
-import frssElements from '../../frssElements';
+import frssElements from '../../elements';
 
 /**
  * This file contains moddle definitions for the BPMN4FRSS extension.
@@ -44,7 +44,7 @@ const FrssDefinitions = {
   // The definitions for language constructs belong here
   types: frssElements.map((customElement) => customElement.definition),
 
-  // these values are reserved for future use by the bpmn-js library
+  // these values are reserved by the bpmn-js library
   associations: [] as string[],
   enumerations: [] as string[],
 };

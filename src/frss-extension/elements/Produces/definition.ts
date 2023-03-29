@@ -12,8 +12,8 @@ const { name } = properties;
 
 const producesDefinition: Definition = {
   name,
-  // pick either `superClass` or `extends` - depending on your application
-  superClass: ['bpmn:BaseElement'],
+  // we want to create a custom association
+  superClass: ['bpmn:Association'],
   properties: [
     {
       // we wish to start the `Produces` arrow in the potential evidence source
@@ -25,6 +25,7 @@ const producesDefinition: Definition = {
       isReference: true,
       // this property is an attribute of the `Produces` node
       isAttr: true,
+      redefines: 'bpmn:Association#sourceRef',
     },
     {
       // we wish to end the `Produces` arrow in the DataObjectReference
@@ -36,6 +37,7 @@ const producesDefinition: Definition = {
       isReference: true,
       // save this as an attribute of the `Produces` XML node
       isAttr: true,
+      redefines: 'bpmn:Association#targetRef',
     },
   ],
 };

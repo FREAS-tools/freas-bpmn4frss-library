@@ -1,15 +1,2 @@
-/*
- *      GLOBAL css for frss
- *      @TODO: add ability to write splittable css files
- */
-
-
-.mark-as-potential-evidence::before {
-    display: inline-block;
-    content: '';
-    width: 0.5em;
-    height: 0.5em;
-    border-radius: 0.1em;
-    background-color: lightgreen;
-    border-color: green;
-  }
+/* To add another css module, simply import it here */
+@import url('../elements/EvidenceDataObject/assets/index.css');

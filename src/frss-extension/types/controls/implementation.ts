@@ -17,7 +17,7 @@ export const createElement: NewActionFunction = (
   properties,
 ) => {
   // the function is then called whenever the element is created
-  const createFunction: ActionFunction = (element: any) => {
+  const createFunction: ActionFunction = (event: any) => {
     // create a business object (according to the custom moddle definition)
     const businessObject = bpmnFactory.create(properties.identifier);
     // diagram-js object data
@@ -38,8 +38,8 @@ export const createElement: NewActionFunction = (
     // create the shape
     const shape = elementFactory.createShape(createObject);
 
-    // create the element with that created shape
-    create.start(element, shape);
+    // create a new element with that created shape
+    create.start(event, shape);
   };
 
   return createFunction;

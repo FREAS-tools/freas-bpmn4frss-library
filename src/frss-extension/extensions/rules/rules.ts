@@ -10,7 +10,7 @@ import {
   connectionRules,
   creationRules,
   frssElementsWithRules,
-} from '../../frssElements';
+} from '../../elements';
 // types
 import { HasAttachmentRule } from '../../types/rules/attachment';
 import { HasConnectionRule } from '../../types/rules/connection';
@@ -63,7 +63,6 @@ const checkCreation = (source: any, target: any): boolean | void => {
   // try to find a suitable rule
   const rule: HasCreationRule | undefined = creationRules
     .find((ruleEntry) => ruleEntry.shouldCheckCreation(source, target));
-  // console.log(rule);
 
   // no rule was found
   if (!rule) return;

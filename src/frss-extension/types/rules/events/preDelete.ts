@@ -3,7 +3,7 @@ export type HasPreDeleteEvents = {
 };
 
 export interface PreDeleteEvent {
-  preDeleteEvent: (event: any) => void,
+  preDeleteEvent: (event: any, modeling: any) => void,
   shouldTriggerPreDelete: (event: any) => boolean,
 }
 

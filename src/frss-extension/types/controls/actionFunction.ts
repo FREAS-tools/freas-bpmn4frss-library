@@ -2,8 +2,8 @@ import Properties from '../properties/properties';
 import ControlsContext from './context';
 
 export type ActionFunction = (
-  element: any,
-  event?: any,
+  event: any,
+  element?: any,
   autoActivate?: any,
 ) => void;
 
