@@ -32,15 +32,15 @@ import {
   hasCreationRule,
 } from '../types/rules/creation';
 
-import {
-  HasPreCreateEvents,
-  hasPreCreateEvent,
-} from '../types/rules/events/preCreate';
+// import {
+//   HasPreCreateEvents,
+//   hasPreCreateEvent,
+// } from '../types/events/preCreate';
 
-import {
-  hasPreDeleteEvent,
-  HasPreDeleteEvents,
-} from '../types/rules/events/preDelete';
+// import {
+//   hasPreDeleteEvent,
+//   HasPreDeleteEvents,
+// } from '../types/events/preDelete';
 import EvidenceDataObject from './EvidenceDataObject';
 import EvidenceSource from './EvidenceSource';
 import PotentialEvidence from './PotentialEvidence';
@@ -91,17 +91,17 @@ export const frssElementsWithRules: FrssElementWithRules[] = frssElements
 export const frssElementRules: ElementRules[] = frssElementsWithRules
   .map((ruleElement) => ruleElement.rules);
 
-/* List of pre-create events */
-export const preCreateEvents = frssElementRules
-  .filter((rule): rule is HasPreCreateEvents => (
-    hasPreCreateEvent(rule)
-  )).flatMap((event) => event.preCreateEvents);
+// /* List of pre-create events */
+// export const preCreateEvents = frssElementRules
+//   .filter((rule): rule is HasPreCreateEvents => (
+//     hasPreCreateEvent(rule)
+//   )).flatMap((event) => event.preCreateEvents);
 
-/* List of pre-delete events */
-export const preDeleteEvents = frssElementRules
-  .filter((rule): rule is HasPreDeleteEvents => (
-    hasPreDeleteEvent(rule)
-  )).flatMap((event) => event.preDeleteEvents);
+// /* List of pre-delete events */
+// export const preDeleteEvents = frssElementRules
+//   .filter((rule): rule is HasPreDeleteEvents => (
+//     hasPreDeleteEvent(rule)
+//   )).flatMap((event) => event.preDeleteEvents);
 
 /* List of attachment rules */
 export const attachmentRules = frssElementRules

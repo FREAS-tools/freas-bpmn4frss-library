@@ -52,6 +52,10 @@ const Bpmn4FrssEditor = ({ cssClassNames }: Bpmn4FrssEditorProps) => {
     };
   }, []);
 
+  useEffect(() => {
+    library?.defaultDiagram();
+  }, [library])
+
   const loadDiagramFromFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files[0];
 

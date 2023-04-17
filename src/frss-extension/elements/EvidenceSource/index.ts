@@ -3,14 +3,14 @@ import controls from './controls';
 import definition from './definition';
 import properties from './properties';
 import rendererEntry from './rendererEntry';
-import rules from './rules';
+// import rules from './rules';
 
 const evidenceSource: FrssElement = {
   controls,
   definition,
   properties,
   rendererEntry,
-  rules,
+  // rules,
 };
 
 /**
