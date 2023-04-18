@@ -15,16 +15,18 @@ import {
   create as createSvg,
   append as appendSvg,
 } from 'tiny-svg';
-import ElementRender, {
-  ElementRenderType,
-  RenderFunction,
-} from '../../types/renderer/rendererEntry';
+import { ElementRenderType } from '../../types/renderer';
 
 // icon for potential evidence sources
-import EvidenceSourceIcon
-  from './assets/evidence-source.png';
+import EvidenceSourceIcon from './assets/evidence-source.png';
 
 import properties from './properties';
+
+// types
+import type {
+  ElementRender,
+  RenderFunction,
+} from '../../types/renderer';
 
 const { offset } = properties;
 
@@ -55,7 +57,7 @@ const rendererEntry: ElementRender = {
   renderOnElements: [properties.identifier],
   renderFunction,
   shouldRender: (element) => is(element, properties.identifier),
-  type: ElementRenderType.Element,
+  type: ElementRenderType.Shape,
 };
 
 export default rendererEntry;

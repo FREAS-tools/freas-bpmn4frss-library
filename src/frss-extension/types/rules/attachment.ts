@@ -1,7 +1,7 @@
-export interface HasAttachmentRule {
+export type HasAttachmentRule = {
   attachmentRule: (source: any, target: any) => boolean | string | void,
   shouldCheckAttachment: (source: any, target: any) => boolean,
-}
+};
 
 export const hasAttachmentRule = (rules: any):
 rules is HasAttachmentRule => {

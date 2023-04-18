@@ -1,7 +1,9 @@
-import FrssElement from '../../types';
 import definition from './definition';
 import properties from './properties';
 import rendererEntry from './rendererEntry';
+
+// types
+import type { FrssElement } from '../../types';
 
 const produces: FrssElement = {
   definition,

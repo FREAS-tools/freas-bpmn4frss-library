@@ -1,17 +1,17 @@
 /* @ts-ignore */
 import { isAny } from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
 
-import { NewActionFunction } from '../../types/controls/actionFunction';
-import { Controls } from '../../types/controls/controls';
+import type { Controls } from '../../types/controls';
+import type { CreateActionHandler } from '../../types/controls/actionHandler';
 
-const markDataObjectAsEvidence: NewActionFunction = (
+const markDataObjectAsEvidence: CreateActionHandler = (
   {
     bpmnFactory,
     modeling,
   },
   elementProperties,
 ) => {
-  const action = (event: any, element: any) => {
+  const action = (_event: any, element: any) => {
     const dataObject = element?.businessObject?.dataObjectRef;
     if (dataObject.isPotentialEvidence) return;
 
@@ -26,13 +26,13 @@ const markDataObjectAsEvidence: NewActionFunction = (
   return action;
 };
 
-const unmarkDataObjectAsEvidence: NewActionFunction = (
+const unmarkDataObjectAsEvidence: CreateActionHandler = (
   {
     modeling,
   },
   _elementProperties,
 ) => {
-  const action = (event: any, element: any) => {
+  const action = (_event: any, element: any) => {
     const dataObject = element?.businessObject?.dataObjectRef;
     if (!dataObject.isPotentialEvidence) return;
 
@@ -58,10 +58,10 @@ const isMarked = (element: any): boolean => (
 const controls: Controls = {
   padEntries: [
     {
-      action: markDataObjectAsEvidence,
-      entryProps: {
+      makeActionHandler: markDataObjectAsEvidence,
+      props: {
         className: markDataObjectAsEvidenceIdentifier,
-        entryGroup: 'edit',
+        group: 'edit',
         key: markDataObjectAsEvidenceIdentifier,
         title: 'Mark DataObjectRef as Potential Evidence',
       },
@@ -69,10 +69,10 @@ const controls: Controls = {
         && !isMarked(element)),
     },
     {
-      action: unmarkDataObjectAsEvidence,
-      entryProps: {
+      makeActionHandler: unmarkDataObjectAsEvidence,
+      props: {
         className: unmarkDataObjectAsEvidenceIdentifier,
-        entryGroup: 'edit',
+        group: 'edit',
         key: unmarkDataObjectAsEvidenceIdentifier,
         title: 'Unmark DataObjectRef as Potential Evidence',
       },

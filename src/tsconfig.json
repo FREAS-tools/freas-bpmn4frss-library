@@ -16,6 +16,7 @@
     // allow JS files
     "allowJs": true,
     "checkJs": false,
+    "verbatimModuleSyntax": true,
     "rootDir": ".",
     "moduleResolution": "node",
   }

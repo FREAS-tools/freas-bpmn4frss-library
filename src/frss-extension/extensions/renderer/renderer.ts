@@ -3,8 +3,6 @@
 // type checking inside bpmn-js
 // @ts-ignore
 import { isAny } from 'bpmn-js/lib/util/ModelUtil';
-
-// @ts-ignore
 import BaseRenderer from 'diagram-js/lib/draw/BaseRenderer';
 
 import { FRSS_PRIORITY } from '../../common';
@@ -12,13 +10,16 @@ import { FRSS_PRIORITY } from '../../common';
 // Custom elements - every custom element is placed in this list
 import {
   frssRenderables,
-  frssRenderableElements,
+  frssRenderableShapes,
   frssRenderableConnections,
 } from '../../elements';
-import { FrssRenderable } from '../../types';
+
+// types
+import type { FrssRenderable } from '../../types';
+import type { Shape, Connection } from 'diagram-js/lib/model';
 
 export default class FrssRenderer extends BaseRenderer {
-  bpmnRenderer: unknown;
+  bpmnRenderer: BaseRenderer;
 
   static $inject: string[];
 
@@ -69,11 +70,16 @@ export default class FrssRenderer extends BaseRenderer {
    * @returns - rendered element if the element is custom
    *          - null otherwise
    */
-  drawShape(parentNode: any, element: any): Element | null | void {
+  // Ignoring wrongly typed base class definition - if we always returned
+  // an element, then we could not plug into an already existing custom project
+  // undefined needs to be returned in order for other renderers to catch
+  // the rendering duty in case of an extended element!
+  // @ts-ignore
+  drawShape(parentNode: SVGElement, element: Shape): SVGElement | undefined {
     // check if the element is a custom frss renderable element
     // only retains the one custom element it matches
     const elementIsFrssRenderable:
-    (FrssRenderable | undefined) = frssRenderableElements.find(
+    (FrssRenderable | undefined) = frssRenderableShapes.find(
       (renderableElement) => (
         renderableElement.rendererEntry.shouldRender(element)),
     );
@@ -92,7 +98,15 @@ export default class FrssRenderer extends BaseRenderer {
     });
   }
 
-  drawConnection(parentNode: any, element: any): Element | null | void {
+  // Ignoring wrongly typed base class definition - if we always returned
+  // an element, then we could not plug into an already existing custom project
+  // undefined needs to be returned in order for other renderers to catch
+  // the rendering duty in case of an extended element!
+  // @ts-ignore
+  drawConnection(
+    parentNode: SVGElement,
+    element: Connection,
+  ): SVGElement | undefined {
     const elementIsFrssRenderableConnection:
     (FrssRenderable | undefined) = frssRenderableConnections.find(
       (renderableConnection) => (

@@ -1,7 +1,7 @@
-export interface HasCreationRule {
+export type HasCreationRule = {
   creationRule: (source: any, target: any) => boolean | void,
   shouldCheckCreation: (source: any, target: any) => boolean,
-}
+};
 
 export const hasCreationRule = (rules: any):
 rules is HasCreationRule => {

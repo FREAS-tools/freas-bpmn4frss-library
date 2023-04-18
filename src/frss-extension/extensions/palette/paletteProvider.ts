@@ -1,11 +1,14 @@
 // Custom elements - every custom element is placed in this list
 import { frssPaletteElements } from '../../elements';
-import { collectControlEntries } from '../../types/controls/entry';
+import {
+  newControlEntry,
+  collectControlEntries,
+} from '../../types/controls/implementation';
 
-// import { Controls, EntryData, isInPalette } from '../types/controls/controls';
-// import { collectControlEntries } from '../types/controls/entry';
-import newControlEntry from '../../types/controls/implementation';
-import { RenderableElementProps } from '../../types/properties/properties';
+// types
+import type {
+  CustomRenderableElementProperties,
+} from '../../types/properties';
 
 /**
  * FRSS extension of the `bpmn-js` palette
@@ -59,10 +62,10 @@ export default class FrssPalette {
     // for each element create its palette entry
     const paletteEntries = frssPaletteElements.map((elem) => (
       newControlEntry(
-        elem.controls.createEntry.action,
+        elem.controls.paletteCreateEntry.makeActionHandler,
         this,
-        elem.properties as RenderableElementProps,
-        elem.controls.createEntry.entryProps,
+        elem.properties as CustomRenderableElementProperties,
+        elem.controls.paletteCreateEntry.props,
       )
     ));
 

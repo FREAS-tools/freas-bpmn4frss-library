@@ -1,8 +1,8 @@
-export interface HasConnectionRule {
+export type HasConnectionRule = {
   connectionRule: (source: any, target: any) => (boolean
   | { type: string } | void),
   shouldCheckConnection: (source: any, target: any) => boolean,
-}
+};
 
 export const hasConnectionRule = (rules: any):
 rules is HasConnectionRule => {

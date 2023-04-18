@@ -1,13 +1,14 @@
-// import the prefix
 import { bpmn4frssPrefix } from '../../common';
-import { RenderableElementWithIconProps }
-  from '../../types/properties/properties';
-import icon
-  from './assets/evidence-source.png';
+import icon from './assets/evidence-source.png';
+
+// types
+import type {
+  CustomRenderableElementWithIconProperties,
+} from '../../types/properties';
 
 const name = 'EvidenceSource';
 
-const properties: RenderableElementWithIconProps = {
+const properties: CustomRenderableElementWithIconProperties = {
   icon,
   identifier: `${bpmn4frssPrefix}${name}`,
   name,

@@ -1,16 +1,20 @@
 // all custom elements
 import { frssPadElements } from '../../elements';
 
-// types
-import { FrssPadElement } from '../../types';
-import { PadEntryData } from '../../types/controls/controls';
 import {
+  newControlEntry,
   collectControlEntries,
-  ControlEntry,
-} from '../../types/controls/entry';
-import newControlEntry from '../../types/controls/implementation';
+} from '../../types/controls/implementation';
 
-/* eslint-disable @typescript-eslint/no-unused-vars */
+// types
+import type { FrssPadElement } from '../../types';
+import type { PadEntryData } from '../../types/controls';
+import type {
+  ControlEntry,
+  ControlEntryPropsAndActions,
+} from '../../types/controls/entry';
+
+// /* eslint-disable @typescript-eslint/no-unused-vars */
 export default class FrssPadProvider {
   autoPlace: any;
 
@@ -62,8 +66,8 @@ export default class FrssPadProvider {
    * Get all entries for the context pad
    * @param element element that is associated with the context pad
    */
-  getContextPadEntries(element: any) {
-    const customEntries: ControlEntry[] = frssPadElements
+  getContextPadEntries(element: any): ControlEntry {
+    const customEntries: ControlEntryPropsAndActions[] = frssPadElements
       // create a list of ControlEntry objects
       // (that will need to be "collected" as a single object)
       .flatMap((elem: FrssPadElement) => elem.controls.padEntries
@@ -74,17 +78,15 @@ export default class FrssPadProvider {
         .map(
           // create a new pad entry
           (padEntry: PadEntryData) => newControlEntry(
-            padEntry.action,
+            padEntry.makeActionHandler,
             this,
             elem.properties,
-            padEntry.entryProps,
+            padEntry.props,
           ),
         ));
 
-    // spread the pad entry
-    const collectedEntries = collectControlEntries(customEntries);
-
-    return collectedEntries;
+    // create the resulting object
+    return collectControlEntries(customEntries);
   }
 }
 

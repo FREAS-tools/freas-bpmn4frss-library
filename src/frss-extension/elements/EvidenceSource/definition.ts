@@ -1,8 +1,10 @@
-import Definition from '../../types/definitions/definition';
 // import the properties of another custom element, will use namely its name;
 import ProducesProperties from '../Produces/properties';
 // import own property, namely our name
 import properties from './properties';
+
+// types
+import type { FrssModdleDefinition } from '../../types/definitions';
 
 const { name } = properties;
 export const modelConnections = 'producesEvidences';
@@ -12,7 +14,7 @@ export const modelConnections = 'producesEvidences';
  * source of evidence. Can be connected to either a task, event or a data store
  * (which can recursively generate more and more evidence types)
  */
-const evidenceSourceDefinition: Definition = {
+const evidenceSourceDefinition: FrssModdleDefinition = {
   name,
   superClass: ['bpmn:BaseElement', 'bpmn:FlowNode'],
   properties: [

@@ -1,57 +1,43 @@
-import Properties from '../properties/properties';
-import { ActionFunction, NewActionFunction } from './actionFunction';
-import ControlsContext from './context';
+import type { ActionHandler } from './actionHandler';
 
-interface Actions {
-  click: ActionFunction,
-  dragstart?: ActionFunction,
-}
+/**
+ * Every resulting `ControlEntry` has an action that is triggered `onClick`
+ */
+type ControlEntryActions = {
+  click: ActionHandler,
+  dragstart?: ActionHandler,
+};
 
-export interface EntryProps {
+/**
+ * Properties of the control entry, specifiend by the FRSS element module
+ */
+export type ControlEntryProps = {
   className?: string,
-  entryGroup: string,
+  group: string,
   imageUrl?: any,
   key: string,
   title: string,
-}
+};
+
+/**
+ * Every control entry has props and actions, which are then mapped into a
+ * resulting object for `diagram-js` library to parse
+ */
+export type ControlEntryPropsAndActions = ControlEntryProps & {
+  action: ControlEntryActions,
+};
+
+/**
+ * Data that are stored in the map, which are then transformed into
+ * a resulting `ControlEntry` object
+ */
+export type ControlEntryData = Omit<ControlEntryPropsAndActions, 'key'>;
 
 /**
  * This is the resulting entry that is used as either a palette
- * or a pad entry; This is passed to the diagram-js and either
+ * or a pad entry; This is passed to the `diagram-js` and either
  * creates or modifies the diagram in some way
  */
-export interface ControlEntry {
-  [x: string]: Partial<{
-    action: Actions,
-    className: string,
-    group: string,
-    imageUrl: any,
-    title: string,
-  }>
-}
-
-// @TODO REWORK AS `Map`
-export const collectControlEntries = (
-  entries: ControlEntry[],
-): ControlEntry => {
-  // empty object
-  let result: ControlEntry = {};
-
-  // copy the key-value pairs into the object
-  entries.forEach((entry: ControlEntry) => {
-    result = {
-      ...result,
-      ...entry,
-    };
-  });
-
-  // return finished object
-  return result;
+export type ControlEntry = {
+  [x: string]: ControlEntryData,
 };
-
-export type NewControlEntry = (
-  action: NewActionFunction,
-  context: ControlsContext,
-  elementProps: Properties,
-  entryProps: EntryProps,
-) => ControlEntry;

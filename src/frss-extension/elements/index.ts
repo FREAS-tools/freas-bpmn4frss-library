@@ -1,50 +1,50 @@
-// import custom element modules
-// - each module is a custom FRSS construct
-
-// import types & rule types
-import FrssElement, {
-  FrssElementWithRules,
+/* import type guards */
+import {
   hasRules,
   inPad,
   inPalette,
   isRenderable,
-  FrssPadElement,
-  FrssPaletteElement,
-  FrssRenderable,
 } from '../types';
-import { ElementRenderType } from '../types/renderer/rendererEntry';
-import {
-  ElementRules,
-} from '../types/rules';
 
+/* import render type enumeration */
+import { ElementRenderType } from '../types/renderer';
+
+/* import rule type guards */
 import {
   hasAttachmentRule,
-  HasAttachmentRule,
 } from '../types/rules/attachment';
 
 import {
   hasConnectionRule,
-  HasConnectionRule,
 } from '../types/rules/connection';
 
 import {
-  HasCreationRule,
   hasCreationRule,
 } from '../types/rules/creation';
 
-// import {
-//   HasPreCreateEvents,
-//   hasPreCreateEvent,
-// } from '../types/events/preCreate';
-
-// import {
-//   hasPreDeleteEvent,
-//   HasPreDeleteEvents,
-// } from '../types/events/preDelete';
+/**
+ * IMPORT new element modules here! Each module is a custom FRSS element.
+ */
 import EvidenceDataObject from './EvidenceDataObject';
 import EvidenceSource from './EvidenceSource';
 import PotentialEvidence from './PotentialEvidence';
 import Produces from './Produces';
+
+/* Import all types below */
+import type {
+  FrssElement,
+  FrssElementWithRules,
+  FrssPadElement,
+  FrssPaletteElement,
+  FrssRenderable,
+} from '../types';
+
+import type {
+  ElementRules,
+} from '../types/rules';
+import type { HasAttachmentRule } from '../types/rules/attachment';
+import type { HasConnectionRule } from '../types/rules/connection';
+import type { HasCreationRule } from '../types/rules/creation';
 
 // export the list of used custom elements
 const frssElements: FrssElement[] = [
@@ -71,9 +71,9 @@ export const frssPadElements: FrssPadElement[] = frssElements
 export const frssRenderables: FrssRenderable[] = frssElements
   .filter((element): element is FrssRenderable => isRenderable(element));
 
-export const frssRenderableElements = frssRenderables.filter(
+export const frssRenderableShapes = frssRenderables.filter(
   (renderableElement) => (
-    renderableElement.rendererEntry.type === ElementRenderType.Element
+    renderableElement.rendererEntry.type === ElementRenderType.Shape
   ),
 );
 
@@ -90,18 +90,6 @@ export const frssElementsWithRules: FrssElementWithRules[] = frssElements
 /* List of all element rules */
 export const frssElementRules: ElementRules[] = frssElementsWithRules
   .map((ruleElement) => ruleElement.rules);
-
-// /* List of pre-create events */
-// export const preCreateEvents = frssElementRules
-//   .filter((rule): rule is HasPreCreateEvents => (
-//     hasPreCreateEvent(rule)
-//   )).flatMap((event) => event.preCreateEvents);
-
-// /* List of pre-delete events */
-// export const preDeleteEvents = frssElementRules
-//   .filter((rule): rule is HasPreDeleteEvents => (
-//     hasPreDeleteEvent(rule)
-//   )).flatMap((event) => event.preDeleteEvents);
 
 /* List of attachment rules */
 export const attachmentRules = frssElementRules

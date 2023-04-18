@@ -1,12 +1,12 @@
-// types
-import Element from '../../types';
-
 // element module
 import controls from './controls';
 import definition from './definition';
 import properties from './properties';
 
-const potentialEvidence: Element = {
+// types
+import type { FrssElement } from '../../types';
+
+const potentialEvidence: FrssElement = {
   controls,
   definition,
   properties,

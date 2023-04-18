@@ -13,15 +13,18 @@
  * ```
  */
 
-import Definition from '../../types/definitions/definition';
 import properties from './properties';
+
+// types
+import type { FrssModdleDefinition } from '../../types/definitions';
 
 const { name } = properties;
 
-const potentialEvidenceDefinition: Definition = {
+const potentialEvidenceDefinition: FrssModdleDefinition = {
   name,
   // the potential evidence is a base BPMN element
   superClass: ['bpmn:BaseElement'],
+  extends: ['heh'],
   properties: [
     {
       // the evidence type has certain data fields -> strings,

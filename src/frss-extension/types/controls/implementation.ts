@@ -1,23 +1,35 @@
-import { hasIcon, hasSizeAndOffset } from '../properties/properties';
-import {
-  ActionFunction,
+// type guard
+import { hasSizeAndOffset } from '../properties';
+
+// types
+import type {
+  ActionHandler,
+  CreateActionHandler,
   CreateShape,
-  NewActionFunction,
-} from './actionFunction';
-import { ControlEntry, NewControlEntry } from './entry';
+} from './actionHandler';
+import type { ControlsContext } from './context';
+import type {
+  ControlEntryPropsAndActions,
+  ControlEntryProps,
+  ControlEntry,
+  ControlEntryData,
+} from './entry';
+import type { Properties } from '../properties';
 
 /**
- * Default function for creating the FRSS element
+ * Default function for creating the FRSS element. This can is used
+ * by the `PaletteProvider`
+ *
  * @param context the context from the pad/palette provider
  * @param properties renderable element properties
  * @returns the function that can create an element
  */
-export const createElement: NewActionFunction = (
+export const createElement: CreateActionHandler = (
   { bpmnFactory, create, elementFactory },
   properties,
 ) => {
   // the function is then called whenever the element is created
-  const createFunction: ActionFunction = (event: any) => {
+  const createFunction: ActionHandler = (event: any) => {
     // create a business object (according to the custom moddle definition)
     const businessObject = bpmnFactory.create(properties.identifier);
     // diagram-js object data
@@ -48,42 +60,63 @@ export const createElement: NewActionFunction = (
 /**
  * Template function for creating an element entry.
  *
- * @param action the action that should be performed on click and on drag
+ * @param newActionHandler the action that should be performed
+ *                         on click and on drag
  * @param context context from the pad/palette provider
  * @param elementProps props of the element
- * @param entryProps additional entry props
+ * @param entryProps entry properties
  * @returns control entry of specified element
  */
-const newControlEntry: NewControlEntry = (
-  action,
+export const newControlEntry: CreateControlEntry = (
+  newActionHandler,
   context,
   elementProps,
   entryProps,
 ) => {
-  const performAction = action(context, elementProps);
+  // create the function that handles the click action
+  const actionHandler = newActionHandler(context, elementProps);
 
-  let entry: ControlEntry = {
-    [entryProps.key]: {
-      group: entryProps.entryGroup,
-      className: entryProps.className,
-      title: context.translate(entryProps.title),
-      action: {
-        click: performAction,
-        // dragstart: performAction,
-      },
+  const entry: ControlEntryPropsAndActions = {
+    ...entryProps,
+    title: context.translate(entryProps.title),
+    action: {
+      click: actionHandler,
     },
   };
-
-  if (hasIcon(elementProps)) {
-    entry = {
-      [entryProps.key]: {
-        ...entry[entryProps.key],
-        imageUrl: elementProps.icon,
-      },
-    };
-  }
 
   return entry;
 };
 
-export default newControlEntry;
+type CreateControlEntry = (
+  newActionHandler: CreateActionHandler,
+  context: ControlsContext,
+  elementProps: Properties,
+  entryProps: ControlEntryProps,
+) => ControlEntryPropsAndActions;
+
+/**
+ *
+ * @param entries
+ * @returns
+ */
+export const collectControlEntries = (
+  entries: ControlEntryPropsAndActions[],
+): ControlEntry => {
+  // empty map
+  const result: Map<string, ControlEntryData> = new Map();
+
+  // add all control entries
+  entries.forEach((entry) => {
+    const data: ControlEntryData = {
+      className: entry.className,
+      action: entry.action,
+      group: entry.group,
+      imageUrl: entry.imageUrl,
+      title: entry.title,
+    };
+    result.set(entry.key, data);
+  });
+
+  // create an object from the map
+  return Object.fromEntries(result);
+};

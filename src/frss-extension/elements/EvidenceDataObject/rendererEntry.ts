@@ -16,19 +16,22 @@ import {
   attr as attributesSvg,
 } from 'tiny-svg';
 
-import ElementRender, {
-  ElementRenderType,
-  RenderFunction,
-  ShouldRender,
-} from '../../types/renderer/rendererEntry';
+import { ElementRenderType } from '../../types/renderer';
 
 // properties from the PotentialEvidence
 import potentialEvidenceProperties from '../PotentialEvidence/properties';
 
+// types
+import type {
+  ElementRender,
+  RenderFunction,
+  ShouldRender,
+} from '../../types/renderer';
+
 const elementIdentifier = 'bpmn:DataObjectReference';
 
 const shouldRender: ShouldRender = (element) => {
-  const isEvidenceDataObject = element
+  const evidenceDataObject = element
     .businessObject?.dataObjectRef?.isPotentialEvidence;
 
   // we want to change only those `DataObjectReference`s that are
@@ -36,8 +39,8 @@ const shouldRender: ShouldRender = (element) => {
   return (
     is(element, elementIdentifier)
     && element.type !== 'label'
-    && isEvidenceDataObject
-    && is(isEvidenceDataObject, potentialEvidenceProperties.identifier)
+    && evidenceDataObject !== undefined
+    && is(evidenceDataObject, potentialEvidenceProperties.identifier)
   );
 };
 
@@ -72,7 +75,7 @@ const rendererEntry: ElementRender = {
   renderOnElements: [elementIdentifier],
   renderFunction,
   shouldRender,
-  type: ElementRenderType.Element,
+  type: ElementRenderType.Shape,
 };
 
 export default rendererEntry;

@@ -9,11 +9,16 @@ import {
   attr as attributesSvg,
   append as appendSvg,
 } from 'tiny-svg';
-import ElementRender, {
-  ElementRenderType,
-  RenderFunction,
-} from '../../types/renderer/rendererEntry';
+
+import { ElementRenderType } from '../../types/renderer';
+
 import properties from './properties';
+
+// types
+import type {
+  ElementRender,
+  RenderFunction,
+} from '../../types/renderer';
 
 const { identifier } = properties;
 

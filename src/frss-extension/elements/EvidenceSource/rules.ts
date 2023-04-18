@@ -1,9 +1,11 @@
 // @ts-ignore
 import { is, isAny } from 'bpmn-js/lib/util/ModelUtil';
 
-import { ElementRules } from '../../types/rules';
 import ProducesProperties from '../Produces/properties';
 import properties from './properties';
+
+// types
+import type { ElementRules } from '../../types/rules';
 
 const evidenceSourceIdentifier = properties.identifier;
 

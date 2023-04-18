@@ -1,23 +1,25 @@
-export interface RendererContext {
-  // bpmnFactory: any,
+/**
+ * A custom type that encapsulates the renderer context
+ */
+export type RendererContext = {
   bpmnRenderer: any,
   element: any,
   parentNode: any,
-}
+};
 
 export type ShouldRender = (element: any) => boolean;
 
 export enum ElementRenderType {
   Connection = 'connection',
-  Element = 'element',
+  Shape = 'shape',
 }
 
-interface ElementRender {
+export type ElementRender = {
   renderFunction: RenderFunction,
   renderOnElements: string[],
   shouldRender: ShouldRender,
   type: ElementRenderType,
-}
+};
 
 /**
  * Renderer entry has its context that it needs to
@@ -25,6 +27,4 @@ interface ElementRender {
  */
 export type RenderFunction = (
   context: RendererContext
-) => Element | null | void;
-
-export default ElementRender;
+) => SVGElement;

@@ -11,10 +11,11 @@ import {
   creationRules,
   frssElementsWithRules,
 } from '../../elements';
+
 // types
-import { HasAttachmentRule } from '../../types/rules/attachment';
-import { HasConnectionRule } from '../../types/rules/connection';
-import { HasCreationRule } from '../../types/rules/creation';
+import type { HasAttachmentRule } from '../../types/rules/attachment';
+import type { HasConnectionRule } from '../../types/rules/connection';
+import type { HasCreationRule } from '../../types/rules/creation';
 
 /**
  * Check if element is an element that has rules

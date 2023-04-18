@@ -1,34 +1,31 @@
-import { Controls, EntryData, PadEntryData } from './controls/controls';
-import Definition from './definitions/definition';
-import Properties from './properties/properties';
-import ElementRender from './renderer/rendererEntry';
-import { ElementRules } from './rules';
+import type { Controls } from './controls';
+import type { FrssModdleDefinition } from './definitions';
+import type { Properties } from './properties';
+import type { ElementRender } from './renderer';
+import type { ElementRules } from './rules';
+import type { PartiallyRequired } from './utility';
 
-interface Submodules {
+type Submodules = {
   controls: Controls,
   rendererEntry: ElementRender,
   rules: ElementRules,
-}
+};
 
 /**
  * FRSS element can have many submodules.
  * Only required module is the element properties
  */
-type FrssElement = {
-  definition: Definition,
+export type FrssElement = {
+  definition: FrssModdleDefinition,
   properties: Properties,
 } & Partial<Submodules>;
 
 export type FrssPaletteElement = {
-  controls: {
-    createEntry: EntryData,
-  },
+  controls: PartiallyRequired<Controls, 'paletteCreateEntry'>,
 } & FrssElement;
 
 export type FrssPadElement = {
-  controls: {
-    padEntries: PadEntryData[],
-  },
+  controls: Controls,
 } & FrssElement;
 
 export type FrssRenderable = {
@@ -45,9 +42,9 @@ export const inPalette = (
   const checkElement = element as FrssPaletteElement;
 
   return checkElement.controls !== undefined
-    && checkElement.controls.createEntry !== undefined
-    && checkElement.controls.createEntry.action !== undefined
-    && checkElement.controls.createEntry.entryProps !== undefined;
+    && checkElement.controls.paletteCreateEntry !== undefined
+    && checkElement.controls.paletteCreateEntry.makeActionHandler !== undefined
+    && checkElement.controls.paletteCreateEntry.props !== undefined;
 };
 
 export const inPad = (
@@ -80,5 +77,3 @@ export const hasRules = (
 
   return checkElement.rules !== undefined;
 };
-
-export default FrssElement;

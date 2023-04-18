@@ -1,13 +1,9 @@
-import { HasAttachmentRule } from './attachment';
-import { HasConnectionRule } from './connection';
-import { HasCreationRule } from './creation';
-// import { HasPreCreateEvents } from '../events/preCreate';
-// import { HasPreDeleteEvents } from '../events/preDelete';
+import type { HasAttachmentRule } from './attachment';
+import type { HasConnectionRule } from './connection';
+import type { HasCreationRule } from './creation';
 
 export type ElementRules = Partial<(
   HasAttachmentRule
   & HasConnectionRule
   & HasCreationRule
-  // & HasPreCreateEvents
-  // & HasPreDeleteEvents
 )>;

@@ -3,11 +3,12 @@
 
 // color picker
 // @ts-ignore
+import Modeler from 'bpmn-js/lib/Modeler';
+// @ts-ignore
 import ColorPickerModule from 'bpmn-js-color-picker';
 
 // imports
 // @ts-ignore
-import Modeler from 'bpmn-js/lib/Modeler';
 
 // import the bpmn4frss moddle language extension
 import frssExtension from '../frss-extension';
