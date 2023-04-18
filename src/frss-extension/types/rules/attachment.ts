@@ -1,6 +1,11 @@
+import type { AnyRuleCheck, Rule } from './common';
+
+export type AttachmentRule = Rule<boolean
+| 'attach' | void>;
+
 export type HasAttachmentRule = {
-  attachmentRule: (source: any, target: any) => boolean | string | void,
-  shouldCheckAttachment: (source: any, target: any) => boolean,
+  attachmentRule: AttachmentRule,
+  shouldCheckAttachment: AnyRuleCheck,
 };
 
 export const hasAttachmentRule = (rules: any):

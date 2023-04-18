@@ -12,17 +12,19 @@ type FrssModdleDefinitionBase = {
   }[],
 };
 
-export type FrssModdleDefinition = (FrssModdleDefinitionBase & {
+export type FrssModdleDefinition = (FrssModdleDefinitionBase & ({
   /**
  * This element extends the DEFAULT behaviour of an already existing element.
  * All already existing elements have this extension from now.
  */
   extends: string[],
-}) | (FrssModdleDefinitionBase & {
+  superClass?: never,
+} | {
+  extends?: never,
   /**
    * This element takes the implementation of an already existing
    * element and adds something to it.
    * This element is a whole new entity though.
    */
   superClass: string[],
-});
+}));

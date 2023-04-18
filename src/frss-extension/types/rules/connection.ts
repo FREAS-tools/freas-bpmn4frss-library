@@ -1,7 +1,11 @@
+import type { AnyRuleCheck, Rule } from './common';
+
+export type ConnectionRule = Rule<boolean
+| { type: string } | void>;
+
 export type HasConnectionRule = {
-  connectionRule: (source: any, target: any) => (boolean
-  | { type: string } | void),
-  shouldCheckConnection: (source: any, target: any) => boolean,
+  connectionRule: ConnectionRule,
+  shouldCheckConnection: AnyRuleCheck,
 };
 
 export const hasConnectionRule = (rules: any):

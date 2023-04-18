@@ -22,9 +22,8 @@ const { name } = properties;
 
 const potentialEvidenceDefinition: FrssModdleDefinition = {
   name,
-  // the potential evidence is a base BPMN element
+  // the potential evidence is based on the BPMN element
   superClass: ['bpmn:BaseElement'],
-  extends: ['heh'],
   properties: [
     {
       // the evidence type has certain data fields -> strings,

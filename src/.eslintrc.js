@@ -23,7 +23,7 @@ module.exports = {
     '@typescript-eslint/no-unsafe-assignment': 'off',
     '@typescript-eslint/no-unsafe-member-access': 'off',
     '@typescript-eslint/no-unsafe-argument': 'off',
-    '@typescript-eslint/ban-types': 'off',
+    '@typescript-eslint/ban-types': 'warn',
     '@typescript-eslint/no-unused-vars': [
       'error',
       {

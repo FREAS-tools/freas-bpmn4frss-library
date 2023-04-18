@@ -11,6 +11,7 @@ const controls: Controls = {
       group: 'activity',
       key: `create-${properties.nameLowercase}`,
       title: 'Add Evidence Source',
+      imageUrl: properties.icon,
     },
   },
   padEntries: [],

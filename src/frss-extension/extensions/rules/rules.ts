@@ -13,9 +13,19 @@ import {
 } from '../../elements';
 
 // types
-import type { HasAttachmentRule } from '../../types/rules/attachment';
-import type { HasConnectionRule } from '../../types/rules/connection';
-import type { HasCreationRule } from '../../types/rules/creation';
+import type {
+  AttachmentRule,
+  HasAttachmentRule,
+} from '../../types/rules/attachment';
+import type { Rule } from '../../types/rules/common';
+import type {
+  ConnectionRule,
+  HasConnectionRule,
+} from '../../types/rules/connection';
+import type {
+  CreationRule,
+  HasCreationRule,
+} from '../../types/rules/creation';
 
 /**
  * Check if element is an element that has rules
@@ -25,7 +35,6 @@ import type { HasCreationRule } from '../../types/rules/creation';
  *          false otherwise
  */
 const isFrssElementWithRules = (shape: any | any[]): boolean => (
-  // @TODO: should we check for many elements?
   shape && (frssElementsWithRules.find(
     (element) => element.properties.identifier === shape.type,
   ) !== undefined)
@@ -39,7 +48,10 @@ const isFrssElementWithRules = (shape: any | any[]): boolean => (
  *          false if the element should not be attached
  *          void if the element is not of this rule's concern
  */
-const checkAttachment = (source: any, target: any): boolean | string | void => {
+const checkAttachment: Rule<ReturnType<AttachmentRule> | undefined> = (
+  source,
+  target,
+) => {
   if (!isFrssElementWithRules(source)) return;
 
   const rule: HasAttachmentRule | undefined = attachmentRules
@@ -50,8 +62,10 @@ const checkAttachment = (source: any, target: any): boolean | string | void => {
   return rule.attachmentRule(source, target);
 };
 
-const checkConnection = (source: any, target: any): (boolean
-| { type: string } | void) => {
+const checkConnection: Rule<ReturnType<ConnectionRule> | undefined> = (
+  source,
+  target,
+) => {
   const rule: HasConnectionRule | undefined = connectionRules
     .find((ruleEntry) => ruleEntry.shouldCheckConnection(source, target));
 
@@ -60,7 +74,10 @@ const checkConnection = (source: any, target: any): (boolean
   return rule.connectionRule(source, target);
 };
 
-const checkCreation = (source: any, target: any): boolean | void => {
+const checkCreation: Rule<ReturnType<CreationRule> | undefined> = (
+  source,
+  target,
+) => {
   // try to find a suitable rule
   const rule: HasCreationRule | undefined = creationRules
     .find((ruleEntry) => ruleEntry.shouldCheckCreation(source, target));
@@ -75,7 +92,7 @@ const checkCreation = (source: any, target: any): boolean | void => {
 export default class FrssRuleProvider extends RuleProvider {
   static $inject: string[];
 
-  ruleProvider: any;
+  ruleProvider: RuleProvider;
 
   constructor(eventBus: any, ruleProvider: any) {
     super(eventBus);

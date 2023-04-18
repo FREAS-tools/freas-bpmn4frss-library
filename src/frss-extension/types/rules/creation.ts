@@ -1,6 +1,10 @@
+import type { AnyRuleCheck, Rule } from './common';
+
+export type CreationRule = Rule<boolean>;
+
 export type HasCreationRule = {
-  creationRule: (source: any, target: any) => boolean | void,
-  shouldCheckCreation: (source: any, target: any) => boolean,
+  creationRule: CreationRule,
+  shouldCheckCreation: AnyRuleCheck,
 };
 
 export const hasCreationRule = (rules: any):
