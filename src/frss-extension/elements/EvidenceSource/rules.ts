@@ -36,10 +36,15 @@ const rules: ElementRules = {
     if (!is(source, evidenceSourceIdentifier)) return;
 
     // if the target is the DataObjectReference which is marked as the
-    // potential evidence
+    // potential evidence. Also, there cannot be an existing connection
+    // (Produces association)
     if (
       is(target, 'bpmn:DataObjectReference')
       && target.businessObject?.dataObjectRef?.isPotentialEvidence
+      && source.outgoing.find((element: any) => (
+        element.source.id === source.id
+        && element.target.id === target.id
+      )) === undefined
     ) {
       return {
         type: ProducesProperties.identifier,

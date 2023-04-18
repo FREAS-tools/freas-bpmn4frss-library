@@ -16,7 +16,6 @@ export enum ElementRenderType {
 
 export type ElementRender = {
   renderFunction: RenderFunction,
-  renderOnElements: string[],
   shouldRender: ShouldRender,
   type: ElementRenderType,
 };

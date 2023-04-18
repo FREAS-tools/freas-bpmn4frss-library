@@ -64,8 +64,6 @@ export const isRenderable = (
 
   return checkElement.rendererEntry !== undefined
     && checkElement.rendererEntry.renderFunction !== undefined
-    && checkElement.rendererEntry.renderOnElements !== undefined
-    && checkElement.rendererEntry.renderOnElements.length > 0
     && checkElement.rendererEntry.shouldRender !== undefined
     && checkElement.rendererEntry.type !== undefined;
 };

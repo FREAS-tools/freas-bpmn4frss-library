@@ -54,7 +54,6 @@ const renderFunction: RenderFunction = (
 };
 
 const rendererEntry: ElementRender = {
-  renderOnElements: [properties.identifier],
   renderFunction,
   shouldRender: (element) => is(element, properties.identifier),
   type: ElementRenderType.Shape,

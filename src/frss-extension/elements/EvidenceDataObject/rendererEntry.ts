@@ -28,7 +28,7 @@ import type {
   ShouldRender,
 } from '../../types/renderer';
 
-const elementIdentifier = 'bpmn:DataObjectReference';
+const dataObjectElementIdentifier = 'bpmn:DataObjectReference';
 
 const shouldRender: ShouldRender = (element) => {
   const evidenceDataObject = element
@@ -37,7 +37,7 @@ const shouldRender: ShouldRender = (element) => {
   // we want to change only those `DataObjectReference`s that are
   // our desired type (are potentialEvidence)
   return (
-    is(element, elementIdentifier)
+    is(element, dataObjectElementIdentifier)
     && element.type !== 'label'
     && evidenceDataObject !== undefined
     && is(evidenceDataObject, potentialEvidenceProperties.identifier)
@@ -72,7 +72,6 @@ export const renderFunction: RenderFunction = (
 };
 
 const rendererEntry: ElementRender = {
-  renderOnElements: [elementIdentifier],
   renderFunction,
   shouldRender,
   type: ElementRenderType.Shape,

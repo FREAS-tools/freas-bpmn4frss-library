@@ -1,8 +1,6 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable import/no-extraneous-dependencies */
 // type checking inside bpmn-js
-// @ts-ignore
-import { isAny } from 'bpmn-js/lib/util/ModelUtil';
 import BaseRenderer from 'diagram-js/lib/draw/BaseRenderer';
 
 import { FRSS_PRIORITY } from '../../common';
@@ -17,6 +15,10 @@ import {
 // types
 import type { FrssRenderable } from '../../types';
 import type { Shape, Connection } from 'diagram-js/lib/model';
+
+const NOT_FRSS_RENDERABLE_ERROR = new Error(
+  'The element is not renderable by the FRSS renderer',
+);
 
 export default class FrssRenderer extends BaseRenderer {
   bpmnRenderer: BaseRenderer;
@@ -45,15 +47,11 @@ export default class FrssRenderer extends BaseRenderer {
    */
   canRender(element: any) {
     // modified bpmn elements that should be rendered differently
-    const renderableFrssElements: string[] = frssRenderables.flatMap(
-      (customElement) => customElement.rendererEntry.renderOnElements,
-    );
+    const shouldRender = frssRenderables.flatMap(
+      (customElement) => customElement.rendererEntry,
+    ).find((rendererEntry) => rendererEntry.shouldRender(element));
 
-    // both lists have elements that should be processed by the FRSS renderer
-    return isAny(
-      element,
-      renderableFrssElements,
-    );
+    return shouldRender !== undefined;
   }
 
   /**
@@ -70,12 +68,7 @@ export default class FrssRenderer extends BaseRenderer {
    * @returns - rendered element if the element is custom
    *          - null otherwise
    */
-  // Ignoring wrongly typed base class definition - if we always returned
-  // an element, then we could not plug into an already existing custom project
-  // undefined needs to be returned in order for other renderers to catch
-  // the rendering duty in case of an extended element!
-  // @ts-ignore
-  drawShape(parentNode: SVGElement, element: Shape): SVGElement | undefined {
+  drawShape(parentNode: SVGElement, element: Shape): SVGElement {
     // check if the element is a custom frss renderable element
     // only retains the one custom element it matches
     const elementIsFrssRenderable:
@@ -85,7 +78,7 @@ export default class FrssRenderer extends BaseRenderer {
     );
 
     // the element is not renderable by the Frss renderer
-    if (!elementIsFrssRenderable) return;
+    if (!elementIsFrssRenderable) throw NOT_FRSS_RENDERABLE_ERROR;
 
     // obtain the renderer from the custom element module
     // there will always be just one module with the same identifier
@@ -98,15 +91,7 @@ export default class FrssRenderer extends BaseRenderer {
     });
   }
 
-  // Ignoring wrongly typed base class definition - if we always returned
-  // an element, then we could not plug into an already existing custom project
-  // undefined needs to be returned in order for other renderers to catch
-  // the rendering duty in case of an extended element!
-  // @ts-ignore
-  drawConnection(
-    parentNode: SVGElement,
-    element: Connection,
-  ): SVGElement | undefined {
+  drawConnection(parentNode: SVGElement, element: Connection): SVGElement {
     const elementIsFrssRenderableConnection:
     (FrssRenderable | undefined) = frssRenderableConnections.find(
       (renderableConnection) => (
@@ -115,7 +100,7 @@ export default class FrssRenderer extends BaseRenderer {
     );
 
     // the connection is not renderable by the Frss renderer
-    if (!elementIsFrssRenderableConnection) return;
+    if (!elementIsFrssRenderableConnection) throw NOT_FRSS_RENDERABLE_ERROR;
 
     const { rendererEntry } = elementIsFrssRenderableConnection;
 

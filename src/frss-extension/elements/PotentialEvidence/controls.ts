@@ -1,5 +1,6 @@
 /* @ts-ignore */
-import { isAny } from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
+import { isAny, is } from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
+import producesProperties from '../Produces/properties';
 
 import type { Controls } from '../../types/controls';
 import type { CreateActionHandler } from '../../types/controls/actionHandler';
@@ -36,10 +37,23 @@ const unmarkDataObjectAsEvidence: CreateActionHandler = (
     const dataObject = element?.businessObject?.dataObjectRef;
     if (!dataObject.isPotentialEvidence) return;
 
+    const incomingProducesElements = element.incoming
+      .filter((elem: any) => is(elem, producesProperties.identifier));
+    const incomingElementsRest = element.incoming
+      .filter((elem: any) => !is(elem, producesProperties.identifier));
+
+    // remove incoming `Produces` associations
+    modeling.removeElements(
+      incomingProducesElements,
+    );
+
+    // remove element
     modeling.removeElements([dataObject.isPotentialEvidence]);
     delete dataObject.isPotentialEvidence;
+
     modeling.updateProperties(element, {
       dataObjectRef: dataObject,
+      incoming: incomingElementsRest,
     });
   };
 

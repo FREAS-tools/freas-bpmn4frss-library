@@ -1,5 +1,4 @@
-import potentialEvidenceTypeProperties
-  from '../PotentialEvidence/properties';
+import potentialEvidenceTypeProperties from '../PotentialEvidence/properties';
 
 import properties from './properties';
 import type { FrssModdleDefinition } from '../../types/definitions';

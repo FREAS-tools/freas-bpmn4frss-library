@@ -20,8 +20,6 @@ import type {
   RenderFunction,
 } from '../../types/renderer';
 
-const { identifier } = properties;
-
 const renderFunction: RenderFunction = (
   { parentNode, element, bpmnRenderer },
 ) => {
@@ -42,9 +40,8 @@ const renderFunction: RenderFunction = (
 };
 
 const rendererEntry: ElementRender = {
-  renderOnElements: [identifier],
   renderFunction,
-  shouldRender: (element) => is(element, identifier),
+  shouldRender: (element) => is(element, properties.identifier),
   type: ElementRenderType.Connection,
 };
 
