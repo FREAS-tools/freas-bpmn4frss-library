@@ -1,9 +1,10 @@
 // This file provides functions for the React components
 // that encapsulate the library
 
-// color picker
 // @ts-ignore
 import Modeler from 'bpmn-js/lib/Modeler';
+
+// adding a color picker module
 // @ts-ignore
 import ColorPickerModule from 'bpmn-js-color-picker';
 
@@ -20,7 +21,7 @@ import errorMessages from './errors';
  * between React components and BPMN4FRSS library
  */
 export default class Bpmn4FrssWebEditor {
-  modeler: any;
+  modeler: Modeler;
 
   /**
    * Initialize a new BPMN4FRSS editor
@@ -77,9 +78,9 @@ export default class Bpmn4FrssWebEditor {
     }
   }
 
-  async saveDiagramAsXML(): Promise<{ xml: string }> {
+  async saveDiagramAsXML() {
     try {
-      return this.modeler.saveXML({
+      return await this.modeler.saveXML({
         format: true,
       });
     } catch (_) {
@@ -87,9 +88,9 @@ export default class Bpmn4FrssWebEditor {
     }
   }
 
-  async saveDiagramSvg(): Promise<{ svg: string }> {
+  async saveDiagramSvg() {
     try {
-      return this.modeler.saveSVG();
+      return await this.modeler.saveSVG();
     } catch (_) {
       throw new Error(errorMessages.fileDownloadFailed);
     }
