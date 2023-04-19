@@ -2,7 +2,8 @@ import FrssDefinitions from './extensions/moddle/moddle';
 import FrssPadProvider from './extensions/pad/padProvider';
 import FrssPaletteProvider from './extensions/palette/paletteProvider';
 import FrssRenderer from './extensions/renderer/renderer';
-import FrssRuleProvider from './extensions/rules/rules';
+import FrssRuleProvider from './extensions/rules/ruleProvider';
+import FrssRules from './extensions/rules/rules';
 
 /**
  * FRSS extension for `bpmn-js`
@@ -15,12 +16,14 @@ export default {
     'frssRenderer',
     'frssPaletteProvider',
     'frssPadProvider',
+    'bpmnRules',
     'frssRuleProvider',
   ],
 
   frssRenderer: ['type', FrssRenderer],
   frssPaletteProvider: ['type', FrssPaletteProvider],
   frssPadProvider: ['type', FrssPadProvider],
+  bpmnRules: ['type', FrssRules],
   frssRuleProvider: ['type', FrssRuleProvider],
 
   // Moddle definitions should be imported with the library itself,
@@ -42,4 +45,6 @@ export {
   FrssRenderer as Bpmn4FrssRenderer,
   FrssPaletteProvider as Bpmn4FrssPaletteProvider,
   FrssPadProvider as Bpmn4FrssPadProvider,
+  FrssRuleProvider as Bpmn4FrssRuleProvider,
+  FrssRules as Bpmn4FrssRules,
 };

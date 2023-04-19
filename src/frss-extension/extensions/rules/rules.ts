@@ -1,173 +1,47 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // @ts-ignore
-// eslint-disable-next-line import/no-extraneous-dependencies
-import RuleProvider from 'diagram-js/lib/features/rules/RuleProvider';
-// the FRSS priority for the injector
-import { FRSS_PRIORITY } from '../../common';
+import BpmnRules from 'bpmn-js/lib/features/rules/BpmnRules';
 
-// lists of elements of interests
-import {
-  attachmentRules,
-  connectionRules,
-  creationRules,
-  frssElementsWithRules,
-} from '../../elements';
+import { connectionRules } from '../../elements';
 
-// types
-import type {
-  AttachmentRule,
-  HasAttachmentRule,
-} from '../../types/rules/attachment';
-import type { Rule } from '../../types/rules/common';
-import type {
-  ConnectionRule,
-  HasConnectionRule,
-} from '../../types/rules/connection';
-import type {
-  CreationRule,
-  HasCreationRule,
-} from '../../types/rules/creation';
-
-/**
- * Check if element is an element that has rules
- *
- * @param shape element to be checked
- * @returns true if the element has some rules
- *          false otherwise
- */
-const isFrssElementWithRules = (shape: any | any[]): boolean => (
-  shape && (frssElementsWithRules.find(
-    (element) => element.properties.identifier === shape.type,
-  ) !== undefined)
-);
-
-/**
- * Check if element can be attached to another element
- * @param source source element
- * @param target target element
- * @returns "attach" if the element should be attached
- *          false if the element should not be attached
- *          void if the element is not of this rule's concern
- */
-const checkAttachment: Rule<ReturnType<AttachmentRule> | undefined> = (
-  source,
-  target,
-) => {
-  if (!isFrssElementWithRules(source)) return;
-
-  const rule: HasAttachmentRule | undefined = attachmentRules
-    .find((ruleEntry) => ruleEntry.shouldCheckAttachment(source, target));
-
-  if (!rule) return;
-
-  return rule.attachmentRule(source, target);
-};
-
-const checkConnection: Rule<ReturnType<ConnectionRule> | undefined> = (
-  source,
-  target,
-) => {
-  const rule: HasConnectionRule | undefined = connectionRules
-    .find((ruleEntry) => ruleEntry.shouldCheckConnection(source, target));
-
-  if (!rule) return;
-
-  return rule.connectionRule(source, target);
-};
-
-const checkCreation: Rule<ReturnType<CreationRule> | undefined> = (
-  source,
-  target,
-) => {
-  // try to find a suitable rule
-  const rule: HasCreationRule | undefined = creationRules
-    .find((ruleEntry) => ruleEntry.shouldCheckCreation(source, target));
-
-  // no rule was found
-  if (!rule) return;
-
-  // rule found, execute
-  return rule.creationRule(source, target);
-};
-
-export default class FrssRuleProvider extends RuleProvider {
+export default class FrssRules extends BpmnRules {
   static $inject: string[];
 
-  ruleProvider: RuleProvider;
-
-  constructor(eventBus: any, ruleProvider: any) {
+  constructor(eventBus: any, injector: any) {
     super(eventBus);
-
-    this.ruleProvider = ruleProvider;
+    injector.invoke(BpmnRules, this);
   }
 
-  init() {
-    // @ts-ignore
-    this.addRule('shape.attach', FRSS_PRIORITY, (context: any) => {
-      const { target, shape } = context;
+  canConnectAssociation(source: any, target: any) {
+    // find a suitable rule from FRSS extension
+    const foundRule = connectionRules.find(
+      (rule) => rule.shouldCheckConnection(source, target),
+    );
 
-      // the custom rules only check if the source is the frss element.
-      if (!isFrssElementWithRules(shape)) return;
+    // no suitable rule found, default behaviour happens
+    if (!foundRule) return super.canConnectAssociation(source, target);
 
-      // we can only place one element at a time
-      if (Array.isArray(shape) && shape.length !== 1) {
-        return false;
-      }
+    // get the association we want to check
+    const getExistingAssociation = source.outgoing.find(
+      (element: any) => (
+        element.source.id === source.id && element.target.id === target.id
+      ),
+    );
 
-      return checkCreation(shape, target);
-    });
+    // find its id (always string, but undefined put here as safeguard)
+    const connectionId: string | undefined = (
+      getExistingAssociation.id ?? undefined
+    );
 
-    // @ts-ignore
-    this.addRule('elements.move', FRSS_PRIORITY, (context: any) => {
-      const { shapes, target } = context;
+    // execute the custom rule
+    const result = foundRule.connectionRule(source, target, connectionId);
 
-      if (!shapes
-        || !Array.isArray(shapes)
-        || shapes.length !== 1
-        // MUST CHECK otherwise it dies
-        || target === undefined) {
-        return;
-      }
-
-      const shape = shapes[0];
-
-      if (!isFrssElementWithRules(shape)) return;
-
-      return checkAttachment(shape, target);
-    });
-
-    // @ts-ignore
-    this.addRule('shape.create', FRSS_PRIORITY, (context: any) => {
-      const { target, shape } = context;
-
-      // the custom rules only check if the source is the frss element.
-      if (!isFrssElementWithRules(shape)) return;
-
-      return checkCreation(shape, target);
-    });
-
-    // @ts-ignore
-    this.addRule('connection.create', FRSS_PRIORITY, (context: any) => {
-      const { source, target } = context;
-      const hints = context.hints ?? {};
-      const { targetParent, targetAttach } = hints;
-
-      if (targetAttach) return false;
-
-      // temporarily set parent to the hinted parent (snapped)
-      if (targetParent) {
-        target.parent = targetParent;
-      }
-
-      try {
-        return checkConnection(source, target);
-      } finally {
-        // unset temporary parent
-        if (targetParent) {
-          target.parent = null;
-        }
-      }
-    });
+    // check the result of the connection rule -> cannot be undefined or false!
+    return result !== false && result !== undefined;
   }
 }
 
-FrssRuleProvider.$inject = ['eventBus'];
+FrssRules.$inject = [
+  'eventBus',
+  'injector',
+];

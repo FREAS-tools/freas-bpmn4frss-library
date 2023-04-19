@@ -1,7 +1,7 @@
 // @ts-ignore
 import { is, isAny } from 'bpmn-js/lib/util/ModelUtil';
 
-import ProducesProperties from '../Produces/properties';
+import producesProperties from '../Produces/properties';
 import properties from './properties';
 
 // types
@@ -28,26 +28,36 @@ const rules: ElementRules = {
       return false;
     }
   },
-  connectionRule: (source, target) => {
+  connectionRule: (source, target, connectionId?) => {
     // handle should be reversed when the target is the evidence source identifier
     if (is(target, evidenceSourceIdentifier)) return false;
 
     // then if the source is not the evidence source identifier
     if (!is(source, evidenceSourceIdentifier)) return;
 
+    // find the connection that is of type Produces.
+    const producesConnections = source.outgoing.find((element: any) => (
+      element.source.id === source.id
+      && element.target.id === target.id
+      && is(element, producesProperties.identifier)
+    ));
+
+    // we check for existing connection if we wish to create a new element
+    // and we check for identity if we want to move the element
+    // (by comparing connection id).
+    const checkExisting = connectionId === undefined
+      ? producesConnections === undefined
+      : producesConnections.id === connectionId;
+
     // if the target is the DataObjectReference which is marked as the
-    // potential evidence. Also, there cannot be an existing connection
-    // (Produces association)
+    // potential evidence.
     if (
       is(target, 'bpmn:DataObjectReference')
       && target.businessObject?.dataObjectRef?.isPotentialEvidence
-      && source.outgoing.find((element: any) => (
-        element.source.id === source.id
-        && element.target.id === target.id
-      )) === undefined
+      && checkExisting
     ) {
       return {
-        type: ProducesProperties.identifier,
+        type: producesProperties.identifier,
       };
     }
 
