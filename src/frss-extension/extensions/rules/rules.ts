@@ -2,7 +2,7 @@
 // @ts-ignore
 import BpmnRules from 'bpmn-js/lib/features/rules/BpmnRules';
 
-import { connectionRules } from '../../elements';
+// checking reconnection
 import { checkReconnection } from './ruleProvider';
 
 export default class FrssRules extends BpmnRules {
