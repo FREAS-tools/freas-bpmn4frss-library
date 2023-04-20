@@ -41,7 +41,7 @@ export type CustomRenderableElementWithIconProperties = (
  * Properties of an element can be either base, renderable,
  * or renderable with icons.
  */
-export type Properties = ElementBaseProperties
+export type FrssProperties = ElementBaseProperties
 | CustomRenderableElementProperties
 | CustomRenderableElementWithIconProperties;
 
@@ -53,7 +53,7 @@ export type Properties = ElementBaseProperties
  * the type is `CustomRenderableElementProperties`)
  */
 export const hasSizeAndOffset = (
-  props: Properties,
+  props: FrssProperties,
 ): props is CustomRenderableElementProperties => {
   const convertedProps = props as CustomRenderableElementProperties;
 
@@ -70,7 +70,7 @@ export const hasSizeAndOffset = (
  * the type is `CustomRenderableElementWithIconProperties`)
  */
 export const hasIcon = (
-  props: Properties,
+  props: FrssProperties,
 ): props is CustomRenderableElementWithIconProperties => {
   const convertedProps = props as CustomRenderableElementWithIconProperties;
   return hasSizeAndOffset(convertedProps)

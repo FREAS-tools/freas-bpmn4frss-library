@@ -1,4 +1,5 @@
-import { bpmn4frssPrefix } from '../../common';
+import { createIdentifier } from '../common';
+
 import icon from './assets/evidence-source.png';
 
 // types
@@ -10,7 +11,7 @@ const name = 'EvidenceSource';
 
 const properties: CustomRenderableElementWithIconProperties = {
   icon,
-  identifier: `${bpmn4frssPrefix}${name}`,
+  identifier: createIdentifier(name),
   name,
   nameLowercase: 'evidence-source',
   offset: {

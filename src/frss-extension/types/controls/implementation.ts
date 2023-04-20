@@ -14,7 +14,7 @@ import type {
   ControlEntry,
   ControlEntryData,
 } from './entry';
-import type { Properties } from '../properties';
+import type { FrssProperties } from '../properties';
 
 /**
  * Default function for creating the FRSS element. This can is used
@@ -90,7 +90,7 @@ export const newControlEntry: CreateControlEntry = (
 type CreateControlEntry = (
   newActionHandler: CreateActionHandler,
   context: ControlsContext,
-  elementProps: Properties,
+  elementProps: FrssProperties,
   entryProps: ControlEntryProps,
 ) => ControlEntryPropsAndActions;
 

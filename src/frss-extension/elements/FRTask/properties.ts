@@ -1,14 +1,12 @@
 import { createIdentifier } from '../common';
-
-// types
 import type { FrssProperties } from '../../types/properties';
 
-const name = 'Produces';
+const name = 'ForensicReadinessTask';
 
 const properties: FrssProperties = {
-  identifier: createIdentifier(name),
   name,
-  nameLowercase: 'produces',
+  identifier: createIdentifier(name),
+  nameLowercase: 'forensic-readiness-task',
 };
 
 export default properties;

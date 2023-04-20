@@ -1,5 +1,5 @@
 import type { ControlsContext } from './context';
-import type { Properties } from '../properties';
+import type { FrssProperties } from '../properties';
 
 /**
  * Function which is called by the user (usually by clicking/dragging something)
@@ -31,5 +31,5 @@ export type CreateShape = {
  */
 export type CreateActionHandler = (
   context: ControlsContext,
-  elementProperties: Properties,
+  elementProperties: FrssProperties,
 ) => ActionHandler;

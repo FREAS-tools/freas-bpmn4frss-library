@@ -1,6 +1,6 @@
 import type { Controls } from './controls';
 import type { FrssModdleDefinition } from './definitions';
-import type { Properties } from './properties';
+import type { FrssProperties } from './properties';
 import type { ElementRender } from './renderer';
 import type { ElementRules } from './rules';
 import type { PartiallyRequired } from './utility';
@@ -17,24 +17,18 @@ type Submodules = {
  */
 export type FrssElement = {
   definition: FrssModdleDefinition,
-  properties: Properties,
+  properties: FrssProperties,
 } & Partial<Submodules>;
 
 export type FrssPaletteElement = {
   controls: PartiallyRequired<Controls, 'paletteCreateEntry'>,
 } & FrssElement;
 
-export type FrssPadElement = {
-  controls: Controls,
-} & FrssElement;
+export type FrssPadElement = PartiallyRequired<FrssElement, 'controls'>;
 
-export type FrssRenderable = {
-  rendererEntry: ElementRender,
-} & FrssElement;
+export type FrssRenderable = PartiallyRequired<FrssElement, 'rendererEntry'>;
 
-export type FrssElementWithRules = {
-  rules: ElementRules,
-} & FrssElement;
+export type FrssElementWithRules = PartiallyRequired<FrssElement, 'rules'>;
 
 export const inPalette = (
   element: FrssElement,

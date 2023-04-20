@@ -22,17 +22,11 @@ import {
   hasCreationRule,
 } from '../types/rules/creation';
 
-/**
- * IMPORT new element modules here! Each module is a custom FRSS element.
- */
-import EvidenceDataObject from './EvidenceDataObject';
-import EvidenceSource from './EvidenceSource';
-import PotentialEvidence from './PotentialEvidence';
-import Produces from './Produces';
+/* Import ALL FRSS elements */
+import frssElements from './list';
 
 /* Import all types below */
 import type {
-  FrssElement,
   FrssElementWithRules,
   FrssPadElement,
   FrssPaletteElement,
@@ -45,14 +39,6 @@ import type {
 import type { HasAttachmentRule } from '../types/rules/attachment';
 import type { HasConnectionRule } from '../types/rules/connection';
 import type { HasCreationRule } from '../types/rules/creation';
-
-// export the list of used custom elements
-const frssElements: FrssElement[] = [
-  EvidenceDataObject,
-  EvidenceSource,
-  PotentialEvidence,
-  Produces,
-];
 
 // Below are lists of elements, that are used in different contexts.
 // These lists of elements (and rules) are created to allow type safety
