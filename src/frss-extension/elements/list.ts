@@ -7,16 +7,13 @@ import EvidenceSource from './EvidenceSource';
 import PotentialEvidence from './PotentialEvidence';
 import Produces from './Produces';
 
-// import type
-import type { FrssElement } from '../types';
-
 /*
  *
  * ADD the imported element here
  *
  *
 */
-const frssElements: FrssElement[] = [
+const frssElements = [
   EvidenceAssociation,
   EvidenceDataObject,
   EvidenceSource,
