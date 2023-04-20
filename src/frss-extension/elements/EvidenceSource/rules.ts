@@ -53,7 +53,7 @@ const rules: ElementRules = {
     // potential evidence.
     if (
       is(target, 'bpmn:DataObjectReference')
-      && target.businessObject?.dataObjectRef?.isPotentialEvidence
+      && target.businessObject?.dataObjectRef?.isPotentialEvidence !== undefined
       && checkExisting
     ) {
       return {

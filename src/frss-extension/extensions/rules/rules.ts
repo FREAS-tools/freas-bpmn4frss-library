@@ -3,6 +3,7 @@
 import BpmnRules from 'bpmn-js/lib/features/rules/BpmnRules';
 
 import { connectionRules } from '../../elements';
+import { checkReconnection } from './ruleProvider';
 
 export default class FrssRules extends BpmnRules {
   static $inject: string[];
@@ -13,31 +14,15 @@ export default class FrssRules extends BpmnRules {
   }
 
   canConnectAssociation(source: any, target: any) {
-    // find a suitable rule from FRSS extension
-    const foundRule = connectionRules.find(
-      (rule) => rule.shouldCheckConnection(source, target),
-    );
+    const checkCustomReconnection = checkReconnection(source, target);
 
     // no suitable rule found, default behaviour happens
-    if (!foundRule) return super.canConnectAssociation(source, target);
+    if (checkCustomReconnection === undefined) {
+      return super.canConnectAssociation(source, target);
+    }
 
-    // get the association we want to check
-    const getExistingAssociation = source.outgoing.find(
-      (element: any) => (
-        element.source.id === source.id && element.target.id === target.id
-      ),
-    );
-
-    // find its id (always string, but undefined put here as safeguard)
-    const connectionId: string | undefined = (
-      getExistingAssociation.id ?? undefined
-    );
-
-    // execute the custom rule
-    const result = foundRule.connectionRule(source, target, connectionId);
-
-    // check the result of the connection rule -> cannot be undefined or false!
-    return result !== false && result !== undefined;
+    // custom rule has ran, now we need to check if the reconnection can happen
+    return checkCustomReconnection !== false;
   }
 }
 
