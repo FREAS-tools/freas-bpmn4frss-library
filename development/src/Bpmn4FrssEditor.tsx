@@ -84,25 +84,18 @@ const Bpmn4FrssEditor = ({ cssClassNames }: Bpmn4FrssEditorProps) => {
     library?.defaultDiagram();
   }
 
-  const downloadTheFile = async (type: string) => {
-    const content = type === "image/svg+xml" 
-      ? await library?.saveDiagramSvg() : await library?.saveDiagramAsXML();
-
-    console.log(content);
-
-    const fileName = `diagram.${type === "image/svg+xml" ? "svg" : "bpmn"}`;
-    
+  const downloadTheFile = (
+    content: string,
+    type: "image/svg+xml" | "text/xml"
+  ) => {
+    const fileType = type === "image/svg+xml" ? "svg" : "bpmn";
+    const fileName = `diagram.${fileType}`;
 
       if (downloadFile.current) {
         window.URL.revokeObjectURL(downloadFile.current);
       }
-  
       
-      const data = new Blob([
-        type === 'image/svg+xml'
-        // @ts-ignore
-        ? content.svg : content.xml
-      ], {type});
+      const data = new Blob([content], {type});
       downloadFile.current = window.URL.createObjectURL(data);
       const tempAnchor = document.createElement("a");
       tempAnchor.href = downloadFile.current;
@@ -113,11 +106,23 @@ const Bpmn4FrssEditor = ({ cssClassNames }: Bpmn4FrssEditorProps) => {
   }
 
   const downloadDiagramAsXML = async () => {
-    await downloadTheFile("text/xml");    
+    const content = await library?.modeler.saveXML();
+    if (content.error !== undefined || content.xml === undefined) {
+      alert("Cannot download file!");
+      return;
+    }
+
+    downloadTheFile(content.xml, "text/xml");    
   }
 
   const downloadDiagramAsSvg = async () => {
-    await downloadTheFile("image/svg+xml");
+    const content = await library?.modeler.saveSVG();
+
+    downloadTheFile(content.svg, "image/svg+xml");   
+  }
+
+  const tryMe = () => {
+    library?.trySomething();
   }
 
   return (
@@ -125,8 +130,8 @@ const Bpmn4FrssEditor = ({ cssClassNames }: Bpmn4FrssEditorProps) => {
       {/* Bpmn4Frss typescript library */}
       <div ref={container} className={cssClassNames.libraryCssClass}></div>
       <div className={cssClassNames.controls.container}>
-        <div className={cssClassNames.controls.loadButtonCssClass}>
-          <label className="clickable" htmlFor="diagram-file-input">Load diagram from file</label>
+        <div>
+          <label className={`clickable ${cssClassNames.controls.loadButtonCssClass}`} htmlFor="diagram-file-input">Load diagram from file</label>
           <input
             className="clickable input"
             id="diagram-file-input"
@@ -135,24 +140,30 @@ const Bpmn4FrssEditor = ({ cssClassNames }: Bpmn4FrssEditorProps) => {
           />
         </div>
 
-        <div
+        <button
           className={cssClassNames.controls.loadButtonCssClass}
           onClick={loadDefaultDiagram}
         >
           Load default diagram
-        </div>
-        <div
+        </button>
+        <button
           className={cssClassNames.controls.loadButtonCssClass}
           onClick={downloadDiagramAsXML}
         >
           Download diagram (.bpmn)
-        </div>
-        <div
+        </button>
+        <button
           className={cssClassNames.controls.loadButtonCssClass}
           onClick={downloadDiagramAsSvg}
         >
           Download diagram (.svg)
-        </div>
+        </button>
+        <button
+          className={cssClassNames.controls.loadButtonCssClass}
+          onClick={tryMe}
+        >
+          Try me
+        </button>
       </div>
     </div>
   );
