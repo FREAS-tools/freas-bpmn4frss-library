@@ -23,21 +23,24 @@ import type {
 const renderFunction: RenderFunction = (
   { parentNode, element, bpmnRenderer },
 ) => {
-  const produces = bpmnRenderer.handlers['bpmn:DataOutputAssociation'](
-    parentNode,
-    element,
+  const evidenceAssociation = (
+    bpmnRenderer.handlers['bpmn:DataOutputAssociation'](
+      parentNode,
+      element,
+    )
   );
 
   const attributes = {
     stroke: 'green',
+    strokeDasharray: '20, 5',
   };
 
   // set the attributes
-  attributesSvg(produces, attributes);
+  attributesSvg(evidenceAssociation, attributes);
 
   // append the svg
-  appendSvg(parentNode, produces);
-  return produces;
+  appendSvg(parentNode, evidenceAssociation);
+  return evidenceAssociation;
 };
 
 const rendererEntry: ElementRender = {

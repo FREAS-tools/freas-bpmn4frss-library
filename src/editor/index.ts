@@ -95,4 +95,9 @@ export default class Bpmn4FrssWebEditor {
       throw new Error(errorMessages.fileDownloadFailed);
     }
   }
+
+  trySomething() {
+    // const elementRegistry = this.modeler.get('elementRegistry');
+    // console.log(Object.entries(elementRegistry._elements));
+  }
 }

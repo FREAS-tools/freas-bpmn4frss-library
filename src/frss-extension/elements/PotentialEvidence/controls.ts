@@ -1,9 +1,11 @@
 /* @ts-ignore */
-import { isAny, is } from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
+import { is, isAny } from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
 import producesProperties from '../Produces/properties';
 
 import type { Controls } from '../../types/controls';
 import type { CreateActionHandler } from '../../types/controls/actionHandler';
+import { partitionArray } from '../../utility/partitionArray';
+import evidenceAssociationProperties from '../EvidenceAssociation/properties';
 
 const markDataObjectAsEvidence: CreateActionHandler = (
   {
@@ -37,23 +39,32 @@ const unmarkDataObjectAsEvidence: CreateActionHandler = (
     const dataObject = element?.businessObject?.dataObjectRef;
     if (!dataObject.isPotentialEvidence) return;
 
-    const incomingProducesElements = element.incoming
-      .filter((elem: any) => is(elem, producesProperties.identifier));
-    const incomingElementsRest = element.incoming
-      .filter((elem: any) => !is(elem, producesProperties.identifier));
+    // filter out the FRSS associations we need to remove (desired)
+    const {desired, rest} = partitionArray(
+      // check both incoming and outgoing connections
+      [...element.incoming, ...element.outgoing],
+      // we target only `Produces` and `EvidenceAssociation` elements
+      (element: any) => isAny(
+        element,
+        [
+          producesProperties.identifier,
+          evidenceAssociationProperties.identifier,
+        ],
+      ),
+    );
 
-    // remove incoming `Produces` associations
+    // remove incoming FRSS associations
     modeling.removeElements(
-      incomingProducesElements,
+      desired,
     );
 
     // remove element
-    modeling.removeElements([dataObject.isPotentialEvidence]);
+    modeling.removeElements(dataObject.isPotentialEvidence);
     delete dataObject.isPotentialEvidence;
 
     modeling.updateProperties(element, {
       dataObjectRef: dataObject,
-      incoming: incomingElementsRest,
+      incoming: rest,
     });
   };
 
@@ -79,8 +90,10 @@ const controls: Controls = {
         key: markDataObjectAsEvidenceIdentifier,
         title: 'Mark DataObjectRef as Potential Evidence',
       },
-      show: (element) => (isAny(element, ['bpmn:DataObjectReference'])
-        && !isMarked(element)),
+      show: (element) => (
+        is(element, 'bpmn:DataObjectReference')
+        && !isMarked(element)
+      ),
     },
     {
       makeActionHandler: unmarkDataObjectAsEvidence,
@@ -90,8 +103,10 @@ const controls: Controls = {
         key: unmarkDataObjectAsEvidenceIdentifier,
         title: 'Unmark DataObjectRef as Potential Evidence',
       },
-      show: (element) => (isAny(element, ['bpmn:DataObjectReference'])
-        && isMarked(element)),
+      show: (element) => (
+        is(element, 'bpmn:DataObjectReference')
+        && isMarked(element)
+      ),
     },
   ],
 };

@@ -19,7 +19,7 @@ const attachableTo: string[] = [
 ];
 
 const rules: ElementRules = {
-  attachmentRule: (source, target) => {
+  attachmentRule: (source, target, _elementRegistry) => {
     // evidence source can attach to tasks, events, and data store references
     if (is(source, evidenceSourceIdentifier)) {
       if (isAny(target, attachableTo)) {
@@ -28,7 +28,7 @@ const rules: ElementRules = {
       return false;
     }
   },
-  connectionRule: (source, target, connectionId?) => {
+  connectionRule: (source, target, _elementRegistry, connectionId?) => {
     // handle should be reversed when the target is the evidence source identifier
     if (is(target, evidenceSourceIdentifier)) return false;
 
@@ -64,10 +64,27 @@ const rules: ElementRules = {
     // otherwise it should not have occurred
     return false;
   },
-  creationRule: (source, target) => (
-    is(source, evidenceSourceIdentifier)
-      && isAny(target, attachableTo)
-  ),
+  creationRule: (source, target, elementRegistry) => {
+    if (!is(source, properties.identifier)) return false;
+
+    if (!isAny(target, attachableTo)) return false;
+
+    // check such element already exists on the target
+    // eslint-disable-next-line no-underscore-dangle
+    const elementExists = Object.entries(elementRegistry._elements).find(
+      (entry: any) => {
+        // get the diagram element
+        const diagramElement = entry[1].element;
+
+        // find element that is EvidenceSource and is already attached to
+        // the desired target
+        return is(diagramElement, properties.identifier)
+        && diagramElement?.businessObject?.attachedToRef?.id === target.id
+      },
+    );
+
+    return elementExists === undefined;
+  },
   shouldCheckAttachment: checkAttachmentOrCreation,
   shouldCheckCreation: checkAttachmentOrCreation,
   shouldCheckConnection: (source, target) => (

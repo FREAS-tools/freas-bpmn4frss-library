@@ -37,30 +37,33 @@ import type {
 const checkAttachment: Rule<ReturnType<AttachmentRule> | undefined> = (
   source,
   target,
+  elementRegistry,
 ) => {
   const rule: HasAttachmentRule | undefined = attachmentRules
     .find((ruleEntry) => ruleEntry.shouldCheckAttachment(source, target));
 
   if (!rule) return;
 
-  return rule.attachmentRule(source, target);
+  return rule.attachmentRule(source, target, elementRegistry);
 };
 
 const checkConnection: Rule<ReturnType<ConnectionRule> | undefined> = (
   source,
   target,
+  elementRegistry,
 ) => {
   const rule: HasConnectionRule | undefined = connectionRules
     .find((ruleEntry) => ruleEntry.shouldCheckConnection(source, target));
 
   if (!rule) return;
 
-  return rule.connectionRule(source, target);
+  return rule.connectionRule(source, target, elementRegistry);
 };
 
 export const checkReconnection: Rule<ReturnType<ConnectionRule> | undefined> = (
   source,
   target,
+  elementRegistry,
 ) => {
   const rule: HasConnectionRule | undefined = connectionRules
     .find((ruleEntry) => ruleEntry.shouldCheckConnection(source, target));
@@ -81,12 +84,13 @@ export const checkReconnection: Rule<ReturnType<ConnectionRule> | undefined> = (
     getExistingAssociation.id ?? undefined
   );
 
-  return rule.connectionRule(source, target, connectionId);
+  return rule.connectionRule(source, target, elementRegistry, connectionId);
 };
 
 const checkCreation: Rule<ReturnType<CreationRule> | undefined> = (
   source,
   target,
+  elementRegistry,
 ) => {
   // try to find a suitable rule
   const rule: HasCreationRule | undefined = creationRules
@@ -96,7 +100,7 @@ const checkCreation: Rule<ReturnType<CreationRule> | undefined> = (
   if (!rule) return;
 
   // rule found, execute
-  return rule.creationRule(source, target);
+  return rule.creationRule(source, target, elementRegistry);
 };
 
 enum ConnectionRuleHook {
@@ -107,6 +111,7 @@ enum ConnectionRuleHook {
 const connectionCreateOrReconnect = (
   context: any,
   hook: ConnectionRuleHook,
+  elementRegistry: any,
 ) => {
   const { source, target } = context;
   const hints = context.hints ?? {};
@@ -122,9 +127,9 @@ const connectionCreateOrReconnect = (
   try {
     switch (hook) {
       case ConnectionRuleHook.Create:
-        return checkConnection(source, target);
+        return checkConnection(source, target, elementRegistry);
       case ConnectionRuleHook.Reconnect:
-        return checkReconnection(source, target);
+        return checkReconnection(source, target, elementRegistry);
       default:
         return;
     }
@@ -146,12 +151,12 @@ const connectionCreateOrReconnect = (
 export default class FrssRuleProvider extends RuleProvider {
   static $inject: string[];
 
-  ruleProvider: RuleProvider;
+  elementRegistry: any;
 
-  constructor(eventBus: any, ruleProvider: any) {
+  constructor(eventBus: any, elementRegistry: any) {
     super(eventBus);
 
-    this.ruleProvider = ruleProvider;
+    this.elementRegistry = elementRegistry;
   }
 
   init() {
@@ -164,7 +169,7 @@ export default class FrssRuleProvider extends RuleProvider {
         return false;
       }
 
-      return checkCreation(shape, target);
+      return checkCreation(shape, target, this.elementRegistry);
     });
 
     // @ts-ignore
@@ -181,14 +186,14 @@ export default class FrssRuleProvider extends RuleProvider {
 
       const shape = shapes[0];
 
-      return checkAttachment(shape, target);
+      return checkAttachment(shape, target, this.elementRegistry);
     });
 
     // @ts-ignore
     this.addRule('shape.create', FRSS_PRIORITY, (context: any) => {
       const { target, shape } = context;
 
-      return checkCreation(shape, target);
+      return checkCreation(shape, target, this.elementRegistry);
     });
 
     // @ts-ignore
@@ -198,6 +203,7 @@ export default class FrssRuleProvider extends RuleProvider {
       (context: any) => connectionCreateOrReconnect(
         context,
         ConnectionRuleHook.Create,
+        this.elementRegistry,
       ),
     );
 
@@ -208,9 +214,10 @@ export default class FrssRuleProvider extends RuleProvider {
       (context: any) => connectionCreateOrReconnect(
         context,
         ConnectionRuleHook.Reconnect,
+        this.elementRegistry,
       ),
     );
   }
 }
 
-FrssRuleProvider.$inject = ['eventBus'];
+FrssRuleProvider.$inject = ['eventBus', 'elementRegistry'];
