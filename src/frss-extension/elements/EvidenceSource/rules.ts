@@ -36,18 +36,20 @@ const rules: ElementRules = {
     if (!is(source, evidenceSourceIdentifier)) return;
 
     // find the connection that is of type Produces.
-    const producesConnections = source.outgoing.find((element: any) => (
-      element.source.id === source.id
-      && element.target.id === target.id
-      && is(element, producesProperties.identifier)
-    ));
+    const checkProducesAssociationExists = source.outgoing.find(
+      (element: any) => (
+        element.source.id === source.id
+        && element.target.id === target.id
+        && is(element, producesProperties.identifier)
+      ),
+    );
 
     // we check for existing connection if we wish to create a new element
     // and we check for identity if we want to move the element
     // (by comparing connection id).
     const checkExisting = connectionId === undefined
-      ? producesConnections === undefined
-      : producesConnections.id === connectionId;
+      ? checkProducesAssociationExists === undefined
+      : checkProducesAssociationExists.id === connectionId;
 
     // if the target is the DataObjectReference which is marked as the
     // potential evidence.

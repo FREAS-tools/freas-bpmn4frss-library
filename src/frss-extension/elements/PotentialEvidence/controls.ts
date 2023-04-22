@@ -18,6 +18,7 @@ const markDataObjectAsEvidence: CreateActionHandler = (
     const dataObject = element?.businessObject?.dataObjectRef;
     if (dataObject.isPotentialEvidence) return;
 
+    // create a new `PotentialEvidence` object
     const potentialEvidence = bpmnFactory.create(elementProperties.identifier);
 
     dataObject.isPotentialEvidence = potentialEvidence;
