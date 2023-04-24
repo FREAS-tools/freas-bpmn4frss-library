@@ -1,11 +1,11 @@
 /* @ts-ignore */
 import { is, isAny } from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
+import { partitionArray } from '../../utility/partitionArray';
+import evidenceAssociationProperties from '../EvidenceAssociation/properties';
 import producesProperties from '../Produces/properties';
 
 import type { Controls } from '../../types/controls';
 import type { CreateActionHandler } from '../../types/controls/actionHandler';
-import { partitionArray } from '../../utility/partitionArray';
-import evidenceAssociationProperties from '../EvidenceAssociation/properties';
 
 const markDataObjectAsEvidence: CreateActionHandler = (
   {
@@ -41,12 +41,12 @@ const unmarkDataObjectAsEvidence: CreateActionHandler = (
     if (!dataObject.isPotentialEvidence) return;
 
     // filter out the FRSS associations we need to remove (desired)
-    const {desired, rest} = partitionArray(
+    const { desired, rest } = partitionArray(
       // check both incoming and outgoing connections
       [...element.incoming, ...element.outgoing],
       // we target only `Produces` and `EvidenceAssociation` elements
-      (element: any) => isAny(
-        element,
+      (elem: any) => isAny(
+        elem,
         [
           producesProperties.identifier,
           evidenceAssociationProperties.identifier,

@@ -24,7 +24,14 @@ export default class FrssPalette {
 
   translate: (title: string) => string;
 
-  static $inject: string[];
+  static $inject: string[] = [
+    'bpmnFactory',
+    'create',
+    'elementFactory',
+    'modeling',
+    'palette',
+    'translate',
+  ];
 
   /**
    * This class is used by the `bpmn-js` internals,
@@ -74,14 +81,3 @@ export default class FrssPalette {
     return collectControlEntries(paletteEntries);
   }
 }
-
-// we need to tell the dependency injector what dependencies we plan to
-// use within our custom module
-FrssPalette.$inject = [
-  'bpmnFactory',
-  'create',
-  'elementFactory',
-  'modeling',
-  'palette',
-  'translate',
-];

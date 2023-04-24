@@ -149,7 +149,7 @@ const connectionCreateOrReconnect = (
  */
 
 export default class FrssRuleProvider extends RuleProvider {
-  static $inject: string[];
+  static $inject: string[] = ['eventBus', 'elementRegistry'];
 
   elementRegistry: any;
 
@@ -219,5 +219,3 @@ export default class FrssRuleProvider extends RuleProvider {
     );
   }
 }
-
-FrssRuleProvider.$inject = ['eventBus', 'elementRegistry'];

@@ -8,13 +8,20 @@ import { checkReconnection } from './ruleProvider';
 export default class FrssRules extends BpmnRules {
   static $inject: string[];
 
-  constructor(eventBus: any, injector: any) {
+  elementRegistry: any;
+
+  constructor(eventBus: any, injector: any, elementRegistry: any) {
     super(eventBus);
     injector.invoke(BpmnRules, this);
+    this.elementRegistry = elementRegistry;
   }
 
   canConnectAssociation(source: any, target: any) {
-    const checkCustomReconnection = checkReconnection(source, target);
+    const checkCustomReconnection = checkReconnection(
+      source,
+      target,
+      this.elementRegistry,
+    );
 
     // no suitable rule found, default behaviour happens
     if (checkCustomReconnection === undefined) {
@@ -29,4 +36,5 @@ export default class FrssRules extends BpmnRules {
 FrssRules.$inject = [
   'eventBus',
   'injector',
+  'elementRegistry',
 ];

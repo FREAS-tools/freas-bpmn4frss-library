@@ -1,5 +1,5 @@
 import React, { HtmlHTMLAttributes, MutableRefObject, useEffect, useRef, useState } from "react";
-import Bpmn4FrssWebEditor from "../../src/editor";
+import FrssModeler from "../../src/editor";
 import bpmn from "../../misc/diagram2.bpmn?raw";
 
 // import all necessary css
@@ -34,26 +34,27 @@ const Bpmn4FrssEditor = ({ cssClassNames }: Bpmn4FrssEditorProps) => {
   // create a reference so mounting and unmounting happens only once
   const initializeLibrary = useRef(true);
   // create a state for the Bpmn4FrssWebEditor
-  const [library, setLibrary] = useState<Bpmn4FrssWebEditor>();
+  const [library, setLibrary] = useState<FrssModeler>();
   const downloadFile: MutableRefObject<undefined | string> = useRef();
 
   // mounting the library only once
   useEffect(() => {
     if (initializeLibrary.current) {
-      setLibrary(new Bpmn4FrssWebEditor(container.current));
+      setLibrary(new FrssModeler({ container: container.current }));
       initializeLibrary.current = false;
     }
 
     // clean up function (destructor)
     return () => {
       if (!initializeLibrary.current) {
-        library?.modeler.destroy();
+        library?.destroy();
       }
     };
   }, []);
 
+  // loading the default diagram on start
   useEffect(() => {
-    library?.defaultDiagram();
+    library?.loadDefaultDiagram();
   }, [library])
 
   const loadDiagramFromFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -80,10 +81,6 @@ const Bpmn4FrssEditor = ({ cssClassNames }: Bpmn4FrssEditorProps) => {
     };    
   };
 
-  const loadDefaultDiagram = async () => {
-    library?.defaultDiagram();
-  }
-
   const downloadTheFile = (
     content: string,
     type: "image/svg+xml" | "text/xml"
@@ -106,7 +103,7 @@ const Bpmn4FrssEditor = ({ cssClassNames }: Bpmn4FrssEditorProps) => {
   }
 
   const downloadDiagramAsXML = async () => {
-    const content = await library?.modeler.saveXML();
+    const content = await library?.saveXML();
     if (content.error !== undefined || content.xml === undefined) {
       alert("Cannot download file!");
       return;
@@ -116,13 +113,16 @@ const Bpmn4FrssEditor = ({ cssClassNames }: Bpmn4FrssEditorProps) => {
   }
 
   const downloadDiagramAsSvg = async () => {
-    const content = await library?.modeler.saveSVG();
+    const content = await library?.saveSVG();
 
     downloadTheFile(content.svg, "image/svg+xml");   
   }
 
   const tryMe = () => {
-    library?.trySomething();
+    // @ts-ignore
+    // console.log(library.get('elementRegistry').getAll());
+    console.log(library.getDefinitions());
+    // console.log(library.get('moddle'));
   }
 
   return (
@@ -142,7 +142,7 @@ const Bpmn4FrssEditor = ({ cssClassNames }: Bpmn4FrssEditorProps) => {
 
         <button
           className={cssClassNames.controls.loadButtonCssClass}
-          onClick={loadDefaultDiagram}
+          onClick={() => library?.loadDefaultDiagram()}
         >
           Load default diagram
         </button>
@@ -163,6 +163,18 @@ const Bpmn4FrssEditor = ({ cssClassNames }: Bpmn4FrssEditorProps) => {
           onClick={tryMe}
         >
           Try me
+        </button>
+        <button
+          className={cssClassNames.controls.loadButtonCssClass}
+          onClick={() => library?.setNormalMode()}
+        >
+          Set normal mode
+        </button>
+        <button
+          className={cssClassNames.controls.loadButtonCssClass}
+          onClick={() => library?.setEvidenceViewMode()}
+        >
+          Set evidence view mode
         </button>
       </div>
     </div>

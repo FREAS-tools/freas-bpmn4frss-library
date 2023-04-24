@@ -81,7 +81,7 @@ const rules: ElementRules = {
         // find element that is EvidenceSource and is already attached to
         // the desired target
         return is(diagramElement, properties.identifier)
-        && diagramElement?.businessObject?.attachedToRef?.id === target.id
+        && diagramElement?.businessObject?.attachedToRef?.id === target.id;
       },
     );
 

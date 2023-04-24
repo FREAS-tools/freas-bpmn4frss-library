@@ -1,8 +1,8 @@
 // @ts-ignore
 import { is } from 'bpmn-js/lib/util/ModelUtil';
 
-import type { ElementRules } from '../../types/rules';
 import evidenceAssociationProperties from '../EvidenceAssociation/properties';
+import type { ElementRules } from '../../types/rules';
 
 const rules: ElementRules = {
   shouldCheckConnection: (source, target) => (
@@ -26,7 +26,7 @@ const rules: ElementRules = {
     // both objects must be `EvidenceDataObject`s, and cannot have
     // an already existing connection
     if (
-      source?.businessObject?.dataObjectRef?.isPotentialEvidence 
+      source?.businessObject?.dataObjectRef?.isPotentialEvidence
       !== undefined
       && target?.businessObject?.dataObjectRef?.isPotentialEvidence
       !== undefined
@@ -35,7 +35,7 @@ const rules: ElementRules = {
     ) {
       return {
         type: evidenceAssociationProperties.identifier,
-      }
+      };
     }
 
     return false;

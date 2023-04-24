@@ -1,103 +1,70 @@
-// This file provides functions for the React components
-// that encapsulate the library
-
-// @ts-ignore
+/* eslint-disable no-underscore-dangle */
 import Modeler from 'bpmn-js/lib/Modeler';
 
-// adding a color picker module
+// Color picker module
 // @ts-ignore
 import ColorPickerModule from 'bpmn-js-color-picker';
 
-// imports
-// @ts-ignore
-
-// import the bpmn4frss moddle language extension
+// FRSS extension
 import frssExtension from '../frss-extension';
-import diagram from './default-diagram';
-import errorMessages from './errors';
 
-/**
- * A class which encapsulates the interaction
- * between React components and BPMN4FRSS library
- */
-export default class Bpmn4FrssWebEditor {
-  modeler: Modeler;
+// default diagram
+import FrssMultipleDiagramProvider
+  from '../frss-extension/extensions/diagram/diagrams';
+import defaultDiagram from './default-diagram';
 
-  /**
-   * Initialize a new BPMN4FRSS editor
-   * @param {*} container - reference to the container for
-   *                        `bpmn-js` to boostrap into
-   * @constructor
-   */
-  constructor(container: any) {
-    // initialize the Bpmn4frss modeler
-    this.modeler = new Modeler({
-      container,
-      // extending the syntax of the language - able to serialize / deserialize
-      // bpmn models from / to .bpmn files
+// types
+import { FrssMode } from './types/mode';
+import type { BaseViewerOptions } from 'bpmn-js/lib/BaseViewer';
+
+export default class FrssModeler extends Modeler {
+  private mode: FrssMode;
+
+  private multipleDiagramProvider: FrssMultipleDiagramProvider;
+
+  constructor(options?: BaseViewerOptions) {
+    super({
+      ...options,
       moddleExtensions: {
+        ...options?.moddleExtensions,
         bpmn4frss: frssExtension.frssDefinitions,
       },
 
-      // here are all additional modeler extensions
-      additionalModules: [
-        // extending the rendering abilities of the modeler:
+      additionalModules: (options?.additionalModules ?? []).concat([
         frssExtension,
         ColorPickerModule,
-      ],
+      ]),
     });
+
+    this.mode = FrssMode.Normal;
+    this.multipleDiagramProvider = new FrssMultipleDiagramProvider(
+      this,
+    );
   }
 
-  /**
-   * Load diagram into the modeler
-   * @param {string} content content of the diagram file (XML)
-   * @throws when importing the XML diagram fails
-   * @returns {Promise<boolean>} promised true on success
-   */
-  async loadDiagram(content: string): Promise<boolean> {
-    if (!content) {
-      throw new Error(errorMessages.noFileProvided);
-    }
-
-    // try to import the file's content into the modeler,
-    // throw an error if the content cannot be loaded
-    try {
-      await this.modeler.importXML(content);
-      return true;
-    } catch (_) {
-      throw new Error(errorMessages.fileLoadFailed);
-    }
+  get diagramMode() {
+    return this.mode;
   }
 
-  async defaultDiagram(): Promise<boolean> {
-    try {
-      await this.modeler.importXML(diagram);
-      return true;
-    } catch (_) {
-      throw new Error(errorMessages.fileLoadFailed);
-    }
+  set diagramMode(mode: FrssMode) {
+    this.mode = mode;
   }
 
-  async saveDiagramAsXML() {
-    try {
-      return await this.modeler.saveXML({
-        format: true,
-      });
-    } catch (_) {
-      throw new Error(errorMessages.fileDownloadFailed);
-    }
+  async setNormalMode() {
+    await this.multipleDiagramProvider.switchToNormalDiagram();
   }
 
-  async saveDiagramSvg() {
-    try {
-      return await this.modeler.saveSVG();
-    } catch (_) {
-      throw new Error(errorMessages.fileDownloadFailed);
-    }
+  async setEvidenceViewMode() {
+    await this.multipleDiagramProvider.switchToEvidenceDiagram();
   }
 
-  trySomething() {
-    // const elementRegistry = this.modeler.get('elementRegistry');
-    // console.log(Object.entries(elementRegistry._elements));
+  async loadDiagram(diagram: string) {
+    await super.importXML(diagram);
+    this.multipleDiagramProvider.setInitialDiagramState();
+  }
+
+  async loadDefaultDiagram() {
+    await super.importXML(defaultDiagram);
+    this.multipleDiagramProvider.setInitialDiagramState();
   }
 }

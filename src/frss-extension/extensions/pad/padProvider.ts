@@ -34,7 +34,16 @@ export default class FrssPadProvider {
 
   translate: any;
 
-  static $inject: string[];
+  static $inject: string[] = [
+    'bpmnFactory',
+    'config',
+    'contextPad',
+    'create',
+    'elementFactory',
+    'injector',
+    'modeling',
+    'translate',
+  ];
 
   constructor(
     bpmnFactory: any,
@@ -89,16 +98,3 @@ export default class FrssPadProvider {
     return collectControlEntries(customEntries);
   }
 }
-
-// we need to tell the dependency injector what dependencies we plan to
-// use within our custom module
-FrssPadProvider.$inject = [
-  'bpmnFactory',
-  'config',
-  'contextPad',
-  'create',
-  'elementFactory',
-  'injector',
-  'modeling',
-  'translate',
-];

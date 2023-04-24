@@ -23,7 +23,10 @@ const NOT_FRSS_RENDERABLE_ERROR = new Error(
 export default class FrssRenderer extends BaseRenderer {
   bpmnRenderer: BaseRenderer;
 
-  static $inject: string[];
+  static $inject: string[] = [
+    'eventBus',
+    'bpmnRenderer',
+  ];
 
   /**
    * Instantiate the custom BPMN4FRSS renderer
@@ -111,10 +114,3 @@ export default class FrssRenderer extends BaseRenderer {
     });
   }
 }
-
-// we need to tell the dependency injector what dependencies we plan to
-// use within our custom module
-FrssRenderer.$inject = [
-  'eventBus',
-  'bpmnRenderer',
-];
