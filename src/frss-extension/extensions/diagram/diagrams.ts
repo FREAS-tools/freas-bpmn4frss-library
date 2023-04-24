@@ -103,10 +103,15 @@ export default class FrssMultipleDiagramProvider {
 
       this.diagramState = diagramState;
 
-      // here we should also create a new evidence view object
-
       this.diagrams.set(id, diagramState);
+
+      this.createNewEvidenceDiagram();
     }
+  }
+
+  reset() {
+    this.diagrams.clear();
+    this.setInitialDiagramState();
   }
 
   private createEmptyDiagram(currentProcess?: any): { id: string } {
@@ -159,6 +164,7 @@ export default class FrssMultipleDiagramProvider {
     // store the new normal diagram
     this.diagrams.set(newDiagramState.id, newDiagramState);
     this.diagramState = newDiagramState;
+    this.createNewEvidenceDiagram();
 
     // we want to also open the diagram
     await this.openDiagram();
@@ -224,11 +230,21 @@ export default class FrssMultipleDiagramProvider {
   private createNewEvidenceDiagram() {
     // get current diagram root element
     // @ts-ignore
-    // const currentProcess = this.frssModeler.getDefinitions().diagrams.find(
-    //   (diagram) => diagram.
-    // )
+    const currentDiagram = this.frssModeler.getDefinitions().diagrams.find(
+      (diagram: any) => diagram.id === this.diagramState.id,
+    );
 
-    const bpmnDiagram = this.createEmptyDiagram(currentProcess);
+    if (currentDiagram === undefined) {
+      throw new Error(
+        'Current diagram does not exist! (Implementation error)',
+      );
+    }
+
+    const currentRoot = currentDiagram.plane.bpmnElement;
+
+    const bpmnDiagram = this.createEmptyDiagram(currentRoot);
+    console.log(bpmnDiagram);
+    console.log(currentRoot);
 
     // we can create a new diagram only if the state is a normal diagram
     // that will be linked to the evidence diagram

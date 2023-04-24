@@ -60,11 +60,11 @@ export default class FrssModeler extends Modeler {
 
   async loadDiagram(diagram: string) {
     await super.importXML(diagram);
-    this.multipleDiagramProvider.setInitialDiagramState();
+    this.multipleDiagramProvider.reset();
   }
 
   async loadDefaultDiagram() {
     await super.importXML(defaultDiagram);
-    this.multipleDiagramProvider.setInitialDiagramState();
+    this.multipleDiagramProvider.reset();
   }
 }
