@@ -1,5 +1,6 @@
-// @ts-ignore
+// @ts-expect-error
 import { is, isAny } from 'bpmn-js/lib/util/ModelUtil';
+import { FrssMode } from '../../../editor/types/mode';
 
 import producesProperties from '../Produces/properties';
 import properties from './properties';
@@ -9,8 +10,12 @@ import type { ElementRules } from '../../types/rules';
 
 const evidenceSourceIdentifier = properties.identifier;
 
-const checkAttachmentOrCreation = (shape: any, _target: any): boolean => (
-  is(shape, evidenceSourceIdentifier)
+const checkAttachmentOrCreation = (
+  shape: any,
+  _target: any,
+  mode: FrssMode,
+): boolean => (
+  is(shape, evidenceSourceIdentifier) && (mode === FrssMode.Normal)
 );
 
 // what elements can we attach the potential evidence source to
@@ -28,6 +33,7 @@ const rules: ElementRules = {
       return false;
     }
   },
+
   connectionRule: (source, target, _elementRegistry, connectionId?) => {
     // handle should be reversed when the target is the evidence source identifier
     if (is(target, evidenceSourceIdentifier)) return false;
@@ -66,6 +72,7 @@ const rules: ElementRules = {
     // otherwise it should not have occurred
     return false;
   },
+
   creationRule: (source, target, elementRegistry) => {
     if (!is(source, properties.identifier)) return false;
 
@@ -87,10 +94,16 @@ const rules: ElementRules = {
 
     return elementExists === undefined;
   },
+
   shouldCheckAttachment: checkAttachmentOrCreation,
   shouldCheckCreation: checkAttachmentOrCreation,
-  shouldCheckConnection: (source, target) => (
-    is(source, evidenceSourceIdentifier) || is(target, evidenceSourceIdentifier)
+  shouldCheckConnection: (source, target, mode) => (
+    (
+      is(source, evidenceSourceIdentifier)
+      || is(target, evidenceSourceIdentifier)
+    ) && (
+      mode === FrssMode.Normal
+    )
   ),
 };
 

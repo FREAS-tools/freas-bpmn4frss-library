@@ -2,7 +2,7 @@
 import Modeler from 'bpmn-js/lib/Modeler';
 
 // Color picker module
-// @ts-ignore
+// @ts-expect-error
 import ColorPickerModule from 'bpmn-js-color-picker';
 
 // FRSS extension
@@ -44,8 +44,18 @@ export default class FrssModeler extends Modeler {
     return this.mode;
   }
 
-  set diagramMode(mode: FrssMode) {
-    this.mode = mode;
+  /**
+   * Allows setting diagram mode.
+   * Only possible if the setter is an instance of
+   * `FrssMultipleDiagramProvider`
+   *
+   * @param mode new Mode
+   * @param setterInstance instance of the setter
+   */
+  setDiagramMode<T>(mode: FrssMode, setterInstance: T) {
+    if (setterInstance instanceof FrssMultipleDiagramProvider) {
+      this.mode = mode;
+    }
   }
 
   async setNormalMode() {

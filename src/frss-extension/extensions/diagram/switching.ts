@@ -59,7 +59,7 @@ export default class FrssMultipleDiagramProvider {
    * @param id id of the diagram
    * @param diagram the obtained diagram
    */
-  setInitialDiagramState() {
+  private setInitialDiagramState() {
     if (this.diagrams.size === 0) {
       const definitions = this.frssModeler.getDefinitions();
 
@@ -67,25 +67,36 @@ export default class FrssMultipleDiagramProvider {
         return new Error('The diagram has not been loaded yet.');
       }
 
-      // @ts-ignore
+      // @ts-expect-error
       const { id } = definitions.diagrams[0];
 
+      if (id === undefined) {
+        throw new Error('No diagrams available!');
+      }
+
+      // create the correct initial state
       const diagramState: DiagramState = {
         id,
         frssDiagrams: [],
         type: FrssDiagramType.Normal,
       };
 
+      // set the state
       this.diagramState = diagramState;
 
+      // save the diagram state for later tracking
       this.diagrams.set(id, diagramState);
 
+      // create an associated evidence diagram for the "regular"
+      // (normal) diagram
       this.createNewEvidenceDiagram();
     }
   }
 
   reset() {
+    // clear saved diagrams
     this.diagrams.clear();
+    // create an initial state
     this.setInitialDiagramState();
   }
 
@@ -118,8 +129,15 @@ export default class FrssMultipleDiagramProvider {
     diDiagram.$parent = this.frssModeler.getDefinitions();
 
     // add diagram to the diagrams collection
-    // @ts-ignore
-    this.frssModeler.getDefinitions().diagrams.push(diDiagram);
+    const definitions = this.frssModeler.getDefinitions();
+
+    if (definitions === undefined) {
+      throw new Error('Cannot load diagram definitions!');
+    }
+
+    // bpmn-js team's type support is still somewhat in the "beta".
+    // @ts-expect-error
+    definitions.diagrams.push(diDiagram);
 
     // TODO: add the diagram as the new root element
     // this.canvas.
@@ -170,13 +188,13 @@ export default class FrssMultipleDiagramProvider {
     this.diagramState = evidenceDiagram;
 
     // set the viewer mode to evidence view
-    this.frssModeler.diagramMode = FrssMode.EvidenceMode;
+    this.frssModeler.setDiagramMode(FrssMode.EvidenceMode, this);
     await this.openDiagram();
   }
 
   private createNewEvidenceDiagram() {
     // get current diagram root element
-    // @ts-ignore
+    // @ts-expect-error
     const currentDiagram = this.frssModeler.getDefinitions().diagrams.find(
       (diagram: any) => diagram.id === this.diagramState.id,
     );
@@ -187,6 +205,7 @@ export default class FrssMultipleDiagramProvider {
       );
     }
 
+    // find current root
     const currentRoot = currentDiagram.plane.bpmnElement;
 
     const bpmnDiagram = this.createEmptyDiagram(currentRoot);
@@ -223,7 +242,7 @@ export default class FrssMultipleDiagramProvider {
     this.diagramState = normalDiagram;
 
     // set the normal mode
-    this.frssModeler.diagramMode = FrssMode.Normal;
+    this.frssModeler.setDiagramMode(FrssMode.Normal, this);
     await this.openDiagram();
   }
 

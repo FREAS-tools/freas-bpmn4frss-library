@@ -1,4 +1,7 @@
-// Custom elements - every custom element is placed in this list
+// @ts-expect-error
+import PaletteProvider from 'bpmn-js/lib/features/palette/PaletteProvider';
+
+// custom elements that belong in a palette
 import { frssPaletteElements } from '../../elements';
 import {
   newControlEntry,
@@ -8,7 +11,7 @@ import {
 /**
  * FRSS extension of the `bpmn-js` palette
  */
-export default class FrssPalette {
+export default class FrssPaletteProvider {
   bpmnFactory: any;
 
   create: any;

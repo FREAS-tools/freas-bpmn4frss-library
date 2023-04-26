@@ -1,11 +1,11 @@
-import type { AnyRuleCheck, Rule } from './common';
+import type { ShouldTriggerRuleFunction, RuleFunction } from './common';
 
-export type ConnectionRule = Rule<boolean
+export type ConnectionRule = RuleFunction<boolean
 | { type: string } | void>;
 
 export type HasConnectionRule = {
   connectionRule: ConnectionRule,
-  shouldCheckConnection: AnyRuleCheck,
+  shouldCheckConnection: ShouldTriggerRuleFunction,
 };
 
 export const hasConnectionRule = (rules: any):

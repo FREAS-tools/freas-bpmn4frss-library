@@ -1,10 +1,10 @@
-import type { AnyRuleCheck, Rule } from './common';
+import type { ShouldTriggerRuleFunction, RuleFunction } from './common';
 
-export type CreationRule = Rule<boolean>;
+export type CreationRule = RuleFunction<boolean>;
 
 export type HasCreationRule = {
   creationRule: CreationRule,
-  shouldCheckCreation: AnyRuleCheck,
+  shouldCheckCreation: ShouldTriggerRuleFunction,
 };
 
 export const hasCreationRule = (rules: any):

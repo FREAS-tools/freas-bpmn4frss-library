@@ -1,11 +1,11 @@
-import type { AnyRuleCheck, Rule } from './common';
+import type { ShouldTriggerRuleFunction, RuleFunction } from './common';
 
-export type AttachmentRule = Rule<boolean
+export type AttachmentRule = RuleFunction<boolean
 | 'attach' | void>;
 
 export type HasAttachmentRule = {
   attachmentRule: AttachmentRule,
-  shouldCheckAttachment: AnyRuleCheck,
+  shouldCheckAttachment: ShouldTriggerRuleFunction,
 };
 
 export const hasAttachmentRule = (rules: any):

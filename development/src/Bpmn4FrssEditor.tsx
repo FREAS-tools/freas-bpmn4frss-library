@@ -118,10 +118,7 @@ const Bpmn4FrssEditor = ({ cssClassNames }: Bpmn4FrssEditorProps) => {
   }
 
   const tryMe = () => {
-    // @ts-ignore
-    // console.log(library.get('elementRegistry').getAll());
     console.log(library.getDefinitions());
-    // console.log(library.get('moddle'));
   }
 
   return (
