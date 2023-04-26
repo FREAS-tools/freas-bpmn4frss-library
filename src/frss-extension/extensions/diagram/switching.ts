@@ -1,18 +1,19 @@
 /**
  * Adding multiple diagram support
  */
-import { FrssMode } from '../../../editor/types/mode';
+import type FrssModeler from '../../../editor';
+import FrssModeProvider, { FrssMode } from '../mode/mode';
 import { isFrssDiagram, isNormalDiagram, FrssDiagramType } from './types';
 
 import type {
   DiagramHandler,
   DiagramState,
 } from './types';
-import type FrssModeler from '../../../editor';
 
 export default class FrssMultipleDiagramProvider {
   static $inject: string[] = [
     'bpmnjs',
+    'frssModeProvider',
     'bpmnFactory',
     'canvas',
     'elementFactory',
@@ -30,8 +31,11 @@ export default class FrssMultipleDiagramProvider {
 
   private frssModeler: FrssModeler;
 
+  private frssModeProvider: FrssModeProvider;
+
   constructor(
     frssModeler: FrssModeler,
+    frssModeProvider: FrssModeProvider,
     bpmnFactory: any,
     canvas: any,
     elementFactory: any,
@@ -45,6 +49,8 @@ export default class FrssMultipleDiagramProvider {
     };
 
     this.frssModeler = frssModeler;
+    this.frssModeProvider = frssModeProvider;
+
     // diagram state handler
     this.diagrams = new Map();
     this.bpmnFactory = bpmnFactory;
@@ -188,7 +194,7 @@ export default class FrssMultipleDiagramProvider {
     this.diagramState = evidenceDiagram;
 
     // set the viewer mode to evidence view
-    this.frssModeler.setDiagramMode(FrssMode.EvidenceMode, this);
+    this.frssModeProvider.mode = FrssMode.EvidenceView;
     await this.openDiagram();
   }
 
@@ -242,7 +248,7 @@ export default class FrssMultipleDiagramProvider {
     this.diagramState = normalDiagram;
 
     // set the normal mode
-    this.frssModeler.setDiagramMode(FrssMode.Normal, this);
+    this.frssModeProvider.mode = FrssMode.Normal;
     await this.openDiagram();
   }
 

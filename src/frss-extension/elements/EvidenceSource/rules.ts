@@ -1,6 +1,6 @@
 // @ts-expect-error
 import { is, isAny } from 'bpmn-js/lib/util/ModelUtil';
-import { FrssMode } from '../../../editor/types/mode';
+import { FrssMode } from '../../extensions/mode/mode';
 
 import producesProperties from '../Produces/properties';
 import properties from './properties';

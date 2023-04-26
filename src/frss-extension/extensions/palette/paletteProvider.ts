@@ -1,6 +1,3 @@
-// @ts-expect-error
-import PaletteProvider from 'bpmn-js/lib/features/palette/PaletteProvider';
-
 // custom elements that belong in a palette
 import { frssPaletteElements } from '../../elements';
 import {

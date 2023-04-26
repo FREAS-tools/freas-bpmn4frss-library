@@ -14,12 +14,9 @@ import FrssMultipleDiagramProvider
 import defaultDiagram from './default-diagram';
 
 // types
-import { FrssMode } from './types/mode';
 import type { BaseViewerOptions } from 'bpmn-js/lib/BaseViewer';
 
 export default class FrssModeler extends Modeler {
-  private mode: FrssMode;
-
   private multipleDiagramProvider: FrssMultipleDiagramProvider;
 
   constructor(options?: BaseViewerOptions) {
@@ -36,26 +33,7 @@ export default class FrssModeler extends Modeler {
       ]),
     });
 
-    this.mode = FrssMode.Normal;
     this.multipleDiagramProvider = this.get('frssMultipleDiagramProvider');
-  }
-
-  get diagramMode() {
-    return this.mode;
-  }
-
-  /**
-   * Allows setting diagram mode.
-   * Only possible if the setter is an instance of
-   * `FrssMultipleDiagramProvider`
-   *
-   * @param mode new Mode
-   * @param setterInstance instance of the setter
-   */
-  setDiagramMode<T>(mode: FrssMode, setterInstance: T) {
-    if (setterInstance instanceof FrssMultipleDiagramProvider) {
-      this.mode = mode;
-    }
   }
 
   async setNormalMode() {

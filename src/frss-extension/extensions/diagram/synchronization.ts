@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import CommandInterceptor from 'diagram-js/lib/command/CommandInterceptor';
-import { FrssMode } from '../../../editor/types/mode';
+import FrssModeProvider, { FrssMode } from '../mode/mode';
 import type FrssMultipleDiagramProvider from './switching';
 import type FrssModeler from '../../../editor';
 
@@ -9,6 +9,7 @@ export default class FrssDiagramSynchrozizer extends CommandInterceptor {
     'eventBus',
     'injector',
     'bpmnjs',
+    'frssModeProvider',
     'modeling',
     'elementFactory',
     'frssMultipleDiagramProvider',
@@ -18,6 +19,8 @@ export default class FrssDiagramSynchrozizer extends CommandInterceptor {
   elementFactory: any;
 
   frssModeler: FrssModeler;
+
+  frssModeProvider: FrssModeProvider;
 
   frssMultipleDiagramProvider: FrssMultipleDiagramProvider;
 
@@ -29,6 +32,7 @@ export default class FrssDiagramSynchrozizer extends CommandInterceptor {
     eventBus: any,
     injector: any,
     bpmnjs: FrssModeler,
+    frssModeProvider: FrssModeProvider,
     modeling: any,
     elementFactory: any,
     frssMultipleDiagramProvider: FrssMultipleDiagramProvider,
@@ -41,11 +45,12 @@ export default class FrssDiagramSynchrozizer extends CommandInterceptor {
     this.frssModeler = bpmnjs;
     this.modeling = modeling;
     this.elementFactory = elementFactory;
+    this.frssModeProvider = frssModeProvider;
     this.frssMultipleDiagramProvider = frssMultipleDiagramProvider;
     this.subprocessCompatibility = subprocessCompatibility;
 
     this.preExecute('shape.create', (event) => {
-      switch (this.frssModeler.diagramMode) {
+      switch (this.frssModeProvider.mode) {
         case FrssMode.Normal: {
           console.log(
             'Processing the normal mode synchronization event',
@@ -54,7 +59,7 @@ export default class FrssDiagramSynchrozizer extends CommandInterceptor {
           console.log(event);
           break;
         }
-        case FrssMode.EvidenceMode: {
+        case FrssMode.EvidenceView: {
           console.log('Processing the evidence mode synchronization event');
           break;
         }

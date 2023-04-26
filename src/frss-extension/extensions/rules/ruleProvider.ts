@@ -2,7 +2,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import RuleProvider from 'diagram-js/lib/features/rules/RuleProvider';
 // the FRSS priority for the injector
-import { FrssMode } from '../../../editor/types/mode';
 import { FRSS_PRIORITY } from '../../common';
 
 // lists of elements of interests
@@ -12,8 +11,9 @@ import {
   creationRules,
 } from '../../elements';
 
+import FrssModeProvider, { FrssMode } from '../mode/mode';
+
 // types
-import type FrssModeler from '../../../editor';
 import type {
   AttachmentRule,
   HasAttachmentRule,
@@ -52,7 +52,7 @@ const handleNotFoundRule = (
     case FrssMode.Normal: {
       return undefined;
     }
-    case FrssMode.EvidenceMode: {
+    case FrssMode.EvidenceView: {
       return false;
     }
     default: {
@@ -219,19 +219,23 @@ const connectionCreateOrReconnect = (
 export default class FrssRuleProvider extends RuleProvider {
   static $inject: string[] = [
     'eventBus',
-    'bpmnjs',
+    'frssModeProvider',
     'elementRegistry',
   ];
 
   elementRegistry: any;
 
-  frssModeler: FrssModeler;
+  frssModeProvider: FrssModeProvider;
 
-  constructor(eventBus: any, frssModeler: FrssModeler, elementRegistry: any) {
+  constructor(
+    eventBus: any,
+    frssModeProvider: FrssModeProvider,
+    elementRegistry: any,
+  ) {
     super(eventBus);
 
     this.elementRegistry = elementRegistry;
-    this.frssModeler = frssModeler;
+    this.frssModeProvider = frssModeProvider;
   }
 
   init() {
@@ -248,7 +252,7 @@ export default class FrssRuleProvider extends RuleProvider {
         shape,
         target,
         this.elementRegistry,
-        this.frssModeler.diagramMode,
+        this.frssModeProvider.mode,
       );
     });
 
@@ -273,7 +277,7 @@ export default class FrssRuleProvider extends RuleProvider {
         shape,
         target,
         this.elementRegistry,
-        this.frssModeler.diagramMode,
+        this.frssModeProvider.mode,
       );
     });
 
@@ -285,7 +289,7 @@ export default class FrssRuleProvider extends RuleProvider {
         shape,
         target,
         this.elementRegistry,
-        this.frssModeler.diagramMode,
+        this.frssModeProvider.mode,
       );
     });
 
@@ -298,7 +302,7 @@ export default class FrssRuleProvider extends RuleProvider {
           context,
           ConnectionRuleHook.Create,
           this.elementRegistry,
-          this.frssModeler.diagramMode,
+          this.frssModeProvider.mode,
         )
       ),
     );
@@ -312,7 +316,7 @@ export default class FrssRuleProvider extends RuleProvider {
           context,
           ConnectionRuleHook.Reconnect,
           this.elementRegistry,
-          this.frssModeler.diagramMode,
+          this.frssModeProvider.mode,
         )
       ),
     );

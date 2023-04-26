@@ -4,30 +4,30 @@ import BpmnRules from 'bpmn-js/lib/features/rules/BpmnRules';
 
 // checking reconnection
 import { checkReconnection } from './ruleProvider';
-import type FrssModeler from '../../../editor';
+import type FrssModeProvider from '../mode/mode';
 
 export default class FrssRules extends BpmnRules {
   static $inject: string[] = [
     'eventBus',
     'injector',
-    'bpmnjs',
+    'frssModeProvider',
     'elementRegistry',
   ];
 
   elementRegistry: any;
 
-  frssModeler: FrssModeler;
+  frssModeProvider: FrssModeProvider;
 
   constructor(
     eventBus: any,
     injector: any,
-    frssModeler: FrssModeler,
+    frssModeProvider: FrssModeProvider,
     elementRegistry: any,
   ) {
     super(eventBus);
     injector.invoke(BpmnRules, this);
     this.elementRegistry = elementRegistry;
-    this.frssModeler = frssModeler;
+    this.frssModeProvider = frssModeProvider;
   }
 
   canConnectAssociation(source: any, target: any) {
@@ -35,7 +35,7 @@ export default class FrssRules extends BpmnRules {
       source,
       target,
       this.elementRegistry,
-      this.frssModeler.diagramMode,
+      this.frssModeProvider.mode,
     );
 
     // no suitable rule found, default behaviour happens
