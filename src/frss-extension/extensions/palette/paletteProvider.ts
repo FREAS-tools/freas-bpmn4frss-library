@@ -5,11 +5,6 @@ import {
   collectControlEntries,
 } from '../../types/controls/implementation';
 
-// types
-import type {
-  CustomRenderableElementProperties,
-} from '../../types/properties';
-
 /**
  * FRSS extension of the `bpmn-js` palette
  */
@@ -71,7 +66,7 @@ export default class FrssPalette {
       newControlEntry(
         elem.controls.paletteCreateEntry.makeActionHandler,
         this,
-        elem.properties as CustomRenderableElementProperties,
+        elem.properties,
         elem.controls.paletteCreateEntry.props,
       )
     ));

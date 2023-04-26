@@ -1,3 +1,7 @@
+import {
+  FrssMultipleDiagramProvider,
+  FrssDiagramSynchrozizer,
+} from './extensions/diagram';
 import FrssDefinitions from './extensions/moddle/moddle';
 import FrssPadProvider from './extensions/pad/padProvider';
 import FrssPaletteProvider from './extensions/palette/paletteProvider';
@@ -18,6 +22,8 @@ export default {
     'frssPadProvider',
     'bpmnRules',
     'frssRuleProvider',
+    'frssMultipleDiagramProvider',
+    'frssDiagramSynchronizer',
   ],
 
   frssRenderer: ['type', FrssRenderer],
@@ -25,6 +31,8 @@ export default {
   frssPadProvider: ['type', FrssPadProvider],
   bpmnRules: ['type', FrssRules],
   frssRuleProvider: ['type', FrssRuleProvider],
+  frssMultipleDiagramProvider: ['type', FrssMultipleDiagramProvider],
+  frssDiagramSynchronizer: ['type', FrssDiagramSynchrozizer],
 
   // Moddle definitions should be imported with the library itself,
   // but they should not be initialized by the dependency injector.

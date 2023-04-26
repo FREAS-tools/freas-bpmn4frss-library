@@ -1,6 +1,5 @@
-import React, { HtmlHTMLAttributes, MutableRefObject, useEffect, useRef, useState } from "react";
+import React, { MutableRefObject, useEffect, useRef, useState } from "react";
 import FrssModeler from "../../src/editor";
-import bpmn from "../../misc/diagram2.bpmn?raw";
 
 // import all necessary css
 import "bpmn-js/dist/assets/bpmn-js.css";
@@ -26,7 +25,7 @@ export interface Bpmn4FrssEditorProps {
  * Component encapsulating the bpmn4frss js library
  *
  * @param {Bpmn4FrssEditorProps} props - props for the
- * @returns JSX element
+ * @returns JSX (TSX) element
  */
 const Bpmn4FrssEditor = ({ cssClassNames }: Bpmn4FrssEditorProps) => {
   // create a reference to mount the library to the rendered element

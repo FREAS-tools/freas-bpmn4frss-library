@@ -1,65 +1,40 @@
 /**
  * Adding multiple diagram support
  */
-// @ts-ignore
-import { is } from 'bpmn-js/lib/util/ModelUtil';
-
 import { FrssMode } from '../../../editor/types/mode';
+import { isFrssDiagram, isNormalDiagram, FrssDiagramType } from './types';
+
+import type {
+  DiagramHandler,
+  DiagramState,
+} from './types';
 import type FrssModeler from '../../../editor';
 
-type DiagramHandler = Map<string, NormalDiagram>;
-
-enum FrssDiagramType {
-  EvidenceDiagram = 'evidence-diagram',
-  Normal = 'normal-diagram',
-}
-
-type DiagramState = NormalDiagram | FrssDiagram;
-
-type NormalDiagram = {
-  frssDiagrams: FrssDiagram[],
-  id: string,
-  type: FrssDiagramType.Normal,
-};
-
-type FrssDiagram = {
-  baseDiagramId: string,
-  id: string,
-  type: Exclude<FrssDiagramType, FrssDiagramType.Normal>,
-};
-
-const isNormalDiagram = (
-  diagramState: DiagramState,
-): diagramState is NormalDiagram => {
-  const isNormal = diagramState as NormalDiagram;
-
-  return (
-    Array.isArray(isNormal.frssDiagrams)
-    && isNormal.type === FrssDiagramType.Normal
-  );
-};
-
-const isFrssDiagram = (
-  diagramState: DiagramState,
-): diagramState is FrssDiagram => !isNormalDiagram(diagramState);
-
 export default class FrssMultipleDiagramProvider {
+  static $inject: string[] = [
+    'bpmnjs',
+    'bpmnFactory',
+    'canvas',
+    'elementFactory',
+  ];
+
   private bpmnFactory: any;
+
+  private canvas: any;
 
   private diagramState: DiagramState;
 
   private diagrams: DiagramHandler;
 
-  private elementRegistry: any;
-
   private elementFactory: any;
 
   private frssModeler: FrssModeler;
 
-  // private modeling: any;
-
   constructor(
     frssModeler: FrssModeler,
+    bpmnFactory: any,
+    canvas: any,
+    elementFactory: any,
   ) {
     // initial value is not defined, this is just a dummy value
     // rather than dealing with `undefined`
@@ -72,9 +47,9 @@ export default class FrssMultipleDiagramProvider {
     this.frssModeler = frssModeler;
     // diagram state handler
     this.diagrams = new Map();
-    this.elementFactory = this.frssModeler.get('elementFactory');
-    this.bpmnFactory = this.frssModeler.get('bpmnFactory');
-    this.elementRegistry = this.frssModeler.get('elementRegistry');
+    this.bpmnFactory = bpmnFactory;
+    this.canvas = canvas;
+    this.elementFactory = elementFactory;
   }
 
   /**
@@ -145,6 +120,10 @@ export default class FrssMultipleDiagramProvider {
     // add diagram to the diagrams collection
     // @ts-ignore
     this.frssModeler.getDefinitions().diagrams.push(diDiagram);
+
+    // TODO: add the diagram as the new root element
+    // this.canvas.
+
     return diDiagram;
   }
 
@@ -178,45 +157,13 @@ export default class FrssMultipleDiagramProvider {
     // we want to change to a different diagram
     if (!isNormalDiagram(this.diagramState)) return;
 
-    // get previous state
-    const previousState = this.diagramState;
     // find if the diagram exists
     const evidenceDiagram = this.diagramState.frssDiagrams.find(
       (diagram) => diagram.type === FrssDiagramType.EvidenceDiagram,
     );
 
-    // the diagram does not exist
     if (evidenceDiagram === undefined) {
-      const currentProcess = this.elementRegistry.getAll().find(
-        (element: any) => is(element, 'bpmn:Process'),
-      );
-
-      if (currentProcess === undefined) {
-        throw new Error('Unimplemented: If the root element is not a process!');
-      }
-
-      // create a new diagram
-      const newEvidenceDiagram = this.createNewEvidenceDiagram(
-        currentProcess,
-      );
-
-      // set the new state
-      const newDiagram: FrssDiagram = {
-        id: newEvidenceDiagram.id,
-        type: FrssDiagramType.EvidenceDiagram,
-        baseDiagramId: previousState.id,
-      };
-
-      // associate the new diagram with the regular diagram
-      this.diagramState.frssDiagrams.push(newDiagram);
-
-      // update state
-      this.diagramState = newDiagram;
-
-      // set the viewer mode to evidence view
-      this.frssModeler.diagramMode = FrssMode.EvidenceMode;
-      await this.openDiagram();
-      return;
+      throw new Error('The evidence view diagram does not exist!');
     }
 
     // set new state to the found evidence view diagram
@@ -243,8 +190,6 @@ export default class FrssMultipleDiagramProvider {
     const currentRoot = currentDiagram.plane.bpmnElement;
 
     const bpmnDiagram = this.createEmptyDiagram(currentRoot);
-    console.log(bpmnDiagram);
-    console.log(currentRoot);
 
     // we can create a new diagram only if the state is a normal diagram
     // that will be linked to the evidence diagram

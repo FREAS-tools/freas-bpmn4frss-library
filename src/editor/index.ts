@@ -10,7 +10,7 @@ import frssExtension from '../frss-extension';
 
 // default diagram
 import FrssMultipleDiagramProvider
-  from '../frss-extension/extensions/diagram/diagrams';
+  from '../frss-extension/extensions/diagram/switching';
 import defaultDiagram from './default-diagram';
 
 // types
@@ -37,9 +37,7 @@ export default class FrssModeler extends Modeler {
     });
 
     this.mode = FrssMode.Normal;
-    this.multipleDiagramProvider = new FrssMultipleDiagramProvider(
-      this,
-    );
+    this.multipleDiagramProvider = this.get('frssMultipleDiagramProvider');
   }
 
   get diagramMode() {
