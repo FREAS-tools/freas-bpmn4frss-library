@@ -7,15 +7,17 @@ import properties from './properties';
 
 // types
 import type { ElementRules } from '../../types/rules';
+import type { ShouldTriggerRuleFunction } from '../../types/rules/common';
 
 const evidenceSourceIdentifier = properties.identifier;
 
-const checkAttachmentOrCreation = (
-  shape: any,
-  _target: any,
-  mode: FrssMode,
+const checkAttachmentOrCreation: ShouldTriggerRuleFunction = (
+  {
+    source,
+    mode,
+  },
 ): boolean => (
-  is(shape, evidenceSourceIdentifier) && (mode === FrssMode.Normal)
+  is(source, evidenceSourceIdentifier) && (mode === FrssMode.Normal)
 );
 
 // what elements can we attach the potential evidence source to
@@ -24,7 +26,7 @@ const attachableTo: string[] = [
 ];
 
 const rules: ElementRules = {
-  attachmentRule: (source, target, _elementRegistry) => {
+  attachmentRule: ({ source, target }) => {
     // evidence source can attach to tasks, events, and data store references
     if (is(source, evidenceSourceIdentifier)) {
       if (isAny(target, attachableTo)) {
@@ -34,7 +36,7 @@ const rules: ElementRules = {
     }
   },
 
-  connectionRule: (source, target, _elementRegistry, connectionId?) => {
+  connectionRule: ({ source, target, identityId }) => {
     // handle should be reversed when the target is the evidence source identifier
     if (is(target, evidenceSourceIdentifier)) return false;
 
@@ -53,9 +55,9 @@ const rules: ElementRules = {
     // we check for existing connection if we wish to create a new element
     // and we check for identity if we want to move the element
     // (by comparing connection id).
-    const checkExisting = connectionId === undefined
+    const checkExisting = identityId === undefined
       ? checkProducesAssociationExists === undefined
-      : checkProducesAssociationExists.id === connectionId;
+      : checkProducesAssociationExists.id === identityId;
 
     // if the target is the DataObjectReference which is marked as the
     // potential evidence.
@@ -73,7 +75,7 @@ const rules: ElementRules = {
     return false;
   },
 
-  creationRule: (source, target, elementRegistry) => {
+  creationRule: ({ source, target, elementRegistry }) => {
     if (!is(source, properties.identifier)) return false;
 
     if (!isAny(target, attachableTo)) return false;
@@ -97,7 +99,7 @@ const rules: ElementRules = {
 
   shouldCheckAttachment: checkAttachmentOrCreation,
   shouldCheckCreation: checkAttachmentOrCreation,
-  shouldCheckConnection: (source, target, mode) => (
+  shouldCheckConnection: ({ source, target, mode }) => (
     (
       is(source, evidenceSourceIdentifier)
       || is(target, evidenceSourceIdentifier)

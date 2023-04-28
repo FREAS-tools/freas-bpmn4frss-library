@@ -1,4 +1,4 @@
-import FrssMultipleDiagramProvider from './switching';
-import FrssDiagramSynchrozizer from './synchronization';
+import FrssMultipleDiagramProvider from './multipleDiagramProvider';
+import FrssDiagramSynchrozationProvider from './synchronizationProvider';
 
-export { FrssDiagramSynchrozizer, FrssMultipleDiagramProvider };
+export { FrssDiagramSynchrozationProvider, FrssMultipleDiagramProvider };

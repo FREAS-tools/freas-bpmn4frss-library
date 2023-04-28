@@ -10,21 +10,56 @@ import type { CreateActionHandler } from '../../types/controls/actionHandler';
 const markDataObjectAsEvidence: CreateActionHandler = (
   {
     bpmnFactory,
+    canvas,
+    elementFactory,
+    frssMultipleDiagramProvider,
     modeling,
   },
   elementProperties,
 ) => {
   const action = (_event: any, element: any) => {
     const dataObject = element?.businessObject?.dataObjectRef;
-    if (dataObject.isPotentialEvidence) return;
+    if (dataObject.isPotentialEvidence !== undefined) return;
 
     // create a new `PotentialEvidence` object
-    const potentialEvidence = bpmnFactory.create(elementProperties.identifier);
+    const potentialEvidence = bpmnFactory.create(
+      elementProperties.identifier,
+      { $parent: dataObject },
+    );
 
     dataObject.isPotentialEvidence = potentialEvidence;
     modeling.updateProperties(element, {
       dataObjectRef: dataObject,
     });
+
+    const evidenceDiagramHandle = frssMultipleDiagramProvider
+      .getAssociatedEvidenceDiagram();
+
+    const semanticDataObjectReference = bpmnFactory
+      .create(
+        'bpmn:DataObjectReference',
+        {
+          ...element.businessObject,
+          id: `${element.businessObject.id as string}_EvidenceView`,
+        },
+      );
+
+    semanticDataObjectReference.$parent = evidenceDiagramHandle
+      .rootElement.parent;
+    semanticDataObjectReference.dataObjectRef = dataObject;
+
+    const diDataObjectReference = elementFactory.createShape(
+      {
+        businessObject: semanticDataObjectReference,
+        x: element.x,
+        y: element.y,
+        width: element.width,
+        height: element.height,
+        parent: evidenceDiagramHandle.diPlane,
+      },
+    );
+
+    canvas.addShape(diDataObjectReference, evidenceDiagramHandle.rootElement);2
   };
 
   return action;
@@ -89,7 +124,7 @@ const controls: Controls = {
         className: markDataObjectAsEvidenceIdentifier,
         group: 'edit',
         key: markDataObjectAsEvidenceIdentifier,
-        title: 'Mark DataObjectRef as Potential Evidence',
+        title: 'Mark DataObject as Potential Evidence',
       },
       show: (element) => (
         is(element, 'bpmn:DataObjectReference')
@@ -102,7 +137,7 @@ const controls: Controls = {
         className: unmarkDataObjectAsEvidenceIdentifier,
         group: 'edit',
         key: unmarkDataObjectAsEvidenceIdentifier,
-        title: 'Unmark DataObjectRef as Potential Evidence',
+        title: 'Unmark DataObject as Potential Evidence',
       },
       show: (element) => (
         is(element, 'bpmn:DataObjectReference')

@@ -1,21 +1,33 @@
-import type { FrssMode } from '../../../editor/types/mode';
+import type { FrssMode } from '../../extensions/mode/mode';
 
-export type ShouldTriggerRuleFunction = (
+type RuleFunctionContextBase = {
   source: any,
   target: any,
+};
+
+type RuleFunctionContextMode = {
   mode: FrssMode,
+};
+
+type RuleFunctionRegistryContext = {
+  elementRegistry: any,
+};
+
+export type ShouldTriggerRuleFunction = (
+  context: RuleFunctionContextBase & RuleFunctionContextMode,
 ) => boolean;
 
 export type RuleFunction<T> = (
-  source: any,
-  target: any,
-  elementRegistry: any,
-  identityId?: string
+  context: RuleFunctionContextBase & RuleFunctionContextMode
+  & RuleFunctionRegistryContext & {
+    identityId?: string,
+  },
 ) => T;
 
+export type RuleFunctionWrapperContext = RuleFunctionContextBase
+& RuleFunctionContextMode
+& RuleFunctionRegistryContext;
+
 export type RuleFunctionWrapper<T> = (
-  source: any,
-  target: any,
-  elementRegistry: any,
-  mode: FrssMode,
+  context: RuleFunctionWrapperContext
 ) => T;

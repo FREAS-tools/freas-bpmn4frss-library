@@ -6,13 +6,13 @@ import evidenceAssociationProperties from '../EvidenceAssociation/properties';
 import type { ElementRules } from '../../types/rules';
 
 const rules: ElementRules = {
-  shouldCheckConnection: (source, target, mode) => (
+  shouldCheckConnection: ({ source, target, mode }) => (
     is(source, 'bpmn:DataObjectReference')
     && is(target, 'bpmn:DataObjectReference')
     && mode === FrssMode.EvidenceView
   ),
 
-  connectionRule: (source, target, _elementRegistry, connectionId) => {
+  connectionRule: ({ source, target, identityId }) => {
     // check if there is an already existing evidence association
     const checkEvidenceAssociationExists = source.outgoing.find(
       (element: any) => (
@@ -22,9 +22,9 @@ const rules: ElementRules = {
       ),
     );
 
-    const checkExisting = connectionId === undefined
+    const checkExisting = identityId === undefined
       ? checkEvidenceAssociationExists === undefined
-      : checkEvidenceAssociationExists.id === connectionId;
+      : checkEvidenceAssociationExists.id === identityId;
 
     // both objects must be `EvidenceDataObject`s, and cannot have
     // an already existing connection

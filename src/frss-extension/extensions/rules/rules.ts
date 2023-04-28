@@ -32,10 +32,12 @@ export default class FrssRules extends BpmnRules {
 
   canConnectAssociation(source: any, target: any) {
     const checkCustomReconnection = checkReconnection(
-      source,
-      target,
-      this.elementRegistry,
-      this.frssModeProvider.mode,
+      {
+        source,
+        target,
+        elementRegistry: this.elementRegistry,
+        mode: this.frssModeProvider.mode,
+      },
     );
 
     // no suitable rule found, default behaviour happens

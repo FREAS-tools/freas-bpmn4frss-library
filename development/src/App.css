@@ -55,3 +55,7 @@ body {
 .clickable:hover {
     cursor: pointer;
 }
+
+.djs-popup {
+    position: absolute;
+}

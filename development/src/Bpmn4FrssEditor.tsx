@@ -2,6 +2,7 @@ import React, { MutableRefObject, useEffect, useRef, useState } from "react";
 import FrssModeler from "../../src/editor";
 
 // import all necessary css
+import "diagram-js/assets/diagram-js.css";
 import "bpmn-js/dist/assets/bpmn-js.css";
 import "bpmn-js/dist/assets/diagram-js.css";
 import "bpmn-js/dist/assets/bpmn-font/css/bpmn-codes.css";
@@ -119,6 +120,9 @@ const Bpmn4FrssEditor = ({ cssClassNames }: Bpmn4FrssEditorProps) => {
 
   const tryMe = () => {
     console.log(library.getDefinitions());
+    // console.log(library.get('frssMultipleDiagramProvider').getAssociatedEvidenceDiagram());
+    // @ts-ignore
+    console.log(library.get('elementRegistry').getGraphics(library.get('canvas').getRootElement()));
   }
 
   return (

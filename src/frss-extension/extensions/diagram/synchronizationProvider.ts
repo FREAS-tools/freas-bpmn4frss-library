@@ -1,10 +1,11 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import CommandInterceptor from 'diagram-js/lib/command/CommandInterceptor';
 import FrssModeProvider, { FrssMode } from '../mode/mode';
-import type FrssMultipleDiagramProvider from './switching';
+import type FrssMultipleDiagramProvider from './multipleDiagramProvider';
 import type FrssModeler from '../../../editor';
 
-export default class FrssDiagramSynchrozizer extends CommandInterceptor {
+export default class FrssDiagramSynchrozationProvider
+  extends CommandInterceptor {
   static $inject: string[] = [
     'eventBus',
     'injector',
@@ -49,18 +50,24 @@ export default class FrssDiagramSynchrozizer extends CommandInterceptor {
     this.frssMultipleDiagramProvider = frssMultipleDiagramProvider;
     this.subprocessCompatibility = subprocessCompatibility;
 
-    this.preExecute('shape.create', (event) => {
+    eventBus.on('root.set', (event) => {
+      console.log(event);
+    });
+
+    this.preExecute('shape.create', 2000, (event) => {
       switch (this.frssModeProvider.mode) {
         case FrssMode.Normal: {
-          console.log(
-            'Processing the normal mode synchronization event',
-            event,
-          );
+          // console.log(
+          //   'Processing the normal mode synchronization event',
+          //   event,
+          // );
+          // console.log(event);
+
           console.log(event);
           break;
         }
         case FrssMode.EvidenceView: {
-          console.log('Processing the evidence mode synchronization event');
+          // console.log('Processing the evidence mode synchronization event');
           break;
         }
         default: {
@@ -72,7 +79,25 @@ export default class FrssDiagramSynchrozizer extends CommandInterceptor {
     });
 
     this.preExecute('shape.delete', (event) => {
-      console.log(event);
+      switch (this.frssModeProvider.mode) {
+        case FrssMode.Normal: {
+          // console.log(
+          //   'Processing the normal mode synchronization event',
+          //   event,
+          // );
+          // console.log(event);
+          break;
+        }
+        case FrssMode.EvidenceView: {
+          // console.log('Processing the evidence mode synchronization event');
+          break;
+        }
+        default: {
+          throw new Error(
+            'This mode is not supported by the FrssDiagramSynchronizer',
+          );
+        }
+      }
     });
   }
 }

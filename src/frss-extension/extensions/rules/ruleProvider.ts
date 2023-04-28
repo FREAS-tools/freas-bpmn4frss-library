@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 // @ts-expect-error
 // eslint-disable-next-line import/no-extraneous-dependencies
 import RuleProvider from 'diagram-js/lib/features/rules/RuleProvider';
@@ -19,7 +20,7 @@ import type {
   HasAttachmentRule,
 } from '../../types/rules/attachment';
 import type {
-  RuleFunctionWrapper,
+  RuleFunctionWrapper, RuleFunctionWrapperContext,
 } from '../../types/rules/common';
 import type {
   ConnectionRule,
@@ -72,14 +73,16 @@ const handleNotFoundRule = (
  */
 const checkAttachment: RuleFunctionWrapper<ReturnType<AttachmentRule>
 | undefined> = (
-  source,
-  target,
-  elementRegistry,
-  mode,
+  {
+    source,
+    target,
+    elementRegistry,
+    mode,
+  },
 ) => {
   const rule: HasAttachmentRule | undefined = attachmentRules
     .find(
-      (ruleEntry) => ruleEntry.shouldCheckAttachment(source, target, mode),
+      (ruleEntry) => ruleEntry.shouldCheckAttachment({ source, target, mode }),
     );
 
   // the rule was not found
@@ -87,19 +90,23 @@ const checkAttachment: RuleFunctionWrapper<ReturnType<AttachmentRule>
     return handleNotFoundRule(source, target, mode);
   }
 
-  return rule.attachmentRule(source, target, elementRegistry);
+  return rule.attachmentRule({
+    source, target, elementRegistry, mode,
+  });
 };
 
 const checkConnection: RuleFunctionWrapper<ReturnType<ConnectionRule>
 | undefined> = (
-  source,
-  target,
-  elementRegistry,
-  mode,
+  {
+    source,
+    target,
+    elementRegistry,
+    mode,
+  },
 ) => {
   const rule: HasConnectionRule | undefined = connectionRules
     .find(
-      (ruleEntry) => ruleEntry.shouldCheckConnection(source, target, mode),
+      (ruleEntry) => ruleEntry.shouldCheckConnection({ source, target, mode }),
     );
 
   // the rule was not found
@@ -107,19 +114,23 @@ const checkConnection: RuleFunctionWrapper<ReturnType<ConnectionRule>
     return handleNotFoundRule(source, target, mode);
   }
 
-  return rule.connectionRule(source, target, elementRegistry);
+  return rule.connectionRule({
+    source, target, elementRegistry, mode,
+  });
 };
 
 export const checkReconnection: RuleFunctionWrapper<ReturnType<ConnectionRule>
 | undefined> = (
-  source,
-  target,
-  elementRegistry,
-  mode,
+  {
+    source,
+    target,
+    elementRegistry,
+    mode,
+  },
 ) => {
   const rule: HasConnectionRule | undefined = connectionRules
     .find(
-      (ruleEntry) => ruleEntry.shouldCheckConnection(source, target, mode),
+      (ruleEntry) => ruleEntry.shouldCheckConnection({ source, target, mode }),
     );
 
   // the rule was not found
@@ -141,20 +152,24 @@ export const checkReconnection: RuleFunctionWrapper<ReturnType<ConnectionRule>
     getExistingAssociation.id ?? undefined
   );
 
-  return rule.connectionRule(source, target, elementRegistry, connectionId);
+  return rule.connectionRule({
+    source, target, elementRegistry, mode, identityId: connectionId,
+  });
 };
 
 const checkCreation: RuleFunctionWrapper<ReturnType<CreationRule>
 | undefined> = (
-  source,
-  target,
-  elementRegistry,
-  mode,
+  {
+    source,
+    target,
+    elementRegistry,
+    mode,
+  },
 ) => {
   // try to find a suitable rule
   const rule: HasCreationRule | undefined = creationRules
     .find(
-      (ruleEntry) => ruleEntry.shouldCheckCreation(source, target, mode),
+      (ruleEntry) => ruleEntry.shouldCheckCreation({ source, target, mode }),
     );
 
   // the rule was not found
@@ -163,7 +178,9 @@ const checkCreation: RuleFunctionWrapper<ReturnType<CreationRule>
   }
 
   // rule found, execute
-  return rule.creationRule(source, target, elementRegistry);
+  return rule.creationRule({
+    source, target, elementRegistry, mode,
+  });
 };
 
 enum ConnectionRuleHook {
@@ -172,13 +189,18 @@ enum ConnectionRuleHook {
 }
 
 const connectionCreateOrReconnect = (
-  context: any,
-  hook: ConnectionRuleHook,
-  elementRegistry: any,
-  mode: FrssMode,
+  {
+    source,
+    target,
+    hints,
+    hook,
+    elementRegistry,
+    mode,
+  } : RuleFunctionWrapperContext & {
+    hints: any
+    hook: ConnectionRuleHook,
+  },
 ) => {
-  const { source, target } = context;
-  const hints = context.hints ?? {};
   const { targetParent, targetAttach } = hints;
 
   if (targetAttach) return false;
@@ -192,12 +214,16 @@ const connectionCreateOrReconnect = (
     // trigger a rule checker depending on which hook is running
     switch (hook) {
       case ConnectionRuleHook.Create:
-        return checkConnection(source, target, elementRegistry, mode);
+        return checkConnection({
+          source, target, elementRegistry, mode,
+        });
 
       // checks for identity with custom associations which can only
       // be attached once per a source-target pair
       case ConnectionRuleHook.Reconnect:
-        return checkReconnection(source, target, elementRegistry, mode);
+        return checkReconnection({
+          source, target, elementRegistry, mode,
+        });
       default:
         return;
     }
@@ -249,10 +275,12 @@ export default class FrssRuleProvider extends RuleProvider {
       }
 
       return checkCreation(
-        shape,
-        target,
-        this.elementRegistry,
-        this.frssModeProvider.mode,
+        {
+          source: shape,
+          target,
+          elementRegistry: this.elementRegistry,
+          mode: this.frssModeProvider.mode,
+        },
       );
     });
 
@@ -274,10 +302,12 @@ export default class FrssRuleProvider extends RuleProvider {
       const shape = shapes[0];
 
       return checkAttachment(
-        shape,
-        target,
-        this.elementRegistry,
-        this.frssModeProvider.mode,
+        {
+          source: shape,
+          target,
+          elementRegistry: this.elementRegistry,
+          mode: this.frssModeProvider.mode,
+        },
       );
     });
 
@@ -286,10 +316,12 @@ export default class FrssRuleProvider extends RuleProvider {
       const { shape, target } = context;
 
       return checkCreation(
-        shape,
-        target,
-        this.elementRegistry,
-        this.frssModeProvider.mode,
+        {
+          source: shape,
+          target,
+          elementRegistry: this.elementRegistry,
+          mode: this.frssModeProvider.mode,
+        },
       );
     });
 
@@ -299,10 +331,14 @@ export default class FrssRuleProvider extends RuleProvider {
       FRSS_PRIORITY,
       (context: any) => (
         connectionCreateOrReconnect(
-          context,
-          ConnectionRuleHook.Create,
-          this.elementRegistry,
-          this.frssModeProvider.mode,
+          {
+            source: context.source,
+            target: context.target,
+            hints: context.hints ?? {},
+            hook: ConnectionRuleHook.Create,
+            elementRegistry: this.elementRegistry,
+            mode: this.frssModeProvider.mode,
+          },
         )
       ),
     );
@@ -313,10 +349,14 @@ export default class FrssRuleProvider extends RuleProvider {
       FRSS_PRIORITY,
       (context: any) => (
         connectionCreateOrReconnect(
-          context,
-          ConnectionRuleHook.Reconnect,
-          this.elementRegistry,
-          this.frssModeProvider.mode,
+          {
+            source: context.source,
+            target: context.target,
+            hints: context.hints ?? {},
+            hook: ConnectionRuleHook.Reconnect,
+            elementRegistry: this.elementRegistry,
+            mode: this.frssModeProvider.mode,
+          },
         )
       ),
     );

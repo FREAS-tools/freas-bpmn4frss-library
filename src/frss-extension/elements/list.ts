@@ -19,6 +19,6 @@ const frssElements = [
   EvidenceSource,
   PotentialEvidence,
   Produces,
-];
+] as const;
 
 export default frssElements;

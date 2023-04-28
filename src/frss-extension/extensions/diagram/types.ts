@@ -7,15 +7,26 @@ export enum FrssDiagramType {
 
 export type DiagramState = NormalDiagram | FrssDiagram;
 
+export type SemanticDiagram = {
+  children: any[];
+  id: string;
+  parent: any;
+};
+
+export type DiagramHandle = {
+  diPlane: any,
+  rootElement: SemanticDiagram,
+};
+
 export type NormalDiagram = {
+  diagram: DiagramHandle,
   frssDiagrams: FrssDiagram[],
-  id: string,
   type: FrssDiagramType.Normal,
 };
 
 export type FrssDiagram = {
   baseDiagramId: string,
-  id: string,
+  diagram: DiagramHandle,
   type: Exclude<FrssDiagramType, FrssDiagramType.Normal>,
 };
 

@@ -10,7 +10,7 @@ import frssExtension from '../frss-extension';
 
 // default diagram
 import FrssMultipleDiagramProvider
-  from '../frss-extension/extensions/diagram/switching';
+  from '../frss-extension/extensions/diagram/multipleDiagramProvider';
 import defaultDiagram from './default-diagram';
 
 // types

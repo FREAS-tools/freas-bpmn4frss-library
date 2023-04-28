@@ -13,14 +13,13 @@ import type {
   ControlEntry,
   ControlEntryPropsAndActions,
 } from '../../types/controls/entry';
+import type { FrssMultipleDiagramProvider } from '../diagram';
 
 // /* eslint-disable @typescript-eslint/no-unused-vars */
 export default class FrssPadProvider {
-  autoPlace: any;
-
   bpmnFactory: any;
 
-  config: any;
+  canvas: any;
 
   contextPad: any;
 
@@ -28,7 +27,7 @@ export default class FrssPadProvider {
 
   elementFactory: any;
 
-  injector: any;
+  frssMultipleDiagramProvider: FrssMultipleDiagramProvider;
 
   modeling: any;
 
@@ -36,37 +35,33 @@ export default class FrssPadProvider {
 
   static $inject: string[] = [
     'bpmnFactory',
-    'config',
+    'canvas',
     'contextPad',
     'create',
     'elementFactory',
-    'injector',
+    'frssMultipleDiagramProvider',
     'modeling',
     'translate',
   ];
 
   constructor(
     bpmnFactory: any,
-    config: any,
+    canvas: any,
     contextPad: any,
     create: any,
     elementFactory: any,
-    injector: any,
+    frssMultipleDiagramProvider: FrssMultipleDiagramProvider,
     modeling: any,
     translate: any,
   ) {
     this.bpmnFactory = bpmnFactory;
+    this.canvas = canvas;
     this.create = create;
     this.contextPad = contextPad;
     this.elementFactory = elementFactory;
+    this.frssMultipleDiagramProvider = frssMultipleDiagramProvider;
     this.modeling = modeling;
     this.translate = translate;
-
-    // getting the auto place position,
-    // we need to check for the true value explicitly
-    if (config.autoPlace !== true) {
-      this.autoPlace = injector.get('autoPlace', false);
-    }
 
     contextPad.registerProvider(this);
   }

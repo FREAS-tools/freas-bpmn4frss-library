@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "bpmn-js": "^9.4.1",
+    "bpmn-js": "^12.1.1",
     "bpmn-js-color-picker": "^0.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
