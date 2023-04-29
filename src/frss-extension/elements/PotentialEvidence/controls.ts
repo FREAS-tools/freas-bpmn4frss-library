@@ -24,7 +24,6 @@ const markDataObjectAsEvidence: CreateActionHandler = (
     // create a new `PotentialEvidence` object
     const potentialEvidence = bpmnFactory.create(
       elementProperties.identifier,
-      { $parent: dataObject },
     );
 
     dataObject.isPotentialEvidence = potentialEvidence;
@@ -35,31 +34,19 @@ const markDataObjectAsEvidence: CreateActionHandler = (
     const evidenceDiagramHandle = frssMultipleDiagramProvider
       .getAssociatedEvidenceDiagram();
 
-    const semanticDataObjectReference = bpmnFactory
-      .create(
-        'bpmn:DataObjectReference',
-        {
-          ...element.businessObject,
-          id: `${element.businessObject.id as string}_EvidenceView`,
-        },
-      );
-
-    semanticDataObjectReference.$parent = evidenceDiagramHandle
-      .rootElement.parent;
-    semanticDataObjectReference.dataObjectRef = dataObject;
-
     const diDataObjectReference = elementFactory.createShape(
       {
-        businessObject: semanticDataObjectReference,
+        businessObject: element.businessObject,
         x: element.x,
         y: element.y,
         width: element.width,
         height: element.height,
-        parent: evidenceDiagramHandle.diPlane,
+        parent: evidenceDiagramHandle.di,
+        id: element.businessObject.id + '_EvidenceView',
       },
     );
 
-    canvas.addShape(diDataObjectReference, evidenceDiagramHandle.rootElement);2
+    canvas.addShape(diDataObjectReference, evidenceDiagramHandle);
   };
 
   return action;

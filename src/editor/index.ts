@@ -36,12 +36,12 @@ export default class FrssModeler extends Modeler {
     this.multipleDiagramProvider = this.get('frssMultipleDiagramProvider');
   }
 
-  async setNormalMode() {
-    await this.multipleDiagramProvider.switchToNormalDiagram();
+  setNormalMode() {
+    this.multipleDiagramProvider.switchToNormalDiagram();
   }
 
-  async setEvidenceViewMode() {
-    await this.multipleDiagramProvider.switchToEvidenceDiagram();
+  setEvidenceViewMode() {
+    this.multipleDiagramProvider.switchToEvidenceDiagram();
   }
 
   async loadDiagram(diagram: string) {
