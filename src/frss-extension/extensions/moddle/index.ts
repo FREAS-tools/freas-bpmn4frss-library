@@ -5,10 +5,29 @@
  * import nameOfTheElement from './NameOfTheElement/definition';
  */
 
-import { bpmn4frss } from '../../common';
+import { bpmn4frss, type Bpmn4FrssPrefix } from '../../common';
 
 // Custom elements - every custom element is placed in this list
-import frssElements from '../../elements';
+import {
+  frssDefinitionElements,
+  frssEnumerationElements,
+} from '../../elements';
+import type {
+  FrssEnumeration,
+  FrssModdleDefinition,
+} from '../../types/definitions';
+
+type FrssModdleDefinitions = {
+  associations: any[],
+  enumerations: FrssEnumeration[],
+  name: string,
+  prefix: Bpmn4FrssPrefix,
+  types: FrssModdleDefinition[],
+  uri: string,
+  xml: {
+    tagAlias: string,
+  },
+};
 
 /**
  * This file contains moddle definitions for the BPMN4FRSS extension.
@@ -26,7 +45,7 @@ import frssElements from '../../elements';
  * to handle the construct serialization and deserialization
  * into the underlying XML file (.bpmn).
  */
-const FrssDefinitions = {
+const FrssDefinitions: FrssModdleDefinitions = {
   // name of the extension
   name: 'BPMN for Forensic-Ready Software Systems',
 
@@ -42,11 +61,17 @@ const FrssDefinitions = {
   },
 
   // The definitions for language constructs belong here
-  types: frssElements.map((customElement) => customElement.definition),
+  types: frssDefinitionElements.map(
+    (customSemanticElement) => customSemanticElement.definition,
+  ),
 
   // these values are reserved by the bpmn-js library
-  associations: [] as string[],
-  enumerations: [] as string[],
+  associations: [],
+  enumerations: frssEnumerationElements.map(
+    (customEnumerationElement) => (
+      customEnumerationElement.enumerationDefinition
+    ),
+  ),
 };
 
 export default FrssDefinitions;

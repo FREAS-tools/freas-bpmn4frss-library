@@ -7,7 +7,7 @@ import rules from './rules';
 // types
 import type { FrssElement } from '../../types';
 
-const evidenceSource: FrssElement = {
+const EvidenceSource: FrssElement = {
   controls,
   definition,
   properties,
@@ -18,4 +18,4 @@ const evidenceSource: FrssElement = {
 /**
  * The default export exports all properties of a custom element.
  */
-export default evidenceSource;
+export default EvidenceSource;

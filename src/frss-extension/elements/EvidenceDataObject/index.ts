@@ -6,11 +6,11 @@ import rules from './rules';
 // types
 import type { FrssElement } from '../../types';
 
-const evidenceDataObject: FrssElement = {
+const EvidenceDataObject: FrssElement = {
   definition,
   properties,
   rendererEntry,
   rules,
 };
 
-export default evidenceDataObject;
+export default EvidenceDataObject;

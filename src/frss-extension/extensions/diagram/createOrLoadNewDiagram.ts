@@ -1,6 +1,5 @@
 import {
   FrssDiagramSuffix,
-  type DiagramStateHandler,
   type MultipleDiagramProviderContext,
   type DiagramRootElement,
   type FrssDiagramType,
@@ -57,6 +56,7 @@ export const createNewEmptyDiagram = (
   // create a new diagram
   const diDiagram = bpmnFactory.create('bpmndi:BPMNDiagram', {
     plane: diPlane,
+    planeElement: [],
   });
 
   // set the diagram as the parent for the plane
@@ -67,7 +67,7 @@ export const createNewEmptyDiagram = (
   // @ts-expect-error
   definitions.diagrams.push(diDiagram);
 
-  newBpmnProcess.children = [];
+  newBpmnProcess.flowElements = [];
 
   // create a root element
   const newRootElement = elementFactory.createRoot({
@@ -89,18 +89,36 @@ const filterFrssDiagrams = (diagram: DiagramRootElement) => (
 );
 
 const addNormalDiagramState = (
-  diagram: DiagramRootElement,
-  diagramStateHandler: DiagramStateHandler,
+  {
+    elementFactory,
+    diagramStateHandler,
+    canvas,
+  }: MultipleDiagramProviderContext,
+  diagramPlaneElement: any,
+  currentRootElementId: string,
 ) => {
+  console.log(diagramPlaneElement);
+  if (diagramPlaneElement.bpmnElement.id === currentRootElementId) return;
+
+  const newRootElement = elementFactory.createRoot({
+    id: diagramPlaneElement.bpmnElement.id,
+    type: diagramPlaneElement.bpmnElement.$type,
+    di: diagramPlaneElement,
+    businessObject: diagramPlaneElement.bpmnElement,
+    collapsed: false,
+  });
+
+  canvas.addRootElement(newRootElement);
+
   const state: NormalDiagram = {
-    diagram,
+    diagram: newRootElement,
     frssDiagrams: [],
     type: 'normal',
   };
 
-  diagramStateHandler.set(diagram.id, state);
+  console.log(state);
 
-  return state;
+  diagramStateHandler.set(newRootElement.id, state);
 };
 
 export const instanciateDiagramStates = (
@@ -110,20 +128,36 @@ export const instanciateDiagramStates = (
 
   const { diagramStateHandler } = context;
   // @ts-expect-error
-  const rootElements = definitions.diagrams.map(
+  const diagramProcesses = definitions.diagrams.map(
     // @ts-expect-error
-    (diagram: DiagramRootElement) => diagram.plane.bpmnElement,
+    (diagram: DiagramRootElement) => diagram.plane,
   );
+
+  // find the already-created root element by the import
+  const currentRootElement: DiagramRootElement = context
+    .canvas.getRootElement();
+
+  if (currentRootElement === undefined) {
+    throw new Error('No diagram was successfully created');
+  }
+
+  const currentState: NormalDiagram = {
+    diagram: currentRootElement,
+    frssDiagrams: [],
+    type: 'normal',
+  };
+
+  diagramStateHandler.set(currentRootElement.id, currentState);
 
   // partition array into two groups - base diagrams and rest
   const { desired: frssDiagrams, rest: normalDiagrams } = partitionArray(
-    rootElements,
+    diagramProcesses,
     filterFrssDiagrams,
   );
 
   // load all normal diagrams into state
   normalDiagrams.forEach((diagram) => {
-    addNormalDiagramState(diagram, diagramStateHandler);
+    addNormalDiagramState(context, diagram, currentRootElement.id);
   });
 
   // load all associated diagrams
@@ -182,36 +216,30 @@ export const instanciateDiagramStates = (
     }
   });
 
-  const stateToReturn = diagramStateHandler.get(normalDiagrams[0].id ?? '');
-
-  if (stateToReturn === undefined) {
-    throw new Error('No diagrams to switch to');
-  }
-
-  return stateToReturn;
+  return currentState;
 };
 
-export const createNewRegularDiagramAndAssociatedDiagrams = (
-  context: MultipleDiagramProviderContext,
-): DiagramState => {
-  const newState = addNormalDiagramState(
-    createNewEmptyDiagram(context),
-    context.diagramStateHandler,
-  );
+// export const createNewRegularDiagramAndAssociatedDiagrams = (
+//   context: MultipleDiagramProviderContext,
+// ): DiagramState => {
+//   const newState = addNormalDiagramState(
+//     createNewEmptyDiagram(context),
+//     context.diagramStateHandler,
+//   );
 
-  FrssDiagramSuffix.forEach((diagramType) => {
-    newState.frssDiagrams.push({
-      baseDiagramId: newState.diagram.id,
-      diagram: createNewEmptyDiagram(
-        context,
-        {
-          id: newState.diagram.id,
-          createType: diagramType,
-        },
-      ),
-      type: diagramType,
-    });
-  });
+//   FrssDiagramSuffix.forEach((diagramType) => {
+//     newState.frssDiagrams.push({
+//       baseDiagramId: newState.diagram.id,
+//       diagram: createNewEmptyDiagram(
+//         context,
+//         {
+//           id: newState.diagram.id,
+//           createType: diagramType,
+//         },
+//       ),
+//       type: diagramType,
+//     });
+//   });
 
-  return newState;
-};
+//   return newState;
+// };

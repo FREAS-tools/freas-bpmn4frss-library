@@ -6,7 +6,14 @@ const { name } = properties;
 const definition: FrssModdleDefinition = {
   name,
   extends: ['bpmn:Task'],
-  properties: [],
+  properties: [
+    {
+      name: 'input',
+      type: 'bpmn:BaseElement',
+      isAttr: true,
+      isReference: true,
+    },
+  ],
 };
 
 export default definition;

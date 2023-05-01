@@ -53,4 +53,9 @@ export default class FrssModeler extends Modeler {
     await super.importXML(defaultDiagram);
     this.multipleDiagramProvider.reset();
   }
+
+  resize() {
+    // @ts-expect-error
+    this.get('canvas').resized();
+  }
 }

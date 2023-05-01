@@ -11,7 +11,6 @@ import {
 } from '../../types/diagrams';
 import FrssModeProvider, { FrssMode } from '../mode/mode';
 import {
-  createNewRegularDiagramAndAssociatedDiagrams,
   instanciateDiagramStates,
 } from './createOrLoadNewDiagram';
 import type FrssModeler from '../../../editor';
@@ -94,17 +93,17 @@ export default class FrssMultipleDiagramProvider {
   reset() {
     this.diagramStateHandler.clear();
 
-    // instanciate the diagram state handler
+    // instanciate the diagram state handler and set the initial set
     this.diagramState = instanciateDiagramStates(
       this.context(),
     );
   }
 
-  createNewRegularDiagram() {
-    this.diagramState = createNewRegularDiagramAndAssociatedDiagrams(
-      this.context(),
-    );
-  }
+  // createNewRegularDiagram() {
+  //   this.diagramState = createNewRegularDiagramAndAssociatedDiagrams(
+  //     this.context(),
+  //   );
+  // }
 
   private openDiagram() {
     this.canvas.setRootElement(this.diagramState.diagram);

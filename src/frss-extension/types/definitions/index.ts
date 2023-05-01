@@ -3,12 +3,12 @@ type FrssModdleDefinitionBase = {
    * Name of the element in moddle
    */
   name: string,
-  /** Properties of the element (@todo get the actual type here) */
   properties: {
     // Don't care what other metadata the property has
     [x: string | number | symbol]: unknown,
     // every property has a name
     name: string,
+    type: string,
   }[],
 };
 
@@ -28,3 +28,11 @@ export type FrssModdleDefinition = (FrssModdleDefinitionBase & ({
    */
   superClass: string[],
 }));
+
+export type FrssEnumeration = {
+  literalNames:
+  {
+    name: string,
+  }[],
+  name: string
+};

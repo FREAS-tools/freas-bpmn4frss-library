@@ -33,9 +33,16 @@ const Bpmn4FrssEditor = ({ cssClassNames }: Bpmn4FrssEditorProps) => {
   const container = useRef();
   // create a reference so mounting and unmounting happens only once
   const initializeLibrary = useRef(true);
+
   // create a state for the Bpmn4FrssWebEditor
   const [library, setLibrary] = useState<FrssModeler>();
   const downloadFile: MutableRefObject<undefined | string> = useRef();
+
+
+  // allow running resize
+  const resizer = () => {
+    library?.resize();
+  }
 
   // mounting the library only once
   useEffect(() => {
@@ -47,6 +54,7 @@ const Bpmn4FrssEditor = ({ cssClassNames }: Bpmn4FrssEditorProps) => {
     // clean up function (destructor)
     return () => {
       if (!initializeLibrary.current) {
+        window.removeEventListener('resize', resizer);
         library?.destroy();
       }
     };
@@ -55,6 +63,9 @@ const Bpmn4FrssEditor = ({ cssClassNames }: Bpmn4FrssEditorProps) => {
   // loading the default diagram on start
   useEffect(() => {
     library?.loadDefaultDiagram();
+
+    // add an event listener
+    window.addEventListener('resize', resizer);
   }, [library])
 
   const loadDiagramFromFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -119,10 +130,9 @@ const Bpmn4FrssEditor = ({ cssClassNames }: Bpmn4FrssEditorProps) => {
   }
 
   const tryMe = () => {
-    console.log(library.getDefinitions());
-    // console.log(library.get('frssMultipleDiagramProvider').getAssociatedEvidenceDiagram());
     // @ts-ignore
-    console.log(library.get('elementRegistry').getGraphics(library.get('canvas').getRootElement()));
+    // console.log(library.getDefinitions());
+    // console.log(library.get('canvas').getRootElements());
   }
 
   return (

@@ -10,9 +10,6 @@ import type { CreateActionHandler } from '../../types/controls/actionHandler';
 const markDataObjectAsEvidence: CreateActionHandler = (
   {
     bpmnFactory,
-    canvas,
-    elementFactory,
-    frssMultipleDiagramProvider,
     modeling,
   },
   elementProperties,
@@ -30,23 +27,6 @@ const markDataObjectAsEvidence: CreateActionHandler = (
     modeling.updateProperties(element, {
       dataObjectRef: dataObject,
     });
-
-    const evidenceDiagramHandle = frssMultipleDiagramProvider
-      .getAssociatedEvidenceDiagram();
-
-    const diDataObjectReference = elementFactory.createShape(
-      {
-        businessObject: element.businessObject,
-        x: element.x,
-        y: element.y,
-        width: element.width,
-        height: element.height,
-        parent: evidenceDiagramHandle.di,
-        id: element.businessObject.id + '_EvidenceView',
-      },
-    );
-
-    canvas.addShape(diDataObjectReference, evidenceDiagramHandle);
   };
 
   return action;
@@ -115,6 +95,7 @@ const controls: Controls = {
       },
       show: (element) => (
         is(element, 'bpmn:DataObjectReference')
+        && element.type !== 'label'
         && !isMarked(element)
       ),
     },
@@ -128,6 +109,7 @@ const controls: Controls = {
       },
       show: (element) => (
         is(element, 'bpmn:DataObjectReference')
+        && element.type !== 'label'
         && isMarked(element)
       ),
     },

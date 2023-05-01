@@ -5,7 +5,7 @@ import rendererEntry from './rendererEntry';
 // types
 import type { FrssElement } from '../../types';
 
-const produces: FrssElement = {
+const Produces: FrssElement = {
   definition,
   properties,
   rendererEntry,
@@ -14,4 +14,4 @@ const produces: FrssElement = {
 /**
  * The default export exports all properties of a custom element.
  */
-export default produces;
+export default Produces;

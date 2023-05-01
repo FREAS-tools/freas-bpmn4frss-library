@@ -50,7 +50,7 @@ export default class FrssDiagramSynchrozationProvider
     this.frssMultipleDiagramProvider = frssMultipleDiagramProvider;
     this.subprocessCompatibility = subprocessCompatibility;
 
-    eventBus.on('root.set', (event) => {
+    eventBus.on('root.set', (event: any) => {
       console.log(event);
     });
 

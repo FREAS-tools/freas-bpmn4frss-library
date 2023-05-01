@@ -4,6 +4,7 @@ import {
   newControlEntry,
   collectControlEntries,
 } from '../../types/controls/implementation';
+import type { FrssMultipleDiagramProvider } from '../diagram';
 
 /**
  * FRSS extension of the `bpmn-js` palette
@@ -11,9 +12,13 @@ import {
 export default class FrssPaletteProvider {
   bpmnFactory: any;
 
+  canvas: any;
+
   create: any;
 
   elementFactory: any;
+
+  frssMultipleDiagramProvider: FrssMultipleDiagramProvider;
 
   modeling: any;
 
@@ -21,8 +26,10 @@ export default class FrssPaletteProvider {
 
   static $inject: string[] = [
     'bpmnFactory',
+    'canvas',
     'create',
     'elementFactory',
+    'frssMultipleDiagramProvider',
     'modeling',
     'palette',
     'translate',
@@ -36,16 +43,20 @@ export default class FrssPaletteProvider {
    */
   constructor(
     bpmnFactory: any,
+    canvas: any,
     create: any,
     elementFactory: any,
+    frssMultipleDiagramProvider: any,
     modeling: any,
     palette: any,
     translate: (title: string) => string,
   ) {
     // save the parameters into the object
     this.bpmnFactory = bpmnFactory;
+    this.canvas = canvas;
     this.create = create;
     this.elementFactory = elementFactory;
+    this.frssMultipleDiagramProvider = frssMultipleDiagramProvider;
     this.modeling = modeling;
     this.translate = translate;
 

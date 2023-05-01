@@ -2,7 +2,7 @@ import {
   FrssMultipleDiagramProvider,
   FrssDiagramSynchrozationProvider,
 } from './extensions/diagram';
-import FrssDefinitions from './extensions/moddle/moddle';
+import FrssDefinitions from './extensions/moddle';
 import FrssModeProvider from './extensions/mode/mode';
 import FrssPadProvider from './extensions/pad/padProvider';
 import FrssPalette from './extensions/palette/palette';

@@ -3,6 +3,8 @@ import {
   hasRules,
   inPad,
   inPalette,
+  isFrssEnumerationElement,
+  isFrssSemanticElement,
   isRenderable,
 } from '../types';
 
@@ -28,9 +30,11 @@ import frssElements from './list';
 /* Import all types below */
 import type {
   FrssElementWithRules,
+  FrssEnumerationElement,
   FrssPadElement,
   FrssPaletteElement,
   FrssRenderable,
+  FrssSemanticElement,
 } from '../types';
 
 import type {
@@ -44,6 +48,17 @@ import type { HasCreationRule } from '../types/rules/creation';
 // These lists of elements (and rules) are created to allow type safety
 // and ease of implementing the providers / extensions
 // (without the need to write a lot of bloated code)
+
+/* All elements with definitions (semantic elements) */
+export const frssDefinitionElements: FrssSemanticElement[] = frssElements
+  .filter((element): element is FrssSemanticElement => (
+    isFrssSemanticElement(element)
+  ));
+
+export const frssEnumerationElements: FrssEnumerationElement[] = frssElements
+  .filter((element): element is FrssEnumerationElement => (
+    isFrssEnumerationElement(element)
+  ));
 
 /* All elements in the palette */
 export const frssPaletteElements: FrssPaletteElement[] = frssElements

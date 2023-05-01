@@ -4,6 +4,8 @@
 
 export const bpmn4frss = 'bpmn4frss';
 
+export type Bpmn4FrssPrefix = typeof bpmn4frss;
+
 export const bpmn4frssPrefix = `${bpmn4frss}:`;
 
 /**
