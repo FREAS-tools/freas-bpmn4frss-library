@@ -14,6 +14,13 @@ import IntegrityComputation from './FRTask/Computation/IntegrityComputation';
 import DataTransformation from './FRTask/DataTransformation';
 import PotentialEvidence from './PotentialEvidence';
 import Produces from './Produces';
+import Proof from './Proof';
+import HashProof from './Proof/HashProof';
+import TimestampProof from './Proof/TimestampProof';
+import BCTimestampFullProof from './Proof/TimestampProof/BCTimestampFullProof';
+import BCTimestampPartialProof
+  from './Proof/TimestampProof/BCTimestampPartialProof';
+import PKITimestampProof from './Proof/TimestampProof/PKITimestampProof';
 
 /*
  *
@@ -23,6 +30,8 @@ import Produces from './Produces';
 */
 const frssElements = [
   AuthenticityComputation,
+  BCTimestampFullProof,
+  BCTimestampPartialProof,
   Computation,
   Cooperativeness,
   DataTransformation,
@@ -31,9 +40,13 @@ const frssElements = [
   EvidenceDataObject,
   EvidenceSource,
   ForensicReadinessTask,
+  HashProof,
   IntegrityComputation,
+  PKITimestampProof,
   PotentialEvidence,
   Produces,
+  Proof,
+  TimestampProof,
 ] as const;
 
 export default frssElements;
