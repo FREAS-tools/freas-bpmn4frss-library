@@ -2,9 +2,9 @@ import definition from './definition';
 import properties from './properties';
 import type { FrssElement } from '../../../../types';
 
-const integrityComputation: FrssElement = {
+const IntegrityComputation: FrssElement = {
   definition,
   properties,
 };
 
-export default integrityComputation;
+export default IntegrityComputation;

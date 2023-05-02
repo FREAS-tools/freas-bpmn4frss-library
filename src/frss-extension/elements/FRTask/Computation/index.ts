@@ -3,9 +3,9 @@ import properties from './properties';
 
 import type { FrssElement } from '../../../types';
 
-const computation: FrssElement = {
+const Computation: FrssElement = {
   definition,
   properties,
 };
 
-export default computation;
+export default Computation;
