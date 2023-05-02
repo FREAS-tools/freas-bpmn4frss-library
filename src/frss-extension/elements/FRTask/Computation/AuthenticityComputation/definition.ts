@@ -1,14 +1,14 @@
 import computationProperties from '../properties';
-import properties from './properties';
+import authenticityComputationProperties from './properties';
 
 import type { FrssModdleDefinition } from '../../../../types/definitions';
 
-const { name } = properties;
+const { name } = authenticityComputationProperties;
 
-const definition: FrssModdleDefinition = {
+const authenticityComputationDefinition: FrssModdleDefinition = {
   name,
   properties: [],
   superClass: [computationProperties.identifier],
 };
 
-export default definition;
+export default authenticityComputationDefinition;

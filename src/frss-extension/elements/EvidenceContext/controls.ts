@@ -4,7 +4,7 @@ import {
   FrssCooperativeness,
   type FrssCooperativenessType,
 } from '../Cooperativeness/enumeration';
-import type { Controls, PadEntryData } from '../../types/controls';
+import type { FrssControls, PadEntryData } from '../../types/controls';
 
 const createCooperativenessControl = (): PadEntryData[] => FrssCooperativeness
   .map((cooperativenessMode) => {
@@ -45,7 +45,7 @@ const createCooperativenessControl = (): PadEntryData[] => FrssCooperativeness
     };
   });
 
-const controls: Controls = {
+const evidenceContextControls: FrssControls = {
   padEntries: [
     ...createCooperativenessControl(),
     {
@@ -67,10 +67,11 @@ const controls: Controls = {
         group: 'edit',
         key: 'set-cooperativeness.unset',
         className: 'set-cooperativeness set-cooperativeness--remove',
-        title: 'Unmark Pool as Evidence Context',
+        title: 'Unset EvidenceContext cooperativeness mode'
+               + ' (by default non-cooperative)',
       },
     },
   ],
 };
 
-export default controls;
+export default evidenceContextControls;

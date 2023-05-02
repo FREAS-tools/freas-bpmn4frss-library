@@ -4,10 +4,10 @@ import type { FrssProperties } from '../../../../types/properties';
 
 const name = 'IntegrityComputation';
 
-const properties: FrssProperties = {
+const integrityComputationProperties: FrssProperties = {
   name,
   identifier: createIdentifier(name),
   nameLowercase: 'integrity-computation',
 };
 
-export default properties;
+export default integrityComputationProperties;

@@ -13,12 +13,12 @@
  * ```
  */
 
-import properties from './properties';
+import potentialEvidenceProperties from './properties';
 
 // types
 import type { FrssModdleDefinition } from '../../types/definitions';
 
-const { name } = properties;
+const { name } = potentialEvidenceProperties;
 
 const potentialEvidenceDefinition: FrssModdleDefinition = {
   name,

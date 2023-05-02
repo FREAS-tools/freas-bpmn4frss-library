@@ -1,12 +1,12 @@
 // import the properties of another custom element, will use namely its name;
 import ProducesProperties from '../Produces/properties';
 // import own property, namely our name
-import properties from './properties';
+import evidenceSourceProperties from './properties';
 
 // types
 import type { FrssModdleDefinition } from '../../types/definitions';
 
-const { name } = properties;
+const { name } = evidenceSourceProperties;
 export const modelConnections = 'producesEvidences';
 
 /**

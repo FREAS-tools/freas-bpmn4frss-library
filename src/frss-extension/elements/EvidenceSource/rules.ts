@@ -3,13 +3,13 @@ import { is, isAny } from 'bpmn-js/lib/util/ModelUtil';
 import { FrssMode } from '../../extensions/mode/mode';
 
 import producesProperties from '../Produces/properties';
-import properties from './properties';
+import evidenceSourceProperties from './properties';
 
 // types
-import type { ElementRules } from '../../types/rules';
+import type { FrssElementRules } from '../../types/rules';
 import type { ShouldTriggerRuleFunction } from '../../types/rules/common';
 
-const evidenceSourceIdentifier = properties.identifier;
+const evidenceSourceIdentifier = evidenceSourceProperties.identifier;
 
 const checkAttachmentOrCreation: ShouldTriggerRuleFunction = (
   {
@@ -25,7 +25,7 @@ const attachableTo: string[] = [
   'bpmn:Task', 'bpmn:Event', 'bpmn:DataStoreReference',
 ];
 
-const rules: ElementRules = {
+const rules: FrssElementRules = {
   attachmentRule: ({ source, target }) => {
     // evidence source can attach to tasks, events, and data store references
     if (is(source, evidenceSourceIdentifier)) {
@@ -76,7 +76,7 @@ const rules: ElementRules = {
   },
 
   creationRule: ({ source, target, elementRegistry }) => {
-    if (!is(source, properties.identifier)) return false;
+    if (!is(source, evidenceSourceProperties.identifier)) return false;
 
     if (!isAny(target, attachableTo)) return false;
 
@@ -89,7 +89,7 @@ const rules: ElementRules = {
 
         // find element that is EvidenceSource and is already attached to
         // the desired target
-        return is(diagramElement, properties.identifier)
+        return is(diagramElement, evidenceSourceProperties.identifier)
         && diagramElement?.businessObject?.attachedToRef?.id === target.id;
       },
     );

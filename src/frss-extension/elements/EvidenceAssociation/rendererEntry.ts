@@ -43,10 +43,10 @@ const renderFunction: RenderFunction = (
   return evidenceAssociation;
 };
 
-const rendererEntry: RendererEntry = {
+const evidenceAssociationRendererEntry: RendererEntry = {
   renderFunction,
   shouldRender: (element) => is(element, properties.identifier),
   type: ElementRenderType.Connection,
 };
 
-export default rendererEntry;
+export default evidenceAssociationRendererEntry;

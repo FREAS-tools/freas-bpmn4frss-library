@@ -1,21 +1,21 @@
 import frTaskProperties from '../properties';
-import properties from './properties';
+import computationProperties from './properties';
 import type { FrssModdleDefinition } from '../../../types/definitions';
 
-const { name } = properties;
+const { name } = computationProperties;
 
-const definition: FrssModdleDefinition = {
+const computationDefinition: FrssModdleDefinition = {
   name,
   properties: [
     {
       name: 'input',
-      type: 'string',
+      type: 'bpmn:DataObject',
       isAttr: true,
       isReference: true,
     },
     {
       name: 'output',
-      type: 'string',
+      type: 'bpmn:DataObject',
       isAttr: true,
       isReference: true,
     },
@@ -23,4 +23,4 @@ const definition: FrssModdleDefinition = {
   superClass: [frTaskProperties.identifier],
 };
 
-export default definition;
+export default computationDefinition;

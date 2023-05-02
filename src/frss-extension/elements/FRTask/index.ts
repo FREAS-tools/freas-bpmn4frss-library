@@ -2,9 +2,9 @@ import definition from './definition';
 import properties from './properties';
 import type { FrssElement } from '../../types';
 
-const forensicReadinessTask: FrssElement = {
+const ForensicReadinessTask: FrssElement = {
   definition,
   properties,
 };
 
-export default forensicReadinessTask;
+export default ForensicReadinessTask;

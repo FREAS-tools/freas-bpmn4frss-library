@@ -1,14 +1,14 @@
-import type { Controls } from './controls';
+import type { FrssControls } from './controls';
 import type { FrssEnumeration, FrssModdleDefinition } from './definitions';
 import type { FrssProperties } from './properties';
 import type { RendererEntry } from './renderer';
-import type { ElementRules } from './rules';
+import type { FrssElementRules } from './rules';
 import type { PartiallyRequired } from './utility';
 
 type Submodules = {
-  controls: Controls,
+  controls: FrssControls,
   rendererEntry: RendererEntry,
-  rules: ElementRules,
+  rules: FrssElementRules,
 };
 
 export type FrssEnumerationElement = {
@@ -34,7 +34,7 @@ export type FrssElement = FrssEnumerationElement
 | FrssElementWithPotentialSubmodules;
 
 export type FrssPaletteElement = {
-  controls: PartiallyRequired<Controls, 'paletteCreateEntry'>,
+  controls: PartiallyRequired<FrssControls, 'paletteCreateEntry'>,
 } & FrssSemanticElement;
 
 export type FrssPadElement = PartiallyRequired<

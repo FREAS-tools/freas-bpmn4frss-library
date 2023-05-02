@@ -5,10 +5,10 @@ import type { FrssProperties } from '../../types/properties';
 
 const name = 'EvidenceDataObject';
 
-const properties: FrssProperties = {
+const evidenceDataObjectProperties: FrssProperties = {
   identifier: createIdentifier(name),
   name,
   nameLowercase: 'evidence-data-object',
 };
 
-export default properties;
+export default evidenceDataObjectProperties;

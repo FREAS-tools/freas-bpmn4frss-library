@@ -1,9 +1,9 @@
 import potentialEvidenceTypeProperties from '../PotentialEvidence/properties';
 
-import properties from './properties';
+import evidenceDataObjectProperties from './properties';
 import type { FrssModdleDefinition } from '../../types/definitions';
 
-const { name } = properties;
+const { name } = evidenceDataObjectProperties;
 const evidenceDataObjectDefinition: FrssModdleDefinition = {
   name,
   // the evidence data object extends the regular data object

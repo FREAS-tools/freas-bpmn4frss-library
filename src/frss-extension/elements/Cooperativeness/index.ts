@@ -1,10 +1,10 @@
-import enumeration from './enumeration';
+import enumerationDefinition from './enumeration';
 import properties from './properties';
 import type { FrssElement } from '../../types';
 
 const Cooperativeness: FrssElement = {
+  enumerationDefinition,
   properties,
-  enumerationDefinition: enumeration,
 };
 
 export default Cooperativeness;

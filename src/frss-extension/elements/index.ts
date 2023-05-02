@@ -38,7 +38,7 @@ import type {
 } from '../types';
 
 import type {
-  ElementRules,
+  FrssElementRules,
 } from '../types/rules';
 import type { HasAttachmentRule } from '../types/rules/attachment';
 import type { HasConnectionRule } from '../types/rules/connection';
@@ -89,7 +89,7 @@ export const frssElementsWithRules: FrssElementWithRules[] = frssElements
   .filter((element): element is FrssElementWithRules => hasRules(element));
 
 /* List of all element rules */
-export const frssElementRules: ElementRules[] = frssElementsWithRules
+export const frssElementRules: FrssElementRules[] = frssElementsWithRules
   .map((ruleElement) => ruleElement.rules);
 
 /* List of attachment rules */

@@ -9,7 +9,7 @@ import type {
 
 const name = 'EvidenceSource';
 
-const properties: CustomRenderableElementWithIconProperties = {
+const evidenceSourceProperties: CustomRenderableElementWithIconProperties = {
   icon,
   identifier: createIdentifier(name),
   name,
@@ -24,4 +24,4 @@ const properties: CustomRenderableElementWithIconProperties = {
   },
 };
 
-export default properties;
+export default evidenceSourceProperties;

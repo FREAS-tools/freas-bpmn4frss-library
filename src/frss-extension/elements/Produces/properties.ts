@@ -5,10 +5,10 @@ import type { FrssProperties } from '../../types/properties';
 
 const name = 'Produces';
 
-const properties: FrssProperties = {
+const producesProperties: FrssProperties = {
   identifier: createIdentifier(name),
   name,
   nameLowercase: 'produces',
 };
 
-export default properties;
+export default producesProperties;

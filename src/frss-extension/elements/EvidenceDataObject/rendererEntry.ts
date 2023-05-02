@@ -71,10 +71,10 @@ export const renderFunction: RenderFunction = (
   return potentialEvidence;
 };
 
-const rendererEntry: RendererEntry = {
+const evidenceDataObjectRendererEntry: RendererEntry = {
   renderFunction,
   shouldRender,
   type: ElementRenderType.Shape,
 };
 
-export default rendererEntry;
+export default evidenceDataObjectRendererEntry;

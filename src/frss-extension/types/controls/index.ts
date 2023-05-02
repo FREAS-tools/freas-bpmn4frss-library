@@ -21,7 +21,7 @@ export type PadEntryData = EntryData & {
   show: (element: any) => boolean;
 };
 
-export type Controls = {
+export type FrssControls = {
   /** List of data for (possibly various) pad entries */
   padEntries: PadEntryData[];
   /** Data for the palette "create" entry */

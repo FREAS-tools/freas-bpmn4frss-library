@@ -54,7 +54,7 @@ const renderFunction: RenderFunction = (
   return evidenceContext;
 };
 
-const rendererEntry: RendererEntry = {
+const evidenceContextRendererEntry: RendererEntry = {
   renderFunction,
   shouldRender: (
     element: CooperativenessPoolElement,
@@ -66,4 +66,4 @@ const rendererEntry: RendererEntry = {
   type: ElementRenderType.Shape,
 };
 
-export default rendererEntry;
+export default evidenceContextRendererEntry;

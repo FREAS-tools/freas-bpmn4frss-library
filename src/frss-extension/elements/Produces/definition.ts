@@ -4,12 +4,12 @@
 import evidenceSourceProperties
   from '../EvidenceSource/properties';
 
-import properties from './properties';
+import producesProperties from './properties';
 
 // types
 import type { FrssModdleDefinition } from '../../types/definitions';
 
-const { name } = properties;
+const { name } = producesProperties;
 
 const producesDefinition: FrssModdleDefinition = {
   name,

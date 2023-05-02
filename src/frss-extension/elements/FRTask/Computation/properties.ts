@@ -3,10 +3,10 @@ import type { FrssProperties } from '../../../types/properties';
 
 const name = 'Computation';
 
-const properties: FrssProperties = {
+const computationProperties: FrssProperties = {
   name,
   identifier: createIdentifier(name),
   nameLowercase: 'computation',
 };
 
-export default properties;
+export default computationProperties;

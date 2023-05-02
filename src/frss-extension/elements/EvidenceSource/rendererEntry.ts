@@ -20,7 +20,7 @@ import { ElementRenderType } from '../../types/renderer';
 // icon for potential evidence sources
 import EvidenceSourceIcon from './assets/evidence-source.png';
 
-import properties from './properties';
+import evidenceSourceProperties from './properties';
 
 // types
 import type {
@@ -28,7 +28,7 @@ import type {
   RenderFunction,
 } from '../../types/renderer';
 
-const { offset } = properties;
+const { offset } = evidenceSourceProperties;
 
 const renderFunction: RenderFunction = (
   { parentNode, element },
@@ -53,10 +53,10 @@ const renderFunction: RenderFunction = (
   return evidenceSource;
 };
 
-const rendererEntry: RendererEntry = {
+const evidenceSourceRendererEntry: RendererEntry = {
   renderFunction,
-  shouldRender: (element) => is(element, properties.identifier),
+  shouldRender: (element) => is(element, evidenceSourceProperties.identifier),
   type: ElementRenderType.Shape,
 };
 
-export default rendererEntry;
+export default evidenceSourceRendererEntry;

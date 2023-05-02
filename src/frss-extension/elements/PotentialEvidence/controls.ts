@@ -4,7 +4,7 @@ import { partitionArray } from '../../utility/partitionArray';
 import evidenceAssociationProperties from '../EvidenceAssociation/properties';
 import producesProperties from '../Produces/properties';
 
-import type { Controls } from '../../types/controls';
+import type { FrssControls } from '../../types/controls';
 import type { CreateActionHandler } from '../../types/controls/actionHandler';
 
 const markDataObjectAsEvidence: CreateActionHandler = (
@@ -83,7 +83,7 @@ const isMarked = (element: any): boolean => (
   element?.businessObject?.dataObjectRef?.isPotentialEvidence !== undefined
 );
 
-const controls: Controls = {
+const potentialEvidenceControls: FrssControls = {
   padEntries: [
     {
       makeActionHandler: markDataObjectAsEvidence,
@@ -116,4 +116,4 @@ const controls: Controls = {
   ],
 };
 
-export default controls;
+export default potentialEvidenceControls;

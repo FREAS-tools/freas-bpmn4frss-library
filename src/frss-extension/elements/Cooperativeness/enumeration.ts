@@ -13,17 +13,9 @@ export type FrssCooperativenessType = typeof FrssCooperativeness[number];
 
 const cooperativenessEnumeration: FrssEnumeration = {
   name,
-  literalNames: [
-    {
-      name: FrssCooperativeness[0],
-    },
-    {
-      name: FrssCooperativeness[1],
-    },
-    {
-      name: FrssCooperativeness[2],
-    },
-  ],
+  literalNames: FrssCooperativeness.map((cooperativeness) => ({
+    name: cooperativeness,
+  })),
 };
 
 export default cooperativenessEnumeration;

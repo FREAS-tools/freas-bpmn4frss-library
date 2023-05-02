@@ -1,19 +1,28 @@
-import properties from './properties';
+import frTaskProperties from './properties';
 import type { FrssModdleDefinition } from '../../types/definitions';
 
-const { name } = properties;
+const { name } = frTaskProperties;
 
-const definition: FrssModdleDefinition = {
+const frTaskDefinition: FrssModdleDefinition = {
   name,
   extends: ['bpmn:Task'],
   properties: [
     {
-      name: 'input',
+      name: 'isAuthenticityComputation',
       type: 'bpmn:BaseElement',
-      isAttr: true,
-      isReference: true,
+      isMany: false,
+    },
+    {
+      name: 'isIntegrityComputation',
+      type: 'bpmn:BaseElement',
+      isMany: false,
+    },
+    {
+      name: 'isDataTransformation',
+      type: 'bpmn:BaseElement',
+      isMany: false,
     },
   ],
 };
 
-export default definition;
+export default frTaskDefinition;

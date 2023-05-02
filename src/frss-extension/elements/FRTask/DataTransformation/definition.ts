@@ -1,10 +1,10 @@
 import frTaskProperties from '../properties';
-import properties from './properties';
+import dataTransformationProperties from './properties';
 import type { FrssModdleDefinition } from '../../../types/definitions';
 
-const { name } = properties;
+const { name } = dataTransformationProperties;
 
-const definition: FrssModdleDefinition = {
+const dataTransformationDefinition: FrssModdleDefinition = {
   name,
   properties: [
     {
@@ -29,4 +29,4 @@ const definition: FrssModdleDefinition = {
   superClass: [frTaskProperties.identifier],
 };
 
-export default definition;
+export default dataTransformationDefinition;

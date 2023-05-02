@@ -12,7 +12,7 @@ import {
 
 import { ElementRenderType } from '../../types/renderer';
 
-import properties from './properties';
+import producesProperties from './properties';
 
 // types
 import type {
@@ -40,10 +40,10 @@ const renderFunction: RenderFunction = (
   return produces;
 };
 
-const rendererEntry: RendererEntry = {
+const producesRendererEntry: RendererEntry = {
   renderFunction,
-  shouldRender: (element) => is(element, properties.identifier),
+  shouldRender: (element) => is(element, producesProperties.identifier),
   type: ElementRenderType.Connection,
 };
 
-export default rendererEntry;
+export default producesRendererEntry;
