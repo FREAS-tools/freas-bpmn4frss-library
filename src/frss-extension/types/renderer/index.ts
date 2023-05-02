@@ -14,7 +14,7 @@ export enum ElementRenderType {
   Shape = 'shape',
 }
 
-export type ElementRender = {
+export type RendererEntry = {
   renderFunction: RenderFunction,
   shouldRender: ShouldRender,
   type: ElementRenderType,

@@ -1,0 +1,36 @@
+.set-cooperativeness::before {
+    display: inline-block;
+    content: '';
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 0.25rem;
+    border-style: solid;
+    border-width: 0.125rem;
+}
+
+.set-cooperativeness--cooperative::before {
+    background-color: #2bc42b;
+    border-color: #004200;
+}
+
+.set-cooperativeness--semi-cooperative::before {
+    background-color: #fff673;
+    border-color: #b8ab00;
+}
+
+.set-cooperativeness--non-cooperative::before {
+    background-color: #ffb62d;
+    border-color: #754c00;
+}
+
+.set-cooperativeness--remove::before {
+    display: inline-block;
+    content: '';
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 0.25rem;
+    border-style: solid;
+    border-width: 0.125rem;
+    background-color: lightcoral;
+    border-color: red;
+  }

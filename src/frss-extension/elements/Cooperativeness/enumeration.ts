@@ -3,17 +3,25 @@ import type { FrssEnumeration } from '../../types/definitions';
 
 const { name } = properties;
 
+export const FrssCooperativeness = [
+  'Cooperative',
+  'SemiCooperative',
+  'NonCooperative',
+] as const;
+
+export type FrssCooperativenessType = typeof FrssCooperativeness[number];
+
 const cooperativenessEnumeration: FrssEnumeration = {
   name,
   literalNames: [
     {
-      name: 'Cooperative',
+      name: FrssCooperativeness[0],
     },
     {
-      name: 'NonCooperative',
+      name: FrssCooperativeness[1],
     },
     {
-      name: 'SemiCooperative',
+      name: FrssCooperativeness[2],
     },
   ],
 };

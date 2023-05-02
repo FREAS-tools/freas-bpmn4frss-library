@@ -16,7 +16,7 @@ import properties from './properties';
 
 // types
 import type {
-  ElementRender,
+  RendererEntry,
   RenderFunction,
 } from '../../types/renderer';
 
@@ -43,7 +43,7 @@ const renderFunction: RenderFunction = (
   return evidenceAssociation;
 };
 
-const rendererEntry: ElementRender = {
+const rendererEntry: RendererEntry = {
   renderFunction,
   shouldRender: (element) => is(element, properties.identifier),
   type: ElementRenderType.Connection,

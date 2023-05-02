@@ -1,6 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import CommandInterceptor from 'diagram-js/lib/command/CommandInterceptor';
-import FrssModeProvider, { FrssMode } from '../mode/mode';
+import FrssModeProvider, {
+// FrssMode,
+} from '../mode/mode';
 import type FrssMultipleDiagramProvider from './multipleDiagramProvider';
 import type FrssModeler from '../../../editor';
 
@@ -50,54 +52,54 @@ export default class FrssDiagramSynchrozationProvider
     this.frssMultipleDiagramProvider = frssMultipleDiagramProvider;
     this.subprocessCompatibility = subprocessCompatibility;
 
-    eventBus.on('root.set', (event: any) => {
-      console.log(event);
-    });
+    // eventBus.on('root.set', (event: any) => {
+    //   // console.log(event);
+    // });
 
-    this.preExecute('shape.create', 2000, (event) => {
-      switch (this.frssModeProvider.mode) {
-        case FrssMode.Normal: {
-          // console.log(
-          //   'Processing the normal mode synchronization event',
-          //   event,
-          // );
-          // console.log(event);
+    // this.preExecute('shape.create', 2000, (event) => {
+    //   switch (this.frssModeProvider.mode) {
+    //     case FrssMode.Normal: {
+    //       // console.log(
+    //       //   'Processing the normal mode synchronization event',
+    //       //   event,
+    //       // );
+    //       // console.log(event);
 
-          console.log(event);
-          break;
-        }
-        case FrssMode.EvidenceView: {
-          // console.log('Processing the evidence mode synchronization event');
-          break;
-        }
-        default: {
-          throw new Error(
-            'This mode is not supported by the FrssDiagramSynchronizer',
-          );
-        }
-      }
-    });
+    //       console.log(event);
+    //       break;
+    //     }
+    //     case FrssMode.EvidenceView: {
+    //       // console.log('Processing the evidence mode synchronization event');
+    //       break;
+    //     }
+    //     default: {
+    //       throw new Error(
+    //         'This mode is not supported by the FrssDiagramSynchronizer',
+    //       );
+    //     }
+    //   }
+    // });
 
-    this.preExecute('shape.delete', (event) => {
-      switch (this.frssModeProvider.mode) {
-        case FrssMode.Normal: {
-          // console.log(
-          //   'Processing the normal mode synchronization event',
-          //   event,
-          // );
-          // console.log(event);
-          break;
-        }
-        case FrssMode.EvidenceView: {
-          // console.log('Processing the evidence mode synchronization event');
-          break;
-        }
-        default: {
-          throw new Error(
-            'This mode is not supported by the FrssDiagramSynchronizer',
-          );
-        }
-      }
-    });
+    // this.preExecute('shape.delete', (event) => {
+    //   switch (this.frssModeProvider.mode) {
+    //     case FrssMode.Normal: {
+    //       // console.log(
+    //       //   'Processing the normal mode synchronization event',
+    //       //   event,
+    //       // );
+    //       // console.log(event);
+    //       break;
+    //     }
+    //     case FrssMode.EvidenceView: {
+    //       // console.log('Processing the evidence mode synchronization event');
+    //       break;
+    //     }
+    //     default: {
+    //       throw new Error(
+    //         'This mode is not supported by the FrssDiagramSynchronizer',
+    //       );
+    //     }
+    //   }
+    // });
   }
 }

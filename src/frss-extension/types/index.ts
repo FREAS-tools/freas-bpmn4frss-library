@@ -1,13 +1,13 @@
 import type { Controls } from './controls';
 import type { FrssEnumeration, FrssModdleDefinition } from './definitions';
 import type { FrssProperties } from './properties';
-import type { ElementRender } from './renderer';
+import type { RendererEntry } from './renderer';
 import type { ElementRules } from './rules';
 import type { PartiallyRequired } from './utility';
 
 type Submodules = {
   controls: Controls,
-  rendererEntry: ElementRender,
+  rendererEntry: RendererEntry,
   rules: ElementRules,
 };
 

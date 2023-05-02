@@ -6,10 +6,10 @@ const { name } = properties;
 
 const evidenceContextDefinition: FrssModdleDefinition = {
   name,
-  extends: ['bpmn:Pool'],
+  extends: ['bpmn:Participant'],
   properties: [
     {
-      name: 'Cooperativeness',
+      name: 'cooperativeness',
       type: cooperativenessProperties.identifier,
       isMany: false,
       isAttr: true,

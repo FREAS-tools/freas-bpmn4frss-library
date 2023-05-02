@@ -97,7 +97,6 @@ const addNormalDiagramState = (
   diagramPlaneElement: any,
   currentRootElementId: string,
 ) => {
-  console.log(diagramPlaneElement);
   if (diagramPlaneElement.bpmnElement.id === currentRootElementId) return;
 
   const newRootElement = elementFactory.createRoot({
@@ -115,8 +114,6 @@ const addNormalDiagramState = (
     frssDiagrams: [],
     type: 'normal',
   };
-
-  console.log(state);
 
   diagramStateHandler.set(newRootElement.id, state);
 };
