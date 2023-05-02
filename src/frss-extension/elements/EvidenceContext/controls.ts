@@ -29,12 +29,11 @@ const createCooperativenessControl = (): PadEntryData[] => FrssCooperativeness
         return action;
       },
       props: {
-        group: 'cooperativeness2',
+        group: 'cooperativeness',
         className: (
-          'set-cooperativeness'
-          + ` set-cooperativeness--${modifier}`
+          `mark-as mark-as--pool-${modifier}`
         ),
-        key: `set-cooperativeness-as.${modifier}`,
+        key: `mark-pool-as.${modifier}`,
         title: `Set Pool's Evidence Context to a ${cooperativenessMode} mode.`,
       },
       show: (element) => (
@@ -65,8 +64,8 @@ const evidenceContextControls: FrssControls = {
       },
       props: {
         group: 'edit',
-        key: 'set-cooperativeness.unset',
-        className: 'set-cooperativeness set-cooperativeness--remove',
+        key: 'unmark-pool-cooperativeness',
+        className: 'unmark',
         title: 'Unset EvidenceContext cooperativeness mode'
                + ' (by default non-cooperative)',
       },

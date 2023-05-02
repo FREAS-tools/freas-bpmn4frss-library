@@ -9,7 +9,10 @@ import "bpmn-js/dist/assets/bpmn-font/css/bpmn-codes.css";
 import "bpmn-js/dist/assets/bpmn-font/css/bpmn.css";
 import "bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css";
 import "bpmn-js-color-picker/colors/color-picker.css";
-import "../../src/frss-extension/assets/bpmn4frss.css";
+
+
+import "../../src/frss-extension/elements/assets/bpmn4frss.css";
+
 
 export interface Bpmn4FrssEditorProps {
   cssClassNames: {
@@ -173,18 +176,6 @@ const Bpmn4FrssEditor = ({ cssClassNames }: Bpmn4FrssEditorProps) => {
           onClick={tryMe}
         >
           Try me
-        </button>
-        <button
-          className={cssClassNames.controls.loadButtonCssClass}
-          onClick={() => library?.setNormalMode()}
-        >
-          Set normal mode
-        </button>
-        <button
-          className={cssClassNames.controls.loadButtonCssClass}
-          onClick={() => library?.setEvidenceViewMode()}
-        >
-          Set evidence view mode
         </button>
       </div>
     </div>

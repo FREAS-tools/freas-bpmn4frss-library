@@ -1,3 +1,8 @@
+import authenticityComputationProperties
+  from './Computation/AuthenticityComputation/properties';
+import integrityComputationProperties
+  from './Computation/IntegrityComputation/properties';
+import dataTransformationProperties from './DataTransformation/properties';
 import frTaskProperties from './properties';
 import type { FrssModdleDefinition } from '../../types/definitions';
 
@@ -9,17 +14,17 @@ const frTaskDefinition: FrssModdleDefinition = {
   properties: [
     {
       name: 'isAuthenticityComputation',
-      type: 'bpmn:BaseElement',
+      type: authenticityComputationProperties.identifier,
       isMany: false,
     },
     {
       name: 'isIntegrityComputation',
-      type: 'bpmn:BaseElement',
+      type: integrityComputationProperties.identifier,
       isMany: false,
     },
     {
       name: 'isDataTransformation',
-      type: 'bpmn:BaseElement',
+      type: dataTransformationProperties.identifier,
       isMany: false,
     },
   ],

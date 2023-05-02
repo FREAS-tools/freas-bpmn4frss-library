@@ -61,7 +61,10 @@ export {
   FrssDefinitions as Bpmn4FrssDefinitions,
   FrssRenderer as Bpmn4FrssRenderer,
   FrssPaletteProvider as Bpmn4FrssPaletteProvider,
+  FrssPalette as Bpmn4FrssPalette,
   FrssPadProvider as Bpmn4FrssPadProvider,
   FrssRuleProvider as Bpmn4FrssRuleProvider,
   FrssRules as Bpmn4FrssRules,
+  FrssMultipleDiagramProvider as Bpmn4FrssMultipleDiagramProvider,
+  FrssDiagramSynchrozationProvider as Bpmn4FrssDiagramSynchronizationProvider,
 };

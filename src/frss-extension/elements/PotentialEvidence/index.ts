@@ -1,5 +1,3 @@
-// element module
-import controls from './controls';
 import definition from './definition';
 import properties from './properties';
 
@@ -7,7 +5,6 @@ import properties from './properties';
 import type { FrssElement } from '../../types';
 
 const PotentialEvidence: FrssElement = {
-  controls,
   definition,
   properties,
 };

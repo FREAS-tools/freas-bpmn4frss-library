@@ -6,7 +6,7 @@ const name = 'DataTransformation';
 const dataTransformationProperties: FrssProperties = {
   name,
   identifier: `${bpmn4frssPrefix}${name}`,
-  nameLowercase: 'transformation',
+  nameLowercase: 'data-transformation',
 };
 
 export default dataTransformationProperties;

@@ -1,4 +1,3 @@
-import frTaskProperties from '../properties';
 import dataTransformationProperties from './properties';
 import type { FrssModdleDefinition } from '../../../types/definitions';
 
@@ -26,7 +25,7 @@ const dataTransformationDefinition: FrssModdleDefinition = {
       isReference: true,
     },
   ],
-  superClass: [frTaskProperties.identifier],
+  superClass: ['bpmn:BaseElement'],
 };
 
 export default dataTransformationDefinition;

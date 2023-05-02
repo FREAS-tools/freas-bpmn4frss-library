@@ -9,16 +9,12 @@ import ColorPickerModule from 'bpmn-js-color-picker';
 import frssExtension from '../frss-extension';
 
 // default diagram
-import FrssMultipleDiagramProvider
-  from '../frss-extension/extensions/diagram/multipleDiagramProvider';
 import defaultDiagram from './default-diagram';
 
 // types
 import type { BaseViewerOptions } from 'bpmn-js/lib/BaseViewer';
 
 export default class FrssModeler extends Modeler {
-  private multipleDiagramProvider: FrssMultipleDiagramProvider;
-
   constructor(options?: BaseViewerOptions) {
     super({
       ...options,
@@ -32,26 +28,14 @@ export default class FrssModeler extends Modeler {
         ColorPickerModule,
       ]),
     });
-
-    this.multipleDiagramProvider = this.get('frssMultipleDiagramProvider');
-  }
-
-  setNormalMode() {
-    this.multipleDiagramProvider.switchToNormalDiagram();
-  }
-
-  setEvidenceViewMode() {
-    this.multipleDiagramProvider.switchToEvidenceDiagram();
   }
 
   async loadDiagram(diagram: string) {
     await super.importXML(diagram);
-    this.multipleDiagramProvider.reset();
   }
 
   async loadDefaultDiagram() {
     await super.importXML(defaultDiagram);
-    this.multipleDiagramProvider.reset();
   }
 
   resize() {

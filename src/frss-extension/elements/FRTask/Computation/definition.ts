@@ -1,4 +1,3 @@
-import frTaskProperties from '../properties';
 import computationProperties from './properties';
 import type { FrssModdleDefinition } from '../../../types/definitions';
 
@@ -20,7 +19,7 @@ const computationDefinition: FrssModdleDefinition = {
       isReference: true,
     },
   ],
-  superClass: [frTaskProperties.identifier],
+  superClass: ['bpmn:BaseElement'],
 };
 
 export default computationDefinition;
