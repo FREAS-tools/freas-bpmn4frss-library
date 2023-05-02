@@ -9,17 +9,17 @@
 }
 
 .set-cooperativeness--cooperative::before {
-    background-color: #2bc42b;
+    background-color: #40ff40;
     border-color: #004200;
 }
 
 .set-cooperativeness--semi-cooperative::before {
-    background-color: #fff673;
-    border-color: #b8ab00;
+    background-color: #fff01e;
+    border-color: #776f00;
 }
 
 .set-cooperativeness--non-cooperative::before {
-    background-color: #ffb62d;
+    background-color: #ffbd42;
     border-color: #754c00;
 }
 
