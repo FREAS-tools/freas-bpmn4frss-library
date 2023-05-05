@@ -1,13 +1,15 @@
 import type { FrssControls } from './controls';
 import type { FrssEnumeration, FrssModdleDefinition } from './definitions';
+import type { FrssEvents } from './events';
 import type { FrssProperties } from './properties';
-import type { RendererEntry } from './renderer';
+import type { RendererEntry as FrssRendererEntry } from './renderer';
 import type { FrssElementRules } from './rules';
 import type { PartiallyRequired } from './utility';
 
 type Submodules = {
   controls: FrssControls,
-  rendererEntry: RendererEntry,
+  events: FrssEvents,
+  rendererEntry: FrssRendererEntry,
   rules: FrssElementRules,
 };
 
@@ -45,6 +47,9 @@ FrssElementWithPotentialSubmodules, 'rendererEntry'>;
 
 export type FrssElementWithRules = PartiallyRequired<
 FrssElementWithPotentialSubmodules, 'rules'>;
+
+export type FrssElementWithEvents = PartiallyRequired<
+FrssElementWithPotentialSubmodules, 'events'>;
 
 export const isFrssSemanticElement = (
   element: FrssElement,
@@ -108,4 +113,13 @@ export const hasRules = (
 
   return isFrssSemanticElement(element)
     && checkElement.rules !== undefined;
+};
+
+export const hasEvents = (
+  element: FrssElement,
+): element is FrssElementWithEvents => {
+  const checkElement = element as FrssElementWithEvents;
+
+  return isFrssSemanticElement(element)
+  && checkElement.events !== undefined;
 };

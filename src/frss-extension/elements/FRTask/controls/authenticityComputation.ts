@@ -15,8 +15,12 @@ const markAuthenticityComputation: CreateActionHandler = (
 ) => (
   (_event, element) => {
     const { businessObject } = element;
+    const ioAssociations = elementHasCorrectInputOutputAssociations(element);
 
-    if (businessObject.isAuthenticityComputation !== undefined) return;
+    if (
+      businessObject.isAuthenticityComputation !== undefined
+      || ioAssociations === undefined
+    ) return;
 
     // create a new `AuthenticityComputation` object
     const authenticityComputation = bpmnFactory.create(
@@ -37,8 +41,12 @@ const unmarkAuthenticityComputation: CreateActionHandler = (
 ) => (
   (_event, element) => {
     const { businessObject } = element;
+    const ioAssociations = elementHasCorrectInputOutputAssociations(element);
 
-    if (businessObject.isAuthenticityComputation === undefined) return;
+    if (
+      businessObject.isAuthenticityComputation === undefined
+      || ioAssociations === undefined
+    ) return;
 
     modeling.removeElements(businessObject.isAuthenticityComputation);
     delete businessObject.isAuthenticityComputation;
@@ -59,7 +67,6 @@ const authenticityComputationControls: PadEntryData[] = [
   {
     show: (element) => (
       is(element, frTaskProperties.identifier)
-      && elementHasCorrectInputOutputAssociations(element)
       && !elementIsMarkedAsAuthenticityComputation(element)
     ),
     makeActionHandler: markAuthenticityComputation,
@@ -76,7 +83,6 @@ const authenticityComputationControls: PadEntryData[] = [
   {
     show: (element) => (
       is(element, frTaskProperties.identifier)
-      && elementHasCorrectInputOutputAssociations(element)
       && elementIsMarkedAsAuthenticityComputation(element)
     ),
     makeActionHandler: unmarkAuthenticityComputation,

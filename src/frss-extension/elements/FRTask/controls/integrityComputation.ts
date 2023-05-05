@@ -15,8 +15,12 @@ const markIntegrityComputation: CreateActionHandler = (
 ) => (
   (_event, element) => {
     const { businessObject } = element;
+    const ioAssociations = elementHasCorrectInputOutputAssociations(element);
 
-    if (businessObject.isIntegrityComputation !== undefined) return;
+    if (
+      businessObject.isIntegrityComputation !== undefined
+      || ioAssociations === undefined
+    ) return;
 
     // create a new `IntegrityComputation` object
     const integrityComputation = bpmnFactory.create(
@@ -37,8 +41,12 @@ const unmarkIntegrityComputation: CreateActionHandler = (
 ) => (
   (_event, element) => {
     const { businessObject } = element;
+    const ioAssociations = elementHasCorrectInputOutputAssociations(element);
 
-    if (businessObject.isIntegrityComputation === undefined) return;
+    if (
+      businessObject.isIntegrityComputation === undefined
+      || ioAssociations === undefined
+    ) return;
 
     modeling.removeElements(businessObject.isIntegrityComputation);
     delete businessObject.isIntegrityComputation;
@@ -59,7 +67,6 @@ const integrityComputationControls: PadEntryData[] = [
   {
     show: (element) => (
       is(element, frTaskProperties.identifier)
-      && elementHasCorrectInputOutputAssociations(element)
       && !elementIsMarkedAsIntegrityComputation(element)
     ),
     makeActionHandler: markIntegrityComputation,
@@ -76,7 +83,6 @@ const integrityComputationControls: PadEntryData[] = [
   {
     show: (element) => (
       is(element, frTaskProperties.identifier)
-      && elementHasCorrectInputOutputAssociations(element)
       && elementIsMarkedAsIntegrityComputation(element)
     ),
     makeActionHandler: unmarkIntegrityComputation,

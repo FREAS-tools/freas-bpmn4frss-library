@@ -1,5 +1,6 @@
 /* import type guards */
 import {
+  hasEvents,
   hasRules,
   inPad,
   inPalette,
@@ -9,6 +10,7 @@ import {
 } from '../types';
 
 /* import render type enumeration */
+import { hasDeletionEvent, type DeletionEvent, type HasDeletionEvent } from '../types/events/deletion';
 import { ElementRenderType } from '../types/renderer';
 
 /* import rule type guards */
@@ -29,6 +31,7 @@ import frssElements from './list';
 
 /* Import all types below */
 import type {
+  FrssElementWithEvents,
   FrssElementWithRules,
   FrssEnumerationElement,
   FrssPadElement,
@@ -37,6 +40,7 @@ import type {
   FrssSemanticElement,
 } from '../types';
 
+import type { FrssEvents } from '../types/events';
 import type {
   FrssElementRules,
 } from '../types/rules';
@@ -109,5 +113,19 @@ export const creationRules = frssElementRules
   .filter((rule): rule is HasCreationRule => (
     hasCreationRule(rule)
   ));
+
+/* All elements with events */
+export const frssElementsWithEvents: FrssElementWithEvents[] = frssElements
+  .filter((element): element is FrssElementWithEvents => hasEvents(element));
+
+/* List of all element events */
+export const frssEvents: FrssEvents[] = frssElementsWithEvents.map(
+  (eventElement) => eventElement.events,
+);
+
+/* List of all elements that have deletion events */
+export const deletionEvents: DeletionEvent[] = frssEvents.filter(
+  (event): event is HasDeletionEvent => hasDeletionEvent(event),
+).flatMap((event) => event.deletionEvents);
 
 export default frssElements;

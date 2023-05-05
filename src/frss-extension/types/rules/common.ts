@@ -18,8 +18,7 @@ export type ShouldTriggerRuleFunction = (
 ) => boolean;
 
 export type RuleFunction<T> = (
-  context: RuleFunctionContextBase & RuleFunctionContextMode
-  & RuleFunctionRegistryContext & {
+  context: RuleFunctionWrapperContext & {
     identityId?: string,
   },
 ) => T;

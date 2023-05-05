@@ -14,8 +14,12 @@ const markDataTransformation: CreateActionHandler = (
 ) => (
   (_event, element) => {
     const { businessObject } = element;
+    const ioAssociations = elementHasCorrectInputOutputAssociations(element);
 
-    if (businessObject.isDataTransformation !== undefined) return;
+    if (
+      businessObject.isDataTransformation !== undefined
+      || ioAssociations === undefined
+    ) return;
 
     // create a new `DataTransformation` object
     const dataTransformation = bpmnFactory.create(
@@ -36,8 +40,12 @@ const unmarkDataTransformation: CreateActionHandler = (
 ) => (
   (_event, element) => {
     const { businessObject } = element;
+    const ioAssociations = elementHasCorrectInputOutputAssociations(element);
 
-    if (businessObject.isDataTransformation === undefined) return;
+    if (
+      businessObject.isDataTransformation === undefined
+      || ioAssociations === undefined
+    ) return;
 
     modeling.removeElements(businessObject.isDataTransformation);
     delete businessObject.isDataTransformation;
@@ -58,7 +66,6 @@ const dataTransformationControls: PadEntryData[] = [
   {
     show: (element) => (
       is(element, frTaskProperties.identifier)
-      && elementHasCorrectInputOutputAssociations(element)
       && !elementIsMarkedAsDataTransformation(element)
     ),
     makeActionHandler: markDataTransformation,
@@ -75,7 +82,6 @@ const dataTransformationControls: PadEntryData[] = [
   {
     show: (element) => (
       is(element, frTaskProperties.identifier)
-      && elementHasCorrectInputOutputAssociations(element)
       && elementIsMarkedAsDataTransformation(element)
     ),
     makeActionHandler: unmarkDataTransformation,

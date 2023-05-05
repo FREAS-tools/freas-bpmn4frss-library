@@ -7,7 +7,6 @@ import { is } from 'bpmn-js/lib/util/ModelUtil';
 // rendering tools from tiny-svg
 import {
   attr as attributesSvg,
-  append as appendSvg,
 } from 'tiny-svg';
 
 import { ElementRenderType } from '../../types/renderer';
@@ -38,8 +37,6 @@ const renderFunction: RenderFunction = (
   // set the attributes
   attributesSvg(evidenceAssociation, attributes);
 
-  // append the svg
-  appendSvg(parentNode, evidenceAssociation);
   return evidenceAssociation;
 };
 

@@ -27,8 +27,15 @@ const elementHasCorrectInputOutputAssociations = (element: any) => {
     ),
   );
 
-  return hasIncomingDataInputAssociation !== undefined
-    && hasOutGoingDataOutputAssociation !== undefined;
+  if (hasIncomingDataInputAssociation !== undefined
+    && hasOutGoingDataOutputAssociation !== undefined) {
+    return {
+      input: hasIncomingDataInputAssociation.source,
+      output: hasOutGoingDataOutputAssociation.target,
+    };
+  }
+
+  return undefined;
 };
 
 export default elementHasCorrectInputOutputAssociations;
