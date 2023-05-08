@@ -7,7 +7,7 @@
  */
 
 // utility functions for determining the element type
-// @ts-expect-error
+// @ts-ignore
 import { is } from 'bpmn-js/lib/util/ModelUtil';
 
 // rendering tools from tiny-svg

@@ -1,4 +1,4 @@
-// @ts-expect-error
+// @ts-ignore
 import { is } from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
 import authenticityComputationProperties
   from '../Computation/AuthenticityComputation/properties';

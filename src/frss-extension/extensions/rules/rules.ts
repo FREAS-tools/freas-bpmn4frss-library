@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-// @ts-expect-error
+// @ts-ignore
 import BpmnRules from 'bpmn-js/lib/features/rules/BpmnRules';
 
 // checking reconnection

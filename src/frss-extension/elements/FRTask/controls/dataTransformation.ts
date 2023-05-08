@@ -1,4 +1,4 @@
-// @ts-expect-error
+// @ts-ignore
 import { is } from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
 import dataTransformationProperties from '../DataTransformation/properties';
 import frTaskProperties from '../properties';

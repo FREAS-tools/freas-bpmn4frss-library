@@ -4,7 +4,7 @@
   "description": "BPMN4FRSS Web editor library (based on bpmn-js library)",
   "scripts": {
     "build": "tsc --project ./tsconfig.json",
-    "test": "jest -i",
+    "test": "vitest -i",
     "watch": "tsc --project ./tsconfig.json --watch"
   },
   "keywords": [
@@ -27,6 +27,7 @@
   "dependencies": {
     "bpmn-js": "^12.1.1",
     "bpmn-js-color-picker": "^0.5.0",
+    "bpmn-js-properties-panel": "^1.22.1",
     "nanoid": "^4.0.2"
   },
   "devDependencies": {

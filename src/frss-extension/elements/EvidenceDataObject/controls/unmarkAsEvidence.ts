@@ -1,4 +1,4 @@
-// @ts-expect-error
+// @ts-ignore
 import { is, isAny } from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
 
 import { partitionArray } from '../../../utility/partitionArray';

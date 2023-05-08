@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-// @ts-expect-error
+// @ts-ignore
 // eslint-disable-next-line import/no-extraneous-dependencies
 import RuleProvider from 'diagram-js/lib/features/rules/RuleProvider';
 // the FRSS priority for the injector

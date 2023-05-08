@@ -1,7 +1,7 @@
 import React, { MutableRefObject, useEffect, useRef, useState } from "react";
 import FrssModeler from "../../src/editor";
 
-// import all necessary css
+// import all necessary bpmn-js & extensions CSS
 import "diagram-js/assets/diagram-js.css";
 import "bpmn-js/dist/assets/bpmn-js.css";
 import "bpmn-js/dist/assets/diagram-js.css";
@@ -9,21 +9,11 @@ import "bpmn-js/dist/assets/bpmn-font/css/bpmn-codes.css";
 import "bpmn-js/dist/assets/bpmn-font/css/bpmn.css";
 import "bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css";
 import "bpmn-js-color-picker/colors/color-picker.css";
+import "bpmn-js-properties-panel/dist/assets/properties-panel.css"
+import "bpmn-js-properties-panel/dist/assets/element-templates.css"
 
-
+// import the freas-bpmn4frss-library CSS
 import "../../src/frss-extension/elements/assets/bpmn4frss.css";
-
-
-export interface Bpmn4FrssEditorProps {
-  cssClassNames: {
-    containerCssClass: string;
-    libraryCssClass: string;
-    controls: {
-      container: string,
-      loadButtonCssClass: string;
-    };
-  };
-}
 
 /**
  * Component encapsulating the bpmn4frss js library
@@ -31,9 +21,13 @@ export interface Bpmn4FrssEditorProps {
  * @param {Bpmn4FrssEditorProps} props - props for the
  * @returns JSX (TSX) element
  */
-const Bpmn4FrssEditor = ({ cssClassNames }: Bpmn4FrssEditorProps) => {
+const Bpmn4FrssEditor = () => {
   // create a reference to mount the library to the rendered element
   const container = useRef();
+
+  // create a reference to mount the properties panel
+  const propertiesContainer = useRef();
+
   // create a reference so mounting and unmounting happens only once
   const initializeLibrary = useRef(true);
 
@@ -50,7 +44,7 @@ const Bpmn4FrssEditor = ({ cssClassNames }: Bpmn4FrssEditorProps) => {
   // mounting the library only once
   useEffect(() => {
     if (initializeLibrary.current) {
-      setLibrary(new FrssModeler({ container: container.current }));
+      setLibrary(new FrssModeler({ container: container.current, propertiesPanel: { parent: propertiesContainer.current } }));
       initializeLibrary.current = false;
     }
 
@@ -139,45 +133,50 @@ const Bpmn4FrssEditor = ({ cssClassNames }: Bpmn4FrssEditorProps) => {
   }
 
   return (
-    <div className={cssClassNames.containerCssClass}>
+    <div className="bpmn4frss">
       {/* Bpmn4Frss typescript library */}
-      <div ref={container} className={cssClassNames.libraryCssClass}></div>
-      <div className={cssClassNames.controls.container}>
-        <div>
-          <label className={`clickable ${cssClassNames.controls.loadButtonCssClass}`} htmlFor="diagram-file-input">Load diagram from file</label>
-          <input
-            className="clickable input"
-            id="diagram-file-input"
-            type="file"
-            onInput={loadDiagramFromFile}
-          />
-        </div>
+      <div className="editor-container">
+        <div ref={container} className="editor"></div>
+        <div className="button-container">
+          <div className="input-container button clickable">
+            <label htmlFor="diagram-file-input">
+              Load diagram from file
+            </label>
+            <input
+              className="clickable input"
+              id="diagram-file-input"
+              type="file"
+              onInput={loadDiagramFromFile}
+            />
+          </div>
 
-        <button
-          className={cssClassNames.controls.loadButtonCssClass}
-          onClick={() => library?.loadDefaultDiagram()}
-        >
-          Load default diagram
-        </button>
-        <button
-          className={cssClassNames.controls.loadButtonCssClass}
-          onClick={downloadDiagramAsXML}
-        >
-          Download diagram (.bpmn)
-        </button>
-        <button
-          className={cssClassNames.controls.loadButtonCssClass}
-          onClick={downloadDiagramAsSvg}
-        >
-          Download diagram (.svg)
-        </button>
-        <button
-          className={cssClassNames.controls.loadButtonCssClass}
-          onClick={tryMe}
-        >
-          Try me
-        </button>
+          <button
+            className="button clickable"
+            onClick={() => library?.loadDefaultDiagram()}
+          >
+            Load default diagram
+          </button>
+          <button
+            className="button clickable"
+            onClick={downloadDiagramAsXML}
+          >
+            Download diagram (.bpmn)
+          </button>
+          <button
+            className="button clickable"
+            onClick={downloadDiagramAsSvg}
+          >
+            Download diagram (.svg)
+          </button>
+          <button
+            className="button clickable"
+            onClick={tryMe}
+          >
+            Try me
+          </button>
+        </div>
       </div>
+      <div ref={propertiesContainer} className="properties"></div>
     </div>
   );
 };

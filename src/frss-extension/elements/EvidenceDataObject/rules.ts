@@ -1,4 +1,4 @@
-// @ts-expect-error
+// @ts-ignore
 import { is } from 'bpmn-js/lib/util/ModelUtil';
 
 import { FrssMode } from '../../extensions/mode/mode';

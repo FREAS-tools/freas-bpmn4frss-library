@@ -2,8 +2,14 @@
 import Modeler from 'bpmn-js/lib/Modeler';
 
 // Color picker module
-// @ts-expect-error
+// @ts-ignore
 import ColorPickerModule from 'bpmn-js-color-picker';
+
+import {
+  BpmnPropertiesPanelModule,
+  BpmnPropertiesProviderModule,
+  // @ts-ignore
+} from 'bpmn-js-properties-panel';
 
 // FRSS extension
 import frssExtension from '../frss-extension';
@@ -26,6 +32,8 @@ export default class FrssModeler extends Modeler {
       additionalModules: (options?.additionalModules ?? []).concat([
         frssExtension,
         ColorPickerModule,
+        BpmnPropertiesPanelModule,
+        BpmnPropertiesProviderModule,
       ]),
     });
   }

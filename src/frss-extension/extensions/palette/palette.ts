@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-// @ts-expect-error
+// @ts-ignore
 import Palette from 'diagram-js/lib/features/palette/Palette';
 import { FrssMode } from '../mode/mode';
 import type FrssModeProvider from '../mode/mode';
