@@ -1,7 +1,7 @@
 // @ts-ignore
 import { is } from 'bpmn-js/lib/util/ModelUtil';
 
-import { FrssMode } from '../../extensions/mode/mode';
+import { FrssMode } from '../../services/mode/mode';
 import evidenceAssociationProperties from '../EvidenceAssociation/properties';
 import type { FrssElementRules } from '../../types/rules';
 

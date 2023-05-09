@@ -1,4 +1,4 @@
-import type { FrssMode } from '../../extensions/mode/mode';
+import type { FrssMode } from '../../services/mode/mode';
 
 type RuleFunctionContextBase = {
   source: any,

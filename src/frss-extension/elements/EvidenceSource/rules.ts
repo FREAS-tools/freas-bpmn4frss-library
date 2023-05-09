@@ -1,6 +1,6 @@
 // @ts-ignore
 import { is, isAny } from 'bpmn-js/lib/util/ModelUtil';
-import { FrssMode } from '../../extensions/mode/mode';
+import { FrssMode } from '../../services/mode/mode';
 
 import producesProperties from '../Produces/properties';
 import evidenceSourceProperties from './properties';

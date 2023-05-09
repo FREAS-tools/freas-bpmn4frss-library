@@ -1,5 +1,5 @@
 import type FrssModeler from '../../../editor';
-import type FrssModeProvider from '../../extensions/mode/mode';
+import type FrssModeProvider from '../../services/mode/mode';
 
 /**
  * Diagram state handler (a HashMap keeping the state)

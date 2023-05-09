@@ -1,15 +1,15 @@
 import {
   FrssMultipleDiagramProvider,
   FrssDiagramSynchrozationProvider,
-} from './extensions/diagram';
-import FrssDefinitions from './extensions/moddle';
-import FrssModeProvider from './extensions/mode/mode';
-import FrssPadProvider from './extensions/pad/padProvider';
-import FrssPalette from './extensions/palette/palette';
-import FrssPaletteProvider from './extensions/palette/paletteProvider';
-import FrssRenderer from './extensions/renderer/renderer';
-import FrssRuleProvider from './extensions/rules/ruleProvider';
-import FrssRules from './extensions/rules/rules';
+} from './services/diagram';
+import FrssDefinitions from './services/moddle';
+import FrssModeProvider from './services/mode/mode';
+import FrssPadProvider from './services/pad/padProvider';
+import FrssPalette from './services/palette/palette';
+import FrssPaletteProvider from './services/palette/paletteProvider';
+import FrssRenderer from './services/renderer/renderer';
+import FrssRuleProvider from './services/rules/ruleProvider';
+import FrssRules from './services/rules/rules';
 
 /**
  * FRSS extension for `bpmn-js`

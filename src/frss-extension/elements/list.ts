@@ -22,13 +22,16 @@ import BCTimestampPartialProof
   from './Proof/TimestampProof/BCTimestampPartialProof';
 import PKITimestampProof from './Proof/TimestampProof/PKITimestampProof';
 
+// type
+import type { FrssElement } from '../types';
+
 /*
  *
  * ADD the imported element here
  *
  *
 */
-const frssElements = [
+const frssElements: readonly FrssElement[] = [
   AuthenticityComputation,
   BCTimestampFullProof,
   BCTimestampPartialProof,
