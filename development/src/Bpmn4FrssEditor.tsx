@@ -1,4 +1,4 @@
-import React, { MutableRefObject, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import FrssModeler from "../../src/editor";
 
 // import all necessary bpmn-js & extensions CSS
@@ -23,17 +23,17 @@ import "../../src/frss-extension/elements/assets/bpmn4frss.css";
  */
 const Bpmn4FrssEditor = () => {
   // create a reference to mount the library to the rendered element
-  const container = useRef();
+  const container = useRef<HTMLDivElement>(null);
 
   // create a reference to mount the properties panel
-  const propertiesContainer = useRef();
+  const propertiesContainer = useRef<HTMLDivElement>(null);
 
   // create a reference so mounting and unmounting happens only once
   const initializeLibrary = useRef(true);
 
   // create a state for the Bpmn4FrssWebEditor
   const [library, setLibrary] = useState<FrssModeler>();
-  const downloadFile: MutableRefObject<undefined | string> = useRef();
+  const downloadFile = useRef<string | undefined>();
 
 
   // allow running resize
@@ -44,7 +44,14 @@ const Bpmn4FrssEditor = () => {
   // mounting the library only once
   useEffect(() => {
     if (initializeLibrary.current) {
-      setLibrary(new FrssModeler({ container: container.current, propertiesPanel: { parent: propertiesContainer.current } }));
+      setLibrary(
+        new FrssModeler({
+          container: container.current ?? undefined,
+          propertiesPanel: {
+            parent: propertiesContainer.current ?? undefined
+          }
+        })
+      );
       initializeLibrary.current = false;
     }
 
@@ -66,12 +73,17 @@ const Bpmn4FrssEditor = () => {
   }, [library])
 
   const loadDiagramFromFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files[0];
+    const fileArray = event?.target?.files;
 
-    if (!file) {
+    if (
+      fileArray === null
+      || fileArray === undefined
+      || fileArray[0] === null
+    ) {
       alert("The file should be specified!");
       return;
     }
+    const file = fileArray[0];
 
     const reader = new FileReader();
 
@@ -112,8 +124,14 @@ const Bpmn4FrssEditor = () => {
 
   const downloadDiagramAsXML = async () => {
     const content = await library?.saveXML();
-    if (content.error !== undefined || content.xml === undefined) {
+
+    if (content === undefined || content.xml === undefined) {
       alert("Cannot download file!");
+      return;
+    }
+
+    if (content.error !== undefined) {
+      alert("There has been an error downloading the file");
       return;
     }
 
@@ -122,6 +140,11 @@ const Bpmn4FrssEditor = () => {
 
   const downloadDiagramAsSvg = async () => {
     const content = await library?.saveSVG();
+
+    if (content === undefined || content.svg === undefined) {
+      alert("Cannot download file!");
+      return;
+    }
 
     downloadTheFile(content.svg, "image/svg+xml");   
   }
@@ -138,12 +161,12 @@ const Bpmn4FrssEditor = () => {
       <div className="editor-container">
         <div ref={container} className="editor"></div>
         <div className="button-container">
-          <div className="input-container button clickable">
-            <label htmlFor="diagram-file-input">
+          <div className="input-container">
+            <label className="button clickable" htmlFor="diagram-file-input">
               Load diagram from file
             </label>
             <input
-              className="clickable input"
+              className="input"
               id="diagram-file-input"
               type="file"
               onInput={loadDiagramFromFile}

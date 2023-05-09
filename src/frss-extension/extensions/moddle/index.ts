@@ -13,16 +13,16 @@ import {
   frssEnumerationElements,
 } from '../../elements';
 import type {
-  FrssEnumeration,
-  FrssModdleDefinition,
+  FrssModdleEnumerationDefinition,
+  FrssModdleSemanticDefinition,
 } from '../../types/definitions';
 
 type FrssModdleDefinitions = {
   associations: any[],
-  enumerations: FrssEnumeration[],
+  enumerations: FrssModdleEnumerationDefinition[],
   name: string,
   prefix: Bpmn4FrssPrefix,
-  types: FrssModdleDefinition[],
+  types: FrssModdleSemanticDefinition[],
   uri: string,
   xml: {
     tagAlias: string,

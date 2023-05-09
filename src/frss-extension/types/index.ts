@@ -1,8 +1,11 @@
 import type { FrssControls } from './controls';
-import type { FrssEnumeration, FrssModdleDefinition } from './definitions';
+import type {
+  FrssModdleEnumerationDefinition,
+  FrssModdleSemanticDefinition,
+} from './definitions';
 import type { FrssEvents } from './events';
 import type { FrssProperties } from './properties';
-import type { RendererEntry as FrssRendererEntry } from './renderer';
+import type { FrssRendererEntry } from './renderer';
 import type { FrssElementRules } from './rules';
 import type { PartiallyRequired } from './utility';
 
@@ -15,41 +18,37 @@ type Submodules = {
 
 export type FrssEnumerationElement = {
   definition?: never,
-  enumerationDefinition: FrssEnumeration,
+  enumerationDefinition: FrssModdleEnumerationDefinition,
   properties: FrssProperties,
 };
 
 export type FrssSemanticElement = {
-  definition: FrssModdleDefinition,
+  definition: FrssModdleSemanticDefinition,
   enumerationDefinition?: never,
   properties: FrssProperties,
-};
-
-export type FrssElementWithPotentialSubmodules = FrssSemanticElement & Partial<
-Submodules>;
+} & Partial<Submodules>;
 
 /**
  * FRSS element can have many submodules.
  * Only required module is the element properties
  */
-export type FrssElement = FrssEnumerationElement
-| FrssElementWithPotentialSubmodules;
+export type FrssElement = FrssEnumerationElement | FrssSemanticElement;
 
 export type FrssPaletteElement = {
   controls: PartiallyRequired<FrssControls, 'paletteCreateEntry'>,
 } & FrssSemanticElement;
 
 export type FrssPadElement = PartiallyRequired<
-FrssElementWithPotentialSubmodules, 'controls'>;
+FrssSemanticElement, 'controls'>;
 
-export type FrssRenderable = PartiallyRequired<
-FrssElementWithPotentialSubmodules, 'rendererEntry'>;
+export type FrssRenderableElement = PartiallyRequired<
+FrssSemanticElement, 'rendererEntry'>;
 
 export type FrssElementWithRules = PartiallyRequired<
-FrssElementWithPotentialSubmodules, 'rules'>;
+FrssSemanticElement, 'rules'>;
 
 export type FrssElementWithEvents = PartiallyRequired<
-FrssElementWithPotentialSubmodules, 'events'>;
+FrssSemanticElement, 'events'>;
 
 export const isFrssSemanticElement = (
   element: FrssElement,
@@ -96,8 +95,8 @@ export const inPad = (
 
 export const isRenderable = (
   element: FrssElement,
-): element is FrssRenderable => {
-  const checkElement = element as FrssRenderable;
+): element is FrssRenderableElement => {
+  const checkElement = element as FrssRenderableElement;
 
   return isFrssSemanticElement(element)
     && checkElement.rendererEntry !== undefined

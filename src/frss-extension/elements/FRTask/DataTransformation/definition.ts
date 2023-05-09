@@ -1,9 +1,9 @@
 import dataTransformationProperties from './properties';
-import type { FrssModdleDefinition } from '../../../types/definitions';
+import type { FrssModdleSemanticDefinition } from '../../../types/definitions';
 
 const { name } = dataTransformationProperties;
 
-const dataTransformationDefinition: FrssModdleDefinition = {
+const dataTransformationDefinition: FrssModdleSemanticDefinition = {
   name,
   properties: [
     {

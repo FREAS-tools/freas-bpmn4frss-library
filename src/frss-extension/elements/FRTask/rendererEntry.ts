@@ -22,7 +22,7 @@ import frTaskProperties from './properties';
 
 // types
 import type {
-  RendererEntry,
+  FrssRendererEntry,
   RenderFunction,
   ShouldRender,
 } from '../../types/renderer';
@@ -64,7 +64,7 @@ export const renderFunction: RenderFunction = (
   return frTask;
 };
 
-const frTaskRendererEntry: RendererEntry = {
+const frTaskRendererEntry: FrssRendererEntry = {
   renderFunction,
   shouldRender,
   type: ElementRenderType.Shape,

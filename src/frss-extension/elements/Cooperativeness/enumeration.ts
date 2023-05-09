@@ -1,5 +1,5 @@
 import properties from './properties';
-import type { FrssEnumeration } from '../../types/definitions';
+import type { FrssModdleEnumerationDefinition } from '../../types/definitions';
 
 const { name } = properties;
 
@@ -11,7 +11,7 @@ export const FrssCooperativeness = [
 
 export type FrssCooperativenessType = typeof FrssCooperativeness[number];
 
-const cooperativenessEnumeration: FrssEnumeration = {
+const cooperativenessEnumeration: FrssModdleEnumerationDefinition = {
   name,
   literalNames: FrssCooperativeness.map((cooperativeness) => ({
     name: cooperativeness,

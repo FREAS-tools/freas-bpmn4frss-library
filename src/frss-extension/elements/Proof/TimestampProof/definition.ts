@@ -1,9 +1,9 @@
 import timestampProofProperties from './properties';
-import type { FrssModdleDefinition } from '../../../types/definitions';
+import type { FrssModdleSemanticDefinition } from '../../../types/definitions';
 
 const { name } = timestampProofProperties;
 
-const timestampProofDefinition: FrssModdleDefinition = {
+const timestampProofDefinition: FrssModdleSemanticDefinition = {
   name,
   superClass: ['bpmn:BaseElement'],
   properties: [],

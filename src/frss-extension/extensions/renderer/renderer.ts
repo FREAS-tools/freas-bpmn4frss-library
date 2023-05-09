@@ -13,7 +13,7 @@ import {
 } from '../../elements';
 
 // types
-import type { FrssRenderable } from '../../types';
+import type { FrssRenderableElement } from '../../types';
 import type { Shape, Connection } from 'diagram-js/lib/model';
 
 const NOT_FRSS_RENDERABLE_ERROR = new Error(
@@ -69,13 +69,12 @@ export default class FrssRenderer extends BaseRenderer {
    * @param {element} element element that is getting rendered
    *
    * @returns - rendered element if the element is custom
-   *          - null otherwise
    */
   drawShape(parentNode: SVGElement, element: Shape): SVGElement {
     // check if the element is a custom frss renderable element
     // only retains the one custom element it matches
     const elementIsFrssRenderable:
-    (FrssRenderable | undefined) = frssRenderableShapes.find(
+    (FrssRenderableElement | undefined) = frssRenderableShapes.find(
       (renderableElement) => (
         renderableElement.rendererEntry.shouldRender(element)),
     );
@@ -96,7 +95,7 @@ export default class FrssRenderer extends BaseRenderer {
 
   drawConnection(parentNode: SVGElement, element: Connection): SVGElement {
     const elementIsFrssRenderableConnection:
-    (FrssRenderable | undefined) = frssRenderableConnections.find(
+    (FrssRenderableElement | undefined) = frssRenderableConnections.find(
       (renderableConnection) => (
         renderableConnection.rendererEntry.shouldRender(element)
       ),

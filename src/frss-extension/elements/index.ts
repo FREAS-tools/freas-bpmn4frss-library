@@ -10,7 +10,11 @@ import {
 } from '../types';
 
 /* import render type enumeration */
-import { hasDeletionEvent, type DeletionEvent, type HasDeletionEvent } from '../types/events/deletion';
+import {
+  hasDeletionEvent,
+  type DeletionEvent,
+  type HasDeletionEvent,
+} from '../types/events/deletion';
 import { ElementRenderType } from '../types/renderer';
 
 /* import rule type guards */
@@ -36,7 +40,7 @@ import type {
   FrssEnumerationElement,
   FrssPadElement,
   FrssPaletteElement,
-  FrssRenderable,
+  FrssRenderableElement,
   FrssSemanticElement,
 } from '../types';
 
@@ -73,8 +77,8 @@ export const frssPadElements: FrssPadElement[] = frssElements
   .filter((element): element is FrssPadElement => inPad(element));
 
 /* All renderable elements */
-export const frssRenderables: FrssRenderable[] = frssElements
-  .filter((element): element is FrssRenderable => isRenderable(element));
+export const frssRenderables: FrssRenderableElement[] = frssElements
+  .filter((element): element is FrssRenderableElement => isRenderable(element));
 
 export const frssRenderableShapes = frssRenderables.filter(
   (renderableElement) => (

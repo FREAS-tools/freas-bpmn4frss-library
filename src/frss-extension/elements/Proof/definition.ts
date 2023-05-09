@@ -2,11 +2,11 @@ import potentialEvidenceProperties from '../PotentialEvidence/properties';
 import hashProofProperties from './HashProof/properties';
 import proofProperties from './properties';
 import timestampProofProperties from './TimestampProof/properties';
-import type { FrssModdleDefinition } from '../../types/definitions';
+import type { FrssModdleSemanticDefinition } from '../../types/definitions';
 
 const { name } = proofProperties;
 
-const proofDefinition: FrssModdleDefinition = {
+const proofDefinition: FrssModdleSemanticDefinition = {
   name,
   extends: [potentialEvidenceProperties.identifier],
   properties: [

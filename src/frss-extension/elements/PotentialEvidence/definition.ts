@@ -16,11 +16,11 @@
 import potentialEvidenceProperties from './properties';
 
 // types
-import type { FrssModdleDefinition } from '../../types/definitions';
+import type { FrssModdleSemanticDefinition } from '../../types/definitions';
 
 const { name } = potentialEvidenceProperties;
 
-const potentialEvidenceDefinition: FrssModdleDefinition = {
+const potentialEvidenceDefinition: FrssModdleSemanticDefinition = {
   name,
   // the potential evidence is based on the BPMN element
   superClass: ['bpmn:BaseElement'],

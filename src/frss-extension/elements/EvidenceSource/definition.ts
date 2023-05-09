@@ -4,7 +4,7 @@ import ProducesProperties from '../Produces/properties';
 import evidenceSourceProperties from './properties';
 
 // types
-import type { FrssModdleDefinition } from '../../types/definitions';
+import type { FrssModdleSemanticDefinition } from '../../types/definitions';
 
 const { name } = evidenceSourceProperties;
 export const modelConnections = 'producesEvidences';
@@ -14,7 +14,7 @@ export const modelConnections = 'producesEvidences';
  * source of evidence. Can be connected to either a task, event or a data store
  * (which can recursively generate more and more evidence types)
  */
-const evidenceSourceDefinition: FrssModdleDefinition = {
+const evidenceSourceDefinition: FrssModdleSemanticDefinition = {
   name,
   superClass: ['bpmn:BaseElement', 'bpmn:FlowNode'],
   properties: [

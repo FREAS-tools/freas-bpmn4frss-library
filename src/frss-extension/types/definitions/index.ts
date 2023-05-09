@@ -12,7 +12,7 @@ type FrssModdleDefinitionBase = {
   }[],
 };
 
-export type FrssModdleDefinition = (FrssModdleDefinitionBase & ({
+export type FrssModdleSemanticDefinition = (FrssModdleDefinitionBase & ({
   /**
  * This element extends the DEFAULT behaviour of an already existing element.
  * All already existing elements have this extension from now.
@@ -29,10 +29,10 @@ export type FrssModdleDefinition = (FrssModdleDefinitionBase & ({
   superClass: string[],
 }));
 
-export type FrssEnumeration = {
+export type FrssModdleEnumerationDefinition = {
   literalNames:
   {
     name: string,
   }[],
-  name: string
+  name: string,
 };

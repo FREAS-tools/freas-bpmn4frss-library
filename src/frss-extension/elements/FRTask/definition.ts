@@ -4,11 +4,11 @@ import integrityComputationProperties
   from './Computation/IntegrityComputation/properties';
 import dataTransformationProperties from './DataTransformation/properties';
 import frTaskProperties from './properties';
-import type { FrssModdleDefinition } from '../../types/definitions';
+import type { FrssModdleSemanticDefinition } from '../../types/definitions';
 
 const { name } = frTaskProperties;
 
-const frTaskDefinition: FrssModdleDefinition = {
+const frTaskDefinition: FrssModdleSemanticDefinition = {
   name,
   extends: ['bpmn:Task'],
   properties: [

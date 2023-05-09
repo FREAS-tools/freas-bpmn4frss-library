@@ -22,7 +22,7 @@ import potentialEvidenceProperties from '../PotentialEvidence/properties';
 
 // types
 import type {
-  RendererEntry,
+  FrssRendererEntry,
   RenderFunction,
   ShouldRender,
 } from '../../types/renderer';
@@ -67,7 +67,7 @@ export const renderFunction: RenderFunction = (
   return potentialEvidence;
 };
 
-const evidenceDataObjectRendererEntry: RendererEntry = {
+const evidenceDataObjectRendererEntry: FrssRendererEntry = {
   renderFunction,
   shouldRender,
   type: ElementRenderType.Shape,

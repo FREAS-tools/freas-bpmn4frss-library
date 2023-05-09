@@ -11,7 +11,7 @@ import {
 
 import {
   ElementRenderType,
-  type RendererEntry,
+  type FrssRendererEntry,
   type RenderFunction,
 } from '../../types/renderer';
 import type { FrssCooperativenessType } from '../Cooperativeness/enumeration';
@@ -52,7 +52,7 @@ const renderFunction: RenderFunction = (
   return evidenceContext;
 };
 
-const evidenceContextRendererEntry: RendererEntry = {
+const evidenceContextRendererEntry: FrssRendererEntry = {
   renderFunction,
   shouldRender: (
     element: CooperativenessPoolElement,

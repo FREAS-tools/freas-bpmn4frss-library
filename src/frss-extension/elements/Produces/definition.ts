@@ -7,11 +7,11 @@ import evidenceSourceProperties
 import producesProperties from './properties';
 
 // types
-import type { FrssModdleDefinition } from '../../types/definitions';
+import type { FrssModdleSemanticDefinition } from '../../types/definitions';
 
 const { name } = producesProperties;
 
-const producesDefinition: FrssModdleDefinition = {
+const producesDefinition: FrssModdleSemanticDefinition = {
   name,
   // we want to create a custom association
   superClass: ['bpmn:Association'],

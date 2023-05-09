@@ -24,7 +24,7 @@ import evidenceSourceProperties from './properties';
 
 // types
 import type {
-  RendererEntry,
+  FrssRendererEntry,
   RenderFunction,
 } from '../../types/renderer';
 
@@ -53,7 +53,7 @@ const renderFunction: RenderFunction = (
   return evidenceSource;
 };
 
-const evidenceSourceRendererEntry: RendererEntry = {
+const evidenceSourceRendererEntry: FrssRendererEntry = {
   renderFunction,
   shouldRender: (element) => is(element, evidenceSourceProperties.identifier),
   type: ElementRenderType.Shape,

@@ -15,7 +15,7 @@ import producesProperties from './properties';
 
 // types
 import type {
-  RendererEntry,
+  FrssRendererEntry,
   RenderFunction,
 } from '../../types/renderer';
 
@@ -37,7 +37,7 @@ const renderFunction: RenderFunction = (
   return produces;
 };
 
-const producesRendererEntry: RendererEntry = {
+const producesRendererEntry: FrssRendererEntry = {
   renderFunction,
   shouldRender: (element) => is(element, producesProperties.identifier),
   type: ElementRenderType.Connection,

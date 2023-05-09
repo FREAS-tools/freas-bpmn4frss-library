@@ -1,10 +1,10 @@
 import potentialEvidenceTypeProperties from '../PotentialEvidence/properties';
 
 import evidenceDataObjectProperties from './properties';
-import type { FrssModdleDefinition } from '../../types/definitions';
+import type { FrssModdleSemanticDefinition } from '../../types/definitions';
 
 const { name } = evidenceDataObjectProperties;
-const evidenceDataObjectDefinition: FrssModdleDefinition = {
+const evidenceDataObjectDefinition: FrssModdleSemanticDefinition = {
   name,
   // the evidence data object extends the regular data object
   // this allows us to add information -> whether the regular dataObject

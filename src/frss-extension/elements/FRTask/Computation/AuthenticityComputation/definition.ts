@@ -1,11 +1,11 @@
 import computationProperties from '../properties';
 import authenticityComputationProperties from './properties';
 
-import type { FrssModdleDefinition } from '../../../../types/definitions';
+import type { FrssModdleSemanticDefinition } from '../../../../types/definitions';
 
 const { name } = authenticityComputationProperties;
 
-const authenticityComputationDefinition: FrssModdleDefinition = {
+const authenticityComputationDefinition: FrssModdleSemanticDefinition = {
   name,
   properties: [],
   superClass: [computationProperties.identifier],

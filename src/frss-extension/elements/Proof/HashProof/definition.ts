@@ -1,9 +1,9 @@
 import hashProofProperties from './properties';
-import type { FrssModdleDefinition } from '../../../types/definitions';
+import type { FrssModdleSemanticDefinition } from '../../../types/definitions';
 
 const { name } = hashProofProperties;
 
-const proofDefinition: FrssModdleDefinition = {
+const proofDefinition: FrssModdleSemanticDefinition = {
   name,
   superClass: ['bpmn:BaseElement'],
   properties: [],

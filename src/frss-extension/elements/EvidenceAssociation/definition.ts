@@ -1,9 +1,9 @@
 import properties from './properties';
-import type { FrssModdleDefinition } from '../../types/definitions';
+import type { FrssModdleSemanticDefinition } from '../../types/definitions';
 
 const { name } = properties;
 
-const evidenceAssociationDefinition: FrssModdleDefinition = {
+const evidenceAssociationDefinition: FrssModdleSemanticDefinition = {
   name,
   superClass: ['bpmn:Association'],
   properties: [

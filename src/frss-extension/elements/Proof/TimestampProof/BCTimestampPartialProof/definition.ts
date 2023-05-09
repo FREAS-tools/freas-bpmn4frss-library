@@ -1,10 +1,10 @@
 import timestampProofProperties from '../properties';
 import bcTimestampPartialProofProperties from './properties';
-import type { FrssModdleDefinition } from '../../../../types/definitions';
+import type { FrssModdleSemanticDefinition } from '../../../../types/definitions';
 
 const { name } = bcTimestampPartialProofProperties;
 
-const bcTimestampPartialProofDefinition: FrssModdleDefinition = {
+const bcTimestampPartialProofDefinition: FrssModdleSemanticDefinition = {
   name,
   superClass: [timestampProofProperties.identifier],
   properties: [],

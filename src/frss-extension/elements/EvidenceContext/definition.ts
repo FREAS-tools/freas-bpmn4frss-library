@@ -1,10 +1,10 @@
 import cooperativenessProperties from '../Cooperativeness/properties';
 import properties from './properties';
-import type { FrssModdleDefinition } from '../../types/definitions';
+import type { FrssModdleSemanticDefinition } from '../../types/definitions';
 
 const { name } = properties;
 
-const evidenceContextDefinition: FrssModdleDefinition = {
+const evidenceContextDefinition: FrssModdleSemanticDefinition = {
   name,
   extends: ['bpmn:Participant'],
   properties: [

@@ -1,9 +1,9 @@
 import computationProperties from './properties';
-import type { FrssModdleDefinition } from '../../../types/definitions';
+import type { FrssModdleSemanticDefinition } from '../../../types/definitions';
 
 const { name } = computationProperties;
 
-const computationDefinition: FrssModdleDefinition = {
+const computationDefinition: FrssModdleSemanticDefinition = {
   name,
   properties: [
     {
