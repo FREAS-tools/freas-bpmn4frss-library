@@ -15,7 +15,7 @@ const evidenceDataObjectDefinition: FrssModdleSemanticDefinition = {
       // the `is` signifies the boolean nature of this
       // property - if defined, the data object IS an evidence type
       name: 'isPotentialEvidence',
-      type: potentialEvidenceTypeProperties.name,
+      type: potentialEvidenceTypeProperties.identifier,
       // the extended data object can only be of one potential evidence type
       isMany: false,
     },

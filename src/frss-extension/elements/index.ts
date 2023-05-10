@@ -58,7 +58,7 @@ import type { HasCreationRule } from '../types/rules/creation';
 // (without the need to write a lot of bloated code)
 
 /* All elements with definitions (semantic elements) */
-export const frssDefinitionElements: FrssSemanticElement[] = frssElements
+export const frssSemanticElements: FrssSemanticElement[] = frssElements
   .filter((element): element is FrssSemanticElement => (
     isFrssSemanticElement(element)
   ));

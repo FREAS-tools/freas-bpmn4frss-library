@@ -8,13 +8,13 @@ const dataTransformationDefinition: FrssModdleSemanticDefinition = {
   properties: [
     {
       name: 'input',
-      type: 'string',
+      type: 'bpmn:DataObject',
       isAttr: true,
       isReference: true,
     },
     {
       name: 'output',
-      type: 'string',
+      type: 'bpmn:DataObject',
       isAttr: true,
       isReference: true,
     },

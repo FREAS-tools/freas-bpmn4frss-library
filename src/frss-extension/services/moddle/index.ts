@@ -9,7 +9,7 @@ import { bpmn4frss, type Bpmn4FrssPrefix } from '../../common';
 
 // Custom elements - every custom element is placed in this list
 import {
-  frssDefinitionElements,
+  frssSemanticElements,
   frssEnumerationElements,
 } from '../../elements';
 import type {
@@ -61,7 +61,7 @@ const FrssDefinitions: FrssModdleDefinitions = {
   },
 
   // The definitions for language constructs belong here
-  types: frssDefinitionElements.map(
+  types: frssSemanticElements.map(
     (customSemanticElement) => customSemanticElement.definition,
   ),
 
