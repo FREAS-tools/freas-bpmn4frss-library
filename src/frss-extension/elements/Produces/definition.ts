@@ -1,6 +1,6 @@
-// potential evidence source is a "dependency" of this element,
-// as we need to know its identifier to be able to identify
-// it as a reference type here
+// evidence source is a "dependency" of this element,
+// as we need to know its identifier to reference it
+import evidenceDataObjectProperties from '../EvidenceDataObject/properties';
 import evidenceSourceProperties
   from '../EvidenceSource/properties';
 
@@ -33,7 +33,7 @@ const producesDefinition: FrssModdleSemanticDefinition = {
       // i.e. - file, email, business document and so on.
       // which can hold the `Potential Evidence`
       name: 'targetRef',
-      type: 'bpmn:DataObjectReference',
+      type: evidenceDataObjectProperties.identifier,
 
       isReference: true,
       // save this as an attribute of the `Produces` XML node
