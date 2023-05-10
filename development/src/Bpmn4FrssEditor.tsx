@@ -13,12 +13,11 @@ import "bpmn-js-properties-panel/dist/assets/properties-panel.css"
 import "bpmn-js-properties-panel/dist/assets/element-templates.css"
 
 // import the freas-bpmn4frss-library CSS
-import "../../src/frss-extension/elements/assets/bpmn4frss.css";
+import "../../src/assets/bpmn4frss.css";
 
 /**
  * Component encapsulating the bpmn4frss js library
  *
- * @param {Bpmn4FrssEditorProps} props - props for the
  * @returns JSX (TSX) element
  */
 const Bpmn4FrssEditor = () => {

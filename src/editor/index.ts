@@ -15,9 +15,16 @@ import {
 import frssExtension from '../frss-extension';
 
 // default diagram
+import {
+  removeOverlays,
+  renderOverlays,
+} from '../frss-extension/services/overlays';
 import defaultDiagram from './default-diagram';
 
 // types
+import type {
+  DataValidationResult,
+} from '../frss-extension/services/overlays/schemas';
 import type { BaseViewerOptions } from 'bpmn-js/lib/BaseViewer';
 
 export default class FrssModeler extends Modeler {
@@ -49,5 +56,13 @@ export default class FrssModeler extends Modeler {
   resize() {
     // @ts-expect-error
     this.get('canvas').resized();
+  }
+
+  showFrssOverlays(data: DataValidationResult) {
+    renderOverlays(this.get('overlays'), data);
+  }
+
+  removeFrssOverlays() {
+    removeOverlays(this.get('overlays'));
   }
 }

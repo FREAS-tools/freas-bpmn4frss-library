@@ -28,7 +28,8 @@
     "bpmn-js": "^12.1.1",
     "bpmn-js-color-picker": "^0.5.0",
     "bpmn-js-properties-panel": "^1.22.1",
-    "nanoid": "^4.0.2"
+    "nanoid": "^4.0.2",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.58.0",

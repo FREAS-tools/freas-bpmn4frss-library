@@ -37,7 +37,7 @@ body {
 
 .properties {
     grid-area: properties;
-    border: solid 1px #f7f7f8;
+    border: solid 1px #b9bcc6;
 }
 
 .button-container {
@@ -53,14 +53,16 @@ body {
 
 .button {
     all: unset;
+    border: solid 1px #b9bcc6;
     display: flex;
-    font-size: 1rem;
-    font-weight: 300;
+    font-size: 0.75rem;
+    font-weight: 600;
+    font-family: sans-serif;
     gap: 1rem;
-    background-color: #005763;
-    color: white;
+    background-color: #f7f7f8;
+    color: black;
     padding: 0.25rem 0.5rem;
-    border-radius: 0.5rem;
+    border-radius: 0.125rem;
     width: max-content;
 }
 
