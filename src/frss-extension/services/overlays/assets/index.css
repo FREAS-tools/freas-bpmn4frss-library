@@ -1,0 +1,41 @@
+.diagram-dialog {
+    display: inline-block;
+    width: 2rem;
+    height: 1rem;
+    padding: 0.25rem;
+    font-size: 0.75rem;
+    font-family: sans-serif;
+    border: 1px solid black;
+    border-radius: 0.5rem;
+    box-shadow: 0rem 0.5rem 1rem 0.125rem #11111133;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: 0.5s ease;
+    background-color: white;
+}
+
+.diagram-dialog:hover {
+    width: max-content;
+    height: fit-content;
+}
+
+.error {
+    color: white;
+}
+
+.error--high {
+    background-color: #850000;
+}
+
+.error--medium {
+    background-color: #e70000;
+}
+
+.error--low {
+    background-color: #ff7070;
+}
+
+.warning {
+    color: white;
+    background-color: #ffa837;
+}

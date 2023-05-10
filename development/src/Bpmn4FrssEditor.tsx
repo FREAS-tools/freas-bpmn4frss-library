@@ -1,22 +1,24 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useDebugValue, useEffect, useRef, useState } from "react";
 import FrssModeler from "../../src/editor";
 
-// import all necessary bpmn-js & extensions CSS
-import "diagram-js/assets/diagram-js.css";
-import "bpmn-js/dist/assets/bpmn-js.css";
-import "bpmn-js/dist/assets/diagram-js.css";
-import "bpmn-js/dist/assets/bpmn-font/css/bpmn-codes.css";
-import "bpmn-js/dist/assets/bpmn-font/css/bpmn.css";
-import "bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css";
-import "bpmn-js-color-picker/colors/color-picker.css";
-import "bpmn-js-properties-panel/dist/assets/properties-panel.css"
-import "bpmn-js-properties-panel/dist/assets/element-templates.css"
+// import all necessary CSS (built in assets/bpmn4frss-editor.css)
+import "./assets/index.css";
 
-// import the freas-bpmn4frss-library CSS
-import "../../src/assets/bpmn4frss.css";
+
+// import components
+import { FileInputButton } from "./components/FileInputButton";
+import { ButtonContainer } from "./components/ButtonContainer";
+import { Button } from "./components/Button";
+
+// import utility functions
+import { loadFromFile as loadDiagramFromFile } from "./utils/loadFromFile";
+import { donwloadDiagramAsXML } from "./utils/downloadXML";
+import { downloadDiagramAsSVG } from "./utils/downloadSVG";
+// import validation code
+import { runValidation } from "./utils/runValidation";
 
 /**
- * Component encapsulating the bpmn4frss js library
+ * Component encapsulating the freas-bpmn4frss-library
  *
  * @returns JSX (TSX) element
  */
@@ -24,7 +26,7 @@ const Bpmn4FrssEditor = () => {
   // create a reference to mount the library to the rendered element
   const container = useRef<HTMLDivElement>(null);
 
-  // create a reference to mount the properties panel
+  // create a reference to mount the properties panel onto
   const propertiesContainer = useRef<HTMLDivElement>(null);
 
   // create a reference so mounting and unmounting happens only once
@@ -32,17 +34,19 @@ const Bpmn4FrssEditor = () => {
 
   // create a state for the Bpmn4FrssWebEditor
   const [library, setLibrary] = useState<FrssModeler>();
-  const downloadFile = useRef<string | undefined>();
-
+  const downloadFileStore = useRef<string | undefined>();
 
   // allow running resize
   const resizer = () => {
     library?.resize();
   }
 
-  // mounting the library only once
+  // mounting the library
   useEffect(() => {
+    // mounting the library only once
     if (initializeLibrary.current) {
+      // the library is held as a state
+      // (to rerender the view once it is loaded)
       setLibrary(
         new FrssModeler({
           container: container.current ?? undefined,
@@ -67,137 +71,63 @@ const Bpmn4FrssEditor = () => {
   useEffect(() => {
     library?.loadDefaultDiagram();
 
-    // add an event listener
+    // add an event listener to listen for resize events
     window.addEventListener('resize', resizer);
   }, [library])
-
-  const loadDiagramFromFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const fileArray = event?.target?.files;
-
-    if (
-      fileArray === null
-      || fileArray === undefined
-      || fileArray[0] === null
-    ) {
-      alert("The file should be specified!");
-      return;
-    }
-    const file = fileArray[0];
-
-    const reader = new FileReader();
-
-    reader.readAsText(file, "utf-8");
-
-    reader.onload = () => {
-      const result = reader.result;
-
-      if (typeof result === 'string') {
-        library?.loadDiagram(result);
-        return;
-      }
-
-      alert('file could not be loaded');
-    };    
-  };
-
-  const downloadTheFile = (
-    content: string,
-    type: "image/svg+xml" | "text/xml"
-  ) => {
-    const fileType = type === "image/svg+xml" ? "svg" : "bpmn";
-    const fileName = `diagram.${fileType}`;
-
-      if (downloadFile.current) {
-        window.URL.revokeObjectURL(downloadFile.current);
-      }
-      
-      const data = new Blob([content], {type});
-      downloadFile.current = window.URL.createObjectURL(data);
-      const tempAnchor = document.createElement("a");
-      tempAnchor.href = downloadFile.current;
-      tempAnchor.download = fileName;
-      document.body.appendChild(tempAnchor);
-      tempAnchor.click();
-      tempAnchor.remove();
-  }
-
-  const downloadDiagramAsXML = async () => {
-    const content = await library?.saveXML();
-
-    if (content === undefined || content.xml === undefined) {
-      alert("Cannot download file!");
-      return;
-    }
-
-    if (content.error !== undefined) {
-      alert("There has been an error downloading the file");
-      return;
-    }
-
-    downloadTheFile(content.xml, "text/xml");    
-  }
-
-  const downloadDiagramAsSvg = async () => {
-    const content = await library?.saveSVG();
-
-    if (content === undefined || content.svg === undefined) {
-      alert("Cannot download file!");
-      return;
-    }
-
-    downloadTheFile(content.svg, "image/svg+xml");   
-  }
-
-  const tryMe = () => {
-    // @ts-ignore
-    // console.log(library.getDefinitions());
-    // console.log(library.get('canvas').getRootElements());
-  }
 
   return (
     <div className="bpmn4frss">
       {/* Bpmn4Frss typescript library */}
       <div className="editor-container">
         <div ref={container} className="editor"></div>
-        <div className="button-container">
-          <div className="input-container">
-            <label className="button clickable" htmlFor="diagram-file-input">
-              Load diagram from file
-            </label>
-            <input
-              className="input"
-              id="diagram-file-input"
-              type="file"
-              onInput={loadDiagramFromFile}
+        <ButtonContainer>
+            <FileInputButton 
+              onChange={loadDiagramFromFile}
+              library={library}
+              caption="Load diagram"
             />
-          </div>
+            <Button 
+              caption="Default diagram"
+              onClick={async () => await library?.loadDefaultDiagram()}
+            />
+            <Button 
+              caption="Download XML"
+              onClick={
+                async () => (
+                  donwloadDiagramAsXML(
+                    downloadFileStore,
+                    await library?.saveXML()
+                  )
+                )
+              }
+            />
+            <Button 
+              caption="Download SVG"
+              onClick={
+                async () => (
+                  downloadDiagramAsSVG(
+                    downloadFileStore,
+                    await library?.saveSVG()
+                  )
+                )
+              }
+            />
+            <Button 
+              caption="Run validation"
+              onClick={async () => await runValidation(
+                await library?.saveXML(),
+                library,
+              )}
+            />
+            <Button
+              caption="Close overlays"
+              onClick={() => library?.removeFrssOverlays()}
+            />
+        </ButtonContainer>
 
-          <button
-            className="button clickable"
-            onClick={() => library?.loadDefaultDiagram()}
-          >
-            Load default diagram
-          </button>
-          <button
-            className="button clickable"
-            onClick={downloadDiagramAsXML}
-          >
-            Download diagram (.bpmn)
-          </button>
-          <button
-            className="button clickable"
-            onClick={downloadDiagramAsSvg}
-          >
-            Download diagram (.svg)
-          </button>
-          <button
-            className="button clickable"
-            onClick={tryMe}
-          >
-            Try me
-          </button>
-        </div>
       </div>
+      
+      {/* Properties panel */}
       <div ref={propertiesContainer} className="properties"></div>
     </div>
   );

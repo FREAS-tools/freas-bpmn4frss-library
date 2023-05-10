@@ -8,7 +8,7 @@ export const frssOverlayTypes = [
 
 const defaultParameters = {
   position: {
-    bottom: 0,
+    bottom: -4,
     top: 0,
   },
   scale: true,

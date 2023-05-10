@@ -19,7 +19,7 @@ export const dataValidationInputSchema = z.object({
 /**
  * Actual shape of the data that needs to be sent
  */
-export type DataValidationOutput = ReturnType<
+export type DataValidationRequest = ReturnType<
   typeof dataValidationInputSchema.parse
 >;
 
