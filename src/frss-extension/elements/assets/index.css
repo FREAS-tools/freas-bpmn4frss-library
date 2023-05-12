@@ -1,5 +1,2 @@
 /* To add another element CSS module, simply import it here */
 @import url('./common.css');
-@import url('../EvidenceContext/assets/index.css');
-@import url('../EvidenceDataObject/assets/index.css');
-@import url('../FRTask/assets/index.css');

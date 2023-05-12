@@ -16,23 +16,27 @@ export default class FrssPropertiesPanelProvider {
   }
 
   getGroups(element: any) {
-    const showProperties = frssPropertiesPanelElements.find(
-      (findElement) => (
-        findElement.controls.propertiesPanelControls.show(element)
+    const propertyGroupEntries = frssPropertiesPanelElements.flatMap(
+      (elem) => (
+        elem.controls.propertiesPanelControls.filter(
+          (group) => group.show(element),
+        )
       ),
     );
 
     // middleware which intercepts and potentially adds the control entries
     // for the property panel
     return (groups: any[]) => {
-      if (showProperties !== undefined) {
-        const { propertiesPanelControls } = showProperties.controls;
+      propertyGroupEntries.forEach((groupData) => {
         // push a new group for the provider
         groups.push({
-          ...propertiesPanelControls.group,
-          label: this.translate(propertiesPanelControls.group.label),
+          ...groupData.group,
+          entries: groupData.group.entries.filter(
+            (entry) => entry.show(element),
+          ),
+          label: this.translate(groupData.group.label),
         });
-      }
+      });
 
       return groups;
     };

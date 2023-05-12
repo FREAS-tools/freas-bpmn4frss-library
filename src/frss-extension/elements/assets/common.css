@@ -9,6 +9,11 @@
     border-width: 0.125rem;
 }
 
+.mark-as--default::before {
+    background-color: #89ff89;
+    border-color: #006a00;
+}
+
 .unmark::before {
     background-color: lightcoral;
     border-color: red;

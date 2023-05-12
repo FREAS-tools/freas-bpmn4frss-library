@@ -7,7 +7,8 @@ export type PropertiesPanelData = {
 
 export type PropertiesPanelEntry = {
   component: (props: any) => VNode,
-  id: string
+  id: string,
+  show: (element: any) => boolean
 };
 
 export type PropertiesPanelGroup = {

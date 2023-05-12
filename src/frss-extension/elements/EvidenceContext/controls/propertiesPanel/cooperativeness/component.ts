@@ -2,21 +2,18 @@ import {
   SelectEntry,
 // @ts-ignore
 } from '@bpmn-io/properties-panel';
-// @ts-ignore
-import { is } from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
+
 // @ts-ignore
 import { useService } from 'bpmn-js-properties-panel';
 
 import {
   FrssCooperativeness,
   type FrssCooperativenessType,
-} from '../Cooperativeness/enumeration';
-import evidenceContextProperties from './properties';
-import type { FrssControls } from '../../types/controls';
+} from '../../../../Cooperativeness/enumeration';
 
 // Create a preact component for the properties panel, utilising the already
 // existing markup from the bpmn-js-properties-panel implementation
-const propertiesPanelComponent = (props: any) => {
+const CooperativenessPanelSelector = (props: any) => {
   const { element } = props;
 
   // use all services needed in the component
@@ -51,6 +48,7 @@ const propertiesPanelComponent = (props: any) => {
   );
 
   return SelectEntry({
+    id: 'cooperativeness',
     element,
     label: translate('Select cooperativeness'),
     debounce,
@@ -61,20 +59,4 @@ const propertiesPanelComponent = (props: any) => {
   });
 };
 
-const evidenceContextControls: FrssControls = {
-  propertiesPanelControls: {
-    show: (element) => is(element, evidenceContextProperties.identifier),
-    group: {
-      id: 'EvidenceContext',
-      label: 'EvidenceContext FRSS controls',
-      entries: [
-        {
-          id: 'set-cooperativeness',
-          component: propertiesPanelComponent,
-        },
-      ],
-    },
-  },
-};
-
-export default evidenceContextControls;
+export default CooperativenessPanelSelector;

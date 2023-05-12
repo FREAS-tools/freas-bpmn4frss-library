@@ -15,6 +15,11 @@ const evidenceStoreDefinition: FrssModdleSemanticDefinition = {
       isReference: true,
       isMany: true,
     },
+    {
+      name: 'isEvidenceStore',
+      type: 'boolean',
+      isAttr: true,
+    },
   ],
 };
 

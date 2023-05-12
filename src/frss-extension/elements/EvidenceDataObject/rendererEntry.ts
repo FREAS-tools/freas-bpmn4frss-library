@@ -43,13 +43,11 @@ const shouldRender: ShouldRender = (element) => {
   );
 };
 
-export const renderFunction: RenderFunction = (
-  {
-    parentNode,
-    element,
-    bpmnRenderer,
-  },
-) => {
+export const renderFunction: RenderFunction = ({
+  parentNode,
+  element,
+  bpmnRenderer,
+}) => {
   // get the default handler for `DataObjectReference`. We want to change
   // the attributes of the SVG
   const potentialEvidence = bpmnRenderer

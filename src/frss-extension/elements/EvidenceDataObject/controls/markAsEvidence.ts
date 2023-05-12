@@ -36,11 +36,11 @@ const markDataObjectAsEvidenceEntry: PadEntryData = {
   makeActionHandler: markDataObjectAsEvidence,
   props: {
     className: (
-      `mark-as mark-as--${potentialEvidenceProperties.nameLowercase}`
+      'mark-as mark-as--default'
     ),
     group: 'edit',
     key: `mark-as-${potentialEvidenceProperties.nameLowercase}`,
-    title: 'Mark DataObject as Potential Evidence',
+    title: 'Mark Data Object as Potential Evidence',
   },
   show: (element) => (
     is(element, 'bpmn:DataObjectReference')

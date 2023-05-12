@@ -29,5 +29,5 @@ export type FrssControls = {
   /** Data for the palette "create" entry */
   paletteCreateEntry?: EntryData;
   /** Data for the properties panel */
-  propertiesPanelControls?: PropertiesPanelData,
+  propertiesPanelControls?: PropertiesPanelData[],
 };

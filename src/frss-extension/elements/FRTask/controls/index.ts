@@ -1,13 +1,15 @@
-import authenticityComputationControls from './authenticityComputation';
-import dataTransformationControls from './dataTransformation';
-import integrityComputationControls from './integrityComputation';
+import authenticityComputationGroup
+  from './propertiesPanel/authenticityComputation';
+import dataTransformationGroup from './propertiesPanel/dataTransformation.ts';
+import integrityComputationGroup
+  from './propertiesPanel/integrityComputation';
 import type { FrssControls } from '../../../types/controls';
 
 const frTaskControls: FrssControls = {
-  padEntries: [
-    ...authenticityComputationControls,
-    ...dataTransformationControls,
-    ...integrityComputationControls,
+  propertiesPanelControls: [
+    authenticityComputationGroup,
+    dataTransformationGroup,
+    integrityComputationGroup,
   ],
 };
 

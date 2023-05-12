@@ -105,10 +105,7 @@ export const inPropertiesPanel = (
   return isFrssSemanticElement(element)
     && checkElement.controls !== undefined
     && checkElement.controls.propertiesPanelControls !== undefined
-    && checkElement.controls.propertiesPanelControls.show !== undefined
-    && checkElement.controls.propertiesPanelControls.group !== undefined
-    && checkElement.controls.propertiesPanelControls.group.entries !== undefined
-    && checkElement.controls.propertiesPanelControls.group.entries.length > 0;
+    && checkElement.controls.propertiesPanelControls.length > 0;
 };
 
 export const isRenderable = (
