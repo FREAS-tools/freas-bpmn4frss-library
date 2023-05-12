@@ -35,8 +35,8 @@ export const elementHasCorrectInputOutputAssociations = (element: any) => {
     ),
   );
 
-  if (incomingEvidenceDataInputAssociations !== undefined
-    && outgoingEvidenceDataOutputAssociations !== undefined) {
+  if (incomingEvidenceDataInputAssociations.length > 0
+    && outgoingEvidenceDataOutputAssociations.length > 0) {
     return {
       input: incomingEvidenceDataInputAssociations,
       output: outgoingEvidenceDataOutputAssociations,
