@@ -41,6 +41,10 @@ export type FrssPaletteElement = {
 export type FrssPadElement = PartiallyRequired<
 FrssSemanticElement, 'controls'>;
 
+export type FrssPropertiesPanelElement = {
+  controls: PartiallyRequired<FrssControls, 'propertiesPanelControls'>
+} & FrssSemanticElement;
+
 export type FrssRenderableElement = PartiallyRequired<
 FrssSemanticElement, 'rendererEntry'>;
 
@@ -91,6 +95,20 @@ export const inPad = (
     && checkElement.controls !== undefined
     && checkElement.controls.padEntries !== undefined
     && checkElement.controls.padEntries.length > 0;
+};
+
+export const inPropertiesPanel = (
+  element: FrssElement,
+): element is FrssPropertiesPanelElement => {
+  const checkElement = element as FrssPropertiesPanelElement;
+
+  return isFrssSemanticElement(element)
+    && checkElement.controls !== undefined
+    && checkElement.controls.propertiesPanelControls !== undefined
+    && checkElement.controls.propertiesPanelControls.show !== undefined
+    && checkElement.controls.propertiesPanelControls.group !== undefined
+    && checkElement.controls.propertiesPanelControls.group.entries !== undefined
+    && checkElement.controls.propertiesPanelControls.group.entries.length > 0;
 };
 
 export const isRenderable = (

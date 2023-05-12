@@ -7,6 +7,7 @@ import FrssModeProvider from './services/mode/mode';
 import FrssPadProvider from './services/pad/padProvider';
 import FrssPalette from './services/palette/palette';
 import FrssPaletteProvider from './services/palette/paletteProvider';
+import FrssPropertiesPanelProvider from './services/propertiesPanel';
 import FrssRenderer from './services/renderer/renderer';
 import FrssRuleProvider from './services/rules/ruleProvider';
 import FrssRules from './services/rules/rules';
@@ -25,6 +26,7 @@ export default {
     'bpmnRules',
     'frssRuleProvider',
     'frssMultipleDiagramProvider',
+    'frssPropertiesPanelProvider',
     'frssDiagramSynchronizationProvider',
     'frssModeProvider',
     'palette',
@@ -36,6 +38,7 @@ export default {
   bpmnRules: ['type', FrssRules],
   frssRuleProvider: ['type', FrssRuleProvider],
   frssMultipleDiagramProvider: ['type', FrssMultipleDiagramProvider],
+  frssPropertiesPanelProvider: ['type', FrssPropertiesPanelProvider],
   frssDiagramSynchronizationProvider: [
     'type',
     FrssDiagramSynchrozationProvider,
@@ -67,4 +70,5 @@ export {
   FrssRules as Bpmn4FrssRules,
   FrssMultipleDiagramProvider as Bpmn4FrssMultipleDiagramProvider,
   FrssDiagramSynchrozationProvider as Bpmn4FrssDiagramSynchronizationProvider,
+  FrssPropertiesPanelProvider as Bpmn4FrssPropertiesPanelProvider,
 };

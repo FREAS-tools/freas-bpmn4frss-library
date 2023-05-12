@@ -4,7 +4,7 @@ import FrssModeProvider, {
 // FrssMode,
 } from '../mode/mode';
 import type FrssMultipleDiagramProvider from './multipleDiagramProvider';
-import type FrssModeler from '../../../editor';
+import type FrssModeler from '../../../modeler';
 
 export default class FrssDiagramSynchrozationProvider
   extends CommandInterceptor {

@@ -1,4 +1,4 @@
-import type FrssModeler from '../../../editor';
+import type FrssModeler from '../../../modeler';
 import type FrssModeProvider from '../../services/mode/mode';
 
 /**

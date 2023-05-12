@@ -4,6 +4,7 @@ import {
   hasRules,
   inPad,
   inPalette,
+  inPropertiesPanel,
   isFrssEnumerationElement,
   isFrssSemanticElement,
   isRenderable,
@@ -40,6 +41,7 @@ import type {
   FrssEnumerationElement,
   FrssPadElement,
   FrssPaletteElement,
+  FrssPropertiesPanelElement,
   FrssRenderableElement,
   FrssSemanticElement,
 } from '../types';
@@ -75,6 +77,15 @@ export const frssPaletteElements: FrssPaletteElement[] = frssElements
 /* All elements in the context pad */
 export const frssPadElements: FrssPadElement[] = frssElements
   .filter((element): element is FrssPadElement => inPad(element));
+
+/* All elements in the properties panel */
+export const frssPropertiesPanelElements: FrssPropertiesPanelElement[] = (
+  frssElements.filter(
+    (element): element is FrssPropertiesPanelElement => (
+      inPropertiesPanel(element)
+    ),
+  )
+);
 
 /* All renderable elements */
 export const frssRenderables: FrssRenderableElement[] = frssElements

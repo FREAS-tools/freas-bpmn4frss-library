@@ -7,7 +7,7 @@ import {
   type DiagramState,
 } from '../../types/diagrams';
 import { partitionArray } from '../../utility/partitionArray';
-import type FrssModeler from '../../../editor';
+import type FrssModeler from '../../../modeler';
 
 const checkDiagramsLoaded = (frssModeler: FrssModeler) => {
   const definitions = frssModeler.getDefinitions();

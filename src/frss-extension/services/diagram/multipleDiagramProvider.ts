@@ -13,7 +13,7 @@ import FrssModeProvider, { FrssMode } from '../mode/mode';
 import {
   instanciateDiagramStates,
 } from './createOrLoadNewDiagram';
-import type FrssModeler from '../../../editor';
+import type FrssModeler from '../../../modeler';
 
 import type FrssPalette from '../palette/palette';
 
