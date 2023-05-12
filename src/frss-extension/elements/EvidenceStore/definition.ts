@@ -1,15 +1,21 @@
-// import type { FrssModdleDefinition } from "../../types/definitions";
+import evidenceDataObjectProperties from '../EvidenceDataObject/properties';
 
-// import evidenceStoreProperties from "./properties";
+import evidenceStoreProperties from './properties';
+import type { FrssModdleSemanticDefinition } from '../../types/definitions';
 
-// const { name } = evidenceStoreProperties;
+const { name } = evidenceStoreProperties;
 
-// const evidenceStoreDefinition: FrssModdleDefinition = {
-//   extends: ['bpmn:DataStore'],
-//   name,
-//   properties: [
-//     {
-//       name:
-//     }
-//   ]
-// }
+const evidenceStoreDefinition: FrssModdleSemanticDefinition = {
+  extends: ['bpmn:DataStore'],
+  name,
+  properties: [
+    {
+      name: 'Stores',
+      type: evidenceDataObjectProperties.identifier,
+      isReference: true,
+      isMany: true,
+    },
+  ],
+};
+
+export default evidenceStoreDefinition;

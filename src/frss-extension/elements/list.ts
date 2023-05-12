@@ -6,6 +6,13 @@ import EvidenceAssociation from './EvidenceAssociation';
 import EvidenceContext from './EvidenceContext';
 import EvidenceDataObject from './EvidenceDataObject';
 import EvidenceSource from './EvidenceSource';
+import EvidenceStore from './EvidenceStore';
+import ForensicReadinessService from './FRService';
+import TimestampService from './FRService/TimestampService';
+import BCTimestampService
+  from './FRService/TimestampService/BCTimestampService';
+import PKITimestampService
+  from './FRService/TimestampService/PKITimestampService';
 import ForensicReadinessTask from './FRTask';
 import Computation from './FRTask/Computation';
 import AuthenticityComputation
@@ -14,6 +21,7 @@ import IntegrityComputation from './FRTask/Computation/IntegrityComputation';
 import DataTransformation from './FRTask/DataTransformation';
 import PotentialEvidence from './PotentialEvidence';
 import Produces from './Produces';
+import PromiseOf from './PromiseOf';
 import Proof from './Proof';
 import HashProof from './Proof/HashProof';
 import TimestampProof from './Proof/TimestampProof';
@@ -35,6 +43,7 @@ const frssElements: readonly FrssElement[] = [
   AuthenticityComputation,
   BCTimestampFullProof,
   BCTimestampPartialProof,
+  BCTimestampService,
   Computation,
   Cooperativeness,
   DataTransformation,
@@ -42,14 +51,19 @@ const frssElements: readonly FrssElement[] = [
   EvidenceContext,
   EvidenceDataObject,
   EvidenceSource,
+  EvidenceStore,
   ForensicReadinessTask,
+  ForensicReadinessService,
   HashProof,
   IntegrityComputation,
   PKITimestampProof,
+  PKITimestampService,
   PotentialEvidence,
   Produces,
+  PromiseOf,
   Proof,
   TimestampProof,
+  TimestampService,
 ] as const;
 
 export default frssElements;
