@@ -30,8 +30,7 @@ const potentialEvidenceDefinition: FrssModdleSemanticDefinition = {
       // describe it
       name: 'dataField',
       type: 'string',
-      // there can be many data fields
-      isMany: true,
+      isAttr: true,
     },
     {
       name: 'lifecycleProcess',

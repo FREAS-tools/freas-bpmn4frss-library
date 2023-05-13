@@ -1,5 +1,5 @@
-const isMarked = (element: any): boolean => (
-  element?.businessObject?.dataStoreRef?.isEvidenceStore === true
+const isMarkedAsEvidenceStore = (element: any): boolean => (
+  element?.businessObject?.isEvidenceStore === 'true'
 );
 
-export default isMarked;
+export default isMarkedAsEvidenceStore;

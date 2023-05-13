@@ -8,6 +8,7 @@ export type PropertiesPanelData = {
 export type PropertiesPanelEntry = {
   component: (props: any) => VNode,
   id: string,
+  isEdited?: any,
   show: (element: any) => boolean
 };
 

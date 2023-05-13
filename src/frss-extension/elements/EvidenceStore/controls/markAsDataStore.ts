@@ -2,37 +2,34 @@
 import { is } from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
 
 import evidenceStoreProperties from '../properties';
-import isMarked from './common';
+import isMarkedAsEvidenceStore from './common';
 import type { PadEntryData } from '../../../types/controls';
 import type {
   CreateActionHandler,
 } from '../../../types/controls/actionHandler';
+import type {
+  BooleanEnumerationType,
+} from '../../BooleanEnumeration/enumeration';
 
 const markDataStoreAsEvidenceStore: CreateActionHandler = (
   {
     modeling,
-    bpmnFactory,
   },
   _elementProperties,
 ) => (
   (_event:any, element: any) => {
-    let dataStore = element?.businessObject?.dataStoreRef;
-    if (dataStore === undefined) {
-      dataStore = bpmnFactory.create(
-        'bpmn:DataStore',
-      );
-      dataStore.$parent = element.businessObject.$parent;
-    }
+    const { businessObject }: {
+      businessObject: {
+        isEvidenceStore: BooleanEnumerationType | undefined
+      }
+    } = element;
 
     // already marked as evidence store
-    if (
-      dataStore.isEvidenceStore === true
-    ) return;
+    if (businessObject.isEvidenceStore === 'true') return;
 
     // mark the store as the evidence store
-    dataStore.isEvidenceStore = true;
     modeling.updateProperties(element, {
-      dataStoreRef: dataStore,
+      isEvidenceStore: 'true',
     });
   }
 );
@@ -49,7 +46,7 @@ const markDataStoreAsEvidenceStoreEntry: PadEntryData = {
   },
   show: (element) => (
     is(element, 'bpmn:DataStoreReference')
-    && !isMarked(element)
+    && !isMarkedAsEvidenceStore(element)
   ),
 };
 

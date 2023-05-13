@@ -2,7 +2,7 @@
 import { is } from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
 
 import potentialEvidenceProperties from '../../PotentialEvidence/properties';
-import isMarked from './common';
+import isMarkedAsEvidenceDataObject from './common';
 import type { PadEntryData } from '../../../types/controls';
 import type {
   CreateActionHandler,
@@ -26,6 +26,7 @@ const markDataObjectAsEvidence: CreateActionHandler = (
 
     // update properties of objects
     dataObject.isPotentialEvidence = potentialEvidence;
+    potentialEvidence.$parent = dataObject;
     modeling.updateProperties(element, {
       dataObjectRef: dataObject,
     });
@@ -45,7 +46,7 @@ const markDataObjectAsEvidenceEntry: PadEntryData = {
   show: (element) => (
     is(element, 'bpmn:DataObjectReference')
     && element.type !== 'label'
-    && !isMarked(element)
+    && !isMarkedAsEvidenceDataObject(element)
   ),
 };
 

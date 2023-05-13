@@ -1,9 +1,12 @@
 import evidenceStoreProperties from '../properties';
-import isMarked from './common';
+import isMarkedAsEvidenceStore from './common';
 import type { PadEntryData } from '../../../types/controls';
 import type {
   CreateActionHandler,
 } from '../../../types/controls/actionHandler';
+import type {
+  BooleanEnumerationType,
+} from '../../BooleanEnumeration/enumeration';
 
 const unmarkDataStoreAsEvidenceStore: CreateActionHandler = (
   {
@@ -12,17 +15,20 @@ const unmarkDataStoreAsEvidenceStore: CreateActionHandler = (
   _elementProperties,
 ) => (
   (_event:any, element: any) => {
-    const dataStore = element?.businessObject?.dataStoreRef;
+    const { businessObject }: {
+      businessObject: {
+        isEvidenceStore: BooleanEnumerationType | undefined
+      }
+    } = element;
     // not marked as evidence store
     if (
-      dataStore.isEvidenceStore === undefined
-      || dataStore.isEvidenceStore === false
+      businessObject.isEvidenceStore === undefined
+      || businessObject.isEvidenceStore === 'false'
     ) return;
 
     // mark the store as the evidence store
-    dataStore.isEvidenceStore = false;
     modeling.updateProperties(element, {
-      dataStoreRef: dataStore,
+      isEvidenceStore: 'false',
     });
   }
 );
@@ -37,7 +43,7 @@ const unmarkDataStoreAsEvidenceStoreEntry: PadEntryData = {
     key: `unmark-as-${evidenceStoreProperties.nameLowercase}`,
     title: 'Unmark Data Store as Evidence Store',
   },
-  show: isMarked,
+  show: isMarkedAsEvidenceStore,
 };
 
 export default unmarkDataStoreAsEvidenceStoreEntry;

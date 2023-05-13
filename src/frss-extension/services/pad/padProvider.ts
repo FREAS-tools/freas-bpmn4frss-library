@@ -71,6 +71,7 @@ export default class FrssPadProvider {
    * @param element element that is associated with the context pad
    */
   getContextPadEntries(element: any): ControlEntry {
+    // console.log(element);
     const customEntries: ControlEntryPropsAndActions[] = frssPadElements
       // create a list of ControlEntry objects
       // (that will need to be "collected" as a single object)

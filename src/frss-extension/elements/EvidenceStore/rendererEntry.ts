@@ -15,12 +15,15 @@ import type {
   RenderFunction,
   ShouldRender,
 } from '../../types/renderer';
+import type { BooleanEnumerationType } from '../BooleanEnumeration/enumeration';
 
 const shouldRender: ShouldRender = (element) => {
-  const evidenceStore = element.businessObject?.dataStoreRef?.isEvidenceStore;
+  const evidenceStore: BooleanEnumerationType | undefined = (
+    element.businessObject?.isEvidenceStore
+  );
   return is(element, 'bpmn:DataStoreReference')
     && element.type !== 'label'
-    && evidenceStore === true;
+    && evidenceStore === 'true';
 };
 
 export const renderFunction: RenderFunction = ({

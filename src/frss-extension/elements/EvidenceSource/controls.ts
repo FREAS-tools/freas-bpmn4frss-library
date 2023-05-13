@@ -8,7 +8,7 @@ const evidenceSourceControls: FrssControls = {
   paletteCreateEntry: {
     makeActionHandler: createElement,
     props: {
-      group: 'activity',
+      group: 'frss',
       key: `create-${evidenceSourceProperties.nameLowercase}`,
       title: 'Add Evidence Source',
       imageUrl: evidenceSourceProperties.icon,

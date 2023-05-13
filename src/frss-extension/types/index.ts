@@ -38,8 +38,9 @@ export type FrssPaletteElement = {
   controls: PartiallyRequired<FrssControls, 'paletteCreateEntry'>,
 } & FrssSemanticElement;
 
-export type FrssPadElement = PartiallyRequired<
-FrssSemanticElement, 'controls'>;
+export type FrssPadElement = {
+  controls: PartiallyRequired<FrssControls, 'padEntries'>
+} & FrssSemanticElement;
 
 export type FrssPropertiesPanelElement = {
   controls: PartiallyRequired<FrssControls, 'propertiesPanelControls'>

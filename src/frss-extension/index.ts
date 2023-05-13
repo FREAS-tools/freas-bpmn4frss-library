@@ -2,6 +2,7 @@ import {
   FrssMultipleDiagramProvider,
   FrssDiagramSynchrozationProvider,
 } from './services/diagram';
+import FrssFactory from './services/factory';
 import FrssDefinitions from './services/moddle';
 import FrssModeProvider from './services/mode/mode';
 import FrssPadProvider from './services/pad/padProvider';
@@ -30,6 +31,7 @@ export default {
     'frssDiagramSynchronizationProvider',
     'frssModeProvider',
     'palette',
+    'bpmnFactory',
   ],
 
   frssRenderer: ['type', FrssRenderer],
@@ -45,6 +47,7 @@ export default {
   ],
   frssModeProvider: ['type', FrssModeProvider],
   palette: ['type', FrssPalette],
+  bpmnFactory: ['type', FrssFactory],
 
   // Moddle definitions should be imported with the library itself,
   // but they should not be initialized by the dependency injector.

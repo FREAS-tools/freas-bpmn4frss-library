@@ -8,6 +8,7 @@ export type ElementBaseProperties = {
   name: string,
   /** Element name in lowercase, used for control entries */
   nameLowercase: string,
+  needsId?: boolean,
 };
 
 /**

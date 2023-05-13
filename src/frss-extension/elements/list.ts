@@ -1,6 +1,7 @@
 /**
  * IMPORT new element modules here! Each module is a custom FRSS element.
  */
+import BooleanEnumeration from './BooleanEnumeration';
 import Cooperativeness from './Cooperativeness';
 import EvidenceAssociation from './EvidenceAssociation';
 import EvidenceContext from './EvidenceContext';
@@ -44,6 +45,7 @@ const frssElements: readonly FrssElement[] = [
   BCTimestampFullProof,
   BCTimestampPartialProof,
   BCTimestampService,
+  BooleanEnumeration,
   Computation,
   Cooperativeness,
   DataTransformation,
