@@ -8,6 +8,7 @@ import {
   SetDataTransformationOutput,
 } from './dataTransformationIO';
 import DataTransformationPanelToggleSwitch from './setDataTransformation';
+import SetDataTransformationScript from './setDataTransformationScript';
 import type {
   PropertiesPanelData,
 } from '../../../../../types/controls/propertiesPanel';
@@ -38,6 +39,11 @@ const dataTransformationGroup: PropertiesPanelData = {
       {
         id: 'set-data-transformation-output',
         component: SetDataTransformationOutput,
+        show: elementIsDataTrans,
+      },
+      {
+        id: 'set-data-transformation-script',
+        component: SetDataTransformationScript,
         show: elementIsDataTrans,
       },
     ],

@@ -24,7 +24,6 @@ const dataTransformationDefinition: FrssModdleSemanticDefinition = {
       name: 'script',
       type: 'string',
       isAttr: true,
-      isReference: true,
     },
   ],
   superClass: ['bpmn:BaseElement'],
