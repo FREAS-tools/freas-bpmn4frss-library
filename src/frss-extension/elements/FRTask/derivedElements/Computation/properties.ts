@@ -1,5 +1,5 @@
-import { createIdentifier } from '../../common';
-import type { FrssProperties } from '../../../types/properties';
+import { createIdentifier } from '../../../common';
+import type { FrssProperties } from '../../../../types/properties';
 
 const name = 'Computation';
 

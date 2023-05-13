@@ -1,4 +1,8 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import {
+  SelectEntry,
+  // @ts-ignore
+
   ToggleSwitchEntry,
 // @ts-ignore
 } from '@bpmn-io/properties-panel';
@@ -46,7 +50,7 @@ export const elementHasCorrectInputOutputAssociations = (element: any) => {
   return undefined;
 };
 
-const FrssTaskComponent = (
+export const FrssTaskToggleComponent = (
   props: {
     element: any,
     id: string,
@@ -83,6 +87,7 @@ const FrssTaskComponent = (
       );
 
       businessObject[moddlePropertyName] = newMarkingObject;
+      newMarkingObject.$parent = businessObject;
       modeling.updateProperties(element, {
         [moddlePropertyName]: newMarkingObject,
       });
@@ -104,4 +109,84 @@ const FrssTaskComponent = (
   });
 };
 
-export default FrssTaskComponent;
+export const FrssTaskSetInputOutput = (
+  props: {
+    element: any,
+    id: string,
+    moddlePropertyName: 'isAuthenticityComputation'
+    | 'isDataTransformation' | 'isIntegrityComputation',
+    mode: 'input' | 'output',
+  },
+) => {
+  const {
+    element,
+    id,
+    moddlePropertyName,
+    mode,
+  } = props;
+
+  // use all services needed in the component
+  const debounce = useService('debounceInput');
+  const elementRegistry = useService('elementRegistry');
+  const translate = useService('translate');
+
+  const getValue = (elem: any) => {
+    const { businessObject } = elem;
+    const object = businessObject[moddlePropertyName];
+    const ioProperty = object[mode];
+    return ioProperty?.id;
+  };
+
+  const setValue = (value: string | undefined) => {
+    const propertyElement = element.businessObject[moddlePropertyName];
+    if (value === '') {
+      delete propertyElement[mode];
+      return;
+    }
+
+    propertyElement[mode] = elementRegistry.find(
+      (elem: any) => elem.id === value,
+    );
+  };
+
+  const getOptions = () => {
+    const defaultValue = {
+      value: '',
+      label: `No ${mode}`,
+    };
+
+    const dataIOAssociations = (
+      elementHasCorrectInputOutputAssociations(element)
+    );
+
+    if (dataIOAssociations === undefined) return [defaultValue];
+
+    const returningOptions = dataIOAssociations[mode].map(
+      (association: any) => ({
+        value: association.id,
+        label: `${association.id
+        } (`
+          + `${mode === 'input' ? 'source: ' : 'target: '}`
+          + `${mode === 'input'
+            ? association.source.id
+            : association.target.id}`
+          + ')',
+      }),
+    );
+
+    return [
+      ...returningOptions,
+      defaultValue,
+    ];
+  };
+
+  return SelectEntry({
+    id,
+    element,
+    label: translate(`Set the ${mode}`),
+    debounce,
+    getValue,
+    setValue,
+    getOptions,
+  });
+};

@@ -1,10 +1,11 @@
 import authenticityComputationProperties
-  from '../../../Computation/AuthenticityComputation/properties';
-import FrssTaskComponent from '../common';
+  from
+  '../../../derivedElements/Computation/AuthenticityComputation/properties';
+import { FrssTaskToggleComponent } from '../common';
 
 const AuthenticityComputationPanelToggleSwitch = (
   props: { element: any },
-) => FrssTaskComponent({
+) => FrssTaskToggleComponent({
   id: 'authenticity-computation',
   identifier: authenticityComputationProperties.identifier,
   element: props.element,

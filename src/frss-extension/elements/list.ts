@@ -15,11 +15,13 @@ import BCTimestampService
 import PKITimestampService
   from './FRService/TimestampService/PKITimestampService';
 import ForensicReadinessTask from './FRTask';
-import Computation from './FRTask/Computation';
+import Computation from './FRTask/derivedElements/Computation';
 import AuthenticityComputation
-  from './FRTask/Computation/AuthenticityComputation';
-import IntegrityComputation from './FRTask/Computation/IntegrityComputation';
-import DataTransformation from './FRTask/DataTransformation';
+  from './FRTask/derivedElements/Computation/AuthenticityComputation';
+import IntegrityComputation
+  from './FRTask/derivedElements/Computation/IntegrityComputation';
+import DataTransformation
+  from './FRTask/derivedElements/DataTransformation';
 import PotentialEvidence from './PotentialEvidence';
 import Produces from './Produces';
 import PromiseOf from './PromiseOf';

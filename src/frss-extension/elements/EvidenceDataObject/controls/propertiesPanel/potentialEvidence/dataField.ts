@@ -22,10 +22,12 @@ const DataFieldComponent = (
   const translate = useService('translate');
   const debounce = useService('debounceInput');
 
+  // gets the value from potential evidence / proof
   const getValue = () => (
     potentialEvidence.dataField ?? ''
   );
 
+  // sets the value of potential evidence / proof
   const setValue = (value: string) => {
     potentialEvidence.dataField = value;
   };

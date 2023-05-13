@@ -1,10 +1,10 @@
 import integrityComputationProperties
-  from '../../../Computation/IntegrityComputation/properties';
-import FrssTaskComponent from '../common';
+  from '../../../derivedElements/Computation/IntegrityComputation/properties';
+import { FrssTaskToggleComponent } from '../common';
 
 const IntegrityComputationPanelToggleSwitch = (
   props: { element: any },
-) => FrssTaskComponent({
+) => FrssTaskToggleComponent({
   id: 'integrity-computation',
   identifier: integrityComputationProperties.identifier,
   element: props.element,

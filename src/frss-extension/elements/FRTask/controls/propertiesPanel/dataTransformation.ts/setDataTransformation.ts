@@ -1,10 +1,10 @@
 import dataTransformationProperties
-  from '../../../DataTransformation/properties';
-import FrssTaskComponent from '../common';
+  from '../../../derivedElements/DataTransformation/properties';
+import { FrssTaskToggleComponent } from '../common';
 
 const DataTransformationPanelToggleSwitch = (
   props: { element: any },
-) => FrssTaskComponent({
+) => FrssTaskToggleComponent({
   id: 'data-transformation',
   identifier: dataTransformationProperties.identifier,
   element: props.element,

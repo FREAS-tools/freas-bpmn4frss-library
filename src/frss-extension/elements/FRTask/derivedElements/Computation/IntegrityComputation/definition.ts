@@ -1,7 +1,9 @@
 import computationProperties from '../properties';
 import integrityComputationProperties from './properties';
 
-import type { FrssModdleSemanticDefinition } from '../../../../types/definitions';
+import type {
+  FrssModdleSemanticDefinition,
+} from '../../../../../types/definitions';
 
 const { name } = integrityComputationProperties;
 

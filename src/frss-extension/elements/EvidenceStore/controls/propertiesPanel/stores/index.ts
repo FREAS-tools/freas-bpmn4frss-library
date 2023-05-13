@@ -14,7 +14,7 @@ const storesEvidenceGroup: PropertiesPanelData = {
   ),
   group: {
     id: 'storesEvidence',
-    label: 'Evidence Storage controls',
+    label: 'Evidence storage controls',
     entries: [
       {
         id: 'set-stored-evidence',

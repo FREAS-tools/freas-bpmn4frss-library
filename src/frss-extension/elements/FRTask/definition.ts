@@ -1,8 +1,9 @@
 import authenticityComputationProperties
-  from './Computation/AuthenticityComputation/properties';
+  from './derivedElements/Computation/AuthenticityComputation/properties';
 import integrityComputationProperties
-  from './Computation/IntegrityComputation/properties';
-import dataTransformationProperties from './DataTransformation/properties';
+  from './derivedElements/Computation/IntegrityComputation/properties';
+import dataTransformationProperties
+  from './derivedElements/DataTransformation/properties';
 import frTaskProperties from './properties';
 import type { FrssModdleSemanticDefinition } from '../../types/definitions';
 
