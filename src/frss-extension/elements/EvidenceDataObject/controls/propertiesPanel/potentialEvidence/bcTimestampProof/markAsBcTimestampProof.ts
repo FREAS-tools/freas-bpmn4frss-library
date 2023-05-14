@@ -5,7 +5,7 @@ import bcTimestampServiceProperties
   from
   '../../../../../FRService/TimestampService/BCTimestampService/properties';
 import checkOriginatesFromCorrectService
-  from '../timestampProof/checkOriginatesFromCorrectService';
+  from '../../../../timestampProof/checkOriginatesFromCorrectService';
 import type {
   PropertiesPanelEntryShowContext,
 } from '../../../../../../types/controls/propertiesPanel';

@@ -1,7 +1,7 @@
 // @ts-ignore
 import { isTextAreaEntryEdited } from '@bpmn-io/properties-panel';
 
-import isMarkedAsEvidenceDataObject from '../../common';
+import isMarkedAsEvidenceDataObject from '../../../common';
 import bcTimestampProofEntries from './bcTimestampProof';
 import PotentialEvidenceDataField from './dataField/potentialEvidenceDataField';
 import ProofDataField from './dataField/proofDataField';

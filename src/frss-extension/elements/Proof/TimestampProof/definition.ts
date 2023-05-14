@@ -13,7 +13,7 @@ const timestampProofDefinition: FrssModdleSemanticDefinition = {
       name: 'originatesFrom',
       type: timestampServiceProperties.identifier,
       isReference: true,
-      isMany: false,
+      isAttr: true,
     },
   ],
 };

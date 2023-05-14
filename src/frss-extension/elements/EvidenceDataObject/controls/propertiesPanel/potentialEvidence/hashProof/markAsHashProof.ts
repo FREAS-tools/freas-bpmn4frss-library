@@ -1,5 +1,5 @@
 import hashProofProperties from '../../../../../Proof/HashProof/properties';
-import isMarkedAsEvidenceDataObject from '../../../common';
+import isMarkedAsEvidenceDataObject from '../../../../common';
 import MarkPotentialEvidenceAsProof from '../proof/markAsProof';
 import type { PropertiesPanelEntry }
   from '../../../../../../types/controls/propertiesPanel';

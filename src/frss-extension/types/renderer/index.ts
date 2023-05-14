@@ -4,7 +4,8 @@
 export type RendererContext = {
   bpmnRenderer: any,
   element: any,
-  parentNode: any,
+  modeling: any,
+  parentNode: any
 };
 
 export type ShouldRender = (element: any) => boolean;

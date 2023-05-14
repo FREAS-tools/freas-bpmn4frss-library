@@ -1,6 +1,9 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable import/no-extraneous-dependencies */
-// type checking inside bpmn-js
+// @ts-ignore
+import BpmnRenderer from 'bpmn-js/lib/draw/BpmnRenderer';
+// @ts-ignore
+import Modeling from 'bpmn-js/lib/features/modeling/Modeling';
 import BaseRenderer from 'diagram-js/lib/draw/BaseRenderer';
 
 import { FRSS_PRIORITY } from '../../common';
@@ -21,11 +24,14 @@ const NOT_FRSS_RENDERABLE_ERROR = new Error(
 );
 
 export default class FrssRenderer extends BaseRenderer {
-  bpmnRenderer: BaseRenderer;
+  bpmnRenderer: BpmnRenderer;
+
+  modeling: Modeling;
 
   static $inject: string[] = [
     'eventBus',
     'bpmnRenderer',
+    'modeling',
   ];
 
   /**
@@ -36,10 +42,11 @@ export default class FrssRenderer extends BaseRenderer {
    *                         to the original renderer
    * (@link https://github.com/bpmn-io/bpmn-js-example-custom-rendering/blob/master/app/custom/CustomRenderer.js )
    */
-  constructor(eventBus: any, bpmnRenderer: any) {
+  constructor(eventBus: any, bpmnRenderer: BpmnRenderer, modeling: Modeling) {
     super(eventBus, FRSS_PRIORITY);
 
     this.bpmnRenderer = bpmnRenderer;
+    this.modeling = modeling;
   }
 
   /**
@@ -90,6 +97,7 @@ export default class FrssRenderer extends BaseRenderer {
       bpmnRenderer: this.bpmnRenderer,
       element,
       parentNode,
+      modeling: this.modeling,
     });
   }
 
@@ -110,6 +118,7 @@ export default class FrssRenderer extends BaseRenderer {
       bpmnRenderer: this.bpmnRenderer,
       element,
       parentNode,
+      modeling: this.modeling,
     });
   }
 }

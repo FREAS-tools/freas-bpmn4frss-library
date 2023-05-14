@@ -4,7 +4,7 @@ import { is } from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
 import getOriginatesFrom from './getOriginatesFrom';
 import type {
   PropertiesPanelEntryShowContext,
-} from '../../../../../../types/controls/propertiesPanel';
+} from '../../../types/controls/propertiesPanel';
 
 const checkOriginatesFromCorrectService = (
   { element }: PropertiesPanelEntryShowContext,
@@ -16,8 +16,6 @@ const checkOriginatesFromCorrectService = (
   const originatesFrom = getOriginatesFrom(element);
 
   const isCorrectService = is(originatesFrom, identifier);
-
-  console.log(isCorrectService);
 
   return originatesFrom !== undefined
   && isCorrectService;

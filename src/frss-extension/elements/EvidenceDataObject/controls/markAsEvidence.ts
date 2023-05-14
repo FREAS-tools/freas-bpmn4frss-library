@@ -2,7 +2,7 @@
 import { is } from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
 
 import potentialEvidenceProperties from '../../PotentialEvidence/properties';
-import isMarkedAsEvidenceDataObject from './common';
+import isMarkedAsEvidenceDataObject from '../common';
 import type { PadEntryData } from '../../../types/controls';
 import type {
   CreateActionHandler,

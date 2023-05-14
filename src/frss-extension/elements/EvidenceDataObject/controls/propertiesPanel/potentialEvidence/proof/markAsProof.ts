@@ -8,7 +8,7 @@ import { is } from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
 
 // @ts-ignore
 import { useService } from 'bpmn-js-properties-panel';
-import getOriginatesFrom from '../timestampProof/getOriginatesFrom';
+import getOriginatesFrom from '../../../../timestampProof/getOriginatesFrom';
 
 const MarkPotentialEvidenceAsProof = (props: {
   element: any,

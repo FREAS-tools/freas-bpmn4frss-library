@@ -2,8 +2,8 @@
 import { is } from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
 
 import timestampServiceProperties
-  from '../../../../../FRService/TimestampService/properties';
-import isMarkedAsEvidenceDataObject from '../../../common';
+  from '../../FRService/TimestampService/properties';
+import isMarkedAsEvidenceDataObject from '../common';
 
 const getOriginatesFrom = (element: any) => {
   // it has to be marked as evidence data object

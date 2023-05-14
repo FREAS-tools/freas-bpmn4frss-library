@@ -1,6 +1,6 @@
 // @ts-ignore
 import { is } from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
-import potentialEvidenceProperties from '../../PotentialEvidence/properties';
+import potentialEvidenceProperties from '../PotentialEvidence/properties';
 
 const isMarkedAsEvidenceDataObject = (element: any): boolean => {
   const potentialEvidence = element

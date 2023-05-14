@@ -6,7 +6,7 @@ import evidenceAssociationProperties
   from '../../EvidenceAssociation/properties';
 import potentialEvidenceProperties from '../../PotentialEvidence/properties';
 import producesProperties from '../../Produces/properties';
-import isMarkedAsEvidenceDataObject from './common';
+import isMarkedAsEvidenceDataObject from '../common';
 import type { PadEntryData } from '../../../types/controls';
 import type {
   CreateActionHandler,

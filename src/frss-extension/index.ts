@@ -9,7 +9,7 @@ import FrssPadProvider from './services/pad/padProvider';
 import FrssPalette from './services/palette/palette';
 import FrssPaletteProvider from './services/palette/paletteProvider';
 import FrssPropertiesPanelProvider from './services/propertiesPanel';
-import FrssRenderer from './services/renderer/renderer';
+import FrssRenderer from './services/renderer';
 import FrssRuleProvider from './services/rules/ruleProvider';
 import FrssRules from './services/rules/rules';
 

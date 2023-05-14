@@ -6,9 +6,9 @@ import pkiTimestampServiceProperties
   '../../../../../FRService/TimestampService/PKITimestampService/properties';
 import pkiTimestampProofProperties
   from '../../../../../Proof/TimestampProof/PKITimestampProof/properties';
-import MarkPotentialEvidenceAsProof from '../proof/markAsProof';
 import checkOriginatesFromCorrectService
-  from '../timestampProof/checkOriginatesFromCorrectService';
+  from '../../../../timestampProof/checkOriginatesFromCorrectService';
+import MarkPotentialEvidenceAsProof from '../proof/markAsProof';
 import type {
   PropertiesPanelEntry,
 } from '../../../../../../types/controls/propertiesPanel';
