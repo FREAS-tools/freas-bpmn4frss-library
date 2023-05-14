@@ -1,5 +1,8 @@
 import markDataObjectAsEvidenceEntry from './markAsEvidence';
-import potentialEvidenceGroup from './propertiesPanel/potentialEvidence';
+import {
+  potentialEvidenceGroup,
+  proofGroup,
+} from './propertiesPanel/potentialEvidence';
 import unmarkDataObjectAsEvidenceEntry from './unmarkAsEvidence';
 import type { FrssControls } from '../../../types/controls';
 
@@ -10,6 +13,7 @@ const potentialEvidenceControls: FrssControls = {
   ],
   propertiesPanelControls: [
     potentialEvidenceGroup,
+    proofGroup,
   ],
 };
 

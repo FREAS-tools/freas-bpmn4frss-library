@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import {
   SelectEntry,
-  // @ts-ignore
-
   ToggleSwitchEntry,
 // @ts-ignore
 } from '@bpmn-io/properties-panel';
