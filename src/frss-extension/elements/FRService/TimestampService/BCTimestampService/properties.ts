@@ -1,7 +1,7 @@
 import { createIdentifier } from '../../../common';
 import type { FrssProperties } from '../../../../types/properties';
 
-const name = 'BCTimestampService';
+const name = 'BcTimestampService';
 
 const bcTimestampServiceProperties: FrssProperties = {
   name,

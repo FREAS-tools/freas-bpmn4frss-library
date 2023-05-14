@@ -10,7 +10,7 @@ const evidenceSourceControls: FrssControls = {
     props: {
       group: 'frss',
       key: `create-${evidenceSourceProperties.nameLowercase}`,
-      title: 'Add Evidence Source',
+      title: 'Create an Evidence Source',
       imageUrl: evidenceSourceProperties.icon,
     },
   },

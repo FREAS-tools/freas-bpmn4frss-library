@@ -1,2 +1,3 @@
 /* To add another element CSS module, simply import it here */
 @import url('./common.css');
+@import url('../FRService/TimestampService/assets/index.css');

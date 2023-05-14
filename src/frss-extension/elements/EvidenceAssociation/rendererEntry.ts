@@ -11,7 +11,7 @@ import {
 
 import { ElementRenderType } from '../../types/renderer';
 
-import properties from './properties';
+import evidenceAssociationProperties from './properties';
 
 // types
 import type {
@@ -42,7 +42,9 @@ const renderFunction: RenderFunction = (
 
 const evidenceAssociationRendererEntry: FrssRendererEntry = {
   renderFunction,
-  shouldRender: (element) => is(element, properties.identifier),
+  shouldRender: (element) => (
+    is(element, evidenceAssociationProperties.identifier)
+  ),
   type: ElementRenderType.Connection,
 };
 

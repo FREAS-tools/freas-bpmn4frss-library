@@ -1,12 +1,12 @@
 import { createIdentifier } from '../../../common';
 import type { FrssProperties } from '../../../../types/properties';
 
-const name = 'PKITimestampService';
+const name = 'PkiTimestampService';
 
 const pkiTimestampServiceProperties: FrssProperties = {
   name,
   identifier: createIdentifier(name),
-  nameLowercase: 'bc-timestamp-service',
+  nameLowercase: 'pki-timestamp-service',
 };
 
 export default pkiTimestampServiceProperties;

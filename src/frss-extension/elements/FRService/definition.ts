@@ -5,7 +5,7 @@ const { name } = frServiceProperties;
 
 const frServiceDefinition: FrssModdleSemanticDefinition = {
   name,
-  extends: ['bpmn:Participant'],
+  superClass: ['bpmn:Participant'],
   properties: [],
 };
 
