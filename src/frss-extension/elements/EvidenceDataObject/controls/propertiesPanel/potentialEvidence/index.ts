@@ -6,6 +6,7 @@ import bcTimestampProofEntries from './bcTimestampProof';
 import PotentialEvidenceDataField from './dataField/potentialEvidenceDataField';
 import ProofDataField from './dataField/proofDataField';
 import markAsHashProofEntry from './hashProof/markAsHashProof';
+import markAsPKITimestampProofEntry from './pkiTimestampProof';
 import type {
   PropertiesPanelData,
 } from '../../../../../types/controls/propertiesPanel';
@@ -38,6 +39,9 @@ export const potentialEvidenceGroup: PropertiesPanelData = {
       // bc timestamp entries when the potential evidence can be marked
       // as either bc timestamp
       ...bcTimestampProofEntries,
+      // pki timestamp entries when the potential evidence can be marked as
+      // a pki timestamp
+      markAsPKITimestampProofEntry,
     ],
   },
 };
@@ -70,6 +74,9 @@ export const proofGroup: PropertiesPanelData = {
       // bc timestamp entries when the potential evidence can be marked
       // as either bc timestamp
       ...bcTimestampProofEntries,
+      // pki timestamp entries when the potential evidence can be marked as
+      // a pki timestamp
+      markAsPKITimestampProofEntry,
     ],
   },
 };

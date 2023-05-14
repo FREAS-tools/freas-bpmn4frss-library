@@ -265,7 +265,6 @@ export default class FrssRuleProvider extends RuleProvider {
   }
 
   init() {
-    // @ts-expect-error
     this.addRule('shape.attach', FRSS_PRIORITY, (context: any) => {
       const { target, shape } = context;
 
@@ -284,7 +283,6 @@ export default class FrssRuleProvider extends RuleProvider {
       );
     });
 
-    // @ts-expect-error
     this.addRule('elements.move', FRSS_PRIORITY, (context: any) => {
       const { shapes, target } = context;
 
@@ -311,7 +309,6 @@ export default class FrssRuleProvider extends RuleProvider {
       );
     });
 
-    // @ts-expect-error
     this.addRule('shape.create', FRSS_PRIORITY, (context: any) => {
       const { shape, target } = context;
 
@@ -325,7 +322,6 @@ export default class FrssRuleProvider extends RuleProvider {
       );
     });
 
-    // @ts-expect-error
     this.addRule(
       'connection.create',
       FRSS_PRIORITY,
@@ -343,7 +339,6 @@ export default class FrssRuleProvider extends RuleProvider {
       ),
     );
 
-    // @ts-expect-error
     this.addRule(
       'connection.reconnect',
       FRSS_PRIORITY,

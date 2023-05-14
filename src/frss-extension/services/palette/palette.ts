@@ -40,6 +40,7 @@ export default class FrssPalette extends Palette {
   }
 
   update() {
+    // @ts-ignore
     // eslint-disable-next-line no-underscore-dangle
     super._update();
   }
