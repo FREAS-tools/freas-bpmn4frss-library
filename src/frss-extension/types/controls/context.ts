@@ -1,4 +1,4 @@
-import type { FrssMultipleDiagramProvider } from '../../services/diagram';
+import type FrssMultipleDiagramProvider from '../../services/diagram';
 
 /**
  * Context for creating a new control function.

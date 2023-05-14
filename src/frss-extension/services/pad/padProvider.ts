@@ -13,7 +13,7 @@ import type {
   ControlEntry,
   ControlEntryPropsAndActions,
 } from '../../types/controls/entry';
-import type { FrssMultipleDiagramProvider } from '../diagram';
+import type FrssMultipleDiagramProvider from '../diagram';
 
 // /* eslint-disable @typescript-eslint/no-unused-vars */
 export default class FrssPadProvider {

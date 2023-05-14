@@ -1,6 +1,10 @@
 import { FRSS_PRIORITY } from '../../common';
 import { frssPropertiesPanelElements } from '../../elements';
 
+/**
+ * Extension which allows hooking up properties panel control extensions
+ * and controlling the diagram modelling
+ */
 export default class FrssPropertiesPanelProvider {
   static $inject: string[] = [
     'propertiesPanel',
@@ -14,6 +18,7 @@ export default class FrssPropertiesPanelProvider {
 
   elementRegistry: any;
 
+  // obtain all services
   constructor(
     propertiesPanel: any,
     translate: (input: string) => string,
@@ -35,7 +40,7 @@ export default class FrssPropertiesPanelProvider {
       ),
     );
 
-    // middleware which intercepts and potentially adds the control entries
+    // middleware which intercepts and adds the control entries
     // for the property panel
     return (groups: any[]) => {
       propertyGroupEntries.forEach((groupData) => {

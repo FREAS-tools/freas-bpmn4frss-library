@@ -7,6 +7,9 @@ import rules from './rules';
 // types
 import type { FrssElement } from '../../types';
 
+/**
+ * Allows marking objects as an Evidence Source
+ */
 const EvidenceSource: FrssElement = {
   controls,
   definition,

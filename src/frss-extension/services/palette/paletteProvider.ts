@@ -4,7 +4,7 @@ import {
   newControlEntry,
   collectControlEntries,
 } from '../../types/controls/implementation';
-import type { FrssMultipleDiagramProvider } from '../diagram';
+import type FrssMultipleDiagramProvider from '../diagram';
 
 /**
  * FRSS extension of the `bpmn-js` palette

@@ -4,6 +4,10 @@ import Palette from 'diagram-js/lib/features/palette/Palette';
 import { FrssMode } from '../mode/mode';
 import type FrssModeProvider from '../mode/mode';
 
+/**
+ * Extension of the original palette, allowing to disable the palette
+ * in another diagram view (disabled at the moment)
+ */
 export default class FrssPalette extends Palette {
   static $inject: string[] = [
     'frssModeProvider',

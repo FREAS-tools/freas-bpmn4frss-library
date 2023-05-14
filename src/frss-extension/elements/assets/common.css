@@ -1,3 +1,4 @@
+/* Pad entry for marking and unmarking a FRSS construct */
 .mark-as::before, .unmark::before {
     font-size: 0.75rem;
     display: inline-block;
@@ -9,11 +10,13 @@
     border-width: 0.125rem;
 }
 
+/* Marking color */
 .mark-as--default::before {
     background-color: #89ff89;
     border-color: #006a00;
 }
 
+/* Unmarking color */
 .unmark::before {
     background-color: lightcoral;
     border-color: red;

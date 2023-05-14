@@ -65,8 +65,7 @@ const handleNotFoundRule = (
 /**
  * Check if element can be attached to another element
  *
- * @param source source element
- * @param target target element
+ * @param context context of the rule
  * @returns "attach" if the element should be attached
  *          false if the element should not be attached
  *          void if the element is not of this rule's concern
@@ -95,6 +94,14 @@ const checkAttachment: RuleFunctionWrapper<ReturnType<AttachmentRule>
   });
 };
 
+/**
+ * Check if element can be connected to another element
+ *
+ * @param context context of the rule
+ * @returns {type: identifier} if the element can be connected
+ *          false if the element should not be connected
+ *          void if the element is not of this rule's concern
+ */
 const checkConnection: RuleFunctionWrapper<ReturnType<ConnectionRule>
 | undefined> = (
   {
@@ -119,6 +126,14 @@ const checkConnection: RuleFunctionWrapper<ReturnType<ConnectionRule>
   });
 };
 
+/**
+ * Check if element can be reconnected to another element
+ *
+ * @param context context of the rule
+ * @returns {type: identifier} if the element can be reconnected
+ *          false if the element should not be reconnected
+ *          void if the element is not of this rule's concern
+ */
 export const checkReconnection: RuleFunctionWrapper<ReturnType<ConnectionRule>
 | undefined> = (
   {
@@ -157,6 +172,13 @@ export const checkReconnection: RuleFunctionWrapper<ReturnType<ConnectionRule>
   });
 };
 
+/**
+ * Decide whether an element can be created
+ * @param context context of the rule
+ * @returns true if the element can be created
+ *          false if the element cannot be created
+ *          void if the element is not of this rule's concern
+ */
 const checkCreation: RuleFunctionWrapper<ReturnType<CreationRule>
 | undefined> = (
   {
@@ -188,6 +210,13 @@ enum ConnectionRuleHook {
   Reconnect = 'reconnect',
 }
 
+/**
+ * Decide between checking connection and reconnection (identity)
+ * @param context context of the rule
+ * @returns {type: identifier} if the element can be (re)connected
+ *          false if the element should not be (re)connected
+ *          void if the element is not of this rule's concern
+ */
 const connectionCreateOrReconnect = (
   {
     source,
@@ -242,6 +271,10 @@ const connectionCreateOrReconnect = (
  *
  */
 
+/**
+ * Extension of a regular BPMN rule provider which handles rules for
+ * elements and connections
+ */
 export default class FrssRuleProvider extends RuleProvider {
   static $inject: string[] = [
     'eventBus',

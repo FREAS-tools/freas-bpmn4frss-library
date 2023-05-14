@@ -8,7 +8,8 @@ const evidenceAssociationDefinition: FrssModdleSemanticDefinition = {
   superClass: ['bpmn:Association'],
   properties: [
     {
-      // we wish to start the `EvidenceAssociation` arrow in the potential evidence DataObjectReference
+      // we wish to start the `EvidenceAssociation`
+      // arrow in the potential evidence DataObjectReference
       name: 'sourceRef',
       type: 'bpmn:DataObjectReference',
 

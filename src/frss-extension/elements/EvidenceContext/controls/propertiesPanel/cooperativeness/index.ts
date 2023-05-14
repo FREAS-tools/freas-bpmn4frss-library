@@ -8,6 +8,8 @@ import type {
 } from '../../../../../types/controls/propertiesPanel';
 
 const cooperativenessGroup: PropertiesPanelData = {
+  // the group is shown when the element is an evidence context
+  // (bpmn:Participant)
   show: (element) => is(element, evidenceContextProperties.identifier),
   group: {
     id: 'Cooperativeness',

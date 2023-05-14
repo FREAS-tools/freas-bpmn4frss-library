@@ -7,6 +7,12 @@ import rules from './rules';
 // types
 import type { FrssElement } from '../../types';
 
+/**
+ * EvidenceDataObject extends bpmn:DataObject and allows storing
+ * the PotentialEvidence
+ *
+ * Represented in the diagram as bpmn:DataObjectReference
+ */
 const EvidenceDataObject: FrssElement = {
   controls,
   definition,

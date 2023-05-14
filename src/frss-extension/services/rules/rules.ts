@@ -6,6 +6,10 @@ import BpmnRules from 'bpmn-js/lib/features/rules/BpmnRules';
 import { checkReconnection } from './ruleProvider';
 import type FrssModeProvider from '../mode/mode';
 
+/**
+ * Extension of regular BPMN rules, allowing to reconnect custom
+ * connections (EvidenceAssociation, Produces, PromiseOf)
+ */
 export default class FrssRules extends BpmnRules {
   static $inject: string[] = [
     'eventBus',

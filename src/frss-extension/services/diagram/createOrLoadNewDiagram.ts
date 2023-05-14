@@ -215,28 +215,3 @@ export const instanciateDiagramStates = (
 
   return currentState;
 };
-
-// export const createNewRegularDiagramAndAssociatedDiagrams = (
-//   context: MultipleDiagramProviderContext,
-// ): DiagramState => {
-//   const newState = addNormalDiagramState(
-//     createNewEmptyDiagram(context),
-//     context.diagramStateHandler,
-//   );
-
-//   FrssDiagramSuffix.forEach((diagramType) => {
-//     newState.frssDiagrams.push({
-//       baseDiagramId: newState.diagram.id,
-//       diagram: createNewEmptyDiagram(
-//         context,
-//         {
-//           id: newState.diagram.id,
-//           createType: diagramType,
-//         },
-//       ),
-//       type: diagramType,
-//     });
-//   });
-
-//   return newState;
-// };

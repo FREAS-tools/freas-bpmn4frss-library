@@ -14,6 +14,10 @@ const frssNeedsId = (element: any) => isAny(
   ).map((frssElement) => frssElement.properties.identifier),
 );
 
+/**
+ * Modifies the original bpmn factory and adds support for elements
+ * that need ID, but they were not getting one with the original implementation
+ */
 export default class FrssFactory extends BpmnFactory {
   static $inject: string[] = ['moddle'];
 
@@ -36,6 +40,8 @@ export default class FrssFactory extends BpmnFactory {
     if (!frssId) {
       super._ensureId(element);
     }
+
+    // this code is borrowed from the original BpmnFactory implementation
 
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     const elementPrefix = `${(element.$type ?? '').replace(/^[^:]*:/g, '')}_`;

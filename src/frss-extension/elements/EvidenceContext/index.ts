@@ -5,6 +5,10 @@ import rendererEntry from './rendererEntry';
 
 import type { FrssElement } from '../../types';
 
+/**
+ * Extension of a bpmn:Participant which allows people to set and retrieve
+ * the cooperativeness value
+ */
 const EvidenceContext: FrssElement = {
   controls,
   definition,

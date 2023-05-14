@@ -46,13 +46,15 @@ const frssElements: readonly FrssElement[] = [
   AuthenticityComputation,
   BCTimestampFullProof,
   BCTimestampPartialProof,
-  BCTimestampService,
   BooleanEnumeration,
   Computation,
   Cooperativeness,
   DataTransformation,
   EvidenceAssociation,
   EvidenceContext,
+  // Evidence Context has a higher priority
+  // (fixing a bug with BCTimestampService)
+  BCTimestampService,
   EvidenceDataObject,
   EvidenceSource,
   EvidenceStore,

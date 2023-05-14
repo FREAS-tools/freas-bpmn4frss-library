@@ -30,8 +30,8 @@ const renderFunction: RenderFunction = (
   );
 
   const attributes = {
-    stroke: 'pink',
-    strokeDasharray: '20, 5',
+    stroke: 'green',
+    strokeDasharray: '10, 10',
   };
 
   // set the attributes

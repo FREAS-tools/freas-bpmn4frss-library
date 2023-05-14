@@ -1,7 +1,5 @@
-import {
-  FrssMultipleDiagramProvider,
-  FrssDiagramSynchrozationProvider,
-} from './services/diagram';
+import FrssMultipleDiagramProvider from './services/diagram';
+import FrssEvents from './services/events';
 import FrssFactory from './services/factory';
 import FrssDefinitions from './services/moddle';
 import FrssModeProvider from './services/mode/mode';
@@ -28,7 +26,7 @@ export default {
     'frssRuleProvider',
     'frssMultipleDiagramProvider',
     'frssPropertiesPanelProvider',
-    'frssDiagramSynchronizationProvider',
+    'frssEvents',
     'frssModeProvider',
     'palette',
     'bpmnFactory',
@@ -41,9 +39,9 @@ export default {
   frssRuleProvider: ['type', FrssRuleProvider],
   frssMultipleDiagramProvider: ['type', FrssMultipleDiagramProvider],
   frssPropertiesPanelProvider: ['type', FrssPropertiesPanelProvider],
-  frssDiagramSynchronizationProvider: [
+  frssEvents: [
     'type',
-    FrssDiagramSynchrozationProvider,
+    FrssEvents,
   ],
   frssModeProvider: ['type', FrssModeProvider],
   palette: ['type', FrssPalette],
@@ -71,7 +69,7 @@ export {
   FrssPadProvider as Bpmn4FrssPadProvider,
   FrssRuleProvider as Bpmn4FrssRuleProvider,
   FrssRules as Bpmn4FrssRules,
-  FrssMultipleDiagramProvider as Bpmn4FrssMultipleDiagramProvider,
-  FrssDiagramSynchrozationProvider as Bpmn4FrssDiagramSynchronizationProvider,
+  FrssEvents as Bpmn4FrssEvents,
   FrssPropertiesPanelProvider as Bpmn4FrssPropertiesPanelProvider,
+  FrssMultipleDiagramProvider as Bpmn4FrssMultipleDiagramProvider,
 };

@@ -32,7 +32,7 @@ type FrssModdleDefinitions = {
 /**
  * This file contains moddle definitions for the BPMN4FRSS extension.
  * Unlike in the extension tutorial for bpmn-js library,
- * we chose to use the TS objects directly, which allows us to write
+ * the TS objects were chosen directly, allowing writing
  * the definitions in a modular way.
  *
  * To add a new language construct (/element) into the moddle definition:

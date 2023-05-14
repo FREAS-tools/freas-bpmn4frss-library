@@ -27,7 +27,13 @@ import type {
 } from '../frss-extension/services/overlays/schemas';
 import type { BaseViewerOptions } from 'bpmn-js/lib/BaseViewer';
 
+/**
+ * The main export of this library - a fully functioning and extensible
+ * FrssModeler, which is extensible in the same way as the regular
+ * bpmn-js modeler is
+ */
 export default class FrssModeler extends Modeler {
+  // build the constructor and feed it into the bpmn-js Modeler
   constructor(options?: BaseViewerOptions) {
     super({
       ...options,
@@ -45,23 +51,42 @@ export default class FrssModeler extends Modeler {
     });
   }
 
+  /**
+   * Loads the diagram from XML
+   * @param diagram loaded diagram (string)
+   */
   async loadDiagram(diagram: string) {
     await super.importXML(diagram);
   }
 
+  /**
+   * Loads the default diagram (each time with unique IDs)
+   */
   async loadDefaultDiagram() {
     await super.importXML(defaultDiagram);
   }
 
+  /**
+   * Notifies the canvas that the library should be resized
+   */
   resize() {
     // @ts-expect-error
     this.get('canvas').resized();
   }
 
+  /**
+   * Loads the overlays coming from an external validator
+   * @param data verified data coming from an external validator
+   */
   showFrssOverlays(data: DataValidationResult) {
+    // overlay service reference is passed from the modeler
+    // to the function which uses it
     renderOverlays(this.get('overlays'), data);
   }
 
+  /**
+   * Removes all FRSS overlays (marked with specified IDs)
+   */
   removeFrssOverlays() {
     removeOverlays(this.get('overlays'));
   }

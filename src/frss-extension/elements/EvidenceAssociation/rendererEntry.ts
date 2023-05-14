@@ -22,6 +22,7 @@ import type {
 const renderFunction: RenderFunction = (
   { parentNode, element, bpmnRenderer },
 ) => {
+  // use the default rendering of a DataOutputAssociation
   const evidenceAssociation = (
     bpmnRenderer.handlers['bpmn:DataOutputAssociation'](
       parentNode,
@@ -29,6 +30,7 @@ const renderFunction: RenderFunction = (
     )
   );
 
+  // change the colour and the style
   const attributes = {
     stroke: 'green',
     strokeDasharray: '20, 5',

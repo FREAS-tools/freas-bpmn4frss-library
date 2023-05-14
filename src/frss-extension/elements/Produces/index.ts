@@ -5,13 +5,14 @@ import rendererEntry from './rendererEntry';
 // types
 import type { FrssElement } from '../../types';
 
+/**
+ * An Association between Evidence Source and Potential Evidence
+ * (drawn by between Evidence Source and bpmn:DataObjectReference)
+ */
 const Produces: FrssElement = {
   definition,
   properties,
   rendererEntry,
 };
 
-/**
- * The default export exports all properties of a custom element.
- */
 export default Produces;

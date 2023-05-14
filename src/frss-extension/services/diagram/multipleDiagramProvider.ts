@@ -17,6 +17,11 @@ import type FrssModeler from '../../../modeler';
 
 import type FrssPalette from '../palette/palette';
 
+/**
+ * This provider serves to change the view of the diagram.
+ * However, the functionality is not stable, so the unstable
+ * parts have been removed for now.
+ */
 export default class FrssMultipleDiagramProvider {
   static $inject: string[] = [
     'bpmnjs',
@@ -98,12 +103,6 @@ export default class FrssMultipleDiagramProvider {
       this.context(),
     );
   }
-
-  // createNewRegularDiagram() {
-  //   this.diagramState = createNewRegularDiagramAndAssociatedDiagrams(
-  //     this.context(),
-  //   );
-  // }
 
   private openDiagram() {
     this.canvas.setRootElement(this.diagramState.diagram);
@@ -200,14 +199,6 @@ export default class FrssMultipleDiagramProvider {
 
     throw new Error('Unsupported diagram mode!');
   }
-
-  // async removeDiagram(id: string) {
-  //   // remove the diagram and its related diagrams
-  // }
-
-  // async changeDiagram(id: string) {
-  //   // switch the diagram to an existing one
-  // }
 
   getDiagramList() {
     return [...this.diagramStateHandler.keys()];

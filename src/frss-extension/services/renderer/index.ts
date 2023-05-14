@@ -23,6 +23,10 @@ const NOT_FRSS_RENDERABLE_ERROR = new Error(
   'The element is not renderable by the FRSS renderer',
 );
 
+/**
+ * Custom renderer which handles the FRSS elements which have a registered
+ * renderer entry
+ */
 export default class FrssRenderer extends BaseRenderer {
   bpmnRenderer: BpmnRenderer;
 

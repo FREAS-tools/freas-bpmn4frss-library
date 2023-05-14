@@ -65,6 +65,10 @@ export const frssSemanticElements: FrssSemanticElement[] = frssElements
     isFrssSemanticElement(element)
   ));
 
+/*
+  All enumeration elements - distributed into moddle schema to a different
+  place than the semantic elements
+*/
 export const frssEnumerationElements: FrssEnumerationElement[] = frssElements
   .filter((element): element is FrssEnumerationElement => (
     isFrssEnumerationElement(element)
