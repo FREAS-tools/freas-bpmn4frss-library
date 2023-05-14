@@ -10,10 +10,10 @@ import {
 import DataTransformationPanelToggleSwitch from './setDataTransformation';
 import SetDataTransformationScript from './setDataTransformationScript';
 import type {
-  PropertiesPanelData,
+  PropertiesPanelData, PropertiesPanelEntryShowContext,
 } from '../../../../../types/controls/propertiesPanel';
 
-const elementIsDataTrans = (element: any) => (
+const elementIsDataTrans = ({ element }: PropertiesPanelEntryShowContext) => (
   element.businessObject?.isDataTransformation !== undefined
 );
 
@@ -29,7 +29,7 @@ const dataTransformationGroup: PropertiesPanelData = {
       {
         id: 'set-data-transformation',
         component: DataTransformationPanelToggleSwitch,
-        show: (_element) => true,
+        show: (_context) => true,
       },
       {
         id: 'set-data-transformation-input',

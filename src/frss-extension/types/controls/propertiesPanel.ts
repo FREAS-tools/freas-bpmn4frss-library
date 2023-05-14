@@ -5,11 +5,16 @@ export type PropertiesPanelData = {
   show: (element: any) => boolean
 };
 
+export type PropertiesPanelEntryShowContext = {
+  element: any,
+  elementRegistry: any,
+};
+
 export type PropertiesPanelEntry = {
   component: (props: any) => VNode,
   id: string,
   isEdited?: any,
-  show: (element: any) => boolean
+  show: (context: PropertiesPanelEntryShowContext) => boolean
 };
 
 export type PropertiesPanelGroup = {

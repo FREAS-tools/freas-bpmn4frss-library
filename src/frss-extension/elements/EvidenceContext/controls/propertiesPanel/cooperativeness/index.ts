@@ -16,7 +16,7 @@ const cooperativenessGroup: PropertiesPanelData = {
       {
         id: 'set-cooperativeness',
         component: CooperativenessPanelSelector,
-        show: (_element) => true,
+        show: (_context) => true,
       },
     ],
   },

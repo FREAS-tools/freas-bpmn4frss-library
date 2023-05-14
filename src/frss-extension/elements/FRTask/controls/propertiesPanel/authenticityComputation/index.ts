@@ -12,10 +12,12 @@ import {
   SetAuthenticityComputationOutput,
 } from './setAuthenticityIO';
 import type {
-  PropertiesPanelData,
+  PropertiesPanelData, PropertiesPanelEntryShowContext,
 } from '../../../../../types/controls/propertiesPanel';
 
-const elementIsAuthenticityComp = (element: any) => (
+const elementIsAuthenticityComp = (
+  { element }: PropertiesPanelEntryShowContext,
+) => (
   element.businessObject?.isAuthenticityComputation !== undefined
 );
 
@@ -31,7 +33,7 @@ const authenticityComputationGroup: PropertiesPanelData = {
       {
         id: 'set-authenticity-computation',
         component: AuthenticityComputationPanelToggleSwitch,
-        show: (_element) => true,
+        show: (_context) => true,
       },
       {
         id: 'set-authenticity-input',

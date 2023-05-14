@@ -4,6 +4,9 @@ import {
 } from '@bpmn-io/properties-panel';
 
 // @ts-ignore
+import { is } from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
+
+// @ts-ignore
 import { useService } from 'bpmn-js-properties-panel';
 
 const MarkPotentialEvidenceAsProof = (props: {
@@ -27,6 +30,7 @@ const MarkPotentialEvidenceAsProof = (props: {
 
   const getValue = (_elem: any) => (
     potentialEvidence[moddlePropertyName] !== undefined
+    && is(potentialEvidence[moddlePropertyName], identifier)
   );
 
   const switcherLabel = potentialEvidence[moddlePropertyName] === undefined

@@ -19,7 +19,7 @@ const storesEvidenceGroup: PropertiesPanelData = {
       {
         id: 'set-stored-evidence',
         component: StoresPotentialEvidenceComponent,
-        show: (_element) => true,
+        show: (_context) => true,
       },
     ],
   },

@@ -9,10 +9,12 @@ import {
   SetIntegrityComputationOutput,
 } from './setIntegrityIO';
 import type {
-  PropertiesPanelData,
+  PropertiesPanelData, PropertiesPanelEntryShowContext,
 } from '../../../../../types/controls/propertiesPanel';
 
-const elementIsInterityComp = (element: any) => (
+const elementIsInterityComp = (
+  { element }: PropertiesPanelEntryShowContext,
+) => (
   element.businessObject?.isIntegrityComputation !== undefined
 );
 
@@ -28,7 +30,7 @@ const integrityComputationGroup: PropertiesPanelData = {
       {
         id: 'set-integrity-computation',
         component: IntegrityComputationPanelToggleSwitch,
-        show: (_element) => true,
+        show: (_context) => true,
       },
       {
         id: 'set-integrity-computation-input',

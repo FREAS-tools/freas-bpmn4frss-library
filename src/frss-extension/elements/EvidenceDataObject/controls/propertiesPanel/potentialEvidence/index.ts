@@ -1,40 +1,14 @@
 // @ts-ignore
 import { isTextAreaEntryEdited } from '@bpmn-io/properties-panel';
+
 import isMarkedAsEvidenceDataObject from '../../common';
-import HashProofToggleSwitch from './markAsHashProof';
-import PotentialEvidenceDataField from './potentialEvidenceDataField';
-import ProofDataField from './proofDataField';
+import bcTimestampProofEntries from './bcTimestampProof';
+import PotentialEvidenceDataField from './dataField/potentialEvidenceDataField';
+import ProofDataField from './dataField/proofDataField';
+import markAsHashProofEntry from './hashProof/markAsHashProof';
 import type {
-  PropertiesPanelData, PropertiesPanelEntry,
+  PropertiesPanelData,
 } from '../../../../../types/controls/propertiesPanel';
-
-const markAsHashProofEntry: PropertiesPanelEntry = {
-  id: 'mark-as-hash-proof',
-  component: HashProofToggleSwitch,
-  show: (element) => {
-    const potentialEvidence = (
-      element.businessObject?.dataObjectRef?.isPotentialEvidence
-    );
-
-    return (
-      isMarkedAsEvidenceDataObject(element)
-      && potentialEvidence !== undefined
-      && element?.incoming?.find(
-        (association: any) => {
-          const integrityComputation = (
-            association
-              ?.source
-              ?.businessObject
-              ?.isIntegrityComputation
-          );
-
-          return integrityComputation !== undefined
-          && integrityComputation?.output?.id === association.id;
-        },
-      )
-    );
-  },
-};
 
 export const potentialEvidenceGroup: PropertiesPanelData = {
   show: (element: any) => {
@@ -56,10 +30,14 @@ export const potentialEvidenceGroup: PropertiesPanelData = {
       {
         id: 'set-data-field',
         component: PotentialEvidenceDataField,
-        show: (_element: any) => true,
+        show: (_context) => true,
         isEdited: isTextAreaEntryEdited,
       },
+      // hash entry when the potential evidence can be marked as hash proof
       markAsHashProofEntry,
+      // bc timestamp entries when the potential evidence can be marked
+      // as either bc timestamp
+      ...bcTimestampProofEntries,
     ],
   },
 };
@@ -84,10 +62,14 @@ export const proofGroup: PropertiesPanelData = {
       {
         id: 'set-data-field',
         component: ProofDataField,
-        show: (_element: any) => true,
+        show: (_context) => true,
         isEdited: isTextAreaEntryEdited,
       },
+      // hash entry when the potential evidence can be marked as hash proof
       markAsHashProofEntry,
+      // bc timestamp entries when the potential evidence can be marked
+      // as either bc timestamp
+      ...bcTimestampProofEntries,
     ],
   },
 };
