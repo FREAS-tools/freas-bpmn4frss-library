@@ -1,15 +1,21 @@
-import Express from 'express';
+import Express, {json} from 'express';
 import cors from 'cors';
 
 const app = Express();
 
+// to avoid problems with CORS
 app.use(cors());
 
+// handling the json deserialisation
+app.use(json());
+
 // listen to post request on the "/validation" url
-app.post('/validation', (_req, res) => {
+app.post('/validation', (req, res) => {
+  // log the request!
+  console.log(req.body);
   // always send this response - just mocking what the actual
   // validator would do
-  res.send({
+  res.status(200).send({
     errors: [
       {
         source: [

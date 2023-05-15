@@ -62,8 +62,10 @@ export default class FrssModeler extends Modeler {
   /**
    * Loads the default diagram (each time with unique IDs)
    */
-  async loadDefaultDiagram() {
-    await super.importXML(defaultDiagram);
+  async loadDefaultDiagram(): Promise<string> {
+    const diagram = defaultDiagram;
+    await super.importXML(diagram);
+    return diagram;
   }
 
   /**
@@ -89,5 +91,14 @@ export default class FrssModeler extends Modeler {
    */
   removeFrssOverlays() {
     removeOverlays(this.get('overlays'));
+  }
+
+  getListOfElementIds(): string[] {
+    const registry = this.get('elementRegistry');
+    // @ts-ignore
+    const result: string[] = registry
+      .getAll()
+      .map((element: any) => element.id as string);
+    return result;
   }
 }
