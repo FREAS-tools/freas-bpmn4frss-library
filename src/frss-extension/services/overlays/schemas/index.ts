@@ -45,7 +45,7 @@ export type DataValidationFormData = z.infer<
  * Extension field required in the request
  */
 export const formExtensionField = {
-  bpmn_model: z.string().nonempty(),
+  model: z.string().nonempty(),
 };
 
 /**
