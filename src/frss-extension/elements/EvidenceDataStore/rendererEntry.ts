@@ -9,21 +9,28 @@ import {
 
 import { ElementRenderType } from '../../types/renderer';
 
+// properties from the EvidenceStore
+import evidenceStoreProperties from '../EvidenceStore/properties';
+
 // types
 import type {
   FrssRendererEntry,
   RenderFunction,
   ShouldRender,
 } from '../../types/renderer';
-import type { BooleanEnumerationType } from '../BooleanEnumeration/enumeration';
+
+const dataObjectElementIdentifier = 'bpmn:DataStoreReference';
 
 const shouldRender: ShouldRender = (element) => {
-  const evidenceStore: BooleanEnumerationType | undefined = (
-    element.businessObject?.isEvidenceStore
-  );
-  return is(element, 'bpmn:DataStoreReference')
+  const evidenceDataStore = element
+    .businessObject?.dataStoreRef?.isEvidenceStore;
+
+  return (
+    is(element, dataObjectElementIdentifier)
     && element.type !== 'label'
-    && evidenceStore === 'true';
+    && evidenceDataStore !== undefined
+    && is(evidenceDataStore, evidenceStoreProperties.identifier)
+  );
 };
 
 export const renderFunction: RenderFunction = ({
@@ -33,7 +40,7 @@ export const renderFunction: RenderFunction = ({
 }) => {
   // get the default handler for `DataStoreReference`. We want to change
   // the attributes of the SVG
-  const evidenceStore = bpmnRenderer
+  const evidenceDataStore = bpmnRenderer
     .handlers['bpmn:DataStoreReference'](parentNode, element);
   const attributes = {
     stroke: 'green',
@@ -41,15 +48,15 @@ export const renderFunction: RenderFunction = ({
     fill: 'white',
   };
 
-  attributesSvg(evidenceStore, attributes);
+  attributesSvg(evidenceDataStore, attributes);
 
-  return evidenceStore;
+  return evidenceDataStore;
 };
 
-const evidenceStoreRendererEntry: FrssRendererEntry = {
+const evidenceDataStoreRendererEntry: FrssRendererEntry = {
   renderFunction,
   shouldRender,
   type: ElementRenderType.Shape,
 };
 
-export default evidenceStoreRendererEntry;
+export default evidenceDataStoreRendererEntry;

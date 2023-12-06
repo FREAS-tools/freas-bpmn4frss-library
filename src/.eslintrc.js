@@ -30,6 +30,10 @@ module.exports = {
         argsIgnorePattern: '^_',
       },
     ],
+    'linebreak-style': [
+      'error',
+      process.platform === 'win32' ? 'windows' : 'unix',
+    ],
     'consistent-return': 'off',
     // Disabling no-console rule to be able to debug the work
     'no-console': 'warn',

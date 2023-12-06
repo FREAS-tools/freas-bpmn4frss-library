@@ -1,6 +1,6 @@
 {
   "name": "freas-bpmn4frss-library",
-  "version": "0.0.1",
+  "version": "0.2.0",
   "description": "BPMN4FRSS Web editor library (based on bpmn-js library)",
   "scripts": {
     "build": "tsc --project ./tsconfig.json",
@@ -21,27 +21,32 @@
       "name": "Tomáš Sedláček",
       "email": "dev.sedlacektom@gmail.com",
       "url": "https://github.com/devsedlacektom"
+    },
+    {
+      "name": "Lukáš Daubner",
+      "email": "daubner@mail.muni.cz",
+      "url": "https://github.com/Lukas-Razz"
     }
   ],
   "license": "ISC",
   "dependencies": {
-    "@bpmn-io/properties-panel": "^1.8.2",
-    "bpmn-js": "^12.1.1",
-    "bpmn-js-color-picker": "^0.5.0",
-    "bpmn-js-properties-panel": "^1.22.1",
+    "@bpmn-io/properties-panel": "^3.13.0",
+    "bpmn-js": "^15.2.2",
+    "bpmn-js-color-picker": "^0.6.1",
+    "bpmn-js-properties-panel": "^5.6.1",
     "htm": "^3.1.1",
-    "nanoid": "^4.0.2",
-    "zod": "^3.21.4"
+    "nanoid": "^5.0.4",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.58.0",
-    "@typescript-eslint/parser": "^5.58.0",
-    "eslint": "^8.38.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.2",
+    "@typescript-eslint/parser": "^6.13.2",
+    "eslint": "^8.55.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-config-airbnb-typescript-base": "^4.0.2",
-    "eslint-plugin-import": "^2.27.5",
-    "preact": "^10.13.2",
-    "typescript": "^5.0.4",
-    "vitest": "^0.30.1"
+    "eslint-config-airbnb-typescript-base": "^5.0.1",
+    "eslint-plugin-import": "^2.29.0",
+    "preact": "^10.19.2",
+    "typescript": "^5.3.2",
+    "vitest": "^1.0.1"
   }
 }

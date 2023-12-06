@@ -13,7 +13,9 @@ import { html } from 'htm/preact';
 import { partitionArray } from '../../../../../utility/partitionArray';
 
 const StoresPotentialEvidenceComponent = (props: { element: any }) => {
-  const { businessObject } = props.element;
+  const evidenceStore = (
+    props.element.businessObject.dataStoreRef.isEvidenceStore
+  );
 
   const elementRegistry = useService('elementRegistry');
   const translate = useService('translate');
@@ -41,7 +43,7 @@ const StoresPotentialEvidenceComponent = (props: { element: any }) => {
       // check if the potential evidence is stored by this evidence store
       const getValue = (_elem: any) => {
         // check if the evidence is stored already
-        const value = businessObject.stores?.find(
+        const value = evidenceStore.stores?.find(
           (isStored: { id: string }) => (
             isStored.id === potentialEvidence.id
           ),
@@ -53,26 +55,26 @@ const StoresPotentialEvidenceComponent = (props: { element: any }) => {
       // store potential evidence / remove it from the store
       const setValue = (_val: any) => {
         // stores is not defined
-        if (businessObject.stores === undefined) {
-          businessObject.stores = [];
+        if (evidenceStore.stores === undefined) {
+          evidenceStore.stores = [];
         }
 
         // check if the evidence is already stored
         const isStored = partitionArray<{ id: string }>(
-          businessObject.stores,
+          evidenceStore.stores,
           (elem) => elem.id === potentialEvidence.id,
         );
 
         // the toggle wants to store the evidence
         if (isStored.desired.length === 0) {
-          businessObject.stores.push(
+          evidenceStore.stores.push(
             potentialEvidence,
           );
           return;
         }
 
         // the toggle wants to remove the stored evidence
-        businessObject.stores = isStored.rest;
+        evidenceStore.stores = isStored.rest;
       };
 
       // the toggle switch element itself

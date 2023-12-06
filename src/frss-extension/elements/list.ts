@@ -6,6 +6,7 @@ import Cooperativeness from './Cooperativeness';
 import EvidenceAssociation from './EvidenceAssociation';
 import EvidenceContext from './EvidenceContext';
 import EvidenceDataObject from './EvidenceDataObject';
+import EvidenceDataStore from './EvidenceDataStore';
 import EvidenceSource from './EvidenceSource';
 import EvidenceStore from './EvidenceStore';
 import ForensicReadinessService from './FRService';
@@ -56,6 +57,7 @@ const frssElements: readonly FrssElement[] = [
   // (fixing a bug with BCTimestampService)
   BCTimestampService,
   EvidenceDataObject,
+  EvidenceDataStore,
   EvidenceSource,
   EvidenceStore,
   ForensicReadinessTask,

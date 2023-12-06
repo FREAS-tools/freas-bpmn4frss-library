@@ -1,17 +1,21 @@
 // @ts-ignore
-import { is } from 'bpmn-js/lib/features/modeling/util/ModelingUtil';
-import evidenceStoreProperties from '../../../properties';
-import isMarkedAsEvidenceStore from '../../common';
+import isMarkedAsEvidenceStore from '../../../common';
 import StoresPotentialEvidenceComponent from './storesEvidenceDataObject';
 import type {
   PropertiesPanelData,
 } from '../../../../../types/controls/propertiesPanel';
 
 const storesEvidenceGroup: PropertiesPanelData = {
-  show: (element) => (
-    is(element, evidenceStoreProperties.identifier)
-    && isMarkedAsEvidenceStore(element)
-  ),
+  show: (element: any) => {
+    const evidenceStore = (
+      element.businessObject?.dataStoreRef?.isEvidenceStore
+    );
+
+    return (
+      isMarkedAsEvidenceStore(element)
+      && evidenceStore !== undefined
+    );
+  },
   group: {
     id: 'storesEvidence',
     label: 'Evidence storage controls',
