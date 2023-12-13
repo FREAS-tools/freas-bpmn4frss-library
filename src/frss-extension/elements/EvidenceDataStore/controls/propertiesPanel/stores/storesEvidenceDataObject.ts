@@ -21,7 +21,7 @@ const StoresPotentialEvidenceComponent = (props: { element: any }) => {
   const translate = useService('translate');
 
   // filter potential evidences
-  const allPotentialEvidences = elementRegistry
+  const allEvidenceDataObjects = elementRegistry
     .filter(
       (elem: any) => is(elem, 'bpmn:DataObjectReference'),
     ).map(
@@ -32,60 +32,59 @@ const StoresPotentialEvidenceComponent = (props: { element: any }) => {
       (dataObject: any) => (dataObject.isPotentialEvidence !== undefined),
     ).map(
       (dataObject: { isPotentialEvidence: any }) => (
-        dataObject.isPotentialEvidence
+        dataObject
       ),
     );
 
   // toggle switch components
-  const toggleSwitches = allPotentialEvidences
-    // every potential evidence has to have its own toggle switch
-    .map((potentialEvidence: { $parent: { id: string }, id: string }) => {
-      // check if the potential evidence is stored by this evidence store
+  const toggleSwitches = allEvidenceDataObjects
+    // every evidence data object has to have its own toggle switch
+    .map((evidenceDataObject: { id: string }) => {
+      // check if the evidence data object is stored by this evidence store
       const getValue = (_elem: any) => {
         // check if the evidence is stored already
         const value = evidenceStore.stores?.find(
           (isStored: { id: string }) => (
-            isStored.id === potentialEvidence.id
+            isStored.id === evidenceDataObject.id
           ),
         );
 
         return value !== undefined;
       };
 
-      // store potential evidence / remove it from the store
+      // store evidence data object / remove it from the store
       const setValue = (_val: any) => {
         // stores is not defined
         if (evidenceStore.stores === undefined) {
           evidenceStore.stores = [];
         }
 
-        // check if the evidence is already stored
+        // check if the evidence data object is already stored
         const isStored = partitionArray<{ id: string }>(
           evidenceStore.stores,
-          (elem) => elem.id === potentialEvidence.id,
+          (elem) => elem.id === evidenceDataObject.id,
         );
 
-        // the toggle wants to store the evidence
+        // the toggle wants to store the evidence data object
         if (isStored.desired.length === 0) {
           evidenceStore.stores.push(
-            potentialEvidence,
+            evidenceDataObject,
           );
           return;
         }
 
-        // the toggle wants to remove the stored evidence
+        // the toggle wants to remove the stored evidence data object
         evidenceStore.stores = isStored.rest;
       };
 
       // the toggle switch element itself
       return ToggleSwitchEntry({
-        id: potentialEvidence.id,
-        element: potentialEvidence,
+        id: evidenceDataObject.id,
+        element: evidenceDataObject,
         getValue,
         setValue,
         switcherLabel: translate(
-          `Store ${potentialEvidence.id}`
-          + ` (parent: ${potentialEvidence.$parent.id})`,
+          `Store ${evidenceDataObject.id}`,
         ),
       });
     });
