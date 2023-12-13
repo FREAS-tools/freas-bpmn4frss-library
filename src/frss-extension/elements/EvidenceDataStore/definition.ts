@@ -1,4 +1,4 @@
-import booleanEnumerationProperties from '../BooleanEnumeration/properties';
+import evidenceStoreProperties from '../EvidenceStore/properties';
 
 import evidenceDataStoreProperties from './properties';
 import type { FrssModdleSemanticDefinition } from '../../types/definitions';
@@ -11,7 +11,7 @@ const evidenceDataStoreDefinition: FrssModdleSemanticDefinition = {
   properties: [
     {
       name: 'isEvidenceStore',
-      type: booleanEnumerationProperties.identifier,
+      type: evidenceStoreProperties.identifier,
       isMany: false,
     },
   ],
