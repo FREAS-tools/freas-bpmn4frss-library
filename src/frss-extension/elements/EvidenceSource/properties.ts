@@ -1,6 +1,6 @@
 import { createIdentifier } from '../common';
 
-import icon from './assets/evidence-source.png';
+import icon from './assets/evidence-source.min.svg';
 
 // types
 import type {

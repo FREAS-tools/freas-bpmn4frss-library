@@ -14,11 +14,12 @@ import { is } from 'bpmn-js/lib/util/ModelUtil';
 import {
   create as createSvg,
   append as appendSvg,
+  innerSVG as innerSvg,
 } from 'tiny-svg';
 import { ElementRenderType } from '../../types/renderer';
 
 // icon for potential evidence sources
-import EvidenceSourceIcon from './assets/evidence-source.png';
+import EvidenceSourceIcon from './assets/evidence-source.min.svg';
 
 import evidenceSourceProperties from './properties';
 
@@ -30,11 +31,19 @@ import type {
 
 const { offset } = evidenceSourceProperties;
 
+// Get the SVG icon, so it can be injected
+const EvidenceSourceIconRaw = (() => {
+  const request = new XMLHttpRequest();
+  request.open('GET', EvidenceSourceIcon, false); // `false` makes the request synchronous
+  request.send(null);
+  return request.responseText;
+})();
+
 const renderFunction: RenderFunction = (
   { parentNode, element },
 ) => {
-  // render the image into the modeler
-  const evidenceSource = createSvg('image', {
+  // create the rendered image container
+  const evidenceSource = createSvg('svg', {
     // position - defined by the offset
     ...offset,
 
@@ -42,11 +51,14 @@ const renderFunction: RenderFunction = (
     width: element.width,
     height: element.height,
 
-    // content
-    href: EvidenceSourceIcon,
+    // viewbox depend on the imported svg
+    viewBox: '0 0 50 50',
   });
 
-  // append the image to the SVG
+  // set the content
+  innerSvg(evidenceSource, EvidenceSourceIconRaw);
+
+  // append the image to the parent
   appendSvg(parentNode, evidenceSource as SVGElement);
 
   // return the element
