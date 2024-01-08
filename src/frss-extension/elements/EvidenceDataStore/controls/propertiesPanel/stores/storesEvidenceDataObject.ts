@@ -27,26 +27,35 @@ const StoresPotentialEvidenceComponent = (props: { element: any }) => {
                   && elem.type !== 'label',
     ).map(
       (dataObjectReference: any) => (
-        dataObjectReference.businessObject.dataObjectRef
+        {
+          // Actual object to store
+          obj: dataObjectReference.businessObject.dataObjectRef,
+          // DataObjectReference id for display purposes
+          refId: dataObjectReference.businessObject.id,
+          // DataObjectReference name for display purposes
+          refName: dataObjectReference.businessObject.name,
+        }
       ),
     ).filter(
-      (dataObject: any) => (dataObject.isPotentialEvidence !== undefined),
-    ).map(
-      (dataObject: { isPotentialEvidence: any }) => (
-        dataObject
+      (dataObject: { obj: any }) => (
+        dataObject.obj.isPotentialEvidence !== undefined
       ),
     );
 
   // toggle switch components
   const toggleSwitches = allEvidenceDataObjects
     // every evidence data object has to have its own toggle switch
-    .map((evidenceDataObject: { id: string }) => {
+    .map((evidenceDataObject: {
+      obj: { id: string },
+      refId: string,
+      refName: string,
+    }) => {
       // check if the evidence data object is stored by this evidence store
       const getValue = (_elem: any) => {
         // check if the evidence is stored already
         const value = evidenceStore.stores?.find(
           (isStored: { id: string }) => (
-            isStored.id === evidenceDataObject.id
+            isStored.id === evidenceDataObject.obj.id
           ),
         );
 
@@ -63,13 +72,13 @@ const StoresPotentialEvidenceComponent = (props: { element: any }) => {
         // check if the evidence data object is already stored
         const isStored = partitionArray<{ id: string }>(
           evidenceStore.stores,
-          (elem) => elem.id === evidenceDataObject.id,
+          (elem) => elem.id === evidenceDataObject.obj.id,
         );
 
         // the toggle wants to store the evidence data object
         if (isStored.desired.length === 0) {
           evidenceStore.stores.push(
-            evidenceDataObject,
+            evidenceDataObject.obj,
           );
           return;
         }
@@ -80,12 +89,13 @@ const StoresPotentialEvidenceComponent = (props: { element: any }) => {
 
       // the toggle switch element itself
       return ToggleSwitchEntry({
-        id: evidenceDataObject.id,
-        element: evidenceDataObject,
+        id: evidenceDataObject.obj.id,
+        element: evidenceDataObject.obj,
         getValue,
         setValue,
         switcherLabel: translate(
-          `Store ${evidenceDataObject.id}`,
+          `Store ${evidenceDataObject.obj.id}\
+          (ref.: ${evidenceDataObject.refName ?? evidenceDataObject.refId})`,
         ),
       });
     });
