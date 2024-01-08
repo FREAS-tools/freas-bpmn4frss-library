@@ -23,7 +23,8 @@ const StoresPotentialEvidenceComponent = (props: { element: any }) => {
   // filter potential evidences
   const allEvidenceDataObjects = elementRegistry
     .filter(
-      (elem: any) => is(elem, 'bpmn:DataObjectReference'),
+      (elem: any) => is(elem, 'bpmn:DataObjectReference')
+                  && elem.type !== 'label',
     ).map(
       (dataObjectReference: any) => (
         dataObjectReference.businessObject.dataObjectRef
