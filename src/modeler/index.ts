@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import Modeler from 'bpmn-js/lib/Modeler';
 
+import { isAny } from 'bpmn-js/lib/util/ModelUtil';
 // Color picker module
 // @ts-ignore
 import ColorPickerModule from 'bpmn-js-color-picker';
@@ -24,6 +25,7 @@ import defaultDiagram from './default-diagram';
 // types
 import type {
   DataValidationResult,
+  DataValidationFormData,
 } from '../frss-extension/services/overlays/schemas';
 import type { BaseViewerOptions } from 'bpmn-js/lib/BaseViewer';
 
@@ -78,12 +80,22 @@ export default class FrssModeler extends Modeler {
 
   /**
    * Loads the overlays coming from an external validator
-   * @param data verified data coming from an external validator
+   * @param input input data to an external validator
+   * @param result verified data coming from an external validator
    */
-  showFrssOverlays(data: DataValidationResult) {
+  showFrssOverlays(
+    input: DataValidationFormData,
+    result: DataValidationResult,
+  ) {
     // overlay service reference is passed from the modeler
     // to the function which uses it
-    renderOverlays(this.get('overlays'), data);
+    switch (input.analysis_type) {
+      case 'EVIDENCE_QUALITY_ANALYSIS':
+        renderOverlays(this.get('overlays'), result, input.element_id);
+        break;
+      default:
+        renderOverlays(this.get('overlays'), result);
+    }
   }
 
   /**
@@ -98,6 +110,10 @@ export default class FrssModeler extends Modeler {
     // @ts-ignore
     const result: string[] = registry
       .getAll()
+      .filter((element: any) => isAny(element, [
+        'bpmn:Task',
+        'bpmn:DataStoreReference',
+      ]) && element.type !== 'label')
       .map((element: any) => element.id as string);
     return result;
   }

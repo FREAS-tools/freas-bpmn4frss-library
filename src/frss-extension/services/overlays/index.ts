@@ -24,6 +24,7 @@ const defaultParameters = {
 export const renderOverlays = (
   overlayProvider: any,
   data: DataValidationResult,
+  target_element?: string,
 ) => {
   // display errors
   data.errors.forEach((error) => {
@@ -32,7 +33,7 @@ export const renderOverlays = (
       overlayProvider.add(elementId, frssOverlayTypes[0], {
         ...defaultParameters,
         // eslint-disable-next-line max-len
-        html: `<div class="diagram-dialog error error--${error.severity.toLowerCase()}">${error.message}</div>`,
+        html: `<div class="diagram-dialog error error--${error.severity?.toLowerCase() ?? 'low'}">${error.message}</div>`,
       });
     });
   });
@@ -48,7 +49,13 @@ export const renderOverlays = (
     });
   });
 
+  // no supporting evidene found -> displaying that at the original element
   if (data.evidence_sources === undefined || data.evidence_sources === null) {
+    overlayProvider.add(target_element, frssOverlayTypes[2], {
+      ...defaultParameters,
+      // eslint-disable-next-line max-len
+      html: '<div class="diagram-dialog warning">No supporting potential evidence</div>',
+    });
     return;
   }
 
