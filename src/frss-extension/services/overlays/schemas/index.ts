@@ -45,7 +45,7 @@ export type DataValidationFormData = z.infer<
  * Extension field required in the request
  */
 export const formExtensionField = {
-  model: z.string().nonempty(),
+  model: z.string().min(1),
 };
 
 /**
@@ -74,27 +74,21 @@ const severitySchema = z.enum([
 ]);
 
 /**
- * Analysis result common shape
+ * Analysis result schema
  */
-const commonAnalysisObjectSchema = z.object({
-  source: z.array(z.string().nonempty()),
-  message: z.string().nonempty(),
+const commonResultSchema = z.object({
+  source: z.array(z.string().min(1)),
+  message: z.string().min(1),
+  severity: severitySchema.nullable(),
 }).strict();
-
-/**
- * Errors have a common shape and also a severity field
- */
-const errorSchema = commonAnalysisObjectSchema.extend({
-  severity: severitySchema,
-});
 
 /**
  * Schema for incoming data from an external validator.
  */
 export const dataValidationResultSchema = z.object({
-  errors: z.array(errorSchema),
-  warnings: z.array(commonAnalysisObjectSchema),
-  evidence_sources: commonAnalysisObjectSchema.nullable(),
+  errors: z.array(commonResultSchema),
+  warnings: z.array(commonResultSchema),
+  evidence_sources: commonResultSchema.nullable(),
 }).strict().required();
 
 /**
