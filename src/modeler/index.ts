@@ -2,6 +2,7 @@
 import Modeler from 'bpmn-js/lib/Modeler';
 
 import { isAny } from 'bpmn-js/lib/util/ModelUtil';
+
 // Color picker module
 // @ts-ignore
 import ColorPickerModule from 'bpmn-js-color-picker';
@@ -91,10 +92,19 @@ export default class FrssModeler extends Modeler {
     // to the function which uses it
     switch (input.analysis_type) {
       case 'EVIDENCE_QUALITY_ANALYSIS':
-        renderOverlays(this.get('overlays'), result, input.element_id);
+        renderOverlays(
+          this.get('overlays'),
+          this.get('elementRegistry'),
+          result,
+          input.element_id,
+        );
         break;
       default:
-        renderOverlays(this.get('overlays'), result);
+        renderOverlays(
+          this.get('overlays'),
+          this.get('elementRegistry'),
+          result,
+        );
     }
   }
 
@@ -105,15 +115,17 @@ export default class FrssModeler extends Modeler {
     removeOverlays(this.get('overlays'));
   }
 
-  getListOfElementIds(): string[] {
+  /**
+   * Gets ids of all elements, based on the filter
+   * @param filterElements only specified elements will be listed
+   */
+  getListOfElementIds(filterElements: string[]): string[] {
     const registry = this.get('elementRegistry');
     // @ts-ignore
     const result: string[] = registry
       .getAll()
-      .filter((element: any) => isAny(element, [
-        'bpmn:Task',
-        'bpmn:DataStoreReference',
-      ]) && element.type !== 'label')
+      .filter((element: any) => isAny(element, filterElements))
+      .filter((element: any) => element.type !== 'label')
       .map((element: any) => element.id as string);
     return result;
   }
