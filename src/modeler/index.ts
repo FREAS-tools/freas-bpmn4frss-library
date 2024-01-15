@@ -90,22 +90,12 @@ export default class FrssModeler extends Modeler {
   ) {
     // overlay service reference is passed from the modeler
     // to the function which uses it
-    switch (input.analysis_type) {
-      case 'EVIDENCE_QUALITY_ANALYSIS':
-        renderOverlays(
-          this.get('overlays'),
-          this.get('elementRegistry'),
-          result,
-          input.element_id,
-        );
-        break;
-      default:
-        renderOverlays(
-          this.get('overlays'),
-          this.get('elementRegistry'),
-          result,
-        );
-    }
+    renderOverlays(
+      this.get('overlays'),
+      this.get('elementRegistry'),
+      result,
+      input,
+    );
   }
 
   /**
