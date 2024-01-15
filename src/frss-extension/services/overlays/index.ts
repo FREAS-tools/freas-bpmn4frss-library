@@ -1,4 +1,4 @@
-import { is } from 'bpmn-js/lib/util/ModelUtil';
+import { isAny } from 'bpmn-js/lib/util/ModelUtil';
 import type {
   DataValidationResult,
   DataValidationFormData,
@@ -16,6 +16,36 @@ const defaultParameters = {
     top: 0,
   },
   scale: true,
+};
+
+/**
+ * Elements reported by an external validator might not be renderable.
+ * The function searches for a renderable representative to display the overlay.
+ *
+ * @param elementRegistry the element registry service from bpmn-js
+ * @param elementId element id reported by an external validator
+ */
+const getRenderableIds = (
+  elementRegistry: any,
+  elementId: string,
+): string[] => {
+  const element = elementRegistry.get(elementId);
+  if (element === undefined || element == null) {
+    // check if the element is renderable
+    const renderableIds: string[] = elementRegistry
+      .getAll()
+      .filter((e: any) => isAny(e, [
+        'bpmn:DataObjectReference',
+        'bpmn:DataStoreReference',
+      ]) && e.type !== 'label')
+      .filter((e: any) => e.businessObject?.dataStoreRef?.id
+                      === elementId
+                      || e.businessObject?.dataObjectRef?.id
+                      === elementId)
+      .map((e: any) => e.id as string);
+    return renderableIds;
+  }
+  return [element.id];
 };
 
 /**
@@ -37,11 +67,13 @@ export const renderOverlays = (
   const errors = (result: DataValidationResult): void => {
     result.errors.forEach((error) => {
       error.source.forEach((elementId) => {
-        // every error is marked as a "frssErrorOverlay"
-        overlayProvider.add(elementId, frssOverlayTypes[0], {
-          ...defaultParameters,
-          // eslint-disable-next-line max-len
-          html: `<div class="diagram-dialog error error--${error.severity?.toLowerCase() ?? 'low'}">${error.message}</div>`,
+        getRenderableIds(elementRegistry, elementId).forEach((id) => {
+          // every error is marked as a "frssErrorOverlay"
+          overlayProvider.add(id, frssOverlayTypes[0], {
+            ...defaultParameters,
+            // eslint-disable-next-line max-len
+            html: `<div class="diagram-dialog error error--${error.severity?.toLowerCase() ?? 'low'}">${error.message}</div>`,
+          });
         });
       });
     });
@@ -51,10 +83,13 @@ export const renderOverlays = (
   const warnings = (result: DataValidationResult): void => {
     result.warnings.forEach((warning) => {
       warning.source.forEach((elementId) => {
-        // every warning is marked as a "frssWarningOverlay"
-        overlayProvider.add(elementId, frssOverlayTypes[1], {
-          ...defaultParameters,
-          html: `<div class="diagram-dialog warning">${warning.message}</div>`,
+        getRenderableIds(elementRegistry, elementId).forEach((id) => {
+          // every warning is marked as a "frssWarningOverlay"
+          overlayProvider.add(id, frssOverlayTypes[1], {
+            ...defaultParameters,
+            // eslint-disable-next-line max-len
+            html: `<div class="diagram-dialog warning">${warning.message}</div>`,
+          });
         });
       });
     });
@@ -79,17 +114,9 @@ export const renderOverlays = (
     // display the message at evidence_sources
     result.evidence_sources.source.forEach((elementId) => {
       // Based on the returned DataStore, get its DataStoreReferences, which are rendered
-      const dataStoreRefs: string[] = elementRegistry
-        .getAll()
-        .filter((element: any) => is(element, 'bpmn:DataStoreReference')
-                                  && element.type !== 'label')
-        .filter((element: any) => element.businessObject?.dataStoreRef.id
-                                  === elementId)
-        .map((element: any) => element.id as string);
-
-      dataStoreRefs.forEach((dataStoreRef) => {
+      getRenderableIds(elementRegistry, elementId).forEach((id) => {
         // every evidence source message is marked as a "frssEvidenceSourceOverlay"
-        overlayProvider.add(dataStoreRef, frssOverlayTypes[2], {
+        overlayProvider.add(id, frssOverlayTypes[2], {
           ...defaultParameters,
           // eslint-disable-next-line max-len
           html: `<div class="diagram-dialog warning">${data.evidence_sources?.message ?? ''}</div>`,
