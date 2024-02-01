@@ -72,7 +72,10 @@ export const renderOverlays = (
           overlayProvider.add(id, frssOverlayTypes[0], {
             ...defaultParameters,
             // eslint-disable-next-line max-len
-            html: `<div class="diagram-dialog error error--${error.severity?.toLowerCase() ?? 'low'}">${error.message}</div>`,
+            html: `<div class="diagram-dialog error error--${error.severity?.toLowerCase() ?? 'low'}">
+              <div class="overlay-collapsed-message">Error</div>
+              <div class="overlay-message">${error.message}</div>
+            </div>`,
           });
         });
       });
@@ -87,8 +90,10 @@ export const renderOverlays = (
           // every warning is marked as a "frssWarningOverlay"
           overlayProvider.add(id, frssOverlayTypes[1], {
             ...defaultParameters,
-            // eslint-disable-next-line max-len
-            html: `<div class="diagram-dialog warning">${warning.message}</div>`,
+            html: `<div class="diagram-dialog warning">
+              <div class="overlay-collapsed-message">Warning</div>
+              <div class="overlay-message">${warning.message}</div>
+            </div>`,
           });
         });
       });
@@ -105,8 +110,10 @@ export const renderOverlays = (
       || result.evidence_sources === null) {
       overlayProvider.add(target_element, frssOverlayTypes[2], {
         ...defaultParameters,
-        // eslint-disable-next-line max-len
-        html: '<div class="diagram-dialog warning">No supporting potential evidence</div>',
+        html: `<div class="diagram-dialog warning">
+          <div class="overlay-collapsed-message">No Evidence</div>
+          <div class="overlay-message">No supporting potential evidence</div>
+        </div>`,
       });
       return;
     }
@@ -116,10 +123,13 @@ export const renderOverlays = (
       // Based on the returned DataStore, get its DataStoreReferences, which are rendered
       getRenderableIds(elementRegistry, elementId).forEach((id) => {
         // every evidence source message is marked as a "frssEvidenceSourceOverlay"
+        const message = data.evidence_sources?.message ?? '';
         overlayProvider.add(id, frssOverlayTypes[2], {
           ...defaultParameters,
-          // eslint-disable-next-line max-len
-          html: `<div class="diagram-dialog warning">${data.evidence_sources?.message ?? ''}</div>`,
+          html: `<div class="diagram-dialog warning">
+            <div class="overlay-collapsed-message">Evidence</div>
+            <div class="overlay-message">${message}</div>
+          </div>`,
         });
       });
     });

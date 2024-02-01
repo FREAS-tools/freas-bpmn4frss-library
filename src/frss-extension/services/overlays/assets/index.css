@@ -1,8 +1,8 @@
 /* CSS for displaying overlays (React integration) */
 .diagram-dialog {
     display: inline-block;
-    width: 2rem;
-    height: 1rem;
+    width: max-content;
+    height: fit-content;
     padding: 0.25rem;
     font-size: 0.75rem;
     font-family: sans-serif;
@@ -15,9 +15,21 @@
     background-color: white;
 }
 
-.diagram-dialog:hover {
-    width: max-content;
-    height: fit-content;
+/*
+    Displaying the message label.
+    When collapsed, only a short message is shown, the full message is shown on hover
+*/
+
+.diagram-dialog:hover > .overlay-message {
+    display: block;
+}
+
+.diagram-dialog:hover > .overlay-collapsed-message {
+    display: none;
+}
+
+.overlay-message {
+    display: none;
 }
 
 .error {
