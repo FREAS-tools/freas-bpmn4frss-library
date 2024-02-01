@@ -1,6 +1,6 @@
 {
   "name": "freas-bpmn4frss-library",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "BPMN4FRSS Web editor library (based on bpmn-js library)",
   "scripts": {
     "build": "tsc --project ./tsconfig.json",
