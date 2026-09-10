@@ -21,7 +21,7 @@ import {
   removeOverlays,
   renderOverlays,
 } from '../frss-extension/services/overlays';
-import defaultDiagram from './default-diagram';
+import defaultDiagram, { demoDiagram } from './default-diagram';
 
 // types
 import type {
@@ -67,6 +67,15 @@ export default class FrssModeler extends Modeler {
    */
   async loadDefaultDiagram(): Promise<string> {
     const diagram = defaultDiagram;
+    await super.importXML(diagram);
+    return diagram;
+  }
+
+  /**
+   * Loads the demo diagram
+   */
+  async loadDemoDiagram(): Promise<string> {
+    const diagram = demoDiagram;
     await super.importXML(diagram);
     return diagram;
   }
